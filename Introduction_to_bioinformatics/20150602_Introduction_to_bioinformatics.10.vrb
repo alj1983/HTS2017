@@ -1,0 +1,19 @@
+\frametitle{Fastq file}
+4 lines that contain
+\begin{itemize}
+\item sequence id
+\begin{itemize}
+\item \texttt{@}, instrument name,        flowcell lane, tile number, and flowcell x,y  coordinates
+\item barcode sequence and pair \# for paired-end sequencing
+\end{itemize}
+\item sequence
+\item quality scores
+\end{itemize}
+
+
+\begin{minted}[]{sh}
+@HWI-ST141_0365:2:1101:2983:2114#TTAGGC/1
+GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CC
+\end{minted}

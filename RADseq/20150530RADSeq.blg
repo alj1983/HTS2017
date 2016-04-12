@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: 20150530RADSeq.aux
+The style file: biblatex.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: 20150530RADSeq-blx.bib
+Database file #2: /home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib
+Biblatex version: 2.8
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+You've used 20 entries,
+            6047 wiz_defined-function locations,
+            1304 strings with 40096 characters,
+and the built_in function-call counts, 79564 in all, are:
+= -- 2756
+> -- 3434
+< -- 716
++ -- 1876
+- -- 1860
+* -- 6636
+:= -- 5634
+add.period$ -- 0
+call.type$ -- 20
+change.case$ -- 440
+chr.to.int$ -- 107
+cite$ -- 38
+duplicate$ -- 8638
+empty$ -- 8004
+format.name$ -- 1829
+if$ -- 16634
+int.to.chr$ -- 0
+int.to.str$ -- 50
+missing$ -- 0
+newline$ -- 932
+num.names$ -- 1035
+pop$ -- 6749
+preamble$ -- 1
+purify$ -- 535
+quote$ -- 0
+skip$ -- 3355
+stack$ -- 0
+substring$ -- 2191
+swap$ -- 3381
+text.length$ -- 569
+text.prefix$ -- 19
+top$ -- 1
+type$ -- 744
+warning$ -- 0
+while$ -- 469
+width$ -- 0
+write$ -- 911

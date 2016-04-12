@@ -1,0 +1,238 @@
+% Created 2015-05-24 sø. 18:32
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{minted}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{grffile}
+\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+\usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=bibtex,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
+\addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+\usepackage[inline]{enumitem}
+\usepackage{xcolor}
+\hypersetup{
+colorlinks,
+linkcolor={red!50!black},
+citecolor={blue!50!black},
+urlcolor={blue!80!black}
+}
+\usepackage{tikz,graphics,graphicx}
+\usetikzlibrary{decorations.shapes,arrows,decorations.pathreplacing,decorations.pathmorphing,backgrounds}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{shapes.geometric}
+\usepackage{setspace}%% The linestretch
+\singlespacing
+\usepackage[format=hang,indention=0cm,singlelinecheck=true,justification=raggedright,labelfont={normalsize,bf},textfont={normalsize}]{caption} %
+\usepackage{vmargin}
+\setpapersize{A4}
+\setmarginsrb{2.5cm}{1cm}% links, oben
+{2.5cm}{2cm}% rechts, unten
+{12pt}{30pt}% Kopf: Höhe, Abstand
+{12pt}{30pt}% Fuß: Höhe, AB
+\usepackage{upquote}
+%  use straight quotes when printing a command in minted
+\AtBeginDocument{%
+\def\PYZsq{\textquotesingle}%
+}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+\author{Alexander Jueterbock, Martin Jakt\thanks{University of Nordland, Norway}}
+\date{\textbf{PhD course: High throughput sequencing of non-model organisms}}
+\title{\textbf{Recommended links and literature}}
+\hypersetup{
+ pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.3.1 (Org mode 8.3beta)}}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+
+
+
+The following sections list relevant literature, links to analysis
+pipelines, as well as to tutorials and learning environments that get
+you closer to become bioinformatics-experts.
+
+\section{Recommended Reading for RAD sequencing}
+\label{sec-1}
+\begin{itemize}
+\item \href{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003376}{Baird, Nathan A., et al. "Rapid SNP discovery and genetic mapping using sequenced RAD markers." PloS one 3.10 (2008): e3376.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://www.nature.com/nmeth/journal/v9/n4/full/nmeth.1935.html}{Baker, Monya. "De novo genome assembly: what every biologist should know." Nature methods 9.4 (2012): 333-337}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://onlinelibrary.wiley.com/doi/10.1111/mec.12354/abstract;jsessionid=259B878CB4F4CA43D108D850880842F7.f02t03?deniedAccessCustomisedMessage=&userIsAuthenticated=false}{Catchen, Julian, et al. "Stacks: an analysis tool set for population genomics." Molecular ecology 22.11 (2013): 3124-3140.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0106713}{DaCosta, Jeffrey M., and Michael D. Sorenson. "Amplification biases and consistent recovery of loci in a double-digest RAD-seq protocol." PloS one 9.9 (2014): e106713.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://bfg.oxfordjournals.org/content/9/5-6/416.short}{Davey, John W., and Mark L. Blaxter. "RADSeq: next-generation population genetics." Briefings in Functional Genomics 9.5-6 (2010): 416-423.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000862}{Hohenlohe, Paul A., et al. "Population genomics of parallel adaptation in threespine stickleback using sequenced RAD tags." PLoS genetics 6.2 (2010): e1000862.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02967.x/abstract?deniedAccessCustomisedMessage=&userIsAuthenticated=false}{Hohenlohe, Paul A., et al. "Next‐generation RAD sequencing identifies thousands of SNPs for assessing hybridization between rainbow and westslope cutthroat trout." Molecular ecology resources 11.s1 (2011): 117-122.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0037135#pone-0037135-g005}{Peterson, Brant K., et al. "Double digest RADseq: an inexpensive method for de novo SNP discovery and genotyping in model and non-model species." PloS one 7.5 (2012): e37135.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://www.biomedcentral.com/1471-2164/15/275}{Rasic, Gordana, et al. "Genome-wide SNPs lead to strong signals of geographic structure and relatedness patterns in the major arbovirus vector, Aedes aegypti." BMC genomics 15.1 (2014): 275.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://www.biolbull.org/content/227/2/146.short}{Schweyen, Hannah, Andrey Rozenberg, and Florian Leese. "Detection and Removal of PCR Duplicates in Population Genomic ddRAD Studies by Addition of a Degenerate Base Region (DBR) in Sequencing Adapters." The Biological Bulletin 227.2 (2014): 146-160.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://peerj.com/articles/431/}{Puritz, Jonathan B., Christopher M. Hollenbeck, and John R. Gold. "dDocent: a RADseq, variant-calling pipeline designed for population genomics of non-model organisms." PeerJ 2 (2014): e431.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://onlinelibrary.wiley.com/doi/10.1111/mec.12965/full}{Puritz, Jonathan B., et al. "Demystifying the RAD fad." Molecular ecology 23.24 (2014): 5937-5942.}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://ngs-expert.com/tag/rad-seq/}{Blog on RAD seq}
+\end{itemize}
+
+\section{Guidelines for pooled sequencing data}
+\label{sec-2}
+\begin{itemize}
+\item \href{http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html}{Schlötterer, Christian, et al. "Sequencing pools of individuals - mining genome-wide polymorphism data without big funding." Nature Reviews Genetics (2014).}
+\end{itemize}
+
+\section{Useful programs and analysis pipelines}
+\label{sec-3}
+\begin{itemize}
+\item \href{http://code.google.com/p/popoolation/}{Popoolation}: Population genomic analysis of pooled samples, see also \href{http://drrobertkofler.wikispaces.com/file/view/pooledAnalysis_part1.pdf/489488280/pooledAnalysis_part1.pdf}{this presentation}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://code.google.com/p/popoolation2/}{Popoolation 2}: allows comparison of allele frequencies between two or more populaitons
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://sfg.stanford.edu/guide.html}{The Simple Fool's Guide to Population Genomics via RNA-Seq}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://www.bioconductor.org/}{Bioconductor}: R packages for genomic data analysis
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://rosalind.info/problems/locations/}{Rosalind}: Learning python
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://biopython.org/wiki/Main_Page}{Biopython}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://www.bioperl.org/wiki/Main_Page}{BioPerl}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{http://creskolab.uoregon.edu/stacks/}{STACKS}: building loci from short sequences and analyzing RADseq data
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://ddocent.wordpress.com/ddocent-pipeline-user-guide/}{Ddocent}: ddRAD analysis pipeline
+\end{itemize}
+
+
+\section{Upcoming \href{https://www.coursera.org/}{Coursera courses}}
+\label{sec-4}
+\begin{itemize}
+\item \href{https://www.coursera.org/course/rprog}{R programming}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://www.coursera.org/course/algobioprogramming}{Algorithms, Biology, and Programming for Beginners}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://www.coursera.org/course/epigenetics}{Epigenetic Control of Gene Expression}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://www.coursera.org/course/genbioconductor}{Bioconductor for Genomic Data Science}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://www.coursera.org/course/genstats}{Statistics for Genomic Data Science}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://www.coursera.org/course/comparinggenomes}{Comparing Genes, Proteins, and Genomes (Bioinformatics III)}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://www.coursera.org/course/genpython}{Python for Genomic Data Science}
+\end{itemize}
+
+
+\begin{itemize}
+\item \href{https://www.coursera.org/course/gencommand}{Command Line Tools for Genomic Data Science}
+\end{itemize}
+Emacs 24.3.1 (Org mode 8.3beta)
+\end{document}

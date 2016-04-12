@@ -1,0 +1,33 @@
+
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> reads<-read.csv(file="read_length.txt", sep="", header=FALSE)
+> 
+> png(filename = "SequenceLengthDistribution.png",
++          width = 480, height = 480, units = "px", pointsize = 12,
++           bg = "white")
+> plot(reads$V2,reads$V1,type="l",xlab="read length",ylab="occurences",col="blue")
+> dev.off()
+null device 
+          1 
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  0.261   0.017   0.607 

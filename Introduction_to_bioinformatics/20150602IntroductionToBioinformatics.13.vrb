@@ -1,0 +1,17 @@
+\frametitle{Fastq file contains both sequence reads and base quality scores}
+\alert{Fastq file}
+
+\begin{minted}[]{sh}
+@SEQ_ID
+GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CC
+\end{minted}
+
+
+\alert{Fasta file}
+
+\begin{minted}[]{sh}
+>SEQ_ID
+GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
+\end{minted}

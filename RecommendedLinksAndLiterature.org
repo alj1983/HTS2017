@@ -1,0 +1,170 @@
+#+LATEX_HEADER: \usepackage{grffile}
+
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+
+#+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=bibtex,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
+#+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+
+# #+LATEX_HEADER:\bibliography{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+
+
+#+LATEX_HEADER: \usepackage[inline]{enumitem} 
+# #+LATEX_HEADER: \setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
+
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER:    colorlinks,
+#+LATEX_HEADER:    linkcolor={red!50!black},
+#+LATEX_HEADER:    citecolor={blue!50!black},
+#+LATEX_HEADER:    urlcolor={blue!80!black}
+#+LATEX_HEADER:}
+
+
+#+LATEX_HEADER: \usepackage{tikz,graphics,graphicx}
+
+#+LATEX_HEADER: \usetikzlibrary{decorations.shapes,arrows,decorations.pathreplacing,decorations.pathmorphing,backgrounds}
+#+LATEX_HEADER: \usetikzlibrary{decorations.pathmorphing}
+#+LATEX_HEADER: \usetikzlibrary{shapes.geometric}
+
+#+LATEX_HEADER:\usepackage{setspace}%% The linestretch
+#+LATEX_HEADER:\singlespacing
+
+#+LATEX_HEADER:\usepackage[format=hang,indention=0cm,singlelinecheck=true,justification=raggedright,labelfont={normalsize,bf},textfont={normalsize}]{caption} % 
+
+
+#+LATEX_HEADER:\usepackage{vmargin}
+#+LATEX_HEADER:\setpapersize{A4}
+#+LATEX_HEADER:\setmarginsrb{2.5cm}{1cm}% links, oben
+#+LATEX_HEADER:                                                {2.5cm}{2cm}% rechts, unten
+#+LATEX_HEADER:                                                {12pt}{30pt}% Kopf: Höhe, Abstand
+#+LATEX_HEADER:                                                {12pt}{30pt}% Fuß: Höhe, AB     
+                                                
+
+# #+LATEX_HEADER:\usepackage[babel,english=british]{csquotes}
+
+# #+LATEX_HEADER:% English quotes are used.                                       
+
+#+LATEX_HEADER: \usepackage{upquote}
+                                        
+# #+LATEX_HEADER:\usepackage[english]{babel}                                     
+
+                                
+
+#+LATEX_HEADER: %  use straight quotes when printing a command in minted
+
+#+LATEX_HEADER: \AtBeginDocument{%
+#+LATEX_HEADER: \def\PYZsq{\textquotesingle}%
+#+LATEX_HEADER: }        
+
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \setlength{\parskip}{\baselineskip}
+
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+
+
+#+TITLE: *Recommended links and literature* 
+#+AUTHOR: Alexander Jueterbock, Martin Jakt
+#+DATE: *PhD course: High throughput sequencing of non-model organisms*
+#+EMAIL: University of Nordland, Norway
+
+#+OPTIONS: toc:nil H:3 email:t author:t num:t creator:t
+
+The following sections list relevant literature, links to analysis
+pipelines, as well as to tutorials and learning environments that get
+you closer to become bioinformatics-experts.
+
+* Recommended Reading for RAD sequencing
+- [[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003376][Baird, Nathan A., et al. "Rapid SNP discovery and genetic mapping using sequenced RAD markers." PloS one 3.10 (2008): e3376.]]
+
+
+- [[http://www.nature.com/nmeth/journal/v9/n4/full/nmeth.1935.html][Baker, Monya. "De novo genome assembly: what every biologist should know." Nature methods 9.4 (2012): 333-337]]
+
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/mec.12354/abstract;jsessionid=259B878CB4F4CA43D108D850880842F7.f02t03?deniedAccessCustomisedMessage=&userIsAuthenticated=false][Catchen, Julian, et al. "Stacks: an analysis tool set for population genomics." Molecular ecology 22.11 (2013): 3124-3140.]]
+
+
+- [[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0106713][DaCosta, Jeffrey M., and Michael D. Sorenson. "Amplification biases and consistent recovery of loci in a double-digest RAD-seq protocol." PloS one 9.9 (2014): e106713.]]
+
+
+- [[http://bfg.oxfordjournals.org/content/9/5-6/416.short][Davey, John W., and Mark L. Blaxter. "RADSeq: next-generation population genetics." Briefings in Functional Genomics 9.5-6 (2010): 416-423.]]
+
+
+- [[http://journals.plos.org/plosgenetics/article?id=10.1371/journal.pgen.1000862][Hohenlohe, Paul A., et al. "Population genomics of parallel adaptation in threespine stickleback using sequenced RAD tags." PLoS genetics 6.2 (2010): e1000862.]]
+
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02967.x/abstract?deniedAccessCustomisedMessage=&userIsAuthenticated=false][Hohenlohe, Paul A., et al. "Next‐generation RAD sequencing identifies thousands of SNPs for assessing hybridization between rainbow and westslope cutthroat trout." Molecular ecology resources 11.s1 (2011): 117-122.]]
+
+
+- [[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0037135#pone-0037135-g005][Peterson, Brant K., et al. "Double digest RADseq: an inexpensive method for de novo SNP discovery and genotyping in model and non-model species." PloS one 7.5 (2012): e37135.]]
+
+
+- [[http://www.biomedcentral.com/1471-2164/15/275][Rasic, Gordana, et al. "Genome-wide SNPs lead to strong signals of geographic structure and relatedness patterns in the major arbovirus vector, Aedes aegypti." BMC genomics 15.1 (2014): 275.]]
+
+
+- [[http://www.biolbull.org/content/227/2/146.short][Schweyen, Hannah, Andrey Rozenberg, and Florian Leese. "Detection and Removal of PCR Duplicates in Population Genomic ddRAD Studies by Addition of a Degenerate Base Region (DBR) in Sequencing Adapters." The Biological Bulletin 227.2 (2014): 146-160.]]
+
+
+- [[https://peerj.com/articles/431/][Puritz, Jonathan B., Christopher M. Hollenbeck, and John R. Gold. "dDocent: a RADseq, variant-calling pipeline designed for population genomics of non-model organisms." PeerJ 2 (2014): e431.]]
+
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/mec.12965/full][Puritz, Jonathan B., et al. "Demystifying the RAD fad." Molecular ecology 23.24 (2014): 5937-5942.]]
+
+
+- [[http://ngs-expert.com/tag/rad-seq/][Blog on RAD seq]]
+
+* Guidelines for pooled sequencing data
+- [[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlötterer, Christian, et al. "Sequencing pools of individuals - mining genome-wide polymorphism data without big funding." Nature Reviews Genetics (2014).]]
+
+* Useful programs and analysis pipelines
+- [[http://code.google.com/p/popoolation/][Popoolation]]: Population genomic analysis of pooled samples, see also [[http://drrobertkofler.wikispaces.com/file/view/pooledAnalysis_part1.pdf/489488280/pooledAnalysis_part1.pdf][this presentation]]
+
+
+- [[http://code.google.com/p/popoolation2/][Popoolation 2]]: allows comparison of allele frequencies between two or more populaitons
+
+
+- [[http://sfg.stanford.edu/guide.html][The Simple Fool's Guide to Population Genomics via RNA-Seq]]
+
+
+- [[http://www.bioconductor.org/][Bioconductor]]: R packages for genomic data analysis
+
+
+- [[http://rosalind.info/problems/locations/][Rosalind]]: Learning python
+
+
+- [[http://biopython.org/wiki/Main_Page][Biopython]]
+
+
+- [[http://www.bioperl.org/wiki/Main_Page][BioPerl]]
+
+
+- [[http://creskolab.uoregon.edu/stacks/][STACKS]]: building loci from short sequences and analyzing RADseq data
+
+
+- [[https://ddocent.wordpress.com/ddocent-pipeline-user-guide/][Ddocent]]: ddRAD analysis pipeline
+
+
+* Upcoming [[https://www.coursera.org/][Coursera courses]]
+- [[https://www.coursera.org/course/rprog][R programming]]
+
+
+- [[https://www.coursera.org/course/algobioprogramming][Algorithms, Biology, and Programming for Beginners]]
+
+
+- [[https://www.coursera.org/course/epigenetics][Epigenetic Control of Gene Expression]]
+
+
+- [[https://www.coursera.org/course/genbioconductor][Bioconductor for Genomic Data Science]]
+
+
+- [[https://www.coursera.org/course/genstats][Statistics for Genomic Data Science]]
+
+
+- [[https://www.coursera.org/course/comparinggenomes][Comparing Genes, Proteins, and Genomes (Bioinformatics III)]]
+
+
+- [[https://www.coursera.org/course/genpython][Python for Genomic Data Science]]
+
+
+- [[https://www.coursera.org/course/gencommand][Command Line Tools for Genomic Data Science]]
+
+

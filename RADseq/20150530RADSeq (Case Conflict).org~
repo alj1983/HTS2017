@@ -1,0 +1,1824 @@
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation]
+#+LaTeX_HEADER: \usepackage{minted}
+#+LaTeX_HEADER: \usepackage{xcolor}
+
+#+LaTeX_HEADER: \useoutertheme[subsection=false]{smoothbars}
+#+LaTeX_HEADER: \usecolortheme{whale}
+#+LaTeX_HEADER: \useinnertheme{rectangles}
+#+LaTeX_HEADER: \setbeamertemplate{footline}[frame number]
+
+#+LaTeX_HEADER: \usemintedstyle{emacs}
+#+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=bibtex,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
+#+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+
+# #+LATEX_HEADER:\bibliography{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+
+#+LATEX_HEADER: \usepackage{tikz,graphics,graphicx}
+
+#+LATEX_HEADER: \usetikzlibrary{decorations.shapes,arrows,decorations.pathreplacing,decorations.pathmorphing,backgrounds}
+#+LATEX_HEADER: \usetikzlibrary{decorations.pathmorphing}
+#+LATEX_HEADER: \usetikzlibrary{shapes.geometric}
+
+
+#+LATEX_HEADER: % Centering frame titles:
+#+LATEX_HEADER: \makeatletter
+#+LATEX_HEADER: \long\def\beamer@@frametitle[#1]#2{%
+#+LATEX_HEADER: \beamer@ifempty{#2}{}{%
+#+LATEX_HEADER: \gdef\insertframetitle{
+#+LATEX_HEADER: \centering{#2\ifnum\beamer@autobreakcount>0\relax{}
+#+LATEX_HEADER: \space\usebeamertemplate*{frametitle continuation}\fi}}%
+#+LATEX_HEADER: \gdef\beamer@frametitle{#2}%
+#+LATEX_HEADER: \gdef\beamer@shortframetit   le{#1}%
+#+LATEX_HEADER: }%
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \makeatother
+
+#+LATEX_HEADER: % Getting the frametitles in bold
+#+LATEX_HEADER: \setbeamerfont{frametitle}{series=\bfseries}
+
+#+OPTIONS: H:3 toc:nil
+
+#+MACRO: BEAMERMODE presentation
+#+MACRO: BEAMERTHEME Antibes
+#+MACRO: BEAMERCOLORTHEME lily
+#+MACRO: BEAMERSUBJECT RMRF
+#+MACRO: BEAMERINSTITUTE Marine Ecology Group, UiN, Norway
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+
+#+TITLE:     Non-model species and RAD-sequencing
+#+AUTHOR:    Alexander Jueterbock
+#+EMAIL:     Alexander-Jueterbock@web.de
+#+DATE:      2015-05-30
+
+
+
+*** RAD-Seq is a young and successful NGS method
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+
+ 
+ #+ATTR_LaTeX: :width 7cm
+ [[file:RADSeqPublications.png]]
+
+ #+begin_latex
+ \tiny{source: http://ngs-expert.com/2013/11/26/rad-seq-publications-in-2013/}
+ \end{center}
+ #+end_latex 
+
+*** Reductive /de novo/ genome sequencing and SNP identification
+ - RAD-Seq of the sunflower genome (Illumina)
+   - 44.7M reads (PE:40bpx80bp)
+ - /De novo/ assembly of ca. 15.2 Mb 
+   in >42,000 contigs
+ - Identified >94,000 putative SNPs across six lines
+#+begin_latex
+\begin{center}
+#+end_latex
+
+#+ATTR_LaTeX: :width 8cm
+[[file:Pegadarju2013Fig3a.png]]
+
+
+ #+begin_latex
+ \tiny{\citep{Pegadaraju2013}}
+ \end{center}
+ #+end_latex 
+
+
+
+
+
+*** Genome-wide association study (GWAS)
+
+ - No reference genome previously available
+ - identified >100,000 SNPs across 138 genotypes 
+ - Related SNPs to 17 phenotypic traits in a field trial
+ - Increasing flexibility and speed of crop breeding
+
+
+ #+CAPTION: /Miscanthus sinensis/
+ #+ATTR_LaTeX: :width 5.5cm
+ [[file:miscanthus.png]]
+
+
+
+
+ #+begin_latex
+ \begin{center}
+ \tiny{source: http://ngs-expert.com/2013/11/26/rad-seq-publications-in-2013/}
+ \tiny{\citep{Slavov2014}}
+ \end{center}
+ #+end_latex 
+
+
+
+*** Population genomics and parallel adaptive differentiation in threespine sticklebacks
+ - Reference genome available
+ - >45,000 SNPs across 100 individuals ('genotyping by sequencing')
+ - Consistent signatures of selection between two oceanic and three
+   freshwater populations
+ - Identified 31 candidate genes of evolutionary significance
+
+
+ #+CAPTION: F_{ST} for SNPs in sliding windows across the genome between oceanic and freshwater populations
+ #+ATTR_LaTeX: :width 10cm
+ [[file:Hohenlohe2010Fig6e.png]]
+
+
+ #+begin_latex
+ \begin{center}
+ \tiny{\citep{Hohenlohe2010}}
+ \end{center}
+ #+end_latex 
+
+
+
+*** Purpose of RAD-seq
+  - Genome-reduction method to fragments adjacent to restriction enzyme
+    recognition sites.
+  - High-throughput genotyping of populations (using barcoding) at
+    relatively low cost.
+  - Makes genome-scale population genetic studies possible for non-model
+    species lacking a reference genome.
+
+* RAD-Seq
+  
+** RAD-Seq
+
+
+*** Original RAD-Seq protocol
+ - Developed by \citep{Miller2007, Baird2008}.
+ - DNA fragments adjacent to restriction enzyme recognition sites
+
+
+ #+begin_latex 
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+
+ \begin{center}
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+ \draw [redd, line width=0.2cm] (0cm,0cm) --  (0.3cm,0cm);
+ \draw [redd, line width=0.2cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
+ \draw [redd, line width=0.2cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \draw [redd, line width=0.2cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+
+ \draw [gray, line width=0.2cm] (0.3cm,0cm) --  (10cm,0cm);
+ \draw [gray, line width=0.2cm] (0.3cm,-0.5cm) --  (4cm,-0.5cm);
+ \draw [gray, line width=0.2cm] (0.3cm,-1cm) --  (6cm,-1cm);
+ \draw [gray, line width=0.2cm] (0.3cm,-1.5cm) --  (7.5cm,-1.5cm);
+ \node [color=redd] at (1cm,-2.5cm) {5' GAATTC 3'};
+ \node [color=redd] at (1cm,-3cm) {3' CTTAAG 5'};
+ \node [color=black] at (5cm,-2.75cm) {EcoRI recognition site};
+ \node [isosceles triangle, draw, rotate=270,scale=0.4,fill=redd!50!black] at (0.5cm,-2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.4,fill=redd!50!black] at (1.5cm,-3.5cm) {}; 
+
+ \end{tikzpicture}
+ } 
+ \end{figure}
+ \end{center}
+ #+end_latex
+
+
+*** Step 1: cut DNA
+ #+begin_latex 
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+ \begin{center}
+
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+ \draw [redd, line width=0.15cm] (0cm,0cm) --  (0.3cm,0cm);
+ \draw [gray, line width=0.15cm] (0.3cm,0cm) --  (10cm,0cm);
+ \draw [redd, line width=0.15cm] (1cm,0cm) --  (1.3cm,0cm);
+ \draw [redd, line width=0.15cm] (5cm,0cm) --  (5.3cm,0cm);
+ \draw [redd, line width=0.15cm] (7cm,0cm) --  (7.3cm,0cm);
+ \draw [redd, line width=0.15cm] (10cm,0cm) --  (10.3cm,0cm);
+
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (0.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (0.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (1.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (1.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (5.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (5.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (7.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (7.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (10.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (10.25cm,-0.2cm) {}; 
+
+
+
+
+ \begin{scope}[yshift=-1cm]
+ \draw [redd, line width=0.15cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-0.5cm) --  (1cm,-0.5cm);
+ \draw [redd, line width=0.15cm] (1cm,-0.5cm) --  (1.3cm,-0.5cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1cm) --  (5cm,-1cm);
+ \draw [redd, line width=0.15cm] (5cm,-1cm) --  (5.3cm,-1cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1.5cm) --  (2cm,-1.5cm);
+ \draw [redd, line width=0.15cm] (2cm,-1.5cm) --  (2.3cm,-1.5cm);
+
+
+ \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-2cm) --  (3cm,-2cm);
+ \draw [redd, line width=0.15cm] (3cm,-2cm) --  (3.3cm,-2cm);
+ \end{scope}
+
+
+ \end{tikzpicture}
+ }
+ \end{figure}
+ \end{center}
+ #+end_latex
+ - Note: Bias in GC content of restriction site samples the genome
+   non-randomly
+ # ; Further colors
+ # ; 254,224,144
+ # ; 145,191,219
+
+*** Step 2: ligate P1 adapter
+ #+begin_latex 
+
+
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+ \definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
+ \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+ \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+
+ \begin{center}
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+
+
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-0.5cm) --  (-0.3cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-0.5cm) --  (-0.15cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-0.5cm) --  (0cm,-0.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
+
+
+
+
+ \draw [amplificationprimer, line width=0.15cm] (1.6cm,-0.5cm) --  (1.75cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (1.45cm,-0.5cm) --  (1.6cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (1.3cm,-0.5cm) --  (1.45cm,-0.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (5.6cm,-1cm) --  (5.75cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (5.45cm,-1cm) --  (5.6cm,-1cm);
+ \draw [barcode, line width=0.15cm] (5.3cm,-1cm) --  (5.45cm,-1cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (2.6cm,-1.5cm) --  (2.75cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (2.45cm,-1.5cm) --  (2.6cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (2.3cm,-1.5cm) --  (2.45cm,-1.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (3.6cm,-2cm) --  (3.75cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (3.45cm,-2cm) --  (3.6cm,-2cm);
+ \draw [barcode, line width=0.15cm] (3.3cm,-2cm) --  (3.45cm,-2cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-0.5cm) --  (1cm,-0.5cm);
+ \draw [redd, line width=0.15cm] (1cm,-0.5cm) --  (1.3cm,-0.5cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1cm) --  (5cm,-1cm);
+ \draw [redd, line width=0.15cm] (5cm,-1cm) --  (5.3cm,-1cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1.5cm) --  (2cm,-1.5cm);
+ \draw [redd, line width=0.15cm] (2cm,-1.5cm) --  (2.3cm,-1.5cm);
+
+
+ \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-2cm) --  (3cm,-2cm);
+ \draw [redd, line width=0.15cm] (3cm,-2cm) --  (3.3cm,-2cm);
+
+
+
+
+ \draw [amplificationprimer, line width=0.3cm] (-0.45cm,-3.5cm) --  (0cm,-3.5cm);
+ \draw [sequencingprimer, line width=0.3cm] (0cm,-3.5cm) --  (0.45cm,-3.5cm);
+ \draw [barcode, line width=0.3cm] (0.45cm,-3.5cm) --  (0.9cm,-3.5cm);
+
+ \node [color=amplificationprimer,anchor=west] at (-0.45cm,-4cm) {Amplification primer site};
+ \node [color=sequencingprimer,anchor=west] at (0cm,-4.7cm) {Sequencing primer site (Illumina-specific)};
+ \node [color=barcode,anchor=west] at (0.45cm,-5.4cm) {Barcode};
+
+
+
+ \end{tikzpicture}
+ }
+ \end{figure}
+ \end{center}
+ #+end_latex
+
+*** Barcoding allows to pool samples
+ #+begin_latex 
+
+
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+ \definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
+ \definecolor{barcode2}{rgb}{0.498039,1,0}
+ \definecolor{barcode3}{rgb}{0.6,0.196078,0.8}
+ \definecolor{barcode4}{rgb}{1,0.843137,0}
+ \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+ \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+
+ \begin{center}
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+
+
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-0.5cm) --  (-0.3cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-0.5cm) --  (-0.15cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-0.5cm) --  (0cm,-0.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
+ \draw [barcode2, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
+ \draw [barcode3, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2.5cm) --  (-0.3cm,-2.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2.5cm) --  (-0.15cm,-2.5cm);
+ \draw [barcode4, line width=0.15cm] (-0.15cm,-2.5cm) --  (0cm,-2.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-3cm) --  (-0.3cm,-3cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-3cm) --  (-0.15cm,-3cm);
+ \draw [barcode2, line width=0.15cm] (-0.15cm,-3cm) --  (0cm,-3cm);
+
+
+
+
+ \draw [amplificationprimer, line width=0.15cm] (1.6cm,-0.5cm) --  (1.75cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (1.45cm,-0.5cm) --  (1.6cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (1.3cm,-0.5cm) --  (1.45cm,-0.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (5.6cm,-1cm) --  (5.75cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (5.45cm,-1cm) --  (5.6cm,-1cm);
+ \draw [barcode2, line width=0.15cm] (5.3cm,-1cm) --  (5.45cm,-1cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (2.6cm,-1.5cm) --  (2.75cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (2.45cm,-1.5cm) --  (2.6cm,-1.5cm);
+ \draw [barcode3, line width=0.15cm] (2.3cm,-1.5cm) --  (2.45cm,-1.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (3.6cm,-2cm) --  (3.75cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (3.45cm,-2cm) --  (3.6cm,-2cm);
+ \draw [barcode, line width=0.15cm] (3.3cm,-2cm) --  (3.45cm,-2cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (4.6cm,-2.5cm) --  (4.75cm,-2.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (4.45cm,-2.5cm) --  (4.6cm,-2.5cm);
+ \draw [barcode4, line width=0.15cm] (4.3cm,-2.5cm) --  (4.45cm,-2.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (6.6cm,-3cm) --  (6.75cm,-3cm);
+ \draw [sequencingprimer, line width=0.15cm] (6.45cm,-3cm) --  (6.6cm,-3cm);
+ \draw [barcode2, line width=0.15cm] (6.3cm,-3cm) --  (6.45cm,-3cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-0.5cm) --  (1cm,-0.5cm);
+ \draw [redd, line width=0.15cm] (1cm,-0.5cm) --  (1.3cm,-0.5cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1cm) --  (5cm,-1cm);
+ \draw [redd, line width=0.15cm] (5cm,-1cm) --  (5.3cm,-1cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1.5cm) --  (2cm,-1.5cm);
+ \draw [redd, line width=0.15cm] (2cm,-1.5cm) --  (2.3cm,-1.5cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-2cm) --  (3cm,-2cm);
+ \draw [redd, line width=0.15cm] (3cm,-2cm) --  (3.3cm,-2cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-2.5cm) --  (0.3cm,-2.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-2.5cm) --  (4cm,-2.5cm);
+ \draw [redd, line width=0.15cm] (4cm,-2.5cm) --  (4.3cm,-2.5cm);
+
+
+ \draw [redd, line width=0.15cm] (0cm,-3cm) --  (0.3cm,-3cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-3cm) --  (6cm,-3cm);
+ \draw [redd, line width=0.15cm] (6cm,-3cm) --  (6.3cm,-3cm);
+
+
+
+
+
+ \end{tikzpicture}
+ }
+ \end{figure}
+ \end{center}
+ #+end_latex
+
+*** Step 3: Shearing and size selection 
+ #+begin_latex 
+
+
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+ \definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
+ \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+ \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+
+ \begin{center}
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+
+
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-0.5cm) --  (-0.3cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-0.5cm) --  (-0.15cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-0.5cm) --  (0cm,-0.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
+
+
+
+
+ \draw [amplificationprimer, line width=0.15cm] (1.6cm,-0.5cm) --  (1.75cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (1.45cm,-0.5cm) --  (1.6cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (1.3cm,-0.5cm) --  (1.45cm,-0.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (5.6cm,-1cm) --  (5.75cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (5.45cm,-1cm) --  (5.6cm,-1cm);
+ \draw [barcode, line width=0.15cm] (5.3cm,-1cm) --  (5.45cm,-1cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (2.6cm,-1.5cm) --  (2.75cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (2.45cm,-1.5cm) --  (2.6cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (2.3cm,-1.5cm) --  (2.45cm,-1.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (3.6cm,-2cm) --  (3.75cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (3.45cm,-2cm) --  (3.6cm,-2cm);
+ \draw [barcode, line width=0.15cm] (3.3cm,-2cm) --  (3.45cm,-2cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-0.5cm) --  (1cm,-0.5cm);
+ \draw [redd, line width=0.15cm] (1cm,-0.5cm) --  (1.3cm,-0.5cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1cm) --  (5cm,-1cm);
+ \draw [redd, line width=0.15cm] (5cm,-1cm) --  (5.3cm,-1cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1.5cm) --  (2cm,-1.5cm);
+ \draw [redd, line width=0.15cm] (2cm,-1.5cm) --  (2.3cm,-1.5cm);
+
+
+ \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-2cm) --  (3cm,-2cm);
+ \draw [redd, line width=0.15cm] (3cm,-2cm) --  (3.3cm,-2cm);
+
+
+ \draw [-latex,line width=0.05cm] (2cm,-2.5cm) -- (2cm,-4cm);
+ \node [anchor=west] at (2.5cm,-3.25cm) {Sonication with ultrasonic frequencies (>20 kHz) };
+
+ \begin{scope}[yshift=-4cm]
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-0.5cm) --  (-0.3cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-0.5cm) --  (-0.15cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-0.5cm) --  (0cm,-0.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
+
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
+
+
+
+ \begin{scope}[xshift=0.5cm]
+ \draw [amplificationprimer, line width=0.15cm] (1.6cm,-0.5cm) --  (1.75cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (1.45cm,-0.5cm) --  (1.6cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (1.3cm,-0.5cm) --  (1.45cm,-0.5cm);
+ \end{scope}
+
+ \begin{scope}[xshift=2cm]
+ \draw [amplificationprimer, line width=0.15cm] (5.6cm,-1cm) --  (5.75cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (5.45cm,-1cm) --  (5.6cm,-1cm);
+ \draw [barcode, line width=0.15cm] (5.3cm,-1cm) --  (5.45cm,-1cm);
+ \end{scope}
+
+ \begin{scope}[xshift=1.5cm]
+ \draw [amplificationprimer, line width=0.15cm] (2.6cm,-1.5cm) --  (2.75cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (2.45cm,-1.5cm) --  (2.6cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (2.3cm,-1.5cm) --  (2.45cm,-1.5cm);
+ \end{scope}
+
+ \begin{scope}[xshift=3.3cm]
+ \draw [amplificationprimer, line width=0.15cm] (3.6cm,-2cm) --  (3.75cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (3.45cm,-2cm) --  (3.6cm,-2cm);
+ \draw [barcode, line width=0.15cm] (3.3cm,-2cm) --  (3.45cm,-2cm);
+ \end{scope}
+
+
+ \draw [redd, line width=0.15cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-0.5cm) --  (0.5cm,-0.5cm);
+ \node [scale=2] at (0.2cm,-0.5cm){X};
+ \draw [gray, line width=0.15cm] (1cm,-0.5cm) --  (1.5cm,-0.5cm);
+ \draw [redd, line width=0.15cm] (1.5cm,-0.5cm) --  (1.8cm,-0.5cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1cm) --  (2cm,-1cm);
+ \draw [gray, line width=0.15cm] (3cm,-1cm) --  (4.5cm,-1cm);
+ \draw [gray, line width=0.15cm] (5.5cm,-1cm) --  (7cm,-1cm);
+ \draw [redd, line width=0.15cm] (7cm,-1cm) --  (7.3cm,-1cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1.5cm) --  (1cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (2.5cm,-1.5cm) --  (3.5cm,-1.5cm);
+ \draw [redd, line width=0.15cm] (3.5cm,-1.5cm) --  (3.8cm,-1.5cm);
+
+
+ \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-2cm) --  (1cm,-2cm);
+ \draw [gray, line width=0.15cm] (2cm,-2cm) --  (2.3cm,-2cm);
+ \node [scale=2] at (2.15cm,-2cm){X};
+ \draw [gray, line width=0.15cm] (4.3cm,-2cm) --  (6.3cm,-2cm);
+ \draw [redd, line width=0.15cm] (6.3cm,-2cm) --  (6.6cm,-2cm);
+ \end{scope}
+
+
+ \end{tikzpicture}
+ }
+ \end{figure}
+ \end{center}
+ #+end_latex
+
+*** Step 4: Ligation of P2 adapter with 'Y' structure
+ #+begin_latex 
+
+
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+ \definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
+ \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+ \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+
+ \begin{center}
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-1cm) --  (-0.45cm,-1cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-1cm) --  (-0.475cm,-1cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-1.5cm) --  (-0.45cm,-1.5cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-1.5cm) --  (-0.475cm,-1.5cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-2cm) --  (-0.45cm,-2cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-2cm) --  (-0.475cm,-2cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
+
+
+
+ \begin{scope}[xshift=0.5cm]
+ \draw [draw=black,line width=0.15cm] (1.75cm,-0.5cm) --  (2.15cm,-0.5cm);
+ \draw[white,line width=0.1cm] (1.775cm,-0.5cm) --  (2.125cm,-0.5cm);
+ \draw [amplificationprimer, line width=0.15cm] (1.6cm,-0.5cm) --  (1.75cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (1.45cm,-0.5cm) --  (1.6cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (1.3cm,-0.5cm) --  (1.45cm,-0.5cm);
+ \end{scope}
+
+ \begin{scope}[xshift=2cm]
+ \draw [draw=black,line width=0.15cm] (5.75cm,-1cm) --  (6.15cm,-1cm);
+ \draw[white,line width=0.1cm] (5.775cm,-1cm) --  (6.125cm,-1cm);
+ \draw [amplificationprimer, line width=0.15cm] (5.6cm,-1cm) --  (5.75cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (5.45cm,-1cm) --  (5.6cm,-1cm);
+ \draw [barcode, line width=0.15cm] (5.3cm,-1cm) --  (5.45cm,-1cm);
+ \end{scope}
+
+ \begin{scope}[xshift=1.5cm]
+ \draw [draw=black,line width=0.15cm] (2.75cm,-1.5cm) --  (3.15cm,-1.5cm);
+ \draw[white,line width=0.1cm] (2.775cm,-1.5cm) --  (3.125cm,-1.5cm);
+ \draw [amplificationprimer, line width=0.15cm] (2.6cm,-1.5cm) --  (2.75cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (2.45cm,-1.5cm) --  (2.6cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (2.3cm,-1.5cm) --  (2.45cm,-1.5cm);
+ \end{scope}
+
+ \begin{scope}[xshift=3.3cm]
+ \draw [draw=black,line width=0.15cm] (3.75cm,-2cm) --  (4.15cm,-2cm);
+ \draw[white,line width=0.1cm] (3.775cm,-2cm) --  (4.125cm,-2cm);
+ \draw [amplificationprimer, line width=0.15cm] (3.6cm,-2cm) --  (3.75cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (3.45cm,-2cm) --  (3.6cm,-2cm);
+ \draw [barcode, line width=0.15cm] (3.3cm,-2cm) --  (3.45cm,-2cm);
+ \end{scope}
+
+
+
+ \draw [draw=black,line width=0.15cm] (0.6cm,-0.5cm) --  (1cm,-0.5cm);
+ \draw[white,line width=0.1cm] (0.625cm,-0.5cm) --  (0.975cm,-0.5cm);
+ \draw [gray, line width=0.15cm] (1cm,-0.5cm) --  (1.5cm,-0.5cm);
+ \draw [redd, line width=0.15cm] (1.5cm,-0.5cm) --  (1.8cm,-0.5cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1cm) --  (2cm,-1cm);
+ \draw [draw=black,line width=0.15cm] (2cm,-1cm) --  (2.4cm,-1cm);
+ \draw[white,line width=0.1cm] (2.025cm,-1cm) --  (2.385cm,-1cm);
+
+ \draw [draw=black,line width=0.15cm] (2.6cm,-1cm) --  (3cm,-1cm);
+ \draw[white,line width=0.1cm] (2.625cm,-1cm) --  (2.985cm,-1cm);
+ \draw [gray, line width=0.15cm] (3cm,-1cm) --  (4.5cm,-1cm);
+ \draw [draw=black,line width=0.15cm] (4.5cm,-1cm) --  (4.9cm,-1cm);
+ \draw[white,line width=0.1cm] (4.525cm,-1cm) --  (4.885cm,-1cm);
+ \node [scale=2] at (3.75cm,-1cm){X};
+
+
+ \draw [draw=black,line width=0.15cm] (5.1cm,-1cm) --  (5.5cm,-1cm);
+ \draw[white,line width=0.1cm] (5.125cm,-1cm) --  (5.485cm,-1cm);
+ \draw [gray, line width=0.15cm] (5.5cm,-1cm) --  (7cm,-1cm);
+ \draw [redd, line width=0.15cm] (7cm,-1cm) --  (7.3cm,-1cm);
+
+ \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-1.5cm) --  (1cm,-1.5cm);
+ \draw [draw=black,line width=0.15cm] (1cm,-1.5cm) --  (1.4cm,-1.5cm);
+ \draw[white,line width=0.1cm] (1.025cm,-1.5cm) --  (1.385cm,-1.5cm);
+
+
+ \draw [draw=black,line width=0.15cm] (2.1cm,-1.5cm) --  (2.5cm,-1.5cm);
+ \draw[white,line width=0.1cm] (2.125cm,-1.5cm) --  (2.485cm,-1.5cm);
+ \draw [gray, line width=0.15cm] (2.5cm,-1.5cm) --  (3.5cm,-1.5cm);
+ \draw [redd, line width=0.15cm] (3.5cm,-1.5cm) --  (3.8cm,-1.5cm);
+
+
+ \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
+ \draw [gray, line width=0.15cm] (0.3cm,-2cm) --  (1cm,-2cm);
+ \draw [draw=black,line width=0.15cm] (1cm,-2cm) --  (1.4cm,-2cm);
+ \draw[white,line width=0.1cm] (1.025cm,-2cm) --  (1.385cm,-2cm);
+
+ \draw [draw=black,line width=0.15cm] (3.9cm,-2cm) --  (4.3cm,-2cm);
+ \draw[white,line width=0.1cm] (3.925cm,-2cm) --  (4.285cm,-2cm);
+ \draw [gray, line width=0.15cm] (4.3cm,-2cm) --  (6.3cm,-2cm);
+ \draw [redd, line width=0.15cm] (6.3cm,-2cm) --  (6.6cm,-2cm);
+
+ \node [anchor=west]  at (-0.5cm,-4.25cm) {P2 adapter:};
+ \node [anchor=west]  at (2cm,-4cm) {AGATCG};
+ \node [anchor=west,rotate=25]  at (3.5cm,-4cm) {TCCGA};
+ \node [anchor=west]  at (2cm,-4.5cm) {TCTAGCGTCCT};
+
+ \node [anchor=west]  at (-0.5cm,-5.5cm) {P2 primer:};
+ \node [anchor=west]  at (2cm,-5.5cm) {TCTAGCGTCCT};
+ \node [anchor=west, text width=7cm]  at (-0.5cm,-6.8cm) {P2 primer binds only when P2 primer site was completed by amplification starting from the P1 adapter (removes Y-structure)};
+
+ \end{tikzpicture}
+ }
+ \end{figure}
+ \end{center}
+ #+end_latex
+
+ # PCR amplified using P1 and P2 primers (Figure 1E).
+ # The P2 adapter has a divergent ‘Y’ structure that will
+ # not bind to the P2 primer unless it has been com-
+ # pleted by amplification by the P1 adapter. This en-
+ # sures that all amplified fragments have the P1 adapter
+ # and MID, the partial restriction site, a few hundred
+ # bases of flanking sequence, and a P2 adapter
+
+*** Step 5: Sequence amplified reads on Illumina
+ #+begin_latex 
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+ \definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
+ \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+ \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+
+ \begin{center}
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-0.5cm) --  (-0.45cm,-0.5cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-0.5cm) --  (-0.475cm,-0.5cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-0.5cm) --  (-0.3cm,-0.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-0.5cm) --  (-0.15cm,-0.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-0.5cm) --  (0cm,-0.5cm);
+ \draw [redd, line width=0.15cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
+ \begin{scope}[xshift=0.3cm]
+ \draw [gray, line width=0.15cm] (0cm,-0.5cm) --  (0.5cm,-0.5cm);
+ \draw [draw=black,line width=0.15cm] (0.5cm,-0.5cm) --  (0.9cm,-0.5cm);
+ \draw[white,line width=0.1cm] (0.525cm,-0.5cm) --  (0.875cm,-0.5cm);
+ \end{scope}
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-1cm) --  (-0.45cm,-1cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-1cm) --  (-0.475cm,-1cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
+ \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
+ \begin{scope}[xshift=0.3cm]
+ \draw [gray, line width=0.15cm] (0cm,-1cm) --  (1.5cm,-1cm);
+ \draw [draw=black,line width=0.15cm] (1.5cm,-1cm) --  (1.9cm,-1cm);
+ \draw[white,line width=0.1cm] (1.525cm,-1cm) --  (1.875cm,-1cm);
+ \end{scope}
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-1.5cm) --  (-0.45cm,-1.5cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-1.5cm) --  (-0.475cm,-1.5cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
+ \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
+ \begin{scope}[xshift=0.3cm]
+ \draw [gray, line width=0.15cm] (0cm,-1.5cm) --  (0.7cm,-1.5cm);
+ \draw [draw=black,line width=0.15cm] (0.7cm,-1.5cm) --  (1.1cm,-1.5cm);
+ \draw[white,line width=0.1cm] (0.725cm,-1.5cm) --  (1.075cm,-1.5cm);
+ \end{scope}
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-2cm) --  (-0.45cm,-2cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-2cm) --  (-0.475cm,-2cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
+ \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
+ \begin{scope}[xshift=0.3cm]
+ \draw [gray, line width=0.15cm] (0cm,-2cm) --  (0.7cm,-2cm);
+ \draw [draw=black,line width=0.15cm] (0.7cm,-2cm) --  (1.1cm,-2cm);
+ \draw[white,line width=0.1cm] (0.725cm,-2cm) --  (1.075cm,-2cm);
+ \end{scope}
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-2.5cm) --  (-0.45cm,-2.5cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-2.5cm) --  (-0.475cm,-2.5cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2.5cm) --  (-0.3cm,-2.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2.5cm) --  (-0.15cm,-2.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-2.5cm) --  (0cm,-2.5cm);
+ \draw [redd, line width=0.15cm] (0cm,-2.5cm) --  (0.3cm,-2.5cm);
+ \begin{scope}[xshift=0.3cm]
+ \draw [gray, line width=0.15cm] (0cm,-2.5cm) --  (1.5cm,-2.5cm);
+ \draw [draw=black,line width=0.15cm] (1.5cm,-2.5cm) --  (1.9cm,-2.5cm);
+ \draw[white,line width=0.1cm] (1.525cm,-2.5cm) --  (1.875cm,-2.5cm);
+ \end{scope}
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-3cm) --  (-0.45cm,-3cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-3cm) --  (-0.475cm,-3cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-3cm) --  (-0.3cm,-3cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-3cm) --  (-0.15cm,-3cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-3cm) --  (0cm,-3cm);
+ \draw [redd, line width=0.15cm] (0cm,-3cm) --  (0.3cm,-3cm);
+ \begin{scope}[xshift=0.3cm]
+ \draw [gray, line width=0.15cm] (0cm,-3cm) --  (1cm,-3cm);
+ \draw [draw=black,line width=0.15cm] (1cm,-3cm) --  (1.4cm,-3cm);
+ \draw[white,line width=0.1cm] (1.025cm,-3cm) --  (1.375cm,-3cm);
+ \end{scope}
+
+ \draw [draw=black,line width=0.15cm] (-0.85cm,-3.5cm) --  (-0.45cm,-3.5cm);
+ \draw[white,line width=0.1cm] (-0.825cm,-3.5cm) --  (-0.475cm,-3.5cm);
+ \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-3.5cm) --  (-0.3cm,-3.5cm);
+ \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-3.5cm) --  (-0.15cm,-3.5cm);
+ \draw [barcode, line width=0.15cm] (-0.15cm,-3.5cm) --  (0cm,-3.5cm);
+ \draw [redd, line width=0.15cm] (0cm,-3.5cm) --  (0.3cm,-3.5cm);
+ \begin{scope}[xshift=0.3cm]
+ \draw [gray, line width=0.15cm] (0cm,-3.5cm) --  (2cm,-3.5cm);
+ \draw [draw=black,line width=0.15cm] (2cm,-3.5cm) --  (2.4cm,-3.5cm);
+ \draw[white,line width=0.1cm] (2.025cm,-3.5cm) --  (2.375cm,-3.5cm);
+ \end{scope}
+
+ \draw [draw=red,fill=red,line width=0.05cm,-latex] (-0.25cm,-4.5cm) --  (1.1cm,-4.5cm);
+ \node [anchor=west, color=red] at (-0.25cm,-5cm){Sequence 100 or so bp on Illumina};
+ \node [anchor=west, color=black] at (-1cm,-6cm){Random shearing of 3'ends helps to detect PCR duplicates};
+ \end{tikzpicture}
+ }
+ \end{figure}
+ \end{center}
+ #+end_latex
+
+
+
+
+*** Paired-end sequencing of RAD-tags allows for /de novo/ genome sequencing 
+ #+begin_latex
+ \begin{center}
+ #+end_latex
+ #+ATTR_LaTeX: :width 11cm
+ [[file:Pegadarju2013Fig1.png]]
+
+
+ #+begin_latex
+
+ \tiny{\citep{Pegadaraju2013}}
+ \end{center}
+ #+end_latex 
+
+*** Calling SNPs from RAD-tags
+ #+begin_latex
+ \begin{center}
+ #+end_latex
+ #+ATTR_LaTeX: :width 9cm
+ [[file:HohenloheFig2a.png]]
+
+
+ #+begin_latex
+
+ \tiny{\citep{Hohenlohe2010}}
+ \end{center}
+ #+end_latex 
+
+
+*** Summary statistics (e.g. population differentiation) along sliding windows
+ #+begin_latex
+ \begin{center}
+ #+end_latex
+
+ #+ATTR_LaTeX: :width 10cm
+ [[file:HohenloheFig2b.png]]
+
+ #+begin_latex
+ \tiny{\citep{Hohenlohe2010}}
+ \end{center}
+ #+end_latex 
+
+
+*** Shearing introduces bias
+
+ #+begin_latex
+ \begin{center}
+Bias in sequencing depth towards larger fragment sizes
+ #+end_latex
+
+ #+ATTR_LaTeX: :width 5.5cm
+ [[file:Davey2013Fig3.png]]
+
+ #+begin_latex
+ \tiny{\citep{Davey2013}}\\
+\normalsize{
+Potential reason: Sonicators shear fragments of different lengths with varying efficiencies}
+
+ \end{center}
+ #+end_latex 
+
+
+*** Bias of read depth due to GC content
+
+ #+begin_latex
+ \begin{center}
+Read depths are influenced by GC content and number of PCR cycles, with (A) or without  PCR duplicates (B).
+ #+end_latex
+
+ #+ATTR_LaTeX: :width 11.5cm
+ [[file:Davey2013Fig4.png]]
+
+ #+begin_latex
+ \tiny{\citep{Davey2013}}\\
+\normalsize{
+Modifications of PCR enrichment can help \tiny{(see \citep{Puritz2014b})}}
+
+ \end{center}
+ #+end_latex 
+
+
+* ddRAD
+** ddRAD
+
+*** Double-digest RAD-seq \citep{Peterson2012}
+ #+begin_latex 
+ \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+ \definecolor{violet}{rgb}{0.3686275,0.2352941,0.6}
+ \definecolor{cyan}{rgb}{0,1,1}
+
+ \begin{center}
+
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+ \node [anchor=west] at (0cm,0.5cm) {Single digest RAD-Seq}; 
+ \draw [redd, line width=0.15cm] (0cm,0cm) --  (0.3cm,0cm);
+ \draw [gray, line width=0.15cm] (0.3cm,0cm) --  (10cm,0cm);
+ \draw [redd, line width=0.15cm] (1cm,0cm) --  (1.3cm,0cm);
+ \draw [redd, line width=0.15cm] (5cm,0cm) --  (5.3cm,0cm);
+ \draw [redd, line width=0.15cm] (7cm,0cm) --  (7.3cm,0cm);
+ \draw [redd, line width=0.15cm] (10cm,0cm) --  (10.3cm,0cm);
+
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (0.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (0.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (1.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (1.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (5.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (5.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (7.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (7.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (10.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (10.25cm,-0.2cm) {}; 
+
+
+ \draw [violet, line width=0.15cm] (0.55cm,-0.7cm) --  (1.1cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (0.55cm,-1cm) --  (1.1cm,-1cm);
+
+ \draw [violet, line width=0.15cm] (1.2cm,-0.7cm) --  (1.75cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (1.2cm,-1cm) --  (1.75cm,-1cm);
+ \draw [violet, line width=0.15cm] (1.2cm,-1.3cm) --  (1.75cm,-1.3cm);
+
+
+ \draw [violet, line width=0.15cm] (4.55cm,-0.7cm) --  (5.1cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (4.55cm,-1cm) --  (5.1cm,-1cm);
+ \draw [violet, line width=0.15cm] (4.55cm,-1.3cm) --  (5.1cm,-1.3cm);
+
+ \draw [violet, line width=0.15cm] (5.2cm,-0.7cm) --  (5.75cm,-0.7cm);
+
+
+ \draw [violet, line width=0.15cm] (6.55cm,-0.7cm) --  (7.1cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (6.55cm,-1cm) --  (7.1cm,-1cm);
+ \draw [violet, line width=0.15cm] (6.55cm,-1.3cm) --  (7.1cm,-1.3cm);
+
+ \draw [violet, line width=0.15cm] (7.2cm,-0.7cm) --  (7.75cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (7.2cm,-1cm) --  (7.75cm,-1cm);
+
+ \draw [violet, line width=0.15cm] (9.55cm,-0.7cm) --  (10.1cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (9.55cm,-1cm) --  (10.1cm,-1cm);
+
+
+ ; Second enzyme
+
+ \begin{scope}[yshift=-3cm]
+ \node [anchor=west] at (0cm,0.5cm) {Double digest RAD-seq}; 
+ \draw [redd, line width=0.15cm] (0cm,0cm) --  (0.3cm,0cm);
+ \draw [gray, line width=0.15cm] (0.3cm,0cm) --  (10cm,0cm);
+ \draw [redd, line width=0.15cm] (1cm,0cm) --  (1.3cm,0cm);
+ \draw [redd, line width=0.15cm] (5cm,0cm) --  (5.3cm,0cm);
+ \draw [redd, line width=0.15cm] (7cm,0cm) --  (7.3cm,0cm);
+ \draw [redd, line width=0.15cm] (10cm,0cm) --  (10.3cm,0cm);
+ \draw [cyan, line width=0.15cm] (1.7cm,0cm) --  (2cm,0cm);
+ \draw [cyan, line width=0.15cm] (3.5cm,0cm) --  (3.8cm,0cm);
+ \draw [cyan, line width=0.15cm] (5.5cm,0cm) --  (5.8cm,0cm);
+ \draw [cyan, line width=0.15cm] (8.5cm,0cm) --  (8.8cm,0cm);
+
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (0.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (0.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (1.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (1.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (5.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (5.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (7.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (7.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (10.05cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (10.25cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (1.75cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (1.95cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (3.55cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (3.75cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (5.55cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (5.75cm,-0.2cm) {}; 
+
+ \node [isosceles triangle, draw, rotate=270,scale=0.1,fill=redd!50!black] at (8.55cm,0.2cm) {}; 
+ \node [isosceles triangle, draw, rotate=90,scale=0.1,fill=redd!50!black] at (8.75cm,-0.2cm) {}; 
+
+ \draw [violet, line width=0.15cm] (4.55cm,-0.7cm) --  (5.1cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (4.55cm,-1cm) --  (5.1cm,-1cm);
+ \draw [violet, line width=0.15cm] (4.55cm,-1.3cm) --  (5.1cm,-1.3cm);
+ \draw [violet, line width=0.15cm] (4.55cm,-1.6cm) --  (5.1cm,-1.6cm);
+
+ \draw [violet, line width=0.15cm] (6.55cm,-0.7cm) --  (7.1cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (6.55cm,-1cm) --  (7.1cm,-1cm);
+ \draw [violet, line width=0.15cm] (6.55cm,-1.3cm) --  (7.1cm,-1.3cm);
+
+ \draw [violet, line width=0.15cm] (7.2cm,-0.7cm) --  (7.75cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (7.2cm,-1cm) --  (7.75cm,-1cm);
+ \draw [violet, line width=0.15cm] (7.2cm,-1.3cm) --  (7.75cm,-1.3cm);
+ \draw [violet, line width=0.15cm] (7.2cm,-1.6cm) --  (7.75cm,-1.6cm);
+
+ \draw [violet, line width=0.15cm] (9.55cm,-0.7cm) --  (10.1cm,-0.7cm);
+ \draw [violet, line width=0.15cm] (9.55cm,-1cm) --  (10.1cm,-1cm);
+ \draw [violet, line width=0.15cm] (9.55cm,-1.3cm) --  (10.1cm,-1.3cm);
+
+ \node [anchor=west] at (0cm,-1.6cm) {Sequencing of fragments:}; 
+ \node [anchor=west] at (0cm,-2.1cm) {- within a specific size range}; 
+ \node [anchor=west] at (0cm,-2.6cm) {- flanked by two different cutting sites}; 
+
+ \draw [redd, line width=0.15cm] (0.5cm,-3.1cm) --  (0.8cm,-3.1cm);
+ \draw [cyan, line width=0.15cm] (0.5cm,-3.5cm) --  (0.8cm,-3.5cm);
+
+ \node [anchor=west] at (1cm,-3.1cm) {EcoRI recognition site}; 
+ \node [anchor=west] at (1cm,-3.5cm) {SbfI recognition site}; 
+
+ \end{scope}
+
+
+ \end{tikzpicture}
+ }
+ \end{figure}
+ \end{center}
+ #+end_latex
+
+
+*** ddRAD compared to single-digest RAD sequencing
+ 1. <1> Rapid and 'cheap' protocol (8 hrs hands-on): Doesn't require
+    difficult and high cost of shearing and enzymatic end-repair.
+ 2. <2> Lower number of loci but increased coverage and, thus, higher
+    chance to target the same loci in different individuals.
+ 3. <3> Coverage expected to be equal among individuals and highest for
+    fragment lengths targeted by size selection.
+ 4. <4> Combinatorial indexing allows to multiplex more individuals (up to
+    12 barcodes were affordable for single-digest RAD-Seq).
+ 5. <5> PCR duplicates can only be detected with specific adapters \citep{Tin2014,Schweyen2014}
+ 6. <6> Precise size selection reduces amplification bias (Pippin Prep
+    instrument - Sage Science) \citep{Dacosta2014}.
+ 7. <7> Null alleles, which can inflate homozygosity (underestimate
+    diversity) by allele-dropout, are more frequent in ddRAD (two
+    recognition sites) \citep{Arnold2013}.
+
+
+
+
+*** Combinatorial indexing allows for high multiplexing levels in ddRAD-Seq
+
+ # XX In brief, a small number of barcoded adapters are ligated
+ # separately to individual samples in microplate format. These samples
+ # are then pooled following ligation, but before size selection. Size
+ # selection is performed on each pool of individuals and the resulting
+ # libraries are amplified with a primer that introduces an index that
+ # will be read off in a separate multiplexing read per the standard
+ # Illumina multiplexed paired-end sequencing protocol. Following PCR
+ # with uniquely indexed primers, multiple pools can be combined and
+ # individuals that share the same in-line barcodes (present in the
+ # adapter and detected as the first bases of the sequencing read) are
+ # distinguished based on the combination of adapter barcode and
+ # multiplexing read indices. This two-tier indexing scheme thus allows
+ # for an exponential increase in uniquely identifiable samples per
+ # pool, while avoiding additional oligonucleotide synthesis and
+ # sequencing costs associated with greater numbers of longer unique
+ # barcodes.
+
+ # show that inline barcode is added during ligation and index is added during pcr and in which step of this protocol these are.
+
+ # violet means flowcell annealing
+ #+begin_latex 
+ \definecolor{adapterp1}{rgb}{0.8431373,0.09803922,0.1098039}
+ \definecolor{violet}{rgb}{0.3686275,0.2352941,0.6}
+ \definecolor{adapterp2}{rgb}{0, 0 , 0.803922}
+ \definecolor{barcode1}{rgb}{0.498039,1,0}
+ \definecolor{barcode2}{rgb}{1, 0.647059, 0}
+ \definecolor{barcode4}{rgb}{0.196078, 0.803922, 0.196078}
+ \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+ \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+
+
+
+
+
+ \begin{center}
+ \begin{figure}[htb]
+ \setlength{\belowcaptionskip}{-1cm}
+ \scalebox{1}{
+ \begin{tikzpicture}
+ \draw [violet, line width=0.2cm] (0cm,0cm) --  (1cm,0cm);
+ \draw [violet, line width=0.2cm] (9cm,0cm) --  (10cm,0cm);
+ \draw [adapterp1, line width=0.2cm] (1cm,0cm) --  (2cm,0cm);
+ \draw [adapterp2, line width=0.2cm] (7.6cm,0cm) --  (8.6cm,0cm);
+ \draw [barcode2, line width=0.2cm] (2cm,0cm) --  (2.4cm,0cm);
+ \draw [barcode4, line width=0.2cm] (8.6cm,0cm) --  (9cm,0cm);
+
+
+ \draw [gray, line width=0.2cm] (2.4cm,0cm) --  (7.6cm,0cm);
+
+ \node [barcode2,anchor=west] at (2cm, -1cm){Inline barcode (sequenced)};
+ \node [adapterp1,anchor=west] at (1cm, -1.5cm){Adapter P1};
+ \node [violet,anchor=west] at (0cm, -2cm){Flowcell annealing};
+
+
+ \node [adapterp2,anchor=east] at (8.6cm, 1cm){Adapter P2};
+ \node [barcode4,anchor=east] at (9cm, 1.5cm){Index adapter (Illumina)};
+ \node [violet,anchor=east] at (10cm, 2cm){Flowcell annealing};
+
+ \draw (0.5,-0.3cm) -- (0.5,-1.7cm);
+ \draw (1.5,-0.3cm) -- (1.5,-1.3cm);
+ \draw (2.2,-0.3cm) -- (2.2,-0.7cm);
+
+ \draw (9.5,0.3cm) --  (9.5,1.7cm);
+ \draw (8.8,0.3cm) -- (8.8,1.3cm);
+ \draw (8.1,0.3cm) --  (8.1,0.7cm);
+
+ \node [barcode2,anchor=west] at (0cm, -2.8cm){48};
+ \node [anchor=west] at (0.6cm, -2.8cm){x};
+ \node [barcode4,anchor=west] at (1cm, -2.8cm){12};
+ \node [anchor=west] at (1.5cm, -2.8cm){= 576 (multiplexing level)};
+
+ \node [barcode2,anchor=west] at (0cm, -3.5cm) {added first, with ligation of adapters, allows to pool samples};
+ \node [barcode4,anchor=west] at (0cm, -4cm) {added second, with PCR primer, allows to combine multiple pools};
+
+ \end{tikzpicture}
+ } 
+ \end{figure}
+ \end{center}
+ #+end_latex
+*** Pooling recommendations
+ - Critical: equimolar concentrations of individuals expected
+ - Recommended: >40 individuals/pool
+     - Higher numbers
+       - + decrease unequal representation of individuals in
+         the pool
+       - - make it more more difficult to discriminate minor allele
+         frequencies from sequencing errors 
+*** Great adjustability of the number of markers makes ddRAD suitable for a broader range of approaches than RAD-Seq
+ Number of markers adjusted by:
+ - Cutting frequency of restriction enzymes
+ - Size selection
+ #+ATTR_LaTeX: :width 10cm
+ [[file:Peterson-2012-Fig1.png]]   
+ #+begin_latex
+ \begin{center}
+ \tiny{\citep{Peterson2012}}
+ \end{center}
+ #+end_latex 
+*** How to predict the number of fragments
+ Based on our own study on Guppy
+ - Targeted coverage: 20x per individual
+ - Pooling: 60 individuals
+ - Sequencing output: 24M reads (12M fragments, minimum for Illumina v2
+   paired-end kits)
+ - Fragments per individual: 12M/60 = 200,000
+
+ - Target: *10,000* fragments (to reach a 20x coverage)
+
+ What combination of restriction enzymes to use to obtain the appropriate cutting
+ frequency?
+*** /In silico/ genome digestion 
+ Simulate restriction enzyme digestion with the R package simRAD \citep{Lepais2014}
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 5cm
+ [[file:MspIEcoRI350to450.png]]
+
+ #+begin_latex
+ \small{Based on 10\% of the entire genome size}
+ \end{center}
+ #+end_latex 
+ Without reference genome: evaluate double-digest fragments on Tape station
+ # XX If you don't have a target genome you need to apply different
+ # cutting enzymes and identify the number of targeted fragments on the
+ # Tape Station or Bioanalyzer
+
+
+*** Recovery of /in silico/ predicted loci 
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 9cm
+ [[file:DaCosta2014Fig1a.png]]
+
+ #+begin_latex
+ \tiny{\citep{Dacosta2014}}\\
+\small{Targeted: 178-328bp, but short restriction fragments (38–178 bp) were carried through the agarose gel size selection step}
+ \end{center}
+ #+end_latex
+
+*** Sequencing depth decreases with fragment lenth
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 10cm
+ [[file:DaCosta2014Fig1b.png]]
+
+ #+begin_latex
+ \tiny{\citep{Dacosta2014}}
+ \end{center}
+ #+end_latex
+- Negative correlation between depth and fragment length in the 178–200 bp range, not for smaller loci.
+- Among-locus variation in sequencing depth was consistent among samples.
+
+*** Sequencing depth bias in favor of loci with high GC content
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 10cm
+ [[file:DaCosta2014Fig1c.png]]
+
+ #+begin_latex
+ \tiny{\citep{Dacosta2014}}
+ \end{center}
+ #+end_latex
+- Combined with a GC-rich recognition sequence, this can result
+  in an overrepresentation of GC-rich portions of the genome
+
+*** PCR duplicates
+ - PCR duplicates are statistically nonindependent and inflate the
+   confidence of genotype calls at a site.
+ - Can inflate the proportion of homozygous loci (allele dropout)
+   \citep{Schweyen2014}.
+ - RAD-tags: homologous sequences start at the same location and can
+   not be discriminated from PCR duplicates if they have the same
+   length. All are generally removed
+ - ddRAD-tags: Paired-end sequences always start and end at the same
+   position
+ - Detection of duplicate reads only possible with specific adapters of
+   random four bases that are ligated to the first index read of the
+   template molecule before PCR. \citep{Tin2014,Schweyen2014}.
+*** Detect PCR duplicates in paired-end RAD sequencing
+
+     #+begin_latex
+     \vspace{0.1cm}
+     #+end_latex 
+
+**** A block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END:
+     #+begin_latex
+     \begin{raggedright}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 2.8cm 
+     [[file:Schweyen2014Fig2a.png]]
+     #+begin_latex
+     \end{raggedright}
+     #+end_latex 
+
+**** B block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END: 
+     #+begin_latex
+     \begin{raggedleft}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 2.8cm
+     [[file:Schweyen2014Fig2b.png]]
+     #+begin_latex
+     \end{raggedleft}
+     #+end_latex
+**** C block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END: 
+     #+begin_latex
+     \begin{raggedleft}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 3.5cm
+     [[file:Schweyen2014Fig2e.png]]
+     #+begin_latex
+     \end{raggedleft}
+     \tiny{\citep{Schweyen2014}}\\
+     PCR bias amplifies b more than a
+     #+end_latex
+    
+*** PCR duplicates in ddRAD - not detectable
+
+     #+begin_latex
+     \vspace{0.1cm}
+     #+end_latex 
+
+**** A block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END:
+     #+begin_latex
+     \begin{raggedright}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 2.8cm 
+     [[file:Schweyen2014Fig2a.png]]
+     #+begin_latex
+     \end{raggedright}
+     #+end_latex 
+
+**** B block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END: 
+     #+begin_latex
+     \begin{raggedleft}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 2.8cm
+     [[file:Schweyen2014Fig2c.png]]
+     #+begin_latex
+     \end{raggedleft}
+
+     #+end_latex
+**** C block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END: 
+     #+begin_latex
+     \begin{raggedleft}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 3.5cm
+     [[file:Schweyen2014Fig2e.png]]
+     #+begin_latex
+     \end{raggedleft}
+     \tiny{\citep{Schweyen2014}}
+     #+end_latex
+*** Degenerate base regions detect PCR duplicates in ddRAD
+
+     #+begin_latex
+     \vspace{0.1cm}
+     #+end_latex 
+
+**** A block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END:
+     #+begin_latex
+     \begin{raggedright}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 2.8cm 
+     [[file:Schweyen2014Fig2a.png]]
+     #+begin_latex
+     \end{raggedright}
+     #+end_latex 
+
+**** B block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END: 
+     #+begin_latex
+     \begin{raggedleft}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 2.8cm
+     [[file:Schweyen2014Fig2d.png]]
+     #+begin_latex
+     \end{raggedleft}
+     #+end_latex
+
+**** C block					      :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.3
+     :END: 
+     #+begin_latex
+     \begin{raggedleft}
+     #+end_latex 
+     #+ATTR_LaTeX: :width 3.5cm
+     [[file:Schweyen2014Fig2e.png]]
+     #+begin_latex
+     \end{raggedleft}
+     \tiny{\citep{Schweyen2014}}
+     #+end_latex
+
+* Pipelines 
+** Pipelines 
+*** STACKS - basic pipeline for RAD-Seq
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+STACKS - software pipleine to build loci from RADseq reads and use
+them to population genomics and phylogeographic analyses.
+
+ #+ATTR_LaTeX: :width 10cm
+ [[file:Catchen2013Fig1a.png]]
+
+ #+begin_latex
+ \tiny{\citep{Catchen2013a}}
+ \end{center}
+ #+end_latex
+
+
+*** STACKS - ustacks /de novo/ assembly step 1
+- Only exact matches are assembled
+- Secondary reads are set aside
+- The minimum stack depth parameter controls the number of raw reads  required to form an initial stack
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 9cm
+ [[file:Catchen2013DeNovoStep1.png]]
+
+ #+begin_latex
+ \tiny{\citep{Catchen2013a}}
+ \end{center}
+ #+end_latex
+
+
+
+
+*** STACKS - Ustacks /de novo/ assembly step 2
+- Stacks with few nucleotide differences are merged.
+- Repetitive sequences with many alleles are excluded
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 8cm
+ [[file:Catchen2013DeNovoStep2.png]]
+
+ #+begin_latex
+ \tiny{\citep{Catchen2013a}}
+ \end{center}
+ #+end_latex
+
+
+*** STACKS - Ustacks /de novo/ assembly step 3
+- Alignment of secondary reads (those not indcluded in stacks) against
+  stacks.
+- Alleles are discriminated from sequencing errors by their frequency.
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 10cm
+ [[file:Catchen2013DeNovoStep3.png]]
+
+ #+begin_latex
+ \tiny{\citep{Catchen2013a}}
+ \end{center}
+ #+end_latex
+
+*** STACKS - populations or genotypes pipeline
+ #+begin_latex
+ \begin{center}
+ #+end_latex 
+ #+ATTR_LaTeX: :width 9cm
+ [[file:Catchen2013Fig1b.png]]
+
+ #+begin_latex
+ \tiny{\citep{Catchen2013a}}
+ \end{center}
+ #+end_latex
+
+
+*** DDocent \citep{Puritz2014}
+ Uses stand-alone software packages to perform
+ - quality trimming
+ - adapter removal
+ - /de novo/ assembly of RAD loci
+ - read mapping
+ - SNP and Indel calling
+ - data filtering.
+
+ Identifies more SNPs at a higher coverage than STACKS, due to 
+ - simulatneous use of forward and reverse reads during alignment to
+   reference instead of clustering
+ - quality trimming instead of removing entire reads 
+
+# XX Read Puritz2014: http://onlinelibrary.wiley.com/doi/10.1111/mec.12965/full
+
+# Additional biases
+
+# Additional protocols:
+
+* ezRAD and 2bRAD
+
+** ezRAD and 2bRAD
+
+*** ezRAD \citep{Toonen2013}
+- Uses 2 isoschizomers of restriction enzymes specific to the same recognition sequence (GATC)
+- digested DNA is inserted in Illumina TruSeq library preparation kit.
+- DNA is digested and single- or dual-indexed, then pooled and size-selected.
+**** Advantages
+- non-PCR kits can avoid PCR duplication and bypass any PCR bias.
+**** Disadvantages
+- All reads start with the same four bases (GATC).
+  - Low diversity libraries can lead to poor read quality on Illumina
+    sequencers. Use e.g. PhiX spiking or dark-cycling.
+
+
+
+*** 2bRAD \citep{Wang2012}
+- Type IIb restriction endonuclease to excise 36-bp fragments.
+- Number of loci customized by base-selective adapters.
+
+#+begin_latex
+\begin{center}
+#+end_latex 
+#+ATTR_LaTeX: :width 5cm
+[[file:Wang2012Fig1.png]]
+
+
+#+begin_latex
+\tiny{\citep{Wang2012}}
+\end{center}
+#+end_latex
+
+*** 2bRAD \citep{Wang2012}
+
+**** Advantages
+- Extremely simple and cost-effective: no purification or size selection.
+- No biases due to fragment size selection.
+- Sequencing either strand of the restriction fragments allows for the
+  use of strand bias as a quality filtering criteria.
+**** Disadvantages
+- 36-bp tags could be too short to be non-ambiguously mapped in highly
+  duplicated genomes.
+- Likely not cross-mappable across large genetic distances.
+
+
+* Tips
+** Tips
+*** COMMENT Evolve and Resequence (E&R) studies
+  #+ATTR_LaTeX: :width 6cm :float figure
+  [[file:ERStudies.jpg]]
+
+ #+begin_latex
+ \begin{center}
+ \tiny{Review in \citep{Schlotterer2014}}
+ \end{center}
+ #+end_latex
+
+
+*** COMMENT Experiment overview
+  #+ATTR_LaTeX: :width 8cm :float figure
+  [[file:ExperimentalOverview.png]]
+
+*** Demultiplexing and trimming
+ - 'process radtags' from STACKS did not work well on our data
+ - DDemux \citep{Rasic2014} used for demultiplexing
+ - Remove \textcolor{blue}{barcodes} if this is not done during demultiplexing
+ - Discard unpaired (orphan) reads
+ - Cut off the Restriction enzyme overhangs (5bp from read 1 and 3bp from read2)
+
+ #+begin_latex
+ \footnotesize
+ Paired read:
+ \begin{center}
+ ADAPTER1 \textcolor{blue}{AATTA}\textcolor{red}{AATTC}\textcolor{green}{NNNN}CCG ADAPTER2\\
+ ADAPTER1 \textcolor{blue}{TTAAT}TTAAG\textcolor{green}{NNNN}\textcolor{red}{GGC} ADAPTER2
+ \end{center}
+ First read: \hphantom{A} \textcolor{red}{AATTC}\textcolor{green}{NNN}\\
+ Second read: \textcolor{red}{CGG}\textcolor{green}{NNN}\\
+ \vspace{0.5cm}
+ \textcolor{blue}{Barcode}\\
+ \textcolor{red}{Restriction enzyme overhang (EcoRI and MspI)}\\
+ \textcolor{green}{Target sequence}
+ #+end_latex
+*** Don't remove duplicates from conventional ddRAD data
+#+begin_latex
+\begin{center}
+#+end_latex
+
+ #+ATTR_LaTeX: :width 8cm
+ [[file:duplication_levels.png]]
+
+#+begin_latex
+ Only preferential amplification of one allele will result in a biased
+ allele frequency estimate
+\end{center}
+#+end_latex
+
+*** Mapping - Recommendations in \citet{Schlotterer2014}
+ - Use semi-global alignment (local alignment with soft-clipping of
+   terminal bases can lead to biased allele frequency estimates)
+ - Allow gaps to avoid false positives
+ - Realign around indels (misalignment in these regions can lead to
+   false positives)
+ - Filtering
+   - remove broken pairs (increases mapping precision)
+   - remove reads with a mapping quality <20
+ - Disregard regions of too high coverage (potential copy number variations)
+*** SNP calling
+Use a consensus approach to call SNPs that were independently
+identified by different SNP callers
+
+#+ATTR_LaTeX: :width 8cm :float figure
+[[file:20150204SNPs100DP.png]]
+
+*** COMMENT Statistics along sliding windows
+Summarizing statistics along sliding windows reduces noise and
+increases support for significant results
+
+#+ATTR_LaTeX: :width 11cm :float figure
+[[file:20150212PopoolationSNPsInWindows.png]]
+
+*** References
+    :PROPERTIES:
+    :BEAMER_envargs: [allowframebreaks]
+    :END:
+ # Need to set allowframebreaks
+ #+begin_latex
+ \raggedright
+ \printbibliography[sorting=nty,heading=bibnumbered]
+ #+end_latex
+
+* COMMENT Literature
+** Baird2008 - Rapid SNP discovery and genetic mapping using sequenced RAD markers
+:PROPERTIES:
+:Custom_ID: Baird2008
+:END:
+[[bib:Baird2008][Baird2008-bib]]
+Miller MR, Dunham JP, Amores A, Cresko WA, Johnson EA (2007) Rapid and
+cost-effective polymorphism identification and genotyping using restriction site
+associated DNA (RAD) markers. Genome Res 17: 240–248.
+
+Miller MR, Atwood TS, Eames BF, Eberhart JK, Yan YL, et al. (2007) RAD
+marker microarrays enable rapid mapping of zebrafish mutations. Genome Biol
+8: R105.
+
+** Catchen2013a - Stacks: an analysis tool set for population genomics.
+:PROPERTIES:
+:Custom_ID: Catchen2013a
+:END:
+[[bib:Catchen2013a][Catchen2013a-bib]]
+** Hohenlohe2011a - Next-generation RAD sequencing identifies thousands of SNPs for assessing hybridization between rainbow and westslope cutthroat trout.
+:PROPERTIES:
+:Custom_ID: Hohenlohe2011a
+:END:
+[[bib:Hohenlohe2011a][Hohenlohe2011a-bib]]
+** Hohenlohe2010 - Population genomics of parallel adaptation in threespine stickleback using Sequenced RAD Tags
+:PROPERTIES:
+:Custom_ID: Hohenlohe2010
+:END:
+[[bib:Hohenlohe2010][Hohenlohe2010-bib]]
+
+** Zhou2014 - Construction of a SNP-based genetic linkage map in cultivated peanut based on large scale marker development using next-generation double-digest restriction-site-associated DNA sequencing (ddRADseq)
+:PROPERTIES:
+:Custom_ID: Zhou2014
+:END:
+[[bib:Zhou2014][Zhou2014-bib]]
+** Schweyen2014 - Detection and Removal of PCR Duplicates in Population Genomic ddRAD Studies by Addition of a Degenerate Base Region (DBR) in Sequencing Adapters
+:PROPERTIES:
+:Custom_ID: Schweyen2014
+:END:
+[[bib:Schweyen2014][Schweyen2014-bib]]
+** Rasic2014 - Genome-wide SNPs lead to strong signals of geographic structure and relatedness patterns in the major arbovirus vector, \textit{Aedes aegypti
+:PROPERTIES:
+:Custom_ID: Rasic2014
+:END:
+[[bib:Rasic2014][Rasic2014-bib]]
+** Kai2014 - A ddRAD-based genetic map and its integration with the genome assembly of Japanese eel (Anguilla japonica) provides insights into genome evolution after the teleost-specific genome duplication.
+:PROPERTIES:
+:Custom_ID: Kai2014
+:END:
+[[bib:Kai2014][Kai2014-bib]]
+
+** Henning2014 - Genetic mapping of horizontal stripes in Lake Victoria cichlid fishes: benefits and pitfalls of using RAD markers for dense linkage mapping
+:PROPERTIES:
+:Custom_ID: Henning2014
+:END:
+[[bib:Henning2014][Henning2014-bib]]
+** Franchini2014 - Genomic architecture of ecologically divergent body shape in a pair of sympatric crater lake cichlid fishes
+:PROPERTIES:
+:Custom_ID: Franchini2014
+:END:
+[[bib:Franchini2014][Franchini2014-bib]]
+** Dacosta2014 - Amplification Biases and Consistent Recovery of Loci in a Double-Digest RAD-seq Protocol
+:PROPERTIES:
+:Custom_ID: Dacosta2014
+:END:
+[[bib:Dacosta2014][Dacosta2014-bib]]
+
+** Peterson2012 - Double digest RADseq: an inexpensive method for de novo SNP discovery and genotyping in model and non-model species.
+:PROPERTIES:
+:Custom_ID: Peterson2012
+:END:
+[[bib:Peterson2012][Peterson2012-bib]]
+
+
+
+
+** Further
+
+
+
+    Sturgeon conservation genomics: SNP discovery and validation using RAD sequencing.
+    Ogden R, Gharbi K, Mugue N, Martinsohn J, Senn H, Davey JW, Pourkazemi M,
+    McEwing R, Eland C, Vidotto M, Sergeev A, Congiu L.  Mol Ecol. 2013
+    Jun;22(11):3112-23.
+    http://www.ncbi.nlm.nih.gov/pubmed/23473098
+    Genomic patterns of introgression in rainbow and westslope cutthroat trout
+    illuminated by overlapping paired-end RAD sequencing. Hohenlohe PA, Day MD, Amish SJ, Miller MR, Kamps-Hughes N, Boyer MC, Muhlfeld CC, Allendorf FW, Johnson EA, Luikart G.  Mol Ecol.
+    2013 Jun;22(11):3002-13.
+    http://www.ncbi.nlm.nih.gov/pubmed/23432212
+    Mapping phenotypic, expression and transmission ratio distortion QTL using RAD markers in the Lake Whitefish (Coregonus clupeaformis). Gagnaire PA, Normandeau E, Pavey SA, Bernatchez L. . Mol Ecol.
+    2013 Jun;22(11):3036-48.
+    http://www.ncbi.nlm.nih.gov/pubmed/23181719
+
+* COMMENT lINKS
+http://figshare.com/articles/RAD_sequencing_reveals_parallel_and_non_parallel_divergence_in_Swedish_Littorina_saxatilis_populations/1150471
+http://figshare.com/articles/Introduction_to_RAD_sequencing_and_Outlier_analysis/865036
+https://genomicislands.wordpress.com/2013/11/20/learning-unix-taking-it-up-a-step/
+http://evomics.org/2014/01/sequencing-is-rad/
+http://ngs-expert.com/tag/rad-seq/
+http://eu.idtdna.com/pages/decoded/decoded-articles/competitive-edge/decoded/2012/09/21/reduced-barcode-contamination-using-oligonucleotides-with-trugrade-processing
+http://www.nature.com/protocolexchange/protocols/2356
+# This has to be run with pdflatex --shell-escape
+# Show for axes that will consititute LDs or PCs
+
+* COMMENT Appendix
+** Paired end RAD sequencing of the sunflower genome in \citep{Pegadarju}
+
+
+#+CAPTION: 
+#+ATTR_LaTeX: :width 7cm
+[[file:Pegadarju2013Fig1.png]]
+
+
+
+
+#+begin_latex
+\begin{center}
+\tiny{\citep{Pegadaraju2013}}
+\end{center}
+#+end_latex 
+
+#+begin_latex
+\begin{center}
+\tiny{\citep{Pegadaraju2013}}
+\end{center}
+#+end_latex 
+
+* COMMENT Questions
+# XX how many samples can be pooled?
+# Why is rad Sequencing restricted to illumina?
+
+** COMMENT Additional Slides
+*** RAD tag microarrays
+ Initially, RAD tags were isolated by hybridization to RAD tag
+ microarrays  \citep{Miller2007,Miller2007b}
+
+
+ #+CAPTION: Differential hybridization of RAD tags on a microarray
+ #+ATTR_LaTeX: :width 7cm
+ [[file:Miller-2007-Fig1.jpg]]
+
+ \citep{Miller2007}
+
+
+ # digesting DNA with a particular restriction enzyme, ligating
+ # biotinylated adapters to the overhangs, randomly shearing the DNA
+ # into fragments much smaller than the average distance between
+ # restriction sites, and isolating the biotinylated fragments using
+ # streptavidin bead
+
+*** HTS of RAD tags
+
+ Good overview also in Pegadarju2013
+
+ \citet{Baird} adjusted the protocol for high-throughput sequencing of isolated RAD tags on the Illumina platform
+
+#  Use Baird2008 and Davey2010 for figures
+
+ #+CAPTION: RAD-seq process
+ #+ATTR_LaTeX: :width 7cm
+ [[file:Davey2010BriefingsinFunctionalGenomics_Fig1_1.png]]
+
+ \citep{Davey2010}
+
+
+ # Figure 1: The process of RADSeq. (A) Genomic DNA is sheared with a restriction enzyme of choice (SbfI
+ # in this example). (B) P1 adapter is ligated to SbfI-cut fragments. The P1 adapter is adapted from the Illumina
+ # sequencing adapter (full sequence not shown here), with a molecular identifier (MID; CGATA in this example)
+ # and a cut site overhang at the end (TGCA in this example). (C) Samples from multiple individuals are pooled
+ # together and all fragments are randomly sheared. Only a subset of the resulting fragments contains restric-
+ # tion sites and P1 adapters. (D) P2 adapter is ligated to all fragments. The P2 adapter has a divergent end.
+ # (E) PCR amplification with P1 and P2 primers. The P2 adapter will be completed only in the fragments ligated
+ # with P1 adapter, and so only these fragments will be fully amplified. (F) Pooled samples with different MIDs are
+ # separated bioinformatically and SNPs called (C/G SNP underlined). (G) As fragments are sheared randomly, paired
+ # end sequences from each sequenced fragment will cover a 300 ^ 400 bp region downstream of the restriction site.
+
+ #+CAPTION: Multiplexing samples with barcodes in RADseq
+ #+ATTR_LaTeX: :width 7cm
+ [[file:Davey2010BriefingsinFunctionalGenomics_Fig1_2.png]]
+
+

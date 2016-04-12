@@ -1,0 +1,17 @@
+\frametitle{Mapping: SAM/BAM files example}
+Output format of most alignment programs
+
+\begin{itemize}
+\item Header lines preceded by \texttt{@}
+\item One tab-delimited line per read
+\end{itemize}
+\begin{figure}[htb]
+\centering
+\includegraphics[width=11cm]{SAMfile.png}
+\caption{Example from  \url{http://samtools.sourceforge.net/SAM1.pdf}}
+\end{figure}
+
+\begin{itemize}
+\item SAM files are large
+\item BAM: Compressed binary versions, not human-readable
+\end{itemize}

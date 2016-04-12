@@ -1,0 +1,9 @@
+\frametitle{Trimmig: Adapter removal}
+Adapters disturb assembly and alignment
+
+\begin{minted}[]{sh}
+@SEQ_ID
+*GATTTGGGGTTCAA*ATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CC
+\end{minted}

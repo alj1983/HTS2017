@@ -1,0 +1,1298 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{Arnold2013}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Arnold}{A}%
+     {B}{B}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Corbett-Detig}{CD}%
+     {RB}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hartl}{H}%
+     {D}{D}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bomblies}{B}%
+     {K}{K}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Online Library}%
+  }
+  \strng{namehash}{AB+1}
+  \strng{fullhash}{ABCDRHDBK1}
+  \field{labelyear}{2013}
+  \field{sortinit}{A}
+  \field{abstract}{%
+  Reduced representation genome-sequencing approaches based on restriction
+  digestion are enabling large-scale marker generation and facilitating genomic
+  studies in a wide range of model and nonmodel systems. However, sampling
+  chromosomes based on restriction digestion may introduce a bias in allele
+  frequency estimation due to polymorphisms in restriction sites. To explore
+  the effects of this nonrandom sampling and its sensitivity to different
+  evolutionary parameters, we developed a coalescent-simulation framework to
+  mimic the biased recovery of chromosomes in restriction-based short-read
+  sequencing experiments (RADseq). We analysed simulated DNA sequence datasets
+  and compared known values from simulations with those that would be estimated
+  using a RADseq approach from the same samples. We compare these ‘true’
+  and ‘estimated’ values of commonly used summary statistics, π, θw,
+  Tajima's D and FST. We show that loci with missing haplotypes have estimated
+  summary statistic values that can deviate dramatically from true values and
+  are also enriched for particular genealogical histories. These biases are
+  sensitive to nonequilibrium demography, such as bottlenecks and population
+  expansion. In silico digests with 102 completely sequenced Drosophila
+  melanogaster genomes yielded results similar to our findings from coalescent
+  simulations. Though the potential of RADseq for marker discovery and trait
+  mapping in nonmodel systems remains undisputed, our results urge caution when
+  applying this technique to make population genetic inferences.%
+  }
+  \field{number}{11}
+  \field{pages}{3179\bibrangedash 3190}
+  \field{title}{RADseq underestimates diversity and introduces genealogical
+  biases due to nonrandom haplotype sampling}
+  \field{volume}{22}
+  \field{journaltitle}{Molecular ecology}
+  \field{year}{2013}
+\endentry
+
+\entry{Baird2008}{article}{}
+  \name{author}{9}{}{%
+    {{}%
+     {Baird}{B}%
+     {N.~A.}{NA}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Etter}{E}%
+     {P.~D.}{PD}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Atwood}{A}%
+     {T.~S.}{TS}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Currey}{C}%
+     {M.~C.}{MC}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Shiver}{S}%
+     {A.~L.}{AL}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Lewis}{L}%
+     {Z.~A.}{ZA}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Selker}{S}%
+     {E.~U.}{EU}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cresko}{C}%
+     {W.~A.}{WA}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Johnson}{J}%
+     {E.~A.}{EA}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Public Library of Science}%
+  }
+  \keyw{genome scan, SNP, genotyping, selection, restriction enzyme}
+  \strng{namehash}{BNA+1}
+  \strng{fullhash}{BNAEPDATSCMCSALLZASEUCWAJEA1}
+  \field{labelyear}{2008}
+  \field{sortinit}{B}
+  \field{abstract}{%
+  Single nucleotide polymorphism (SNP) discovery and genotyping are essential
+  to genetic mapping. There remains a need for a simple, inexpensive platform
+  that allows high-density SNP discovery and genotyping in large populations.
+  Here we describe the sequencing of restriction-site associated DNA (RAD)
+  tags, which identified more than 13,000 SNPs, and mapped three traits in two
+  model organisms, using less than half the capacity of one Illumina sequencing
+  run. We demonstrated that different marker densities can be attained by
+  choice of restriction enzyme. Furthermore, we developed a barcoding system
+  for sample multiplexing and fine mapped the genetic basis of lateral plate
+  armor loss in threespine stickleback by identifying recombinant breakpoints
+  in F2 individuals. Barcoding also facilitated mapping of a second trait, a
+  reduction of pelvic structure, by in silico re-sorting of individuals. To
+  further demonstrate the ease of the RAD sequencing approach we identified
+  polymorphic markers and mapped an induced mutation in Neurospora crassa.
+  Sequencing of RAD markers is an integrated platform for SNP discovery and
+  genotyping. This approach should be widely applicable to genetic mapping in a
+  variety of organisms.%
+  }
+  \field{number}{10}
+  \field{title}{Rapid SNP discovery and genetic mapping using sequenced RAD
+  markers}
+  \field{volume}{3}
+  \field{journaltitle}{PLoS One}
+  \field{year}{2008}
+\endentry
+
+\entry{Catchen2013a}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Catchen}{C}%
+     {Julian}{J}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hohenlohe}{H}%
+     {Paul~a}{Pa}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bassham}{B}%
+     {Susan}{S}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Amores}{A}%
+     {Angel}{A}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cresko}{C}%
+     {William~a}{Wa}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{Automatic Data Processing,Automatic Data Processing: methods,Databases,
+  Nucleic Acid,Genetic Markers,Genotype,High-Throughput Nucleotide
+  Sequencing,High-Throughput Nucleotide Sequencing:
+  methods,Metagenomics,Metagenomics: methods,Polymorphism, Single
+  Nucleotide,Sequence Analysis, DNA,Software}
+  \strng{namehash}{CJ+1}
+  \strng{fullhash}{CJHPaBSAACWa1}
+  \field{labelyear}{2013}
+  \field{sortinit}{C}
+  \field{abstract}{%
+  Massively parallel short-read sequencing technologies, coupled with powerful
+  software platforms, are enabling investigators to analyse tens of thousands
+  of genetic markers. This wealth of data is rapidly expanding and allowing
+  biological questions to be addressed with unprecedented scope and precision.
+  The sizes of the data sets are now posing significant data processing and
+  analysis challenges. Here we describe an extension of the Stacks software
+  package to efficiently use genotype-by-sequencing data for studies of
+  populations of organisms. Stacks now produces core population genomic summary
+  statistics and SNP-by-SNP statistical tests. These statistics can be analysed
+  across a reference genome using a smoothed sliding window. Stacks also now
+  provides several output formats for several commonly used downstream analysis
+  packages. The expanded population genomics functions in Stacks will make it a
+  useful tool to harness the newest generation of massively parallel genotyping
+  data for ecological and evolutionary genetics.%
+  }
+  \verb{doi}
+  \verb 10.1111/mec.12354
+  \endverb
+  \field{issn}{1365-294X}
+  \field{number}{11}
+  \field{pages}{3124\bibrangedash 40}
+  \field{title}{{Stacks: an analysis tool set for population genomics.}}
+  \verb{url}
+  \verb http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3936987\&tool
+  \verb =pmcentrez\&rendertype=abstract
+  \endverb
+  \field{volume}{22}
+  \verb{file}
+  \verb :home/alj/Documents/Literature/PDF/Catchen et al. - 2013 - Molecular ec
+  \verb ology(2).pdf:pdf
+  \endverb
+  \field{journaltitle}{Molecular ecology}
+  \field{month}{06}
+  \field{year}{2013}
+\endentry
+
+\entry{Dacosta2014}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {DaCosta}{D}%
+     {Jeffrey~M}{JM}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Sorenson}{S}%
+     {Michael~D}{MD}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Public Library of Science}%
+  }
+  \strng{namehash}{DJMSMD1}
+  \strng{fullhash}{DJMSMD1}
+  \field{labelyear}{2014}
+  \field{sortinit}{D}
+  \field{number}{9}
+  \field{pages}{e106713}
+  \field{title}{Amplification biases and consistent recovery of loci in a
+  double-digest RAD-seq protocol}
+  \field{volume}{9}
+  \field{journaltitle}{PloS one}
+  \field{year}{2014}
+\endentry
+
+\entry{Davey2013}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Davey}{D}%
+     {John~W}{JW}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cezard}{C}%
+     {Timoth{\'e}e}{T}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fuentes-Utrilla}{FU}%
+     {Pablo}{P}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Eland}{E}%
+     {Cathlene}{C}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gharbi}{G}%
+     {Karim}{K}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Blaxter}{B}%
+     {Mark~L}{ML}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Online Library}%
+  }
+  \keyw{Animals,Base Sequence,Caenorhabditis elegans,Caenorhabditis elegans:
+  genetics,Chromosome Mapping,Chromosome Mapping: methods,Genetic
+  Markers,Genotype,Genotyping Techniques,Heliconiaceae,Heliconiaceae:
+  genetics,High-Throughput Nucleotide Sequencing,High-Throughput Nucleotide
+  Sequencing: methods,Polymorphism, Single Nucleotide,Restriction
+  Mapping,Sequence Analysis, DNA}
+  \strng{namehash}{DJW+1}
+  \strng{fullhash}{DJWCTFUPECGKBML1}
+  \field{labelyear}{2013}
+  \field{sortinit}{D}
+  \field{abstract}{%
+  Restriction site-associated DNA Sequencing (RAD-Seq) is an economical and
+  efficient method for SNP discovery and genotyping. As with other
+  sequencing-by-synthesis methods, RAD-Seq produces stochastic count data and
+  requires sensitive analysis to develop or genotype markers accurately. We
+  show that there are several sources of bias specific to RAD-Seq that are not
+  explicitly addressed by current genotyping tools, namely restriction fragment
+  bias, restriction site heterozygosity and PCR GC content bias. We explore the
+  performance of existing analysis tools given these biases and discuss
+  approaches to limiting or handling biases in RAD-Seq data. While these biases
+  need to be taken seriously, we believe RAD loci affected by them can be
+  excluded or processed with relative ease in most cases and that most RAD loci
+  will be accurately genotyped by existing tools.%
+  }
+  \verb{doi}
+  \verb 10.1111/mec.12084
+  \endverb
+  \field{issn}{1365-294X}
+  \field{number}{11}
+  \field{pages}{3151\bibrangedash 3164}
+  \field{title}{Special features of RAD Sequencing data: implications for
+  genotyping}
+  \verb{url}
+  \verb http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3712469\&tool
+  \verb =pmcentrez\&rendertype=abstract
+  \endverb
+  \field{volume}{22}
+  \verb{file}
+  \verb :home/alj/Documents/Literature/PDF/Davey et al. - 2013 - Molecular ecol
+  \verb ogy.pdf:pdf
+  \endverb
+  \field{journaltitle}{Molecular Ecology}
+  \field{month}{06}
+  \field{year}{2013}
+\endentry
+
+\entry{Hohenlohe2010}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Hohenlohe}{H}%
+     {Paul~A.}{PA}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bassham}{B}%
+     {Susan}{S}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Etter}{E}%
+     {Paul~D.}{PD}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Stiffler}{S}%
+     {Nicholas}{N}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Johnson}{J}%
+     {Eric~A.}{EA}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cresko}{C}%
+     {William~A.}{WA}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{RAPD, soft selective sweep, hard selective sweep, linkage
+  disequilibrium, Fst, genetic differentiation, private alleles, adaptation,
+  selection, parallel evolution, stickleback, GASTEROSTEUS-ACULEATUS
+  POPULATIONS, MAJOR HISTOCOMPATIBILITY COMPLEX, STANDING GENETIC-VARIATION,
+  ZEBRAFISH DANIO-RERIO, FALSE DISCOVERY RATE, POSITIVE SELECTION,
+  MITOCHONDRIAL-DNA, NATURAL-POPULATIONS, BALANCING SELECTION,
+  BRITISH-COLUMBIA}
+  \strng{namehash}{HPA+1}
+  \strng{fullhash}{HPABSEPDSNJEACWA1}
+  \field{labelyear}{2010}
+  \field{sortinit}{H}
+  \field{abstract}{%
+  Next-generation sequencing technology provides novel opportunities for
+  gathering genome-scale sequence data in natural populations, laying the
+  empirical foundation for the evolving field of population genomics. Here we
+  conducted a genome scan of nucleotide diversity and differentiation in
+  natural populations of threespine stickleback (Gasterosteus aculeatus). We
+  used Illumina-sequenced RAD tags to identify and type over 45,000 single
+  nucleotide polymorphisms (SNPs) in each of 100 individuals from two oceanic
+  and three freshwater populations. Overall estimates of genetic diversity and
+  differentiation among populations confirm the biogeographic hypothesis that
+  large panmictic oceanic populations have repeatedly given rise to
+  phenotypically divergent freshwater populations. Genomic regions exhibiting
+  signatures of both balancing and divergent selection were remarkably
+  consistent across multiple, independently derived populations, indicating
+  that replicate parallel phenotypic evolution in stickleback may be occurring
+  through extensive, parallel genetic evolution at a genome-wide scale. Some of
+  these genomic regions co-localize with previously identified QTL for
+  stickleback phenotypic variation identified using laboratory mapping crosses.
+  In addition, we have identified several novel regions showing parallel
+  differentiation across independent populations. Annotation of these regions
+  revealed numerous genes that are candidates for stickleback phenotypic
+  evolution and will form the basis of future genetic analyses in this and
+  other organisms. This study represents the first high-density SNP-based
+  genome scan of genetic diversity and differentiation for populations of
+  threespine stickleback in the wild. These data illustrate the complementary
+  nature of laboratory crosses and population genomic scans by confirming the
+  adaptive significance of previously identified genomic regions, elucidating
+  the particular evolutionary and demographic history of such regions in
+  natural populations, and identifying new genomic regions and candidate genes
+  of evolutionary significance.%
+  }
+  \verb{doi}
+  \verb 10. 1371/journal. pgen. 1000862
+  \endverb
+  \field{issn}{1553-7390}
+  \field{number}{2}
+  \field{title}{Population genomics of parallel adaptation in threespine
+  stickleback using Sequenced RAD Tags}
+  \field{volume}{6}
+  \field{type}{Article}
+  \field{journaltitle}{Plos Genetics}
+  \field{year}{2010}
+  \warn{\item Invalid format of field 'month' \item Can't use 'date' + 'year'}
+\endentry
+
+\entry{Lepais2014}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Lepais}{L}%
+     {Olivier}{O}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Weir}{W}%
+     {Jason~T}{JT}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{gbs,next generation,polymorphism,restriction site associated dna}
+  \strng{namehash}{LOWJT1}
+  \strng{fullhash}{LOWJT1}
+  \field{labelyear}{2014}
+  \field{sortinit}{L}
+  \verb{doi}
+  \verb 10.1111/1755-0998.12273
+  \endverb
+  \field{issn}{1755098X}
+  \field{number}{0}
+  \field{pages}{n/a\bibrangedash n/a}
+  \field{title}{{SimRAD: a R package for simulation-based prediction of the
+  number of loci expected in RADseq and similar genotyping by sequencing
+  approaches}}
+  \verb{url}
+  \verb http://doi.wiley.com/10.1111/1755-0998.12273
+  \endverb
+  \field{volume}{33}
+  \verb{file}
+  \verb :home/alj/Documents/Mendeley Desktop/Lepais, Weir - 2014 - Molecular Ec
+  \verb ology Resources.pdf:pdf
+  \endverb
+  \field{journaltitle}{Molecular Ecology Resources}
+  \field{month}{05}
+  \field{year}{2014}
+\endentry
+
+\entry{Miller2007}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Miller}{M}%
+     {Michael~R.}{MR}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dunham}{D}%
+     {Joseph~P.}{JP}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Amores}{A}%
+     {Angel}{A}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cresko}{C}%
+     {William~A.}{WA}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Johnson}{J}%
+     {Eric~A.}{EA}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{MMR+1}
+  \strng{fullhash}{MMRDJPAACWAJEA1}
+  \field{labelyear}{2007}
+  \field{sortinit}{M}
+  \field{abstract}{%
+  Restriction site associated DNA (RAD) tags are a genome-wide representation
+  of every site of a particular restriction enzyme by short DNA tags. Most
+  organisms segregate large numbers of DNA sequence polymorphisms that disrupt
+  restriction sites, which allows RAD tags to serve as genetic markers spread
+  at a high density throughout the genome. Here, we demonstrate the
+  applicability of RAD markers for both individual and bulk-segregant
+  genotyping. First, we show that these markers can be identified and typed on
+  pre-existing microarray formats. Second, we present a method that uses RAD
+  marker DNA to rapidly produce a low-cost microarray genotyping resource that
+  can be used to efficiently identify and type thousands of RAD markers. We
+  demonstrate the utility of the former approach by using a tiling path array
+  for the fruit fly to map a recombination breakpoint, and the latter approach
+  by creating and using an enriched RAD marker array for the threespine
+  stickleback. The high number of RAD markers enabled localization of a
+  previously identified region, as well as a second region also associated with
+  the lateral plate phenotype. Taken together, our results demonstrate that RAD
+  markers, and the method to develop a RAD marker microarray resource, allow
+  high-throughput, high-resolution genotyping in both model and nonmodel
+  systems.%
+  }
+  \verb{doi}
+  \verb 10.1101/gr.5681207
+  \endverb
+  \verb{eprint}
+  \verb http://genome.cshlp.org/content/17/2/240.full.pdf+html
+  \endverb
+  \field{number}{2}
+  \field{pages}{240\bibrangedash 248}
+  \field{title}{Rapid and cost-effective polymorphism identification and
+  genotyping using restriction site associated DNA (RAD) markers}
+  \verb{url}
+  \verb http://genome.cshlp.org/content/17/2/240.abstract
+  \endverb
+  \field{volume}{17}
+  \field{journaltitle}{Genome Research}
+  \field{year}{2007}
+\endentry
+
+\entry{Pegadaraju2013}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Pegadaraju}{P}%
+     {Venkatramana}{V}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Nipper}{N}%
+     {Rick}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hulke}{H}%
+     {Brent}{B}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Qi}{Q}%
+     {Lili}{L}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Schultz}{S}%
+     {Quentin}{Q}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PV+1}
+  \strng{fullhash}{PVNRHBQLSQ1}
+  \field{labelyear}{2013}
+  \field{sortinit}{P}
+  \field{abstract}{%
+  BACKGROUND:Application of Single Nucleotide Polymorphism (SNP) marker
+  technology as a tool in sunflower breeding programs offers enormous potential
+  to improve sunflower genetics, and facilitate faster release of sunflower
+  hybrids to the market place. Through a National Sunflower Association (NSA)
+  funded initiative, we report on the process of SNP discovery through
+  reductive genome sequencing and local assembly of six diverse sunflower
+  inbred lines that represent oil as well as confection types.RESULTS:A
+  combination of Restriction site Associated DNA Sequencing (RAD-Seq) protocols
+  and Illumina paired-end sequencing chemistry generated high quality 89.4M
+  paired end reads from the six lines which represent 5.3GB of the sequencing
+  data. Raw reads from the sunflower line, RHA 464 were assembled de novo to
+  serve as a framework reference genome. About 15.2Mb of sunflower genome
+  distributed over 42,267 contigs were obtained upon assembly of RHA 464
+  sequencing data, the contig lengths ranged from 200 to 950bp with an N50
+  length of 393bp. SNP calling was performed by aligning sequencing data from
+  the six sunflower lines to the assembled reference RHA 464. On average, 1 SNP
+  was located every 143bp of the sunflower genome sequence. Based on several
+  filtering criteria, a final set of 16,467 putative sequence variants with
+  characteristics favorable for Illumina Infinium Genotyping Technology (IGT)
+  were mined from the sequence data generated across six diverse sunflower
+  lines.CONCLUSION:Here we report the molecular and computational methodology
+  involved in SNP development for a complex genome like sunflower lacking
+  reference assembly, offering an attractive tool for molecular breeding
+  purposes in sunflower.%
+  }
+  \verb{doi}
+  \verb 10.1186/1471-2164-14-556
+  \endverb
+  \field{issn}{1471-2164}
+  \field{number}{1}
+  \field{pages}{556}
+  \field{title}{De novo sequencing of sunflower genome for SNP discovery using
+  RAD (Restriction site Associated DNA) approach}
+  \verb{url}
+  \verb http://www.biomedcentral.com/1471-2164/14/556
+  \endverb
+  \field{volume}{14}
+  \field{journaltitle}{BMC Genomics}
+  \field{year}{2013}
+\endentry
+
+\entry{Peterson2012}{article}{}
+  \name{author}{5}{}{%
+    {{}%
+     {Peterson}{P}%
+     {Brant~K}{BK}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Weber}{W}%
+     {Jesse~N}{JN}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kay}{K}%
+     {Emily~H}{EH}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fisher}{F}%
+     {Heidi~S}{HS}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hoekstra}{H}%
+     {Hopi~E}{HE}%
+     {}{}%
+     {}{}}%
+  }
+  \keyw{Animals,Animals, Outbred Strains,DNA Restriction Enzymes,DNA
+  Restriction Enzymes: metabolism,Genome,Genotype,Polymorphism, Single
+  Nucleotide,Reproducibility of Results,Rodentia,Sequence Analysis,
+  DNA,Sequence Analysis, DNA: methods}
+  \strng{namehash}{PBK+1}
+  \strng{fullhash}{PBKWJNKEHFHSHHE1}
+  \field{labelyear}{2012}
+  \field{sortinit}{P}
+  \field{abstract}{%
+  The ability to efficiently and accurately determine genotypes is a keystone
+  technology in modern genetics, crucial to studies ranging from clinical
+  diagnostics, to genotype-phenotype association, to reconstruction of ancestry
+  and the detection of selection. To date, high capacity, low cost genotyping
+  has been largely achieved via "SNP chip" microarray-based platforms which
+  require substantial prior knowledge of both genome sequence and variability,
+  and once designed are suitable only for those targeted variable nucleotide
+  sites. This method introduces substantial ascertainment bias and inherently
+  precludes detection of rare or population-specific variants, a major source
+  of information for both population history and genotype-phenotype
+  association. Recent developments in reduced-representation genome sequencing
+  experiments on massively parallel sequencers (commonly referred to as RAD-tag
+  or RADseq) have brought direct sequencing to the problem of population
+  genotyping, but increased cost and procedural and analytical complexity have
+  limited their widespread adoption. Here, we describe a complete laboratory
+  protocol, including a custom combinatorial indexing method, and accompanying
+  software tools to facilitate genotyping across large numbers (hundreds or
+  more) of individuals for a range of markers (hundreds to hundreds of
+  thousands). Our method requires no prior genomic knowledge and achieves
+  per-site and per-individual costs below that of current SNP chip technology,
+  while requiring similar hands-on time investment, comparable amounts of input
+  DNA, and downstream analysis times on the order of hours. Finally, we provide
+  empirical results from the application of this method to both genotyping in a
+  laboratory cross and in wild populations. Because of its flexibility, this
+  modified RADseq approach promises to be applicable to a diversity of
+  biological questions in a wide range of organisms.%
+  }
+  \verb{doi}
+  \verb 10.1371/journal.pone.0037135
+  \endverb
+  \field{issn}{1932-6203}
+  \field{number}{5}
+  \field{pages}{e37135}
+  \field{title}{{Double digest RADseq: an inexpensive method for de novo SNP
+  discovery and genotyping in model and non-model species.}}
+  \verb{url}
+  \verb http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3365034\&tool
+  \verb =pmcentrez\&rendertype=abstract
+  \endverb
+  \field{volume}{7}
+  \verb{file}
+  \verb :home/alj/Documents/Literature/PDF/Peterson et al. - 2012 - PloS one.pd
+  \verb f:pdf
+  \endverb
+  \field{journaltitle}{PloS one}
+  \field{month}{01}
+  \field{year}{2012}
+\endentry
+
+\entry{Puritz2014}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Puritz}{P}%
+     {Jonathan}{J}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hollenbeck}{H}%
+     {Christopher~M}{CM}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gold}{G}%
+     {John~R}{JR}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{PJ+1}
+  \strng{fullhash}{PJHCMGJR1}
+  \field{labelyear}{2014}
+  \field{extrayear}{1}
+  \field{sortinit}{P}
+  \field{abstract}{%
+  Restriction-site associated DNA sequencing (RADseq) has become a powerful and
+  useful approach for population genomics. Currently, no software exists that
+  uti- lizes both paired-end reads from RADseq data to e ffi ciently produce
+  population- informative variant calls, especially for non-model organisms
+  with large e ff ective population sizes and high levels of genetic
+  polymorphism. dDocent is an analysis pipeline with a user-friendly,
+  command-line interface designed to process individ- ually barcoded RADseq
+  data (with double cut sites) into informative SNPs/Indels for
+  population-level analyses. The pipeline, written in BASH, uses data reduction
+  techniques and other stand-alone software packages to perform quality
+  trimming and adapter removal, de novo assembly of RAD loci, read mapping, SNP
+  and Indel calling, and baseline data filtering. Double-digest RAD data from
+  population pair- ings of three di ff erent marine fishes were used to compare
+  dDocent with Stacks , the first generally available, widely used pipeline for
+  analysis of RADseq data. dDocent consistently identified more SNPs shared
+  across greater numbers of individuals and with higher levels of coverage.
+  This is due to the fact that dDocent quality trims instead of filtering,
+  incorporates both forward and reverse reads (including reads with INDEL
+  polymorphisms) in assembly, mapping, and SNP calling. The pipeline and a
+  comprehensive user guide can be found at h t t p: / / d D o c e n t . w o r d
+  p r e s s . c o m%
+  }
+  \field{title}{dDocent: a RADseq, variant-calling pipeline designed for
+  population genomics of non-model organisms}
+  \field{journaltitle}{PeerJ}
+  \field{year}{2014}
+\endentry
+
+\entry{Puritz2014b}{article}{}
+  \name{author}{6}{}{%
+    {{}%
+     {Puritz}{P}%
+     {Jonathan~B}{JB}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Matz}{M}%
+     {Mikhail~V}{MV}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Toonen}{T}%
+     {Robert~J}{RJ}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Weber}{W}%
+     {Jesse~N}{JN}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bolnick}{B}%
+     {Daniel~I}{DI}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bird}{B}%
+     {Christopher~E}{CE}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Online Library}%
+  }
+  \strng{namehash}{PJB+1}
+  \strng{fullhash}{PJBMMVTRJWJNBDIBCE1}
+  \field{labelyear}{2014}
+  \field{extrayear}{2}
+  \field{sortinit}{P}
+  \field{abstract}{%
+  We are writing in response to the population and phyloge- nomics meeting
+  review by Andrews & Luikart (2014) enti- tled ‘Recent novel approaches for
+  population genomics data analysis’. Restriction-site-associated DNA (RAD)
+  sequencing has become a powerful and useful approach in molecular ecology,
+  with several different published meth- ods now available to molecular
+  ecologists, none of which can be considered the best option in all
+  situations. A&L report that the original RAD protocol of Miller et al. (2007)
+  and Baird et al. (2008) is superior to all other RAD variants because
+  putative PCR duplicates can be identified (see Baxter et al. 2011), thereby
+  reducing the impact of PCR ar- tefacts on allele frequency estimates (Andrews
+  & Luikart 2014). In response, we (i) challenge the assertion that the
+  original RAD protocol minimizes the impact of PCR arte- facts relative to
+  that of other RAD protocols, (ii) present additional biases in RADseq that
+  are at least as important as PCR artefacts in selecting a RAD protocol and
+  (iii) high- light the strengths and weaknesses of four different approaches
+  to RADseq which are a representative sample of all RAD variants: the original
+  RAD protocol (mbRAD, Miller et al. 2007; Baird et al. 2008), double digest
+  RAD (ddRAD, Peterson et al. 2012), ezRAD (Toonen et al. 2013) and 2bRAD (Wang
+  et al. 2012). With an understanding of the strengths and weaknesses of
+  different RAD protocols, researchers can make a more informed decision when
+  selecting a RAD protocol.%
+  }
+  \field{number}{24}
+  \field{pages}{5937\bibrangedash 5942}
+  \field{title}{Demystifying the RAD fad}
+  \field{volume}{23}
+  \field{journaltitle}{Molecular ecology}
+  \field{year}{2014}
+\endentry
+
+\entry{Rasic2014}{article}{}
+  \true{moreauthor}
+  \name{author}{4}{}{%
+    {{}%
+     {Rasic}{R}%
+     {Gordana}{G}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Filipovi}{F}%
+     {Igor}{I}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Weeks}{W}%
+     {Andrew~R}{AR}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hoffmann}{H}%
+     {Ary~A}{AA}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {BioMed Central Ltd}%
+  }
+  \strng{namehash}{RG+1}
+  \strng{fullhash}{RGFIWARHAA+1}
+  \field{labelyear}{2014}
+  \field{sortinit}{R}
+  \field{abstract}{%
+  Background: Genetic markers are widely used to understand the biology and
+  population dynamics of disease vectors, but often markers are limited in the
+  resolution they provide. In particular, the delineation of population
+  structure, fine scale movement and patterns of relatedness are often obscured
+  unless numerous markers are available. To address this issue in the major
+  arbovirus vector, the yellow fever mosquito ( Aedes aegypti ), we used double
+  digest Restriction-site Associated DNA (ddRAD) sequencing for the discovery
+  of genome-wide single nucleotide polymorphisms (SNPs). We aimed to
+  characterize the new SNP set and to test the resolution against previously
+  described microsatellite markers in detecting broad and fine-scale genetic
+  patterns in Ae. aegypti . Results: We developed bioinformatics tools that
+  support the customization of restriction enzyme-based protocols for SNP
+  discovery. We showed that our approach for RA D library construction achieves
+  unbiased genome representation that reflects true evolutionary processes. In
+  Ae. aegypti samples from three continents we identified more than 18,000
+  putative SNPs. They were widely distributed across the three Ae. aegypti
+  chromosomes, with 47.9\% found in intergenic regions and 17.8\% in exons of
+  over 2,300 genes. Pattern of their imputed effects in ORFs and UTRs were
+  consistent with those found in a recent transcriptome study. We demonstrated
+  that individual mosquitoes from Indonesia, Australia, Vietnam and Br azil can
+  be assigned with a very high degree of confidence to their region of origin
+  using a large SNP panel. We als o showed that familial relatedness of samples
+  from a 0.4 km 2 area could be confidently established with a subset of SNPs.
+  Conclusions: Using a cost-effective customized RAD sequencing approach
+  supported by our bioinformatics tools, we characterized over 18,000 SNPs in
+  field samples of the dengue fever mosquito Ae. aegypti . The variants were
+  annotated and positioned onto the three Ae. aegypti chromosomes. The new SNP
+  set provided much greater resolution in detecting population structure and
+  estim ating fine-scale relatedness than a set of polymorphic microsatellites.
+  RAD-based markers demonstrate great potential to advance our understanding of
+  mosquito population processes, critical for implementing new control measures
+  against this major disease vector%
+  }
+  \field{number}{1}
+  \field{pages}{275}
+  \field{title}{Genome-wide SNPs lead to strong signals of geographic structure
+  and relatedness patterns in the major arbovirus vector, \textit{Aedes
+  aegypti}}
+  \field{volume}{15}
+  \field{journaltitle}{BMC genomics}
+  \field{year}{2014}
+\endentry
+
+\entry{Schlotterer2014}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Schl{\"o}tterer}{S}%
+     {Christian}{C}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tobler}{T}%
+     {Raymond}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kofler}{K}%
+     {Robert}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Nolte}{N}%
+     {Viola}{V}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Nature Publishing Group}%
+  }
+  \strng{namehash}{SC+1}
+  \strng{fullhash}{SCTRKRNV1}
+  \field{labelyear}{2014}
+  \field{sortinit}{S}
+  \field{abstract}{%
+  The analysis of polymorphism data is becoming increasingly important as a
+  complementary tool to classical genetic analyses. Nevertheless, despite
+  plunging sequencing costs, genomic sequencing of individuals at the
+  population scale is still restricted to a few model species. Whole-genome
+  sequencing of pools of individuals (Pool-seq) provides a cost-effective
+  alternative to sequencing individuals separately. With the availability of
+  custom-tailored software tools, Pool-seq is being increasingly used for
+  population genomic research on both model and non-model organisms. In this
+  Review, we not only demonstrate the breadth of questions that are being
+  addressed by Pool-seq but also discuss its limitations and provide guidelines
+  for users.%
+  }
+  \field{title}{Sequencing pools of individuals [mdash] mining genome-wide
+  polymorphism data without big funding}
+  \field{journaltitle}{Nature Reviews Genetics}
+  \field{year}{2014}
+\endentry
+
+\entry{Schweyen2014}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Schweyen}{S}%
+     {Hannah}{H}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rozenberg}{R}%
+     {Andrey}{A}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Leese}{L}%
+     {Florian}{F}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{SH+1}
+  \strng{fullhash}{SHRALF1}
+  \field{labelyear}{2014}
+  \field{sortinit}{S}
+  \field{abstract}{%
+  Restriction-site associated DNA sequencing (RAD) has emerged as a powerful
+  marker system for studying genome-wide DNA polymorphisms using
+  next-generation sequencing. A recent technical facilitation of RAD is
+  double-digest RAD (ddRAD), which utilizes two restriction enzymes for library
+  preparation. The more flexible and balanced ddRAD allows analysis of genomic
+  loci in hundreds of individuals. However, in contrast to paired-end
+  sequencing of traditional RAD libraries, PCR duplicates cannot be detected
+  with ddRAD. This is a concern because duplicates can contribute substantially
+  to read coverage data and erroneously inflate the proportion of homozygous
+  loci (allele dropout). Allele dropout can bias population genetic parameter
+  inference and complicate the detection of outlier loci under selection. Here
+  we outline a simple and straightforward approach to detecting PCR duplicates
+  from ddRAD libraries. Our approach introduces a degenerate base region (DBR,
+  12,288 unique combinations) in the sequencing adapter. We demonstrate the
+  high efficiency and low rate of false positives in simulations. In addition,
+  a pilot study was performed to test this approach on six aquatic
+  invertebrates, sequenced on a HiSeq 2500 sequencer. The reads of the ddRAD
+  libraries consisted of 33.48% PCR duplicates distributed on 19.40% of the
+  loci. A disproportionate number of PCR duplicates were detected in only 4.66%
+  of the loci. While this should not be a concern for general parameter
+  inference, outlier loci detection in particular would be improved by the DBR
+  technique. Given the easy and straightforward application of the technique in
+  other RAD protocols as well, we suggest that DBR regions should generally be
+  included in PCR-based RAD studies.%
+  }
+  \verb{eprint}
+  \verb http://www.biolbull.org/content/227/2/146.full.pdf+html
+  \endverb
+  \field{number}{2}
+  \field{pages}{146\bibrangedash 160}
+  \field{title}{Detection and Removal of PCR Duplicates in Population Genomic
+  ddRAD Studies by Addition of a Degenerate Base Region (DBR) in Sequencing
+  Adapters}
+  \verb{url}
+  \verb http://www.biolbull.org/content/227/2/146.abstract
+  \endverb
+  \field{volume}{227}
+  \field{journaltitle}{The Biological Bulletin}
+  \field{year}{2014}
+\endentry
+
+\entry{Slavov2014}{article}{}
+  \name{author}{9}{}{%
+    {{}%
+     {Slavov}{S}%
+     {Gancho~T}{GT}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Nipper}{N}%
+     {Rick}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Robson}{R}%
+     {Paul}{P}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Farrar}{F}%
+     {Kerrie}{K}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Allison}{A}%
+     {Gordon~G}{GG}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bosch}{B}%
+     {Maurice}{M}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Clifton-Brown}{CB}%
+     {John~C}{JC}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Donnison}{D}%
+     {Iain~S}{IS}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Jensen}{J}%
+     {Elaine}{E}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Online Library}%
+  }
+  \strng{namehash}{SGT+1}
+  \strng{fullhash}{SGTNRRPFKAGGBMCBJCDISJE1}
+  \field{labelyear}{2014}
+  \field{sortinit}{S}
+  \field{abstract}{%
+  Summary Increasing demands for food and energy require a step change in the
+  effectiveness, speed and flexibility of crop breeding. Therefore, the aim of
+  this study was to assess the potential of genome-wide association studies
+  (GWASs) and genomic selection (i.e. phenotype prediction from a genome-wide
+  set of markers) to guide fundamental plant science and to accelerate breeding
+  in the energy grass Miscanthus. We generated over 100 000 single-nucleotide
+  variants (SNVs) by sequencing restriction site-associated DNA (RAD) tags in
+  138 Micanthus sinensis genotypes, and related SNVs to phenotypic data for 17
+  traits measured in a field trial. Confounding by population structure and
+  relatedness was severe in naïve GWAS analyses, but mixed-linear models
+  robustly controlled for these effects and allowed us to detect multiple
+  associations that reached genome-wide significance. Genome-wide prediction
+  accuracies tended to be moderate to high (average of 0.57), but varied
+  dramatically across traits. As expected, predictive abilities increased
+  linearly with the size of the mapping population, but reached a plateau when
+  the number of markers used for prediction exceeded 10 000–20 000, and
+  tended to decline, but remain significant, when cross-validations were
+  performed across subpopulations.%
+  }
+  \field{number}{4}
+  \field{pages}{1227\bibrangedash 1239}
+  \field{title}{Genome-wide association studies and prediction of 17 traits
+  related to phenology, biomass and cell wall composition in the energy grass
+  Miscanthus sinensis}
+  \field{volume}{201}
+  \field{journaltitle}{New Phytologist}
+  \field{year}{2014}
+\endentry
+
+\entry{Tin2014}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Tin}{T}%
+     {MMY}{M}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rheindt}{R}%
+     {FE}{F}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cros}{C}%
+     {E}{E}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Mikheyev}{M}%
+     {AS}{A}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Wiley Online Library}%
+  }
+  \strng{namehash}{TM+1}
+  \strng{fullhash}{TMRFCEMA1}
+  \field{labelyear}{2014}
+  \field{sortinit}{T}
+  \field{abstract}{%
+  RAD-tag is a powerful tool for high-throughput genotyping. It relies on PCR
+  amplification of the starting material, following enzymatic digestion and
+  sequencing adaptor ligation. Amplification introduces duplicate reads into
+  the data, which arise from the same template molecule and are statistically
+  nonindependent, potentially introducing errors into genotype calling. In
+  shotgun sequencing, data duplicates are removed by filtering reads starting
+  at the same position in the alignment. However, restriction enzymes target
+  specific locations within the genome, causing reads to start in the same
+  place, and making it difficult to estimate the extent of PCR duplication.
+  Here, we introduce a slight change to the Illumina sequencing adaptor
+  chemistry, appending a unique four-base tag to the first index read, which
+  allows duplicate discrimination in aligned data. This approach was validated
+  on the Illumina MiSeq platform, using double-digest libraries of ants (
+  Wasmannia auropunctata ) and yeast ( Saccharomyces cerevisiae ) with known
+  genotypes, producing modest though statistically significant gains in the
+  odds of calling a genotype accu- rately. More importantly, removing
+  duplicates also corrected for strong sample-to-sample variability of genotype
+  calling accuracy seen in the ant samples. For libraries prepared from
+  low-input degraded museum bird samples ( Mixornis gularis ), which had low
+  complexity, having been generated from relatively few starting molecules,
+  adaptor tags show that virtually all of the genotypes were called with
+  inflated confidence as a result of PCR duplicates. Quan- tification of
+  library complexity by adaptor tagging does not significantly increase the
+  difficulty of the overall work- flow or its cost, but corrects for
+  differences in quality between samples and permits analysis of low-input
+  material%
+  }
+  \field{title}{Degenerate adaptor sequences for detecting PCR duplicates in
+  reduced representation sequencing data improve genotype calling accuracy}
+  \field{journaltitle}{Molecular ecology resources}
+  \field{year}{2014}
+\endentry
+
+\entry{Toonen2013}{article}{}
+  \name{author}{7}{}{%
+    {{}%
+     {Toonen}{T}%
+     {Robert~J}{RJ}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Puritz}{P}%
+     {Jonathan~B}{JB}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Forsman}{F}%
+     {Zac~H}{ZH}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Whitney}{W}%
+     {Jonathan~L}{JL}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fernandez-Silva}{FS}%
+     {Iria}{I}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Andrews}{A}%
+     {Kimberly~R}{KR}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Bird}{B}%
+     {Christopher~E}{CE}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {PeerJ Inc.}%
+  }
+  \strng{namehash}{TRJ+1}
+  \strng{fullhash}{TRJPJBFZHWJLFSIAKRBCE1}
+  \field{labelyear}{2013}
+  \field{sortinit}{T}
+  \field{abstract}{%
+  Here, we introduce ezRAD, a novel strategy for restriction site–associated
+  DNA (RAD) that requires little technical expertise or investment in
+  laboratory equipment, and demonstrate its utility for ten non-model organisms
+  across a wide taxonomic range. ezRAD di V ers from other RAD methods
+  primarily through its use of standard Illumina TruSeq library preparation
+  kits, which makes it possible for any labora- tory to send out to a
+  commercial genomic core facility for library preparation and next-generation
+  sequencing with virtually no additional investment beyond the cost of the
+  service itself. This simplification opens RADseq to any lab with the ability
+  to extract DNA and perform a restriction digest. ezRAD also di V ers from
+  others in its flexibility to use any restriction enzyme (or combination of
+  enzymes) that cuts frequently enough to generate fragments of the desired
+  size range, without requiring the purchase of separate adapters for each
+  enzyme or a sonication step, which can further decrease the cost involved in
+  choosing optimal enzymes for particular species and research questions. We
+  apply this method across a wide taxonomic diversity of non-model organisms to
+  demonstrate the utility and flexibility of our approach. The simplicity of
+  ezRAD makes it particularly useful for the discovery of single nucleotide
+  polymorphisms and targeted amplicon sequencing in natural populations of non-
+  model organisms that have been historically understudied because of lack of
+  genomic information.%
+  }
+  \field{pages}{e203}
+  \field{title}{ezRAD: a simplified method for genomic genotyping in non-model
+  organisms}
+  \field{volume}{1}
+  \field{journaltitle}{PeerJ}
+  \field{year}{2013}
+\endentry
+
+\entry{Wang2012}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Wang}{W}%
+     {Shi}{S}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Meyer}{M}%
+     {Eli}{E}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {McKay}{M}%
+     {John~K}{JK}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Matz}{M}%
+     {Mikhail~V}{MV}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Nature Publishing Group}%
+  }
+  \strng{namehash}{WS+1}
+  \strng{fullhash}{WSMEMJKMMV1}
+  \field{labelyear}{2012}
+  \field{sortinit}{W}
+  \field{abstract}{%
+  We describe 2b-RAD, a streamlined restriction site–associated DNA (RAD)
+  genotyping method based on sequencing the uniform fragments produced by type
+  IIB restriction endonucleases. Well-studied accessions of Arabidopsis
+  thaliana were genotyped to validate the method's accuracy and to demonstrate
+  fine-tuning of marker density as needed. The simplicity of the 2b-RAD
+  protocol makes it particularly suitable for high-throughput genotyping as
+  required for linkage mapping and profiling genetic variation in natural
+  populations.%
+  }
+  \field{number}{8}
+  \field{pages}{808\bibrangedash 810}
+  \field{title}{2b-RAD: a simple and flexible method for genome-wide
+  genotyping}
+  \field{volume}{9}
+  \field{journaltitle}{Nature methods}
+  \field{year}{2012}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

@@ -1,0 +1,27 @@
+\frametitle{Got your sequencing data - now, what to do with it?}
+\begin{footnotesize}
+\begin{itemize}
+\item File size: several Gb
+\item Number of lines: >1,000,000
+\end{itemize}
+
+\begin{verbatim}
+@M02443:17:000000000-ABPBW:1:1101:12675:1533 1:N:0:1
+TCGATAATTCTTACTTTCTCTCTGGTCTGAGCGTTTCACATCAACGACAAGCTCGA
+TTCTTCCTTTTCTCTTTTTTTCTTCTCTTCCTCTTTTTTCCTTTTCTCCCTCTTCT
+TTTTTTTTTCTTCTT
++
+8B6-@-,CFFED9CFAE@@C6;@,CFEEF9<@6FGGF9F<CC,,CB,@::8CF,6+
+,,3733>>@@,,,388@,,8*,773333,3,333738,*,,,,,,76,,2,,2,,2
+0*).1.))(0*)***
+@M02443:17:000000000-ABPBW:1:1101:18658:1535 1:N:0:1
+TCCCTAATTCTCTGTCTTCAAATTTTCCTTCTCTAAATCGTCCCTCGTTTCTACCT
+TTTCTTGTTTTTTTATTTCCTCCTCTTCCTTTTTTACTTCCACCTTCTTTTCTGCC
+TTTTCTTCTTTTTCT
++
+-<<9-@CCEF9CE-<,,,,,;,,<C,=,6,C9,C<=C,,,;,86C,6:C,,,;<;,,
+,,,,5,5:,,9++4,,,:,,,,,,,,,,,38,853,5,,3,,7,,,6,,,,,7,,,,
++0,()+++)11.*)*
+\end{verbatim}
+
+\end{footnotesize}

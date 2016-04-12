@@ -1,0 +1,132 @@
+% Created 2015-05-24 sø. 18:16
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\tolerance=1000
+\usepackage{minted}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{grffile}
+\usepackage[inline]{enumitem}
+\setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
+\usepackage{xcolor}
+\hypersetup{
+colorlinks,
+linkcolor={red!50!black},
+citecolor={blue!50!black},
+urlcolor={blue!80!black}
+}
+\usepackage{setspace}%% The linestretch
+\singlespacing
+\usepackage[format=hang,indention=0cm,singlelinecheck=true,justification=raggedright,labelfont={normalsize,bf},textfont={normalsize}]{caption} %
+\usepackage{vmargin}
+\setpapersize{A4}
+\setmarginsrb{2.5cm}{1cm}% links, oben
+{2.5cm}{2cm}% rechts, unten
+{12pt}{30pt}% Kopf: Höhe, Abstand
+{12pt}{30pt}% Fuß: Höhe, AB
+\usepackage[babel,english=british]{csquotes}
+% English quotes are used.
+\usepackage[english]{babel}
+% The diploma thesis will be written in english.
+\usepackage[T1]{fontenc}
+% Then fontcode is changed to the T1 format.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+\author{\textbf{Alexander Jueterbock, Martin Jakt}\thanks{University of Nordland, Norway}}
+\date{\textbf{PhD course: High throughput sequencing of non-model organisms}}
+\title{\textbf{Prerequisites for the bioinformatics-part}}
+\hypersetup{
+ pdfkeywords={},
+  pdfsubject={},
+  pdfcreator={Emacs 24.3.1 (Org mode 8.3beta)}}
+\begin{document}
+
+\maketitle
+
+
+
+
+
+
+
+For the practical bioinformatics-part of the HTS course, we will work
+remotely on UNIX computers. To connect to these remote computers, you
+need to bring your own laptop. \textbf{MAC and Linux users} generally don't
+need to install any additional software to connect to a remote
+computer. However, please install the program \href{https://filezilla-project.org}{filezilla}. This program
+works on all platforms and helps to transfer files between
+computers. 
+
+\textbf{MAC} users also need to install \href{http://xquartz.macosforge.org/landing/}{XQuartz} for opening applications with
+a graphical user interface.
+
+You will have internet access either via eduroam; or, if you bring
+your mobile phone, you will get a guest-account password via SMS.
+
+\textbf{Windows users}: To connect remotely to a UNIX-based system, download
+\href{http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html}{Putty} and \href{http://sourceforge.net/projects/xming/}{Xming} and follow the configuration guidelines on
+\url{http://www.geo.mtu.edu/geoschem/docs/putty_install.html}.
+Alternatively, you can use \href{http://wiki.x2go.org/doku.php/start}{X2Go}.
+
+
+All required programs will be available on our local UNIX computers
+and you are not required to install them on your own laptops. However,
+if you would like to try them out on your own private computer, here
+is a list of programs and scripts that we will use:
+
+\section*{Programming languages:}
+\label{unnumbered-1}
+\begin{itemize}
+\item \href{http://cran.r-project.org/}{R}
+\item \href{https://www.python.org/}{Python}
+\item \href{https://www.perl.org/}{Perl}
+\end{itemize}
+
+\section*{Trimming and quality control:}
+\label{unnumbered-2}
+\begin{itemize}
+\item \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{Fastqc}
+\item \href{http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/}{TrimGalore!}
+\item \href{http://hannonlab.cshl.edu/fastx_toolkit/commandline.html}{fastx\(_{\text{collapser}}\) from FASTX-Toolkit}
+\item \href{http://sfg.stanford.edu/scripts.html}{fastqduplicatecounter.py in the scripts from the Simple Fools Guide}
+\end{itemize}
+
+\section*{Genome browser:}
+\label{unnumbered-3}
+\begin{itemize}
+\item \href{https://www.broadinstitute.org/igv/}{IGV}
+\end{itemize}
+
+\section*{Genome assembly:}
+\label{unnumbered-4}
+\begin{itemize}
+\item \href{http://mira-assembler.sourceforge.net/}{Mira}
+\end{itemize}
+
+\section*{Mapping and variant calling:}
+\label{unnumbered-5}
+\begin{itemize}
+\item \href{http://bowtie-bio.sourceforge.net/bowtie2/index.shtml}{Bowtie2}
+\item \href{http://marinetics.org/2015/03/03/Bowtie2Filtering.html}{Bowtie2Filtering.py}
+\item \href{http://www.htslib.org/}{samtools}
+\item \href{http://www.htslib.org/}{bcftools (with vcfutils.pl)}
+\item \href{https://broadinstitute.github.io/picard/command-line-overview.html}{Picard command line tools}
+\item \href{http://samtools.sourceforge.net/tabix.shtml}{bgzip from tabix}
+\end{itemize}
+% Emacs 24.3.1 (Org mode 8.3beta)
+\end{document}

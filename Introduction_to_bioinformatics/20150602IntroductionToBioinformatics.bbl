@@ -1,0 +1,406 @@
+% $ biblatex auxiliary file $
+% $ biblatex version 2.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\entry{Alexa2010}{manual}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Alexa}{A}%
+     {Adrian}{A}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Rahnenfuhrer}{R}%
+     {Jorg}{J}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{AARJ1}
+  \strng{fullhash}{AARJ1}
+  \field{labelyear}{2010}
+  \field{sortinit}{A}
+  \field{note}{R package version 2.16.0}
+  \field{title}{topGO: topGO: Enrichment analysis for Gene Ontology}
+  \field{year}{2010}
+\endentry
+
+\entry{Haas2010}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Haas}{H}%
+     {Brian~J}{BJ}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Zody}{Z}%
+     {Michael~C}{MC}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Nature Publishing Group}%
+  }
+  \strng{namehash}{HBJZMC1}
+  \strng{fullhash}{HBJZMC1}
+  \field{labelyear}{2010}
+  \field{sortinit}{H}
+  \field{number}{5}
+  \field{pages}{421\bibrangedash 423}
+  \field{title}{Advancing RNA-seq analysis}
+  \field{volume}{28}
+  \field{journaltitle}{Nature biotechnology}
+  \field{year}{2010}
+\endentry
+
+\entry{Hansen2010}{article}{}
+  \name{author}{3}{}{%
+    {{}%
+     {Hansen}{H}%
+     {Kasper~D}{KD}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Brenner}{B}%
+     {Steven~E}{SE}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Dudoit}{D}%
+     {Sandrine}{S}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Oxford Univ Press}%
+  }
+  \strng{namehash}{HKD+1}
+  \strng{fullhash}{HKDBSEDS1}
+  \field{labelyear}{2010}
+  \field{sortinit}{H}
+  \field{abstract}{%
+  Generation of cDNA using random hexamer priming induces biases in the
+  nucleotide composition at the beginning of transcriptome sequencing reads
+  from the Illumina Genome Analyzer. The bias is independent of organism and
+  laboratory and impacts the uniformity of the reads along the transcriptome.
+  We provide a read count reweighting scheme, based on the nucleotide
+  frequencies of the reads, that mitigates the impact of the bias.%
+  }
+  \field{number}{12}
+  \field{pages}{e131\bibrangedash e131}
+  \field{title}{Biases in Illumina transcriptome sequencing caused by random
+  hexamer priming}
+  \field{volume}{38}
+  \field{journaltitle}{Nucleic acids research}
+  \field{year}{2010}
+  \warn{\item Can't use 'date' + 'year'}
+\endentry
+
+\entry{Jacquin2012}{article}{}
+  \name{author}{10}{}{%
+    {{}%
+     {Jacquin-Joly}{JJ}%
+     {Emmanuelle}{E}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Legeai}{L}%
+     {Fabrice}{F}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Montagn{\'e}}{M}%
+     {Nicolas}{N}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Monsempes}{M}%
+     {Christelle}{C}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Fran{\c{c}}ois}{F}%
+     {Marie-Christine}{MC}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Poulain}{P}%
+     {Julie}{J}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Gavory}{G}%
+     {Fr{\'e}d{\'e}ric}{F}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Walker~III}{WI}%
+     {William~B}{WB}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Hansson}{H}%
+     {Bill~S}{BS}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Larsson}{L}%
+     {Mattias~C}{MC}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Ivyspring International Publisher}%
+  }
+  \strng{namehash}{JJE+1}
+  \strng{fullhash}{JJELFMNMCFMCPJGFWIWBHBSLMC1}
+  \field{labelyear}{2012}
+  \field{sortinit}{J}
+  \field{number}{7}
+  \field{pages}{1036}
+  \field{title}{Candidate chemosensory genes in female antennae of the noctuid
+  moth Spodoptera littoralis}
+  \field{volume}{8}
+  \field{journaltitle}{International journal of biological sciences}
+  \field{year}{2012}
+\endentry
+
+\entry{Kofler2011}{article}{}
+  \name{author}{9}{}{%
+    {{}%
+     {Kofler}{K}%
+     {R.}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Orozco-terWengel}{Ot}%
+     {P.}{P}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {De~Maio}{DM}%
+     {N.}{N}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Pandey}{P}%
+     {R.~V.}{RV}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Nolte}{N}%
+     {V.}{V}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Futschik}{F}%
+     {A.}{A}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kosiol}{K}%
+     {C.}{C}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Schl\"otterer}{S}%
+     {C.}{C}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kayser}{K}%
+     {M.}{M}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Public Library of Science San Francisco, USA}%
+  }
+  \keyw{Popoolation, next generation sequencing, genomics, data analysis}
+  \strng{namehash}{KR+1}
+  \strng{fullhash}{KROtPDMNPRVNVFAKCSCKM1}
+  \field{labelyear}{2011}
+  \field{sortinit}{K}
+  \field{abstract}{%
+  Recent statistical analyses suggest that sequencing of pooled samples
+  provides a cost effective approach to determine genome-wide population
+  genetic parameters. Here we introduce PoPoolation, a toolbox specifically
+  designed for the population genetic analysis of sequence data from pooled
+  individuals. PoPoolation calculates estimates of hWatterson, hp, and
+  Tajima’s D that account for the bias introduced by pooling and sequencing
+  errors, as well as divergence between species. Results of genome-wide
+  analyses can be graphically displayed in a sliding window plot. PoPoolation
+  is written in Perl and R and it builds on commonly used data formats. Its
+  source code can be downloaded from http://code. google. com/p/ popoolation/.
+  Furthermore, we evaluate the influence of mapping algorithms, sequencing
+  errors, and read coverage on the accuracy of population genetic parameter
+  estimates from pooled data.%
+  }
+  \field{number}{1}
+  \field{pages}{e15925}
+  \field{title}{PoPoolation: A Toolbox for Population Genetic Analysis of Next
+  Generation Sequencing Data from Pooled Individuals}
+  \field{volume}{6}
+  \field{journaltitle}{PLoS ONE}
+  \field{year}{2011}
+\endentry
+
+\entry{Martin2011}{article}{}
+  \name{author}{2}{}{%
+    {{}%
+     {Martin}{M}%
+     {J.A.}{J}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Wang}{W}%
+     {Z.}{Z}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Nature Publishing Group}%
+  }
+  \strng{namehash}{MJWZ1}
+  \strng{fullhash}{MJWZ1}
+  \field{labelyear}{2011}
+  \field{sortinit}{M}
+  \field{abstract}{%
+  Transcriptomics studies often rely on partial reference transcriptomes that
+  fail to capture the full catalogue of transcripts and their variations.
+  Recent advances in sequencing technologies and assembly algorithms have
+  facilitated the reconstruction of the entire transcriptome by deep RNA
+  sequencing (RNA-seq), even without a reference genome. However, transcriptome
+  assembly from billions of RNA-seq reads, which are often very short, poses a
+  significant informatics challenge. This Review summarizes the recent
+  developments in transcriptome assembly approaches — reference-based, de
+  novo and combined strategies — along with some perspectives on
+  transcriptome assembly in the near future.%
+  }
+  \field{title}{Next-generation transcriptome assembly}
+  \field{journaltitle}{Nature Reviews Genetics}
+  \field{year}{2011}
+  \warn{\item Can't use 'date' + 'year'}
+\endentry
+
+\entry{Schlotterer2014}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Schl{\"o}tterer}{S}%
+     {Christian}{C}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tobler}{T}%
+     {Raymond}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Kofler}{K}%
+     {Robert}{R}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Nolte}{N}%
+     {Viola}{V}%
+     {}{}%
+     {}{}}%
+  }
+  \list{publisher}{1}{%
+    {Nature Publishing Group}%
+  }
+  \strng{namehash}{SC+1}
+  \strng{fullhash}{SCTRKRNV1}
+  \field{labelyear}{2014}
+  \field{sortinit}{S}
+  \field{abstract}{%
+  The analysis of polymorphism data is becoming increasingly important as a
+  complementary tool to classical genetic analyses. Nevertheless, despite
+  plunging sequencing costs, genomic sequencing of individuals at the
+  population scale is still restricted to a few model species. Whole-genome
+  sequencing of pools of individuals (Pool-seq) provides a cost-effective
+  alternative to sequencing individuals separately. With the availability of
+  custom-tailored software tools, Pool-seq is being increasingly used for
+  population genomic research on both model and non-model organisms. In this
+  Review, we not only demonstrate the breadth of questions that are being
+  addressed by Pool-seq but also discuss its limitations and provide guidelines
+  for users.%
+  }
+  \field{title}{Sequencing pools of individuals [mdash] mining genome-wide
+  polymorphism data without big funding}
+  \field{journaltitle}{Nature Reviews Genetics}
+  \field{year}{2014}
+\endentry
+
+\entry{Vitti2012}{article}{}
+  \name{author}{4}{}{%
+    {{}%
+     {Vitti}{V}%
+     {Joseph~J.}{JJ}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Cho}{C}%
+     {Mildred~K.}{MK}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Tishkoff}{T}%
+     {Sarah~A.}{SA}%
+     {}{}%
+     {}{}}%
+    {{}%
+     {Sabeti}{S}%
+     {Pardis~C.}{PC}%
+     {}{}%
+     {}{}}%
+  }
+  \strng{namehash}{VJJ+1}
+  \strng{fullhash}{VJJCMKTSASPC1}
+  \field{labelyear}{2012}
+  \field{sortinit}{V}
+  \field{abstract}{%
+  Genome-wide computational studies can now identify targets of natural
+  selection. The unique information about humans these studies reveal, and the
+  media attention they attract, indicate the need for caution and precision in
+  communicating results. This need is exacerbated by ways in which evolutionary
+  and genetic considerations have been misapplied to support discriminatory
+  policies, by persistent misconceptions of these fields and by the social
+  sensitivity surrounding discussions of racial ancestry. We discuss the
+  foundations, accomplishments and future directions of human evolutionary
+  genomics, attending to ways in which the interpretation of good science can
+  go awry, and offer suggestions for researchers to prevent misapplication of
+  their work.%
+  }
+  \verb{doi}
+  \verb 10.1016/j.tig.2011.12.001
+  \endverb
+  \field{issn}{0168-9525}
+  \field{number}{3}
+  \field{pages}{137 \bibrangedash  145}
+  \field{title}{Human evolutionary genomics: ethical and interpretive issues}
+  \verb{url}
+  \verb http://www.sciencedirect.com/science/article/pii/S0168952511001983
+  \endverb
+  \field{volume}{28}
+  \field{journaltitle}{Trends in Genetics}
+  \field{year}{2012}
+\endentry
+
+\lossort
+\endlossort
+
+\endinput

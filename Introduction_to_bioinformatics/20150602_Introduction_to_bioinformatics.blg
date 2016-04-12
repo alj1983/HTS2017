@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: 20150602_Introduction_to_bioinformatics.aux
+The style file: biblatex.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: 20150602_Introduction_to_bioinformatics-blx.bib
+Database file #2: /home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib
+Biblatex version: 2.8
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+You've used 9 entries,
+            6047 wiz_defined-function locations,
+            1193 strings with 13686 characters,
+and the built_in function-call counts, 41077 in all, are:
+= -- 1508
+> -- 2607
+< -- 412
++ -- 1876
+- -- 1764
+* -- 2705
+:= -- 3648
+add.period$ -- 0
+call.type$ -- 9
+change.case$ -- 253
+chr.to.int$ -- 106
+cite$ -- 16
+duplicate$ -- 3917
+empty$ -- 3549
+format.name$ -- 753
+if$ -- 7947
+int.to.chr$ -- 0
+int.to.str$ -- 22
+missing$ -- 0
+newline$ -- 356
+num.names$ -- 508
+pop$ -- 2976
+preamble$ -- 1
+purify$ -- 292
+quote$ -- 0
+skip$ -- 1703
+stack$ -- 0
+substring$ -- 1475
+swap$ -- 1448
+text.length$ -- 287
+text.prefix$ -- 8
+top$ -- 1
+type$ -- 330
+warning$ -- 0
+while$ -- 254
+width$ -- 0
+write$ -- 346

@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title></title>
+<!-- 2015-04-09 to. 23:48 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="alj" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title"></h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Basic orientation in the command line</a></li>
+<li><a href="#sec-2">2. Data transfer</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Remote connection</a></li>
+<li><a href="#sec-2-2">2.2. filezilla, rsync</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Introduce command line programs with flags</a></li>
+<li><a href="#sec-4">4. Navigating through</a></li>
+<li><a href="#sec-5">5. Retrieving basic information from common NGS files</a></li>
+<li><a href="#sec-6">6. Resources</a></li>
+<li><a href="#sec-7">7. Unix cheat sheet</a>
+<ul>
+<li><a href="#sec-7-1">7.1. File system</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+XX state what the students should have installed
+</p>
+
+<p>
+XX simply explain the commands while we need them - put all explained commands in the cheat sheet
+</p>
+
+<p>
+navigate through different files, let the students look at them with
+more, less etc and let them calculate the number of sequences in a
+fasta file, introduce the grep command, use awk to select a column etc.
+</p>
+
+<p>
+Let the commands come one after the other and apply it directly
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Basic orientation in the command line</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Next Generation Sequencing (NGS) data are often big. You simply can't
+open and work with them in a Word processor or Excel table - even the
+attempt to open a big fasta file in a text editor can freeze your
+computer. You might feel uncomfortable and find it cumbersome to
+navigate through directories and to look at files from the command
+line but it is a very efficient and powerful tool to work with
+data. Moreover, many programs to analyze NGS data are based on the
+command line. This tutorial helps you to familiarize with some of the
+most basic command line tools and shows you how they allow you to
+transfer files and how to extract information from big files fast and
+easily.
+</p>
+
+<p>
+The command line appears as a window/terminal similar to:
+</p>
+
+
+<div class="figure">
+<p><img src="Terminal.png" alt="Terminal.png" />
+</p>
+<p><span class="figure-number">Figure 1:</span> Command line window</p>
+</div>
+
+<p>
+The first line starts with your user name, followed by an <code>@</code> and then
+the name of the computer you are working on. The line ends with a
+<code>$</code> - after this sign you can enter your commands.
+</p>
+
+<p>
+The Unix cheat sheet provides an overview of the core commands to
+navigate and operate in the Unix command line. Most commands allow you
+to adjust their behaviour with a variety of so-called arguments or
+flags. Most of the commands, for example, display help information on
+their usage if you use them with the <code>--help</code> flag.
+</p>
+
+<p>
+For example, if you type <code>ls --help</code>, you'll get an overview of the
+common usage of the command <code>ls</code> and of the flags that can change the
+behaviour of this command. Before we will work on some sequencing
+data, let's have a look at the commands that allow you to change
+directories and how to get an overview of files that were saved in
+these directories.
+</p>
+
+
+
+
+
+<p>
+more 
+less
+</p>
+
+
+<p>
+Up-arrow to retrieve the last command
+</p>
+
+<p>
+history to get an overview of the commands used
+</p>
+
+<p>
+ cd /; takes to root directory cd; takes
+back to home directory ls ..; shows directories one hierarchy above
+tree -C unix<sub>test</sub>; show file tree
+</p>
+
+
+<p>
+ls -I abc*; list all files not containing abc
+</p>
+
+<p>
+ls *.txt | wc -l; count number of lines
+</p>
+
+<p>
+tar -vxf (verbose, extract, file)
+</p>
+
+<p>
+wc -l ES24<sub>sub.fq</sub> | awk '{print $1/4}'; divide the number of the first column (which is 500000) by 4, to get the number of sequences int he fastq file
+</p>
+
+<p>
+-M test@test.d when job finishes etc. this info will be emailed to test@test.d
+</p>
+
+<p>
+cat denovo<sub>bash.sh</sub>  | sed -n 11,12p; print out 11th and 12th lines
+</p>
+
+<p>
+mv
+touch
+</p>
+
+<p>
+pwd
+rm
+</p>
+
+<p>
+cat, more and less&#x2026;
+</p>
+
+<p>
+grep
+cut
+sed
+less
+head
+tail
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Data transfer</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Remote connection</h3>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> filezilla, rsync</h3>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Introduce command line programs with flags</h2>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Navigating through</h2>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Retrieving basic information from common NGS files</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+SAM files
+</p>
+
+<p>
+how to count bases in fasta file
+grep &#x2026; 
+</p>
+
+
+<p>
+How to extract specific columns, rows&#x2026;
+</p>
+
+<p>
+how to &#x2026;
+</p>
+
+
+<p>
+XX play around with sam file flags to select certain subsets of aligned sequences in the first tutorial
+</p>
+<ul class="org-ul">
+<li>Give students SAm file and let them familiarize with the format by asking questions: what read groups are present etc.?</li>
+</ul>
+<p>
+XX Show better the primary secondary and tertiary analyses - introduce them on extra slides
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Resources</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+<a href="http://www.matstopel.se/albiorix">http://www.matstopel.se/albiorix</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Unix cheat sheet</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1"><span class="section-number-3">7.1</span> File system</h3>
+<div class="outline-text-3" id="text-7-1">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="left">ls</td>
+<td class="left">list items in current directory</td>
+</tr>
+
+<tr>
+<td class="left">ls -a</td>
+<td class="left">list all items, including hidden ones</td>
+</tr>
+
+<tr>
+<td class="left">ls -lhcrt</td>
+<td class="left">list all items in long, human-readable format and sort in reverse order by modification time</td>
+</tr>
+
+<tr>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: alj</p>
+<p class="date">Created: 2015-04-09 to. 23:48</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.3.1 (<a href="http://orgmode.org">Org</a> mode 8.3beta)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

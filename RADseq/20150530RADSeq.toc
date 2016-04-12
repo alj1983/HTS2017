@@ -1,0 +1,21 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\beamer@endinputifotherversion {3.24pt}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {1}{RAD-Seq}{7}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {1}{1}{RAD-Seq}{7}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {2}{ddRAD}{19}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {2}{1}{ddRAD}{19}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {3}{Pipelines}{39}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {3}{1}{Pipelines}{39}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {4}{ezRAD and 2bRAD}{45}{0}{4}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {4}{1}{ezRAD and 2bRAD}{45}{0}{4}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {5}{References}{48}{0}{5}

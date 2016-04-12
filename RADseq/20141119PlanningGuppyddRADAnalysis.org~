@@ -1,0 +1,279 @@
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation]
+#+LaTeX_HEADER: \usepackage{minted}
+#+LaTeX_HEADER: \usepackage{xcolor}
+#+LaTeX_HEADER: \usemintedstyle{emacs}
+#+laTeX_HEADER: \mode<beamer>{\usetheme{Madrid}}
+#+OPTIONS: H:1 toc:nil
+
+#+MACRO: BEAMERMODE presentation
+#+MACRO: BEAMERTHEME Antibes
+#+MACRO: BEAMERCOLORTHEME lily
+#+MACRO: BEAMERSUBJECT RMRF
+#+MACRO: BEAMERINSTITUTE Marine Ecology Group, UiN, Norway
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+
+#+TITLE:     Guppy ddRAD data analysis overview
+#+AUTHOR:    Alexander Jueterbock
+#+EMAIL:     alj@uin.no
+#+DATE:      Nov 2014
+
+
+
+* Evolve and Resequence (E&R) studies
+#+ATTR_LaTeX: :width 6cm :float figure
+[[file:ERStudies.jpg]]
+Review in Schlotterer et al. (2014)  Heredity
+
+
+* Experiment overivew
+#+ATTR_LaTeX: :width 8cm :float figure
+[[file:ExperimentalOverview.png]]
+
+* Pooling
+- Critical: equimolar concentrations of individuals expected
+- Best to pool individuals at the very latest step 
+- Recommended: >40 individuals/pool
+    - Higher numbers decrease 
+      - sampling error
+      - unequal representation of individuals in the pool
+    - But more difficult to discriminate minor allele
+      frequencies from sequencing errors 
+* Fastq output
+One example sequence
+
+(Quality scores are ASCII encoded)
+
+#+begin_src sh :exports code
+@SEQ_ID
+GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
++
+!''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CC
+#+end_src
+
+
+
+* Phred quality scores in Fastq
+
+#+CAPTION: Quality overview of raw reads
+#+ATTR_LaTeX: :width 11cm :float figure
+[[file:Fastq.png]]
+
+
+
+* Quick and dirty analysis 
+- DDocent Pipeline (not for pooled and replicted data)
+- STACKS (not tried, not targeted for pooled and replicated data)
+* Demultiplexing by \textcolor{blue}{barcode}
+- 'process radtags' from STACKS did not work well on our data
+- DDemux used
+- Unpaired reads are discarded
+- \textcolor{blue}{Barcodes} are removed
+
+
+#+BEGIN_LaTeX:
+\footnotesize
+Paired read:\\
+\begin{center}
+ADAPTER1 \textcolor{blue}{AATTA}\textcolor{red}{AATTC}\textcolor{green}{NNNN}CCG ADAPTER2\\
+ADAPTER1 \textcolor{blue}{TTAAT}TTAAG\textcolor{green}{NNNN}\textcolor{red}{GGC} ADAPTER2
+\end{center}\\
+First read: \hphantom{A} \textcolor{red}{AATTC}\textcolor{green}{NNN}\\
+Second read: \textcolor{red}{CGG}\textcolor{green}{NNN}\\
+\vspace{0.5cm}
+\textcolor{blue}{Barcode}\\
+\textcolor{red}{Restriction enzyme overhang (EcoRI and MspI)}\\
+\textcolor{green}{Target sequence}\\
+#+END_LaTeX:
+
+
+* Trimming 1
+- I use TrimGalore!
+  - Uses 'cutadapt' for adapter trimming
+  - Can handle paired end reads
+  - removes orphan reads (reads without a pair)
+- Removing internal adapters (0.1%-0.2% of reads)
+  - Can have deviating internal barcodes
+#+BEGIN_LaTeX:
+\footnotesize
+Before: \textcolor{red}{AATTC}\textcolor{green}{NNADAPTER1}\textcolor{blue}{AATTA}\textcolor{red}{AATTC}NNN\\
+After: \hphantom{A}\textcolor{red}{AATTC}\textcolor{green}{NN}
+#+END_LaTeX:
+- Minimum read length? 20bp default, I set 50bp (single sequence) as the lower limit, so 100bp paired end
+
+* Trimming 2
+- Cut off the Restriction enzyme overhangs (5bp from read 1 and 3bp from read2)
+#+BEGIN_LaTeX:
+\footnotesize
+First read: \hphantom{A} \textcolor{red}{AATTC} \textcolor{green}{NNN}\\
+Second read: \textcolor{red}{CGG} \textcolor{green}{NNN}
+#+END_LaTeX:
+- Trim bases with a Phred quality score <20 (99\% base call accurracy, Phred+33 encoding)
+| Phred Score | Probability of incorrect base | Base call accuracy |
+|-------------+-------------------------------+--------------------|
+|          10 | 1 in 10                       |                90% |
+|          20 | 1 in 100                      |                99% |
+|          30 | 1 in 1000                     |              99.9% |
+
+
+* Read qualities before trimming
+#+CAPTION: Quality before trimming
+#+ATTR_LaTeX: :width 10cm
+[[file:FastQC/Pop1_1.fq_fastqc/Images/per_base_quality.png]]
+
+* Read qualities after trimming
+#+CAPTION: Quality after trimming
+#+ATTR_LaTeX: :width 10cm 
+[[file:TrimmedFastQC/Pop1_1_val_1.fq_fastqc/Images/per_base_quality.png]]
+ 
+
+
+
+
+* Number of Sequences
+#+CAPTION: Number of sequences
+#+ATTR_LaTeX: :width 10cm
+[[file:20141124NumberOfSequences.png]]
+* CG Percentage
+#+CAPTION: Percentage of GC
+#+ATTR_LaTeX: :width 10cm
+[[file:20141124PercentageGC.png]]
+
+
+* Quality of raw reads
+#+CAPTION: Quality overview of raw reads
+#+ATTR_LaTeX: :width 7cm
+[[file:20141124RawReads_QualityOverview.png]]
+
+
+* Quality of trimmed reads
+#+CAPTION: Quality overview of trimmed reads
+#+ATTR_LaTeX: :width 7cm
+[[file:20141124TrimmedReads_QualityOverview.png]]
+
+* Kmer content - overrepresented sequences at the beginning
+
+| Sequence | Count | Obs/Exp Max |
+|----------+-------+-------------|
+| CCCTAGC  |  5615 |   195.27312 |
+| CTAGCCC  |  5660 |     193.232 |
+| GCGTTGG  |  6795 |   180.89699 |
+| CCTAGCC  |  6130 |   178.19095 |
+
+- Overrepresented sequences due to ddRAD stacks (high duplication
+  levels)
+
+
+* Duplication Percentage
+#+CAPTION: Percentage of Duplicates
+#+ATTR_LaTeX: :width 10cm
+[[file:20141124PercentageDuplicates.png]]
+
+* Duplication levels
+#+CAPTION: Duplication levels
+#+ATTR_LaTeX: :width 10cm 
+[[file:TrimmedFastQC/Pop1_1_val_1.fq_fastqc/Images/duplication_levels.png]]
+
+
+* PCR duplicates and ddRADs can not be discriminated
+- RAD: equal only at one end
+- ddRAD: equal at both ends, makes identification of PCR duplicates
+  impossible
+- \citep{Tin2014} introduces four random bp to allow for duplicate
+  detection in ddRAD reads
+
+
+* Mapping (Present state)
+- Recommended: 
+  - Avoid as it can cause allele frequency biases:
+    - Seeding (mapping of read subsets); reason: it discriminates
+      against diverged reads?!
+    - Local alignment and soft-clipping (removing of terminal
+      mismatches)
+- Allow gaps as ungapped alignment leads to false positive SNPs and mapping inaccuracy
+- Map only proper pairs, discard broken pairs
+- I use Bowtie2 (one of the recommendations in \citep{Schlotterer2014})
+  - Uses semi-global but multi-seed alignment
+  - Alternative1: BWA aln and sampe but only optimal for up to 100bp
+    reads
+  - Alternative 2: BWA mem (used in the DDocent pipeline, but uses
+    seeding and local alignment)
+* Realign around Indels
+- reads around indels: generally misaligned, results in false SNPS
+- istead of realigning: ignore regions around indels 
+- Programs Dindel or GATK
+* Filtering
+- Filter out broken pairs
+- Filter out ambiguously mapped reads? \citep{Schlotterer2014} sees
+  mapping quality as more important than targeting only unqiuely
+  mapped reads.
+- Mapping quality above 20
+* Coverage
+- 50 recommended 
+- 20 as the absolute minimum. What do we aim for?
+- less than 50: Sliding window analysis recommended. Only possible for species
+  with genome or transcriptome reference
+- Upper limit (too high coverage could result from copy number variations)
+  - twice the mean coverage
+  - remove top 2\% coverages
+  - mean coverage plus two standard deviations
+- Coverage heterogeneity has to be taken into account in subsequent
+  analyses. Or subsample to a homogenous coverage over the entire
+  genome.
+
+* Variant detection 1
+- *Major problem*: discriminate raw variants from sequencing errors
+  - Some set threshold for minimum allele count
+  - Some remove all multiallelic SNPS \citep{Beissinger2014}
+  - Inappropriate for pooled data \citep{Raineri2012}
+- Use algorithm that takes strand bias into account (only accept SNPs
+  that are occurring at similar frequencies on both strands)
+
+* Variant detection 2
+- *Consensus approach* (need to check in how far they are taking
+  coverage variation into account):
+  - Pool-hmm (corrects for site coverage variation)
+  - SNVER (takes strand bias into account)
+  - CRISP (takes strand bias into accunt)
+  - snape (takes strand bias into accunt)
+  - samtools mpileup followed by popoolation (gives a p-value for
+    strand bias)
+- *Biological replicates (3)*:
+  - Take only SNPs that are identified in all three replicates \citep{Robasky2013}
+* Nucleotide diversity
+- popoolation allows calculation of Tajima's D and Watterson's theta
+- Using a sliding window approach (window size between 5 and 50 kbp)
+* How Tajima's D, Watterson's theta and Fst were used in our cod paper
+#+CAPTION: Population genetic parameters of cod populations
+#+ATTR_LaTeX: :width 10cm :float figure
+[[file:BardPaper.png]]
+* Adaptive differentiation
+- Consensus approach
+  - popoolation2 (Fisher's exact test and CMH (Cochran-Mantel-Haenzel)
+    test (takes biological replicates into account, used also by \citep{Huang2014})
+  - pool-hmm (detection of selective sweeps)
+  - Bayenv (calculates environmental correlation, so this might not be the right approach for E&R studies)
+  - SelEstim (detects and quantifies selection)
+
+- *Replicates*: 
+  - In the CMH test taken into account
+  - Do several pairwise comparison and identify overlapping outliers
+  - Pool the allele frequencies before applying the test
+  - Calculate a composite p-value or log-likelihood from the single tests
+
+
+- Do we compare the selected with the non-selected populations or also
+  the selected with each other? 
+
+* Expected results
+#+CAPTION: Manhatten plot with p-values from CMH test
+#+ATTR_LaTeX: :width 12cm :float figure
+[[file:CMHTestresult.png]]
+* Annotation
+- Have to see what annotation of the genome is already available
+- Programs for SNP annotation: SNPeff or AnnoVar
+
+
+ # This has to be run with pdflatex --shell-escape

@@ -1,0 +1,21 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\beamer@endinputifotherversion {3.24pt}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {1}{Background information}{3}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {1}{1}{Background information}{3}{0}{1}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {2}{Primary analysis}{8}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {2}{1}{Primary analysis}{8}{0}{2}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {3}{Secondary analysis}{22}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {3}{1}{Secondary analysis}{22}{0}{3}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {4}{Tertiary analysis}{38}{0}{4}
+\defcounter {refsection}{0}\relax 
+\beamer@subsectionintoc {4}{1}{Tertiary analysis}{38}{0}{4}
+\defcounter {refsection}{0}\relax 
+\beamer@sectionintoc {5}{References}{47}{0}{5}

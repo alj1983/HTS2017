@@ -1,0 +1,1943 @@
+#+LATEX_HEADER: \usepackage{grffile}
+
+
+
+#+LATEX_HEADER: \usepackage[inline]{enumitem} 
+# #+LATEX_HEADER: \setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
+
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER:    colorlinks,
+#+LATEX_HEADER:    linkcolor={red!50!black},
+#+LATEX_HEADER:    citecolor={blue!50!black},
+#+LATEX_HEADER:    urlcolor={blue!80!black}
+#+LATEX_HEADER:}
+
+
+#+LATEX_HEADER:\usepackage{setspace}%% The linestretch
+#+LATEX_HEADER:\singlespacing
+
+#+LATEX_HEADER:\usepackage[format=hang,indention=0cm,singlelinecheck=true,justification=raggedright,labelfont={normalsize,bf},textfont={normalsize}]{caption} % 
+
+
+#+LATEX_HEADER:\usepackage{vmargin}
+#+LATEX_HEADER:\setpapersize{A4}
+#+LATEX_HEADER:\setmarginsrb{2.5cm}{1cm}% links, oben
+#+LATEX_HEADER:                                                {2.5cm}{2cm}% rechts, unten
+#+LATEX_HEADER:                                                {12pt}{30pt}% Kopf: Höhe, Abstand
+#+LATEX_HEADER:                                                {12pt}{30pt}% Fuß: Höhe, AB     
+                                                
+
+# #+LATEX_HEADER:\usepackage[babel,english=british]{csquotes}
+
+# #+LATEX_HEADER:% English quotes are used.                                       
+
+#+LATEX_HEADER: \usepackage{upquote}
+                                        
+# #+LATEX_HEADER:\usepackage[english]{babel}                                     
+
+                                
+
+#+LATEX_HEADER: %  use straight quotes when printing a command in minted
+
+#+LATEX_HEADER: \AtBeginDocument{%
+#+LATEX_HEADER: \def\PYZsq{\textquotesingle}%
+#+LATEX_HEADER: }     
+
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}   
+
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \setlength{\parskip}{\baselineskip}
+
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+
+
+#+TITLE: *Unix Tools for Bioinformatics* (2015-06-02)
+#+AUTHOR: Alexander Jueterbock, Martin Jakt
+#+DATE: *PhD course: High throughput sequencing of non-model organisms*
+#+EMAIL: University of Nordland, Norway
+
+#+OPTIONS: toc:t H:3 email:t author:t num:t creator:nil ':nil
+
+# Overview of export options in http://orgmode.org/manual/Export-settings.html#Export-settings
+
+
+#+name: setup-minted
+#+begin_src emacs-lisp :exports results :results silent
+(setq org-latex-listings 'listings)
+(setq org-latex-listings 'minted)
+(setq org-latex-custom-lang-environments
+        '((emacs-lisp "common-lispcode")))
+
+(setq org-latex-minted-options
+      '(("fontsize" "\\scriptsize")
+        ("bgcolor=lightgray")
+        ("linenos" "")))
+
+(setq org-latex-to-pdf-process
+           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))	      
+	      
+#+end_src
+
+
+
+
+
+Next Generation Sequencing (NGS) data often require big memory. You
+simply can't open and work with them in a Word processor or Excel
+table - even the attempt to open a big fasta file in a text editor can
+freeze your computer. At first, you might feel uncomfortable with the
+command line but it is a very efficient and powerful tool. Moreover,
+many programs to analyze NGS data are based on the command line and to
+run them, you need to know the basic syntax. This tutorial gets you
+familiar with some of the most basic command line tools and shows
+you how they allow you to transfer files and how to extract
+information from big files fast and easily. All tools and programs are
+open source - so you will have free access to them also at your home
+institution or on your private computer.
+
+
+* Remote connection 
+To connect remotely to one of our computers, you will get:
+
+- A password (e.g. PWD213)
+- A username (e.g. user)
+- An IP address (e.g. 127.0.0.1)
+
+On 'Mac' and 'Linux' computers, the =ssh= (/Secure Shell/) tool is
+generally installed by default. To connect to a remote server, thus,
+just open the command line/terminal and type:
+
+#+begin_src sh 
+ssh user@host
+#+end_src
+
+
+Replace 'user' and the IP address 'host' with your own
+username and the IP address of one of our remote computers.
+- Computer 1: 158.39.60.180
+- Computer 2: 158.39.31.63
+
+If this is the first time you want to access the remote server, you
+will likely get the following warning
+
+#+begin_src sh
+The authenticity of host '127.0.0.1 (127.0.0.1)' can't be established.
+ECDSA key fingerprint is 38:59:f7:22:e5:85:ec:c3:9c:90:7x:c3:e4:ae:88:18.
+Are you sure you want to continue connecting (yes/no)? 
+#+end_src
+
+Just type 'yes' and hit enter. You will be asked to enter your
+password. You will not see the password when you enter it, so just
+type it blindly and hit enter.
+
+#+begin_src sh
+user@127.0.0.1's password:
+#+end_src
+
+When you connected successfully, you will see a /welcome-text/ similar to:
+
+#+begin_src sh
+Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
+#+end_src
+
+
+If you don't only want to use the command line on the remote host, but
+also want to use the Graphical User Interface to open figures,
+GUI-based programs or web browsers, you should add the -X option to
+your command, like:
+
+#+begin_src sh
+ssh -X user@host
+#+end_src
+
+If you use PUTTY on Windows you need to install Xming
+(http://www.straightrunning.com/XmingNotes/) and follow the guidelines
+on http://www.geo.mtu.edu/geoschem/docs/putty_install.html).
+
+To open applications with a graphical user interface remotely on a
+MAC, you need to install [[http://xquartz.macosforge.org/landing/][XQuartz]].
+
+* Basic orientation in the command line 
+
+The command line appears as a window/terminal similar to
+Fig. [[fig:terminal]]:
+
+#+CAPTION: Command line window
+#+ATTR_LaTeX: :width 14cm :float figure
+#+name: fig:terminal
+[[file:Terminal.png]]
+
+The first line starts with your user name, followed by an =@= and then
+the name of the computer you are working on. The line ends with a
+=$= - after this sign you can enter your commands.
+
+The Unix cheat sheet (see at the end of this file) provides an
+overview of the core commands to navigate and operate in the Unix
+command line. Most commands allow you to adjust their behaviour with a
+variety of so-called arguments or flags. Most of the commands, for
+example, display help information if you use them with the =--help=
+flag.
+
+For example, if you type =ls --help=, you'll get an overview of the
+common usage of the command =ls= and of the flags that can change the
+behaviour of this command.  The =--help= option doesn't provide much
+help for the =ssh= command. In such cases you can try the =man=
+command. It opens a manual page of the specified tool. For example,
+try =man ssh=. If you want to leave the manual page, just hit =q=.
+Before we will work on some sequencing data, let's have a look
+at the commands that allow you to change directories and how to get an
+overview of files that were saved in these directories.
+
+
+
+** Directory navigation
+Navigating through your directories is a big hurdle if you are new to
+the command line and are used to 'clicking' you way in and out of folders. To
+understand how to move in and out of folders (directories on Unix/Linux) and to look at the
+content of folders is an essential step to analyse your data on
+the command line.
+
+*** Conventional directory layout
+
+# XX Use http://brajeshwar.com/2008/filesystem-file-organization-in-linux/ as an orientation
+
+#+begin_quote
+On a UNIX system, everything is a file; if something is not a file, it is a process.
+#+end_quote
+
+This is a simplification but it is mostly true. A directory on a Unix
+system is just a file that contains names of other files. Also
+programs, images and documents are all files. These files are
+hierarchically ordered in a conventional tree-like structure (see
+Fig. [[fig:linuxfiletree]])
+
+
+#+CAPTION: Conventional file tree structure on a UNIX system from [[http://linuxconfig.org/filesystem-basics][linuxconfig.org]]
+#+ATTR_LaTeX: :width 12cm :float figure
+#+name: fig:linuxfiletree
+[[file:linuxfiletree.jpg]]
+
+
+The root (represented as =/=) is the top-most level of this hierarchy.
+When you connect to a Unix computer, you are automatically located in
+your user home directory (=/home/username/=) and this is the only one
+you have write access rights to in this course. Many of the programs and
+scripts that you will use in ths tutorial are located in the =/usr/=
+directory, generally in =/usr/local/bin/=. 
+
+Applications that are located in =/usr/local/bin/= can be run by any
+user because this directory is automatically specified in the so-called
+=PATH= variable of every user. The =PATH= vairable is simply a
+variable that specifies the directories where executable programs are
+located. You will meet this =PATH= variable when you learn more about
+running programs.
+
+*** Moving in and out of directories with =cd=
+ =cd= stands for 'change directory'. with this command you can navigate
+ in and out of your directories. To see what your present working
+ directory is, simply type =pwd= (for 'present working directory') and
+ hit enter
+
+ #+begin_src sh 
+ pwd
+ #+end_src
+
+ The response in my case is:
+
+ #+begin_src sh
+ /home/alj/
+ #+end_src
+
+ When you want to 'move' to a different directory, the TAB key comes in
+ handy as it auto-completes the possible sub-directories you can 'move'
+ to. For example, when you type =cd= and hit the TAB key twice, you get an
+ overview of all possible sub-directories. For example,
+
+ #+begin_src sh
+ cd 
+ .adobe/
+ Adobe/
+ .cabal/
+ .cache/
+ .compiz/
+ .config/
+ --More--
+ #+end_src
+
+ Hit ENTER to see more sub-directories in your shell or 'n' to leave the
+ list of sub-directories.
+
+ If you know that your target sub-directory starts with the letters
+ 'Do', you can type these after the =cd= command and then hit TAB twice
+ (once is enough if there is only one sub-directory that starts with the
+ letters 'Do'):
+
+ #+begin_src sh
+ cd Do
+ Documents/ Downloads/
+ #+end_src
+
+ I, for example, have two directories starting with 'Do', =Documents=
+ and =Downloads=. So, TAB completion helps when moving into
+ sub-directories, but how to get out of them again? With
+
+ #+begin_src sh
+ cd ..
+ #+end_src
+
+ you move one level up in your hierarchical directory structure.  If
+ you want to go to your home directory from wherever you are, use
+
+ #+begin_src sh
+ cd ~
+ #+end_src
+
+ or just
+ 
+ #+begin_src sh
+ cd
+ #+end_src
+
+*** Tip
+If there are empty spaces in your filepath, you need to precede them
+with a backslash (=\=) in order to navigate to them, like in 
+
+#+begin_src sh
+/home/my\ directory/
+#+end_src
+
+or use quotation marks
+
+#+begin_src sh
+cd "/home/my directory"
+#+end_src
+
+*** What is saved in the current directory?
+ Once you navigated with =cd= to your target directory and you want to
+ look at the files and sub-directories that are located in it, you can
+ use the command =ls= and hit enter. The tool =ls= comes with many
+ options that refine the way that the results are shown; you get an
+ overview of these options with:
+
+ #+begin_src sh
+ ls --help
+ #+end_src
+
+ The combination of options that I use most frequently are
+
+ #+begin_src sh
+ ls -lhcrta
+ #+end_src
+
+ The option
+ - =-l= provides additional information to the file or folder name
+	- file permissions
+	- user and group owners of the file
+	- size
+	- date of modification
+ - =-h= prints the file sizes in human readable format, like 100K instead of 102400
+ - =-c= sort by last modification of file status information
+ - =-r= reverse order while sorting (so that the newest files are the last that are printed)
+ - =-t= sort by modification time, newest first 
+ - =-a= prints also the hidden files (starting with a dot '.').
+  
+*** Have a look at the directory structure
+The command line tool =tree= prints the hierarchical structure of your
+files and directories (recursing into all sub-directories) to the screen.
+
+ To discriminate files from folders via colors, use the =-C= option
+
+ #+begin_src sh
+ tree -C
+ #+end_src
+
+ To show only directories, use the =-d= option
+
+ #+begin_src sh
+ tree -d
+ #+end_src
+
+ 
+
+Try also the following command:
+
+ #+begin_src sh
+ tree -sh
+ #+end_src
+
+Here, 
+- =-s= provides the file and directory sizes
+- =-h= prints the sizes in a human readable format
+
+*** Tip
+Besides the TAB-key, that allows for auto-completion of commands or
+filenames, the UP- and DOWN-arrow keys on your keyboard can safe you
+some time. These buttons allow you to navigate through the history of
+command that you have entered in the command line.  Try it out.
+
+*** Create, move and remove files and directories
+New directories can be created with
+
+#+begin_src sh
+mkdir directoryname
+#+end_src
+Here, =directory= is the name of the directory you want to create.
+
+To create a new empty file, use the command =touch=:
+
+#+begin_src sh
+touch filename
+#+end_src
+
+You can move or rename files with the command =mv=. For example:
+
+#+begin_src sh
+mv file1 file2
+mv file1 ../file1
+#+end_src
+
+The first command renames file1 to file2. The second command moves
+file1 one folder up.
+
+If you don't want to move but copy a file, use the command =cp=.
+
+#+begin_src sh
+cp file1 file2
+#+end_src
+Instead of renaming file1 to file2, as the =mv= command does, the =cp=
+command keeps file1 and creates a new file2 with the same content.
+
+The most dangerous command that you learn to day is =rm=, which stands
+for remove. If you remove a file with this command, it is gone and you
+can not retrieve it. But if this is what you want, you can remove, for
+example, file2 that we created above with the following command:
+
+
+#+begin_src sh
+rm file2
+#+end_src
+
+To remove an entire directory, use =rm= with the =-r= flag, like:
+
+#+begin_src sh
+rm -r directoryname
+#+end_src
+
+*** Tip
+To get an overview of all the commands that you have used before, just
+type
+
+
+#+begin_src sh
+history
+#+end_src
+
+and hit ENTER.
+
+** Data transfer between computers
+Before you can work on a remote server with your own data, you first
+need to know how to transfer them.  One of the best
+platform-independent GUI programs that allows you to up- and download
+files is FileZilla (Download and Documentation:
+https://filezilla-project.org/). In the following lines I want to
+introduce the command line tools =rsync= and =sftp/lftp=, that allow
+you to transfer and synchronize files.
+*** rsync
+
+
+ =rsync= stands for "remote sync". This powerful tool has plenty of
+ options.  Here is the most basic syntax to transfer files from a
+ /source/ (SRC) location to a /destination/ (DEST) with =rsync=. (Text
+ in square brackets denotes optional arguments, in this case optional
+ options!)
+
+ #+begin_src sh
+ rsync [OPTIONS] SRC DEST
+ #+end_src 
+
+ SRC and DEST can either be files or folders. For example, to
+ transfer the file 'file.txt' from your local home folder to a remote
+ server, you can type:
+
+ #+begin_src sh
+ rsync --progress /home/user/directory/file.txt user@host://home/user/
+ #+end_src 
+
+ Here, you need to change =/home/user/directory/= to your own filepath and
+ =file.txt= to your own filename. In '=user@host=', =user=
+ represents your username on the remote server and =host= the IP
+ address of the remote server.  The =--progress= option will indicate
+ the progress of the file transfer - which is useful when transferring
+ big files.
+
+ If you want to transfer files from the remote server to your
+ local computer, just swap the source and destination path
+ specifications:
+
+ #+begin_src sh
+ rsync --progress  user@host://home/user/file.txt /home/user/directory/
+ #+end_src
+
+ If you want to transfer all files that are located in your local
+ folder =/home/user/directory/=, you can use the following command
+
+ #+begin_src sh
+ rsync -avz --progress /home/user/directory/ user@host://home/user/
+ #+end_src 
+
+ Here,
+ - =-av= will transfer the files in 'archive mode' (which combines
+   several options, including recursing into directories)
+ - =-z= will compress the files durig the transfer
+
+ Note the trailing slash after the source directory:
+ =/home/user/directory/=. If you do not use this trailing slash, like
+ =/home/user/directory=, then =rsync= will create a folder with the
+ name =directory= at the destination and copy all files from the source
+ folder into it.
+
+
+Ok, that's all we need to know to get the sequencing data from last
+week to the remote computer. As we need the data in the following
+tutorials, it is best if you upload them now.
+ 
+*** sftp/lftp
+rsync is a wonderful tool, but its power makes it complex and it can be
+difficult to remember how to do even simple things (try =man rsync= if
+you don't believe me!). When using rsync you also need to know and
+remember where the files and directories that you wish to synchronise
+are located. My preference is for using
+the programs similar to the old ftp command line client (which even Windows has). 
+This provides an
+environment very similar to the normal Unix shell, where you change
+directory using =cd=, list the files using =ls=, find out where you are
+using =pwd= and so on. However, the ftp protocol is inherently insecure;
+it may not matter that the data is transmitted without encryption, but
+you should be concerned about sending your password in plain text
+across the ethernet. Not good. Hence, these days we use the sftp (secure
+file transfer protocol) instead. On Mac and Unix systems you will
+essentially always have the sftp command line client installed. On
+Windows, well, you can use Putty or other third party tools. On Linux
+systems you may also have the lftp command line client installed. Its
+usage is almost identical to the usual sftp and ftp clients but it comes
+with extended functionality that allows you for example to mirror (i.e.
+synchronise directories) between the remote and local computers.
+
+To use the sftp program, simply type:
+
+#+begin_src sh
+sftp hostname
+#+end_src
+
+into your terminal. The hostname may need to be specified as the IP
+address (a load of numbers) or can be a simple name depending on your
+setup. After the connection is made you will be asked for your password.
+The sftp program assumes that you will be using the same username as you
+are using on the local computer. If this is not the case you can specify
+your username by:
+
+#+begin_src sh
+sftp username@hostname
+#+end_src
+
+After having successfully logged in to the remote computer you can move
+around the directories as if you were logged in over a shell session
+(i.e. using =ls=, =cd= and so on). If you wish to change the directory
+on the local machine, simply use the =lcd= command. You can also run
+commands in your local shell by prefixing these with an !, eg. =!ls= or
+=!pwd=. You can create directories on the remote computer with =mkdir=,
+and on the local machine with =!mkdir=. To transfer files from the
+remote to the local computer use =get fname=. You can use globbing (*)
+to expand the file set, eg. =get *.fa= for all files ending in '.fa'.
+(For this you may need to use =mget *.fa= on some implementations, this
+used to be true on the old ftp command line client). Similarly you can
+upload files using =put=.
+
+As mentioned lftp is almost identical in its operation. However, when
+starting the program you need to specify that you wish to use the sftp
+protocol as it defaults to the standard ftp protocol (with an anonymous
+user). Hence use something like:
+
+#+begin_src sh
+lftp sftp://username@hostname
+#+end_src
+
+lftp also allows you to mirror whole directory structures using the
+=mirror= command which can save you a lot of time. Finally, when I
+started using lftp, the standard ftp and sftp clients did not provide
+tab completion, and this was a big advantage of lftp at that time. These
+days most if not all of the clients provide this functionality, so it is
+not quite as big a deal as it was in the long past.
+
+
+*** Tip
+
+If you want to transfer in one go, all files that have some common
+characteristic in their name you can use the asterisk =*=, which
+stands for 'any character'. The =*= is one of the most commonly used
+wildcard symbols that stands for a continuous string of characters. To
+specify a set of filenames with wildcard characters is also referred
+to as /globbing/.
+
+For example, if you want to transfer all
+fasta files at once, you can use
+
+#+begin_src sh
+rsync -avz --progress /home/user/directory/*fasta user@host://home/user/
+#+end_src  
+This means that any characters can precede the =fasta= file ending
+
+
+
+If you want to transfer all files that belong to a certain population
+and are, for example, marked with 'Pop1' in the file name, you can use:
+
+#+begin_src sh
+rsync -avz --progress /home/user/directory/*Pop1* user@host://home/user/
+#+end_src  
+This means that any characters can precede or follow the =Pop1=
+character in the file name.
+
+* Running programs (and the PATH variable)
+
+When using the shell you normally run a program by simply typing the
+program name and any required arguments. But how does the shell know
+what program to run and where to find it? On a typical Unix / Linux
+system executable files (i.e. programs) can be found in a range of
+standard locations (eg. =/bin/, /sbin/, /usr/bin/, ~/bin/=) as well as
+anywhere a user puts them. Normally when you run a program by simply
+typing its name, the shell will look for an executable file of that name
+in a list of directories specified by the =$PATH= environment variable.
+The first matching program is then run.
+
+The user can also directly specify the location (path) of the
+executable; this is necessary if the program you wish to run is not
+present in any directory specified by the =$PATH= variable, or if
+multiple programs of the same name are present and you want to run one
+of the later matches:
+
+#+begin_src sh
+/usr/local/bin/pg_ctl start
+#+end_src
+
+to start a version of the Postgresql database installed in
+/usr/local/bin specifically.
+
+You can also specify a path that is relative to your current location.
+If for example your current working directory is
+=~/Documents/testPrograms/= and you wish to run a locally installed
+version of gcc (gnu C compiler) found in =~/bin/=:
+
+#+begin_src sh
+../../bin/gcc -o test main.c
+#+end_src
+
+(Remembering that ../ takes you up one level in the directory
+structure). To do the same you could also make sure that the =$PATH=
+contains ~/bin before other potential locations of gcc.
+
+To check the current value of your =$PATH=, simply use the echo command:
+
+#+begin_src sh
+echo $PATH
+#+end_src
+
+
+To learn how to extend your own PATH variable have a look in the hidden
+.basrc or .bash_profile file in your home directory. It usually gives a
+few examples. Failing that have a look at Google.
+
+Finally if you've written a small script or installed a program in your
+current working directory you can run that by typing =./scriptname=. There
+is nothing special about that, it is merely how you represent the
+relative path to your current working directory.
+
+* Retrieving basic information from common NGS files
+ 
+Now that we know how the commandline works, how we can change
+directories and transfer files, it's time to look at NGS data output
+and to learn how to open and summarize information from such files -
+like, for example, the number of sequences in a fasta file.
+
+The folder PracticeFiles contains the following files:
+- HTS.fasta and HTS2.fasta, fasta files with sequence identifiers and sequences
+- HTS.fastq, a file with sequences and associated base qualities
+- HTS.sam, an alignment file
+
+** Uncover the content of a file and search for patterns 
+The tool =less= can be used to display the content of text files one
+line or page after the other. Since it doesn't read the entire content
+of a file at once, it is very useful for looking into large files.
+
+Let's have a look at a fastq file with the command:
+
+#+begin_src sh
+less Fastqfile.fastq
+#+end_src
+
+Once you have opened a fasta file, for example, with =less= ...
+
+#+begin_src sh
+less Fastqfile.fasta
+#+end_src
+
+... you can search for patterns, like the nucleotide sequence 'GCTC', with =/=, like
+
+#+begin_src sh
+/GCTC
+#+end_src
+
+hitting =n= repeats this search on the remainder of the file.
+
+To show only those lines in the file that match the nucleotide
+sequence 'GCTC', type this sequence after the =&= sign:
+
+#+begin_src sh
+&GCTC
+#+end_src
+ 
+To go to the last line of the file, just type =G=, to go to the first
+line, type =g=. To close the file again, hit =q=.
+
+
+The =less= command has more options than this. You get an overview of
+these with the =--help= flag:
+
+#+begin_src sh
+less --help
+#+end_src
+
+
+The =head= command, followed by the name of a text file, prints by
+default the first 10 lines/rows of the file to the terminal.  The =-n=
+option allows to determine the number of rows that shall be
+printed. For example, to extract the first sequence-id along with the
+nucleotide sequence from HTS.fasta, you can select the first two lines
+with:
+
+#+begin_src sh
+head -n 2 HTS.fasta
+#+end_src
+
+When the line number =K= is preceded with =-=, then all but the last =K=
+lines are printed. For example, the command to print all but the last
+ten lines from a HTS.fasta is:
+
+#+begin_src sh
+head -n -10 HTS.fasta
+#+end_src
+
+The =tail= command, in contrast, prints by default the last 10 lines
+of a file to the terminal. Also here you can select the number of
+lines with the =-n= option. When the line number =K= is preceded by a
+=+=, then all but the first =K= lines are printed.  For example, to
+exclude the first two lines from HTS.fasta
+
+#+begin_src sh
+tail -n +2 HTS.fasta
+#+end_src
+
+
+To extract specific lines from a file, the tool =sed= can help you. To
+print all lines between line 234 and 236 from HTS.fasta, for example, use:
+
+#+begin_src sh
+sed -n '234,236p'
+#+end_src
+
+
+
+** Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'
+If you want to get a rapid overview of the number of lines in a file,
+the =wc= command is the right tool. In output-files where
+every line represents a sequence, for example, =wc -l= is all you need to count the
+number of sequences.
+
+#+begin_src sh
+wc -l File.txt
+#+end_src
+
+The =-l= option specifies that you want to count the number of
+lines. The =-m= and =-w= options further allow you to count the number
+of characters or words.
+
+
+To count the number of sequences in a fasta file, you have to limit
+the lines that are counted to those starting with a ">" sign
+because ">" precedes every sequence identifier:
+
+#+name: Structure of fasta file
+#+begin_src sh
+>SEQ1_ID
+GGATTCATAGAAACCATAGATACATAGATACATAGATTAGGGACAGATAATAG
+>SEQ2_ID
+GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
+>SEQ3_ID
+AGATACAGAGAGACAAGACATAGACAGATAACAGAATAGAGATAGAGGAGAGG
+#+end_src
+
+=grep= allows you to extract lines that contain specific
+characters, like ">". 
+
+
+If you type
+
+#+begin_src sh linenos
+grep ">" HTS.fasta
+#+end_src
+
+All lines in HTS.fasta that contain the ">" character are printed to
+the screen. You can stop the flow of output by pressing Ctrl+C. If you
+don't want to write these lines to the screen but want to count them,
+the =|= symbol provides a 'pipe' to pass the output from the =grep=
+command to the =wc= command. So, to count the number of
+sequences in HTS.fasta, you can use the following command:
+
+#+begin_src sh
+grep ">" HTS.fasta | wc -l
+#+end_src
+
+Here a recap on what the commands mean: =grep= is used to search for
+=>= signs in the fasta file. All sequence-id's start with this
+character. Instead of printing all these lines to the terminal, we
+re-direct it to the =wc= command with the pipe symbol =|=. Using the
+=-l= option, =wc= counts all the lines. Here, =wc= doesn't need an
+input file.
+
+
+Your turn. What command would you use to count the number of sequences
+in a fastq file? 
+# Search for the instrument name that follows the @ sign and then pipe it to |
+# Or count all lines and divide them by 4 wc -l ES24_sub.fq | awk '{print $1/4}'; 
+
+
+If you are in doubt what quality encoding your fastq file has, =grep=
+can help you. Have a look at Fig. [[Fig:QC]]. If you find one of the ASCII
+characters 33 (character'!') to 58 (character ':'), you can be sure
+that the quality encoding is Phred+33. 
+
+
+#+CAPTION: Quality score encodings
+#+name: Fig:QC
+#+ATTR_LaTeX: :width 14cm :float figure
+[[file:Fastq.png]]
+
+
+So, try if you find one of the Phred+33-specific quality characters in
+HTS.fastq. For example:
+
+#+begin_src sh
+grep "!" HTS.fastq | wc -l
+#+end_src
+
+
+
+=grep= also allows you to search for the sequence of a specific
+gene-id and identify the line of the hit in a fasta file, if you use
+it with the =-n= flag. For example, if you want to know which line
+in the HTS.fasta file holds the sequence with the gene-id
+'gi|612475216|gb|AZHG01011862.1|', you can use:
+
+#+begin_src sh
+grep -n "gi|612475216|gb|AZHG01011862.1|" HTS.fasta
+#+end_src
+
+It is line 23724.
+
+** INFO on regular expressions
+
+=grep= stands for /global regular expression printer/ and is a
+command-line utility for searching plain-text data for lines matching
+a regular expression. With regular expressions you can match strings
+that are not identical but follow a specified pattern.  We won't
+go into further detail here, but you can read more about regular
+expressions in [[http://www.scootersoftware.com/RegEx.html][A Tao of Regular Expressions]] and you can find a 
+short introduction in the Perl section below. Also, [[http://www.cheatography.com/davechild/cheat-sheets/regular-expressions/][here]] you will find
+a cheat sheet with essential regular expressions.
+
+** Combine the content of files with 'cat' and '>'
+The most common use of the =cat= command is to redirect the contents of
+text files to other files or commands.
+
+The following command, for example prints the content of HTS.fasta to the screen
+
+#+begin_src sh
+cat HTS.fasta
+#+end_src
+
+With the =>= and =>>= operators, you can print the content of files
+not to the screen but to other files. This allows to rapidly combine
+two files, even huge ones. For example, in the following command
+=HTS.fasta= and =HTS2.fasta= are combined to
+=COMBINED.fasta=.
+
+#+begin_src sh
+cat HTS.fasta > COMBINED.fasta
+cat HTS2.fasta >> COMBINED.fasta
+#+end_src
+
+The =>= operator redirects the output of the =cat HTS.fasta=
+command (the content of =HTS.fasta=) to =COMBINED.fasta=. The
+=>>= operator adds the output of the =cat HTS2.fasta= command to
+the =COMBINED.fasta=. If we would use the =>= operator instead of
+the =>>= operator in the second line, the content of
+=COMBINED.fasta= file would be overwritten, not appended. So, the =>=
+operator (over) writes content to a specified file while the =>>=
+operator appends content to a specified file. If you use the =>>=
+operator, the specified file needs to exist already.
+
+
+
+** Counting filtered reads in SAM files with 'awk'
+Later in the course we will encounter specific programs that can filter
+SAM and VCF files. Here, I want to show you that we can also use basic
+command line tools to filter such files.  The command line tool =awk=
+can extract single columns or apply a filter on column values in
+any file that is organized in columns - as SAM and VCF files
+are. The =-F= option allows you to specify if your columns are
+delimited by commas, spaces, tabs or any other character.
+
+We learned this morning that SAM files (alignment files) are
+ tab-delimited (=\t= and always contain the mapping quality in the
+ fifth column (=$5=). Thus, to count mappings in a SAM file that
+ have qualities > 20, we first strip off the header lines
+ containing the =@= character  with =grep=:
+
+#+begin_src sh
+grep -v "^@" HTS.sam
+#+end_src
+
+Here, the =-v= option inverts our search (all lines including =@= at
+the beginning of the line - specified by the =^= sign - are excluded).
+
+The above command would print all non-header lines to the
+screen. Instead, we want to pipe the output of this command to =awk=,
+in order to extract only those reads with a mapping quality >20 and
+then pipe this output to =wc= to count the lines:
+
+#+begin_src sh
+grep -v "^@" HTS.sam | awk -F "\t" '$5 > 20 {print $0}' | wc -l
+#+end_src
+
+Here, =$0= refers to the entire row, while =$5= refers to column 5 of
+that row. =-F= just specifies the field separator, and
+=\t= sets it to the TAB character. Since we pipe (using =|=) the output of =grep= to
+=awk=, and then the ouput of =awk= to =wc= the lines are not printed to screen but directly
+counted with the =wc= command. Only the output of =wc= gets printed to the screen.
+
+* Running programs in the background with =nohup=
+What if your data analysis on a remote server takes several hours,
+days, or even weeks, to finish? No worries, you don't need to be
+connected to the remote server while the data are being
+analysed. Here, you will learn the tools that allow you to start
+an analysis, disconnect from the server, and then look at the progress
+or the results at a later time point.
+
+The =nohup= tool allows you to run a process in the background; which
+means that, while the analysis is running, you can do other tasks in
+parallel or log off from the remote server.
+
+Imagine the =nohup= tool as a bracket which encloses the command that
+you want to run in the background:
+
+#+begin_src sh
+nohup ... &
+#+end_src
+
+Always, =nohup= precedes and =&= follows the command that you want to
+run in the background (here shown as =...=). Let's say you want to run
+the command =ls -lhcrt= (which lists all files and subdirectories in
+your current directory) in the background.
+
+#+begin_src sh
+nohup ls -lhcrt &
+#+end_src
+
+When you hit ENTER, the terminal prints out some information:
+
+#+begin_src sh
+[1] 21118
+nohup: ignoring input and appending output to 'nohup.out'
+#+end_src
+
+The number =21118= (which will differ in your case) in the first line
+is the process-ID of your background-process. The second line informs you that
+all 'results', that would be normally printed in the terminal window,
+are now redirected to the file =nohup.out=. 
+
+* Using the process-ID
+If you have started a process that takes several hours
+to finish, then you can use the process-ID to see if the process is
+still running. For this, you can use the =ps= command with the =-p=
+option, which reports the status of a process with a certain process
+ID. To see the status of the process I have started above, I would
+use:
+
+#+begin_src sh
+ps -p 21118
+#+end_src
+
+The output is
+
+#+begin_src sh
+PID TTY          TIME CMD
+#+end_src
+
+Since this is only the header line of the process specifications, the
+process must have finished. 
+Here:
+- =PID= indicates the process-ID
+- =TTY= indicates the controlling terminal
+- =TIME= shows the time that the process is running already
+- =CMD= shows the command name
+
+If the process would still run, you would
+get a line similar to:
+
+#+begin_src sh
+PID  TTY          TIME CMD
+21118 ?        00:00:04 ls
+#+end_src
+
+The =top= tool provides an ongoing look at processor activity in real
+time, similar to Figure [[fig:top]].
+
+
+#+CAPTION: Screenshot of the =top= tool output
+#+name: fig:top
+#+ATTR_LaTeX: :width 10cm :float figure
+[[file:top.png]]
+
+At the top of the screen, it lists processes ordered by their CPU usage
+system (with the most intensive on top). Besides other information, it shows which user is running
+which process, as well as the process-ID. You can quit the program by
+hitting =q=.
+
+The process-ID also allows you to cancel the process before it
+finishes. Cancelling processes comes in handy when you figure out
+that you started them with the wrong parameters or input files and you want
+to re-start with different settings. The =kill= command allows you
+to cancel a specific process.
+
+#+begin_src sh
+kill 21118
+#+end_src
+
+This would cancel the process that we started before in the
+background. If you can't remember the process-ID but want to cancel
+all =ls= processes, then you could use the =pkill= command in the
+following way:
+
+#+begin_src sh
+pkill ls
+#+end_src
+
+Compared to the =kill= command, the =pkill= command allows you to
+specify the command-name instead of the process-ID of the running
+process that you want to cancel.
+
+If you don't have a record of the PID you can find out the id of processes being run by a specific user
+by combining =ps= and =grep=:
+
+#+begin_src sh
+ps aux | grep user_name
+#+end_src
+
+where =user_name= is your own user name. That will list all processes started by
+you (well using your id in any case). The =aux= option specifies all processes and
+the manner in which these are printed out. If you read the man file (=man ps=) you
+will see that there are ways in which you can get ps to only list processes started
+by the current user (=ps -eu=) in a similar manner and that =ps aux= is BSD syntax.
+So =grep= isn't really needed here, but I tend to like the way this formats the output.
+
+* Redirecting output
+By default, the =nohup= command redirects all information from the
+terminal window to the =nohup.out= file. If the file exists already,
+it will not be overwritten. All new information will be appended to
+the end of the file. With the =>= operator, you can redirect the
+output to a different file. For example, to redirect the output of the
+=ls= command to the file =Directory-Listing.txt=, you can use the
+command
+
+#+begin_src sh
+nohup ls -lhcrt > Directory-Listing.txt &
+#+end_src
+
+So, the redirection-operator (=>=) is followed by the name of the
+target file and precedes the closing =&= operator of the =nohup=
+command. If you want to save the output to a file in a different
+directory, just specify the entire file-path that precedes your target
+file, like:
+
+#+begin_src sh
+nohup ls -lhcrt > /home/alj/Documents/DirectoryListing.txt &
+#+end_src
+
+* Open and edit smaller files with 'nano'
+=nano= allows to open and edit small text files from the command
+line. It is not meant to open big files, like for example raw fastq
+files. The name of the file you want to open has to follow the =nano=
+command. For example,
+
+#+begin_src sh
+nano Testfile.txt 
+#+end_src
+
+Once you hit ENTER, =Testfile.txt= will be opened and you can scroll
+through it, and compared to the tools we looked at before, you can
+edit the content of the file by deleting and adding text. At the
+bottom of the terminal window you see some shortcuts for certain
+actions. For example =^O WriteOut= or =^X Exit=. The =^= indicates
+that you need to press CTRL+O or CTRL+X. Just open a file and try it
+out. 
+   
+* BONUS section on PERL
+
+Perl is a useful programming language whose principles can be learnt
+within a short period of time allowing researchers not familiar with
+programming to quickly become able to automate a variety of processes.
+Although not an official acronym, Perl is often referred to as standing
+for, 'Practical Extraction and Reporting Language'; and this is pretty much
+what Perl makes easy.
+
+Perl has been used extensively within the field of Bioinformatics (see
+Bioperl, http://www.bioperl.org) though recently it has been overshadowed to
+some extent by the use of R for statistical analyses of data. However,
+Perl remains widely used and several of the tools you will use in this
+course have been written in Perl. R is incredibly useful when you have
+regular data structures that can be expressed as arrays or matrices;
+however it is unsuitable for describing irregular types of data (eg.
+structures of genes, etc.) where it may be necessary to iterate through
+the elements of a data set. Compared to R, Perl is a much more general
+programming language that can be applied to a much wider set of
+problems.
+
+The motto of Perl is, 'There is more than one way to do it'. And in Perl
+this is very true; the same logic can be expressed in a number of
+different ways and masters of Perl will sometimes delight in their
+ability to fit a very large amount of functionality into a small amount
+of code. This is kind of neat, but can lead to code that is difficult to
+understand and should not be encouraged for code that will
+actually be used. The flexibility of Perl also means that it can be
+difficult to read other people's code as they may use a very different
+style of coding to ones own. Perl can also be quite a dangerous language
+and it is often said that it gives the user more than enough rope to
+hang themselves with.
+
+*** Variables in Perl
+
+In order to handle information within a program we assign values to
+variables and then manipulate these according to the flow of the
+program. Perl provides three different types of variables:
+
+-  Scalar variables: these take a single value (usually a number or some text) 
+   and are denoted by a =$= prefix, eg. =$var=.
+
+-  Arrays: these contain an ordered series of values that are accessed by their
+   position. Arrays are denoted by an =@= prefix, eg. =@array=.
+   Individual values are accessed as scalars, using square brackets to
+   indicate the position, eg. =$array[3]= accesses the fourth element of
+   =@array= (the fourth rather than the third as we count from 0).
+
+-  Hashes (or associative arrays): these hold key-value pairs and are
+   denoted by the =%= prefix, eg. =%hash=. Individual elements are again
+   accessed as scalars, but this time using curly brackets, eg.
+   =$hash{key}=. The key value can be anything that can be assigned to a
+   scalar (numbers, text, and references).
+
+*** Assigning variables
+
+The values of variables can be assigned directly in the program's source
+code, but are more frequently assigned through the command line
+arguments (see below) or by the program reading input (data or
+configuration) files (see lower section). Scalars are the simplest:
+
+#+begin_src perl
+$var1='hello'; 
+$var2="world";
+$var3=3.14;
+#+end_src
+
+Strings (i.e. text elements) can be assigned using either single =’= or
+double " quotes. The use of double quotes expands variables within the
+quoted text such that:
+
+#+begin_src perl
+$var4="goodbye $var1";
+#+end_src
+
+will assign the text "goodbye world" to the variable =$var4=.
+In contrast:
+
+#+begin_src perl
+$var4='goodbye $var1';
+#+end_src
+
+will assign the text 'goodbye $var1' to =$var4= (without the quotation
+marks!).
+Double quotes also allow escape codes such as =\n \t= to be interpreted
+as newline and tab characters respectively.
+
+Arrays can be assigned in a number of ways, occassionally directly in
+the code:
+
+#+begin_src perl
+@ar1 = (1, 2, "three");
+#+end_src
+
+An empty array can also be created and then extended by adding elements.
+This can be done by either using the =push= function or by using
+subscripts beyond the range of the array:
+
+#+begin_src perl
+## text following a # character are treated as comments
+
+@ar1 = (); ## creates an empty array of length 0 
+push @ar1, "hello"; ##extends this array to have a length of 1
+
+$ar1[2] = "three"; 
+## the array now has a length of three, but an undefined value in the second position 
+## $ar1[1]
+#+end_src
+
+In most cases, elements of an array will be assigned to values found in
+input files containing the data to be analysed, rather than being
+defined directly in the code as above.
+
+Hashes (associative arrays) that store key value pairs are defined in a
+similar way to arrays. Again the actual values are usually obtained from
+input files, but can also be defined in the code.
+
+#+begin_src perl
+%kv1 = ();
+## this creates an empty hash structure. It is actually not necessary to
+## declare it, but one can directly assign elements of the hash:
+$kv1{1} = "one";
+$kv1{2} = "two";
+$kv1{'three'} = 3;
+
+## this hash could also have been created in a single line :
+%kv1 = (1 => "one", 2 => "two", 'three' => 3);
+
+## to access the elements of an associative array we obtain
+## the keys of the hash using the keys command.
+
+@keys = keys %kv1;
+## print the first value associated with the first key:
+print "$keys[0] $kv1{$keys[0]}\n";
+
+## the \n simply defines a newline character
+#+end_src
+
+
+Scalars, arrays and associative arrays can be combined to create
+arbitrarily complex data structures. Hence you can have hashes of arrays
+and arrays of hashes and so on. To fully use more complicated data
+structures requires an understanding of the reference. A reference is a
+value that points to another piece of data by providing the memory
+address of that data. For example, an array of hashes is encoded as an
+array of references to hashes. To obtain the value of data referred to
+by a reference it the reference must be dereferenced. Perl has
+a number of different ways in which this can be done, but these will not
+be explained in depth here as it can get a bit messy. 
+
+Semicolons: you may have noticed that in the above examples almost every
+line ends with a semicolon. In Perl (and in many other languages), the
+semicolon is used to denote the end of statements. This means
+that single statements can be spread across several lines and that a
+single line can contain a number of statements. This can greatly aid the
+readability of the code.
+
+*** Data types
+
+In the above examples we assigned values to variables without caring
+about what kind of data we used. For example consider the following:
+
+#+begin_src perl
+$var1 = "one";
+$var2 = 2;
+$var3 = $var1 + $var2;  ## !!??!!
+#+end_src
+
+Here we have assigned the value of =$var1= to a piece of text (which we
+will refer to as a string from here on) whereas =$var2= has been
+assigned a numeric value. Perl is a dynamically typed language; that
+means that you do not have to explicitly define what type of value a
+variable contains. This is convenient when writing a script (essentially
+a small program), but this does make it easier to make mistakes in more
+complicated situations. In the above example, the third line doesn't
+make sense, and will generate an error. In this case it is obvious from
+the code, but in most real world situations the values will be read in
+from an external file produced by some other program or person in which
+case finding the reason for the problem may not be so simple.
+
+Perl essentially has three data types, strings, numeric values and
+references. References are necessary for making more complex data
+structures and to allow variable values to be modified by functions. As
+mentioned above though, references will not be covered in much depth as
+they are more suitable for a more advanced course. The string and
+numerical data types are fairly straightforward, though there are a few
+potential problems (common to essentially all computer programming):
+
+- Numeric values do not have infinite precision. For example (1/3) is
+  not equal to (0.1/0.3).
+
+- Numeric values can not be arbitrarily large. On my machine the
+  maximum value Perl can handle is somewhere between 1e308 and
+  1e309. That's a pretty large number which you might not think that
+  you will ever need.  However, it is smaller than the factorial of
+  171, and this is something you may run across in statistical
+  equations.
+
+- Mathematical operations can result in illegal numbers, eg. 1/0. If
+  your program carries out any calcuations you need to be aware of
+  this and how Perl handles the resulting values.
+
+- Text is actually not that simple. From the beginning, the end of
+  lines has been encoded differently in Windows (i.e. DOS), MacOS and
+  Unix. In Unix an end of line is encoded with a newline character, on
+  Windows, a newline character followed by a carriage return, and on
+  MacOS it might be just a carriage return (to be honest I
+  forget). This can cause trouble as text files are usually written
+  and read line by line (i.e.  new lines indicate a new section of
+  data). The simplest way of avoid any trouble is simply never to use
+  Macs or Windows machines, but that can be difficult at times.
+
+- These days text encoding is rather complicated, as it has been
+  expanded to cater to a range of languages and character sets
+  (eg. Arabic, Chinese, Japanese, Thai, etc..). This is not
+  straightforward and several conflicting encodings have been
+  developed. For bioinformatics you usually do not have to care; but
+  you have to be aware of potential problems when handling text that
+  contains unstructured descriptive data. Such text may contain
+  names, or places written in glyphs that require Unicode
+  encoding. Such descriptions may even contain characters that look
+  like normal roman letters, but which have been encoded differently.
+  Google, 'halfwidth fullwidth characters' to confuse yourself.
+
+- Sorting. Numbers and strings are obviously sorted
+  differently. Consider that =(12 > 8)=, but =('12' < '8')=. In the latter
+  case we are comparing strings through a lexicographic comparison
+  where the first character is the most significant for the
+  sort. Since 8 is larger than 1, "8" is also larger than "12". In
+  Perl sorting is lexicographic by default, and a numeric sort has to
+  be explicitly specified. This is sometimes problematic when a mix of
+  numerical and character based identifiers are used and the reason
+  that you often see the following chromosome ordering:
+  1,10,11,12,...,19,20,21,3,4,5,...,9,X,Y.
+
+*** Program flow: loops and conditionals
+
+We use computer programs to automate repeated processes; that is to
+carry out the same or similar operations on a large number of data
+points. This is (usually) done by iterating over a collection of data
+until some condition is met. That condition is often simply that we have
+no more pieces of data to look at, but the condition can also be that a
+solution to some problem has been found, or anything that you can think
+of. This process is referred to as looping.
+
+Similarly programs need to be able to handle the data differently
+depending on what it is. This is handled by conditional statements.
+Conditional statements are also used in lots of other cases including to
+control loops. Consider the following statement that checks for the
+equality of two variables.
+
+#+begin_src perl
+## $a and $b are two variables whose values are specified somewhere else in the program.
+if($a == $b){
+  ## then do something. For example increase the value of $b
+  $b = $b + 1;
+}
+#+end_src
+
+There are a few things to mention here. The first is the use of the ====
+operator. This tests for numerical equality. It is very important not to
+confuse this with the === operator which assigns values. Comparison
+operators can be thought of as returning a TRUE or a FALSE value. If a
+TRUE value is obtained then the conditional statement is carried out,
+and if FALSE not. Perl doesn't actually have explicit TRUE and FALSE
+values, but any non-0 value is considered as TRUE and a value of 0 is
+considered as FALSE. To confuse things the use of the assignment
+operator returns the value that was assigned and this can cause some
+rather specific problems. Consider:
+
+#+begin_src perl
+$a = ($b = 10);
+## $a is now assigned to the value of 10
+
+## this conditional statement will always evaluate to TRUE
+if( $a = 25 ){
+  ## this will always be executed
+}
+
+## but this will never evaluate to TRUE
+if($a = 0){
+  ## this part of the program will never be reached
+}
+#+end_src
+
+The second thing to mention is the use of the curly brackets ({and}). In
+Perl (and quite a few other programming languages) these are used to
+break the code up into blocks of code that can be conditionally executed
+(or looped over, which is kind of conditional). In Perl, blocks of code
+can have their own scope by using the =my= keyword. This means that a
+variable which is defined within a block of code is not visible outside
+of that block of code. This is very useful for more complicated programs
+where it is easy to accidentally use the same variable names to represent
+different properties.
+Consider the following snippet:
+
+#+begin_src perl
+## We start in the global scope. Variables defined here will be visible and modifiable
+## anywhere within the main body of the code (though not in external functions).
+
+$a = 10;
+{
+  $a = 20;
+}
+
+print "a is $a \n";
+## will print 20. However if we do:
+
+{
+  my $a = 30;
+  ## $a will be equal to 30 only within this block of code
+}
+
+print "a is now $a \n";
+## does not print 30, as we $a was declared using the
+## my keyword.
+#+end_src
+
+It is good practice to use =my= and the related =our= keyword throughout
+the code as it will make it easier to catch a range of different types
+of errors. This can be enforced by =use strict;=. Google for more!
+
+Looping can be used if, for example you have an array of values that you wish to
+obtain the mean value of. To do this we wish to find the sum of the
+values and divide by the length of the array. As always in Perl there
+are a number of ways in which this can be done:
+
+#+begin_src perl
+## @ar is an array of values specified somewhere else in the program.
+## ++ is an increment operator that increases the value of its operand
+## by one each time it is called.
+## += is an increment operator that increases the value of its left operand
+## by the value of its right operand.
+
+## to loop through the values we can use a classic for loop:
+$sum = 0;
+for( $i=0; $i < @ar; $i++){
+  $sum += $ar[$i];
+}
+
+$mean = $sum  @ar;
+## when an array variable is used in an expression it can can evaluate to either the array itself
+## or to a scalar value equal to its length. When it's not clear as to whether the scalar or array
+## value is indicated, the scalar value can be enforced by the scalar function.
+
+## We can also use a range specified loop and make use of the fact that in Perl
+## $#ar will evaluate to the higest index of an array (i.e. the length minus one)
+
+for $i(0..$#ar){
+  $sum += $ar[$i];
+}
+
+## we can also use a similar expression;
+for $v(@ar){
+  $sum += $v;
+}
+
+## alternatively we can use a while loop by specifying the index variable outside
+## of the loop statement;
+$i = 0;
+while($i < @ar){
+  $sum += $ar[$i];
+  $i++;
+}
+#+end_src
+
+
+These are not the only ways in which you can loop through values or data
+structures, but they probably represent the most common usages.
+
+*** Reading and writing data
+
+To read or write from a file we use a filehandle. This is just an
+identifier associated with the file and the reading or writing process.
+To write to a file we usually use the =print= function. Using =print=
+without specifying a filehandle will lead to the text being printed to
+STDOUT. In most cases this means your terminal screen, but STDOUT can
+also be piped to other processes as demonstrated previously in this
+guide. To open a text file and read a line at a time:
+
+#+begin_src perl
+## we wish to read from a file specified by the varialbe $fname
+
+open(IN, $fname) || die "unable to open $fname $!\n";
+## here IN becomes specified as the filehandle (This is one of the few cases
+## where we use an undecorated string literal as an identifier).
+## The second half of the statement uses the '||' operator which simply means 'or'.
+## If we are unable to open the file then the program will print out the warning statement
+## following die and exit. $! is a magic variable that contains the error string.
+
+## to read all of the lines we can make use of a while loop
+while(<IN>){
+  ## this will assign the text of each line to another magical variable, $_
+  ## we can print this out to STDOUT by calling
+  print;   ## without arguments this prints $_ to STDOUT
+  
+  ## normally we would do something useful first by processing the data in the line.
+  ## but more of that later.
+}
+#+end_src
+
+
+
+To write to a file we also use open, but modify the filename to indicate
+that we wish to write to a new file by prefixing the name with a '>'
+character. If a file of the same name exists it will be overwritten. If
+we wish to append to an existing file we can use '>>'.
+
+#+begin_src perl
+## given that we wish to write something to a file specified by the
+## $fname variable.
+open(OUT, ">$fname") || die "unable to open $fname $!\n";
+## write out the multiplication table (1..10) to the file
+## first write out some column headers
+for $i(1..10)\{
+  print OUT "\t$i";
+}
+print OUT "\n";
+
+for $i(1..10){
+  print OUT $i;
+  for $j(1..10){
+    print OUT "\t", $i * $j;
+  }
+  print OUT "\n";
+}
+
+close OUT;
+#+end_src
+
+*** Regular Expressions
+
+You have already come across regular expressions in this course; they
+are used by a number of Unix utilities like grep. The Perl
+implementation of regular expressions is perhaps one of the best and
+most powerful ones available and a large part of the power of Perl comes
+through its ability to make use of regular expressions.
+
+As mentioned previously regular expressions are used to identify matches
+to generalised text patterns in strings. There are a very large number
+of tutorials on how to use regular expressions in Perl available on the
+net and we will only provide a very short introduction here.
+
+In Perl, regular expression matching makes use of the ==~= operator,
+where the left operand contains the text to searched for matches to the
+pattern given by the right operand. Some examples:
+
+#+begin_src perl
+## The left operand is usually a variable, but for clarity we'll use
+## plain strings.
+
+## The regular expression is usually written as follows:
+## "some string to be tested" = m/ a regular expression /
+##
+## the character immediately following the m delimits the regular expression. If you wish to
+## include this character within the regular expression it will need to be escaped by placing
+## a \ in front of it. For regular pattern matching you do not need to specify the
+## m if you are using the forward slash as the delimiter. This is the most common way to write it.
+## So to check if an expression looks like the name of a Hox gene we can do:
+
+"HoxA3" =~ /hox[a-z][0-9]+/;
+
+## Normal characters are matched directly, characters within square brackets [] represent a character
+## class (any character specified will allow a match). In the above example, the regular expression
+## will fail to recognise the left operand since the regular expression is case sensitive. To overcome
+## this we can do:
+
+"HoxA3" =~ /hox[a-z][0-9]+/i;
+
+## we could also specify a character class at each position, but this would be ugly:
+"HoxA3" =~ /[hH][oO][xX][A-z][0-9]+/;
+
+## which reads as: h OR H followed by o OR O followed by x OR X followed by a single character between A and z
+## followed by at least one number. But that is pretty ugly.
+
+## if you wish to use a different delimiter, like the # character you can write it like:
+"HoxA3" =~ m#hox[a-z][0-9]+#i
+
+## this can be useful when trying to match directory names that contain lots of forward slashes.
+
+## The above expressions on their own do nothing as we do not make use of the returned value
+## To actually use a regular expression we make use of conditionals, eg...
+
+if("HoxA3" =~ /hox[a-z][0-9]+/i){
+  ## we have Hox gene, do something here..
+}
+## to substitute words we can use the s modifier. We may wish to substitute spaces within a
+## a string with underscores.
+$string = "Goodbye cruel World";
+$string =~ s/ /_/g;
+
+## here we also make use of the g (global) modifier to replace all instances rather than just the first
+## match.
+#+end_src
+
+Regular expressions make use of a number of special characters and
+modifiers to represent textual patterns. The characters represent
+character classes, followed by a modifier specifying how many matches
+should be present to give a match. In Perl, the most widely used special
+characters are:
+
+-  =.= The dot. This matches any character.
+
+-  =\d= A numeric character. Equivalent to specifying [0-9].
+
+-  =\s= A space.
+
+-  =\S= Non space characters.
+
+-  =\w= Word characters (alpha numeric and some others).
+
+-  =\b= Word boundaries (tabs, spaces, newlines, punctuation).
+
+-  =\t= Tab characters.
+
+A character may be followed by a modifier specifying how many times the
+character should be present in the text.
+
+-  =+= 1 or more.
+
+-  =*= 0 or more.
+
+-  =?= 0 or 1.
+
+-  ={N}= Exactly N times.
+
+-  ={n..N}= n to N times.
+
+Other modifiers can be used to specify where a match should be present:
+=^= and =$= specify the beginning and end of lines respectively. Note
+that =^= inside a character class indicates an inverted character class
+(matches characters not present in the class).
+
+Regular expressions can also be used to capture specific subsections of
+text. A very common example would be to extract a sequence identifier
+from a fasta file. This can easily be done in Perl.
+
+#+begin_src perl
+## $line contains a line from a file. Identifiers begin with the > character.
+if( $line =~ /^>(\S+)/ ){
+    $seqId = $1;
+}
+## if brackets are used in the regular expression, the values matching within the brackets
+## will be assigned to variables $1 - $9. (Ordered from left to right). If you wish to match
+## brackets you will need to escape them with backslashes.
+#+end_src
+
+There's a lot more to regular expressions than this, but this may be enough to get
+started with.
+
+*** Various operators
+
+Operators are symbols that denote specific operations; like regular
+expression matching or regular mathematical operations. We have already
+come across a few of these, but there are more (and the following list
+is not complete).
+
+- =+= The addition operator. Returns the sum of the left and right
+  operand.
+
+- =-= The subtraction operator.
+
+- =++= The auto-increment operator. Increases the value of its single
+  operand by 1. There are in fact two different increment operators;
+  post-increment =$v++= and pre-increment =++$v=. The former increments
+  the value after other operations, the latter before. Consider the
+  difference between =$i=5; print $i++;= and =$i=5; print ++$i;=.
+
+- =–= The auto-decrement operator. Opposite of auto-increment.
+
+- =+== The increment operator. Increases the value of its left operand
+  by the value of its right operand.
+
+- =-== The decrement operator. Opposite of the increment operator.
+
+- =*= Multiplication.
+
+- =/= Division.
+
+- =*== Sets the value of its left operand to the product of the left
+  and right operands. Identical to =$left = $left * $right=.
+
+- =/== As above but for division.
+
+- =**= Exponentiation. Returns the value of the left operand to the
+  power of the right operand.
+
+- =.= String concatenation. Concatenates left and right operands.
+
+- =.== Concatenates right operand to left operand.
+
+- ==== Numerical equality operator. Returns TRUE if the value of the
+  left and right operands are equal. Causes an error if either
+  operand is not numerical.
+
+- =!== Numerical inequality operator. Returns TRUE if the value of the
+  left and right operands are not equal. Causes an error if either
+  operand is not numerical.
+
+- =eq= String equality operator. Returns TRUE if the strings specified
+  by the left and the right hand operators are the same.
+
+- =ne= String inequality operator. Returns TRUE if the strings specified
+  by left and right hand operators are not the same.
+- =>= Numerical greater than. Returns true if left operator is larger than
+  the right operator.
+
+- =<= Numerical less than. Opposite of above.
+ 
+- =>== Numerical greater than or equal to.
+
+This is an incomplete list, but is sufficient to do rather a lot with. Note
+that some operators should be used with numerical values and others with strings
+(pieces of text). Using the wrong data types will sometimes raise errors, but
+can also result in the program silently doing something unexpected (which is the
+worst kind of behaviour as it can result in corrupt output).
+
+*** A somewhat useful example
+
+As an example of something potentially useful we can write a short script
+that reads in sequences from a fasta file and identifies sequences that
+contain a specific pattern within the first N bases. To do this we'll
+make use of most of the techniques outlined above, but we'll also need
+to be able to work out options specified by the user on the command
+line. The arguments specified to a Perl script are assigned to a special
+array called =@ARGV=, and we'll make use of this array to work out what
+the user wants to do.
+
+The following segment contains a full script that you should be able to
+run, using the ./scriptname invocation.
+
+#+begin_src perl
+#!/usr/bin/perl -w
+
+## the first line is not really a comment, but is used to make the shell invoke the perl interpreter on the
+## script.
+
+## first check the command line arguments to make sure that the user has specified three arguments.
+## the first argument should give the name of the fasta file containing the sequences to be searched,
+## the second argument the pattern to look for, and the third argument the maximum distance from the
+## beginning of the sequence.
+
+if(@ARGV != 3)\{
+  die "usage: script_name fasta_file pattern max_distance_from_edge \n";
+}
+
+## we could also use regular expressions to check if the arguments are of the correct type
+
+$seqId = "";
+$seq = "";
+
+## open the fasta file and read line by line.
+open(IN, $ARGV[0]) || die "unable to open $ARGV[0] $!\n";
+while(<IN>){
+  chomp; ## this removes the end of line character from $_
+  ## does the line look like it contains a sequence identifier?
+  if( $_ =~ /^>(\S+)/ ){
+    $seqId = $1;
+    next;  ## go to the next iteration of the loop
+  }
+  ## if we have defined a sequence identifer, we will just assume that the rest of the text contains sequence
+  if(length($seqId)){
+    $seq{$seqId} .= $_;
+  }
+}
+
+## We should now have read all of the sequences into an associative array where the keys are the sequence
+## identifiers. We now go through the sequences and check for the pattern.
+## The identifiers of sequences which match are printed out to STDOUT.
+## We could also print the matching sequences if we wished.
+
+for $seqId(keys %seq){
+  if( $seq{$seqId} =~ /^.{0,$ARGV[2]}$ARGV[1]/ ){
+    print "$seqID\n";
+  }
+}
+
+## end of the script!
+#+end_src
+
+This script probably has a few bugs in it. Working out where those bugs
+are is a pretty good exercise for honing your Perl skills. Note also
+that bad command line arguments can cause all sorts of problems as the
+script does not check the arguments given. The script is quite useful
+though, as you can use it as a sort of configurable grep to learn more
+about regular expressions in Perl.
+
+Be aware that this is not a very memory efficient way of solving the
+problem as all of the sequences are read into memory before any
+processing is done. This is not only memory intensive, but it's also
+slower. It's been written this way to show the use of hashes and to keep
+it reasonably short. I've also avoided using custom functions as I've
+not included anything about how to write your own functions (subroutines
+in Perl). How to write your own functions is probably the first thing
+you should look at after this introduction if you wish to start using
+Perl seriously.
+
+Good luck with Perl!
+
+* Recommended books
+- [[http://unixandperl.com/][Unix and Perl to the Rescue]]
+- [[http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2][Computational Biology]]
+* Unix cheat sheet
+** FILE system
+#+begin_latex
+\small
+#+end_latex
+
+#+ATTR_LATEX: :mode table :align p{4cm}p{10cm}
+| Command               | Meaning                                                                                               |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =cd DIR=              | change directory to DIR                                                                               |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =cd ..=               | go up one directory                                                                                   |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =cd ~=                | to to your home directory                                                                             |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =pwd=                 | show present working directory                                                                        |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =ls=                  | list items in current directory                                                                       |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =ls -a=               | list all items, including hidden ones                                                                 |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =ls -lhcrt=           | list all items in long, human-readable format and sort in reverse order by modification time          |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =ls -F=               | list all items in current directory and show directories with a slash and executables with a star     |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =tree  -C=            | print hierarchical structure of your FILEs and directories (color-coded)                              |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =tree -d=             | print hierarchical structure of all subdirectories                                                    |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =tree -sh=            | print hierarchical structure of FILEs and directories with sizes (-s) in a human-readable format (-h) |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =mkdir directoryname= | make new directory named directoryname                                                                |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =mv FILE1 FILE2=      | rename FILE1 to FILE2                                                                                 |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =mv FILE1 ../FILE2=   | move FILE1 one directory up                                                                           |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =cp FILE1 FILE2=      | copy FILE1 and save it as FILE2                                                                       |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =rm FILE=             | remove FILE                                                                                           |
+|-----------------------+-------------------------------------------------------------------------------------------------------|
+| =rm -r DIRECTORY=     | remove directory and all of its contents                                                              |
+
+** Opening FILEs and extracting information
+#+ATTR_LATEX: :mode table :align p{4cm}p{10cm}
+| Command                                 | Meaning                                                                                  |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =less FILE=                             | open FILE and scroll through it line by line                                             |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =wc -l -w -m  FILE=                     | counting lines, words, and characters in FILE                                            |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =grep "pattern" FILE=                   | print lines from FILE that contain "pattern"                                             |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =grp -v "pattern" FILE=                 | print lines from FILE that do not contain "pattern"                                      |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =cat FILE > FILE2=                      | write the content of FILE to FILE2                                                       |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =cat FILE >> FILE2=                     | append the content of FILE to FILE2                                                      |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =sed -n 11,12p FILE=                    | extract lines 11 to 12 from FILE                                                         |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =awk -F "\t" '$1 > 20 {print $0}' FILE= | Print all columns of a line ($0) in FILE if the value in column 1 ($1) is bigger than 20 |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =unzip FILE.zip=                        | unzip the zip-compressed FILE                                                            |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =gunzip FILE.gz=                        | unzip the gz-compressed FILE                                                             |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =sort -n  NUMBERS=                      | sort a row of NUMBERS numerically                                                        |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =uniq -c  FILE=                         | count unique lines in FILE                                                               |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =nano FILE=                             | open FILE on the command-line                                                            |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =xdg-open  FILE=                        | open FILE with the standard program for its file type                                    |
+|-----------------------------------------+------------------------------------------------------------------------------------------|
+| =eog FILE=                              | open FILE (which is a figure) with the Eye of Gnome graphics viewer program              |
+
+** Data transfer
+#+ATTR_LATEX: :mode table :align p{4cm}p{10cm}
+| Command                            | Meaning                                                                                                                                            |
+|------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------|
+| =rsync --progress -avz SRC DEST=   | transfer from SRC to DEST, show the progress while FILEs are compressed during the transfer in archive mode (including recursing into directories) |
+|------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------|
+| =rsync FILE user@host://home/usr/= | transfer FILE to the folder /home/usr on the remote server user@host                                                                               |
+|------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------|
+| =rsync -avz directory/ DEST=       | transfer all FILEs saved in directory to DEST                                                                                                      |
+|------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------|
+| =rsync -avz directory DEST=        | create the folder directory in DEST and transfer all FILEs in this directory                                                                       |
+|------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------|
+| =scp -r SRC DEST=                  | transfer all FILEs in SRC to DEST                                                                                                                  |
+|------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------|
+| =scp FILE DEST=                    | transfer FILE to DEST                                                                                                                              |
+
+** Executing scripts and programs
+#+ATTR_LATEX: :mode table :align p{4cm}p{10cm} 
+| Command                  | Meaning                                                                  |
+|--------------------------+--------------------------------------------------------------------------|
+| =nohup ... &=            | execute ... in the background                                            |
+|--------------------------+--------------------------------------------------------------------------|
+| =nohup ... > FILE.txt &= | execute ... in the background and redirect output to FILE.txt            |
+|--------------------------+--------------------------------------------------------------------------|
+| =ps -p ID=               | print the status of a process with the specified process-ID              |
+|--------------------------+--------------------------------------------------------------------------|
+| =kill ID=                | stop the process witht the specified process-ID                          |
+|--------------------------+--------------------------------------------------------------------------|
+| =pkill NAME=             | stop all processes with NAME (NAME could be for example 'R' or 'python') |
+|--------------------------+--------------------------------------------------------------------------|
+| =top=                    | provides an ongoing look at processor activity in real time              |
+
+** Networking
+#+ATTR_LATEX: :mode table :align p{4cm}p{10cm}
+| Command            | Meaning                                                                                                   |
+|--------------------+-----------------------------------------------------------------------------------------------------------|
+| =ssh user@host=    | connect to host as user                                                                                   |
+|--------------------+-----------------------------------------------------------------------------------------------------------|
+| =ssh -X user@host= | connect to host as user with X11 forwarding enabled (you can open programs with graphical user interface) |
+
+** Help
+#+ATTR_LATEX: :mode table :align p{4cm}p{10cm}
+| Command          | Meaning                                           |
+|------------------+---------------------------------------------------|
+| =command --help= | Lists the options for command                     |
+|------------------+---------------------------------------------------|
+| =man command=    | opens the manual page for command (exit with 'q') |
+
+** Tricks
+
+Pipe output from one command with =|= as input to another command.
+
+#+ATTR_LATEX: :mode table :align p{4cm}p{10cm}
+| Command             | Meaning                                                                                       |
+|---------------------+-----------------------------------------------------------------------------------------------|
+| =TAB key=           | auto-completion of commands, FILE names etc.                                                  |
+|---------------------+-----------------------------------------------------------------------------------------------|
+| =UP or DOWN arrows= | move through the history of your commands                                                     |
+|---------------------+-----------------------------------------------------------------------------------------------|
+| =history=           | Get overview of the commands you have used                                                    |
+|---------------------+-----------------------------------------------------------------------------------------------|
+| =*=                 | Allows to generalize file names. For example, *fasta refers to all fasta files in a directory |
+
+
+
+
+
+

@@ -1,0 +1,430 @@
+#+LATEX_HEADER: \usepackage{grffile}
+
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+
+
+
+#+LATEX_HEADER: \usepackage[inline]{enumitem} 
+# #+LATEX_HEADER: \setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
+
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER:    colorlinks,
+#+LATEX_HEADER:    linkcolor={red!50!black},
+#+LATEX_HEADER:    citecolor={blue!50!black},
+#+LATEX_HEADER:    urlcolor={blue!80!black}
+#+LATEX_HEADER:}
+
+
+#+LATEX_HEADER:\usepackage{setspace}%% The linestretch
+#+LATEX_HEADER:\singlespacing
+
+#+LATEX_HEADER:\usepackage[format=hang,indention=0cm,singlelinecheck=true,justification=raggedright,labelfont={normalsize,bf},textfont={normalsize}]{caption} % 
+
+
+#+LATEX_HEADER:\usepackage{vmargin}
+#+LATEX_HEADER:\setpapersize{A4}
+#+LATEX_HEADER:\setmarginsrb{2.5cm}{1cm}% links, oben
+#+LATEX_HEADER:                                                {2.5cm}{2cm}% rechts, unten
+#+LATEX_HEADER:                                                {12pt}{30pt}% Kopf: Höhe, Abstand
+#+LATEX_HEADER:                                                {12pt}{30pt}% Fuß: Höhe, AB     
+                                                
+
+# #+LATEX_HEADER:\usepackage[babel,english=british]{csquotes}
+
+# #+LATEX_HEADER:% English quotes are used.                                       
+
+#+LATEX_HEADER: \usepackage{upquote}
+                                        
+# #+LATEX_HEADER:\usepackage[english]{babel}                                     
+
+                                
+
+#+LATEX_HEADER: %  use straight quotes when printing a command in minted
+
+#+LATEX_HEADER: \AtBeginDocument{%
+#+LATEX_HEADER: \def\PYZsq{\textquotesingle}%
+#+LATEX_HEADER: }        
+
+#+LATEX_HEADER: \setlength{\parindent}{0pt}
+#+LATEX_HEADER: \setlength{\parskip}{\baselineskip}
+
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+
+
+
+
+#+TITLE: *Trimming and quality control* (June 2016)
+#+AUTHOR: Alexander Jueterbock, Martin Jakt
+#+DATE: *PhD course: High throughput sequencing of non-model organisms*
+#+EMAIL: University of Nordland, Norway
+#+OPTIONS: toc:t H:3 email:t author:t num:t creator:t ':nil
+
+
+#+name: setup-minted
+#+begin_src emacs-lisp :exports results :results silent
+(setq org-latex-listings 'listings)
+(setq org-latex-listings 'minted)
+(setq org-latex-custom-lang-environments
+        '((emacs-lisp "common-lispcode")))
+
+(setq org-latex-minted-options
+      '(("fontsize" "\\scriptsize")
+        ("bgcolor=lightgray")
+        ("linenos" "")))
+
+(setq org-latex-to-pdf-process
+           '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))	      
+#+end_src
+
+
+# Overview of export options in http://orgmode.org/manual/Export-settings.html#Export-settings
+After a general introduction to the UNIX command line, it is time for
+you to analyze your own fastq files. The first important step for any
+kind of sequencing data is to get rid of adapter contamination and 
+bad quality reads. In this tutorial we will use the programs [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/][FastQC]]
+and [[http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/][TrimGalore!]] to check the quality of the sequenced libraries before
+and after trimming. We will also learn few more UNIX commands that
+extract important information from fastq files and that allow you to
+turn off your computer while the analysis continues to run on the
+remote server.
+
+
+*IMPORTANT NOTE* Before you get started: to compare characteristics of
+your libraries, please keep record of the resulting numbers, like the
+number of raw reads, reads after quality control, number of mapped
+reads etc. This helps to identify peculiarities/outliers in your
+libraries which may either be due to biological peculiarities of your
+species or unknown technical issues.
+
+
+Log on (with =ssh=) to the remote computer with the =-X= option to be
+able to use graphical interfaces.
+
+* Overview of sequence lengths
+Next Generation Sequencing data is generally stored in fastq
+files. Most of the time the data are compressed, either in .zip or in
+.gz format.
+
+If your file is zip-compressed, you can use the following command to unzip it:
+
+#+begin_src sh
+unzip FILE.fastq.zip
+#+end_src
+
+If your file iz gz-compressed, use the following command instead:
+
+#+begin_src sh
+gunzip FILE.fastq.gz
+#+end_src
+
+*NOTE*: For paired-end sequencing from Illumina, you have two
+files. One file with the forward reads (=Sequence_R1.fq=) and one file with
+the reverse reads (=Sequence_R2.fq=).
+
+
+To get a quick impression of the minimum and maximum read lengths in
+your fastq file, you can use the following commands (replace
+=FILE.fastq= with your own filename):
+
+#+begin_src sh
+awk '{if(NR%4==2) print length($0)}' FILE.fastq| sort -n | head -n1
+awk '{if(NR%4==2) print length($0)}' FILE.fastq| sort -n | tail -n1
+#+end_src
+
+It reads like this: measure the length of every second line in every
+group of 4 lines (the sequence line in a fastq file), =sort= it
+(numerically with =-n=) and print out either the first (smallest)
+value with =head= or the last (biggest) value with =tail=. =NR=
+represents the current line number and the =%= sign is the modulus
+operator, which divides the line number by 4 (=NR%4=) and returns only
+the remainder. This extracts all the sequences, which are on line
+2,6,10,14...
+
+
+The following command allows you to count the sequence lengths:
+
+#+begin_src sh
+awk '{if(NR%4==2) print length($0)}' FILE.fastq | sort -n | uniq -c > read_length.txt
+#+end_src
+
+The lines that follow makes use of the program R. If you copy and
+paste the code into the command line, you will get an overview graphic
+of the sequence length distribution 
+
+#+begin_src sh
+cat >> Rplot.r << 'EOF'
+reads<-read.csv(file="read_length.txt", sep="", header=FALSE)
+
+png(filename = "SequenceLengthDistribution.png",
+         width = 480, height = 480, units = "px", pointsize = 12,
+          bg = "white")
+plot(reads$V2,reads$V1,type="l",xlab="read length",ylab="occurences",col="blue")
+dev.off()
+
+EOF
+
+
+R CMD BATCH Rplot.r
+#+end_src
+
+You can open the created figure with the GNOME image viewer using the
+following command:
+
+#+begin_src sh
+eog SequenceLengthDistribution.png
+#+end_src
+
+
+#+CAPTION: Example graphic of the length distribution in a fastq file
+#+ATTR_LaTeX: :width 10cm :float figure
+[[file:SequenceLengthDistribution.png]]
+
+Does the sequence length-distribution meet your expectations? 
+
+*NOTE*: While the Ion Torrent sequences will differ in length (as in
+Figure 1), the Illumina sequences will all have the same read length
+(301 bp). 
+
+
+* Quality control
+To inspect the quality of the sequencing data, we use
+[[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/][FastQC]]. In
+the installation and setup instructions of the program
+([[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/INSTALL.txt][link]]),
+you will find that FastQC can run in an interactive mode or in a
+command line mode. This tutorial uses the command-line version.
+
+FastQC knows a number of standard adapter sequences used for HTS,
+including adapters used on Illumina platforms; To get an overview of
+the contaminants (overrepresented sequences) that FastQC will by
+default look for, type
+
+#+begin_src sh
+less /usr/share/fastqc/Contaminants/contaminant_list.txt
+#+end_src
+
+However, FastQC is not
+aware of the sequences used by the IonTorrent platform. To inform
+FastQC of the adapter sequences we have used we call FastQc with the
+=--contaminants= option to specify a file containing the
+adapter sequences we have used.
+
+So, to run FastQC on your file, simply type (where adapters.txt is a file
+containing the adapter sequences in a name[tab]sequence list):
+
+#+begin_src sh
+fastqc --contaminants adapters.txt FILE.fastq
+#+end_src
+
+The output will be saved in a folder that has the name of your fastq
+file and ends with fastqc, like =FILE_fastqc=. Use the =cd= command to
+move into the folder and open the produced =fastqc_report.html= either
+with =firefox= or =chromium-browser= (one of the two should work). 
+
+#+begin_src sh
+firefox fastqc_report.html
+chromium-browser fastqc_report.html
+#+end_src
+
+Get familiar with the output. You can find guidance on how to 
+interpret the output of each module [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/][here]].
+
+# Tor Erik informed me that they will use the IonPGM HiQ Ion Sphere
+# protocol, which targets a library size of 400bp + adapters.
+
+* Trimming low quality reads and adapters
+
+# XX Martin checks if fastqc can be run with awareness of Ion Torrent
+# adapters (not only Illumina adapters) and how to read the fastqc input
+# into R.  (See above modification of how to run FastQC)
+
+[[http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/][TrimGalore!]] is a wrapper script to automate quality and adapter
+trimming as well as quality control ([[http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/trim_galore_User_Guide_v0.3.7.pdf][User Guide]]).
+
+When the program is installed, it can be used with 
+
+#+begin_src sh
+trim_galore [options] <filename(s)>
+#+end_src
+
+You can get an overview of the options with the =--help= option:
+
+#+begin_src sh
+trim_galore --help
+#+end_src
+
+With the default settings, TrimGalore! trims low-quality ends with a
+Phred quality score threshold of 20 (can be changed with =-q=) and
+discards reads that become shorter than 20 bp (can be changed with
+=--length=).
+
+TrimGalore! uses the program [[https://code.google.com/p/cutadapt/][Cutadapt]] to find and remove adapters from
+the 3' end of the reads (see Fig. [[fig:adapters]]). The program Cutadapt
+itself gives you more options for adapter trimming and allows you to
+remove adapters from the 5'-end of the sequence (see
+http://cutadapt.readthedocs.org/en/latest/guide.html)
+
+#+CAPTION: 3'- and 5'-adapter trimming ([[http://cutadapt.readthedocs.org/en/latest/guide.html][source]])
+#+ATTR_LaTeX: :width 14cm :float figure
+#+name: fig:adapters
+[[file:adapters.png]]
+
+** Trimmiing Ion-Torrent adapters
+
+The Ion-P1- and Ion-A-adapters are supposed to be automatically
+trimmed off on the Ion Server. So, the fastq files with the raw reads
+should not contain these adapters anymore. Still, it is good to check
+if there are any adapters left in your library - they can have
+negative effects on further analyses.
+
+
+
+The adapters used for Ion Torrent sequencing are shown in
+Fig. [[fig:ionadapters]] and their orientation in the libraries is shown
+in Fig. [[fig:adapterorientations]].
+
+#+name: fig:ionadapters
+#+CAPTION: Non-barcoded Ion-A and -P1 adapter sequences. In each sequence, a "*" indicates a phosphorothioate bond, for protection from nucleases and to preserve the directionality of adapter ligation
+#+ATTR_LaTeX: :width 14cm :float figure
+[[file:IonAdapters.png]]
+
+#+name: fig:adapterorientations
+#+CAPTION: Ion adapters in the amplified library. BC is an optional barcode sequence.
+#+ATTR_LaTeX: :width 14cm :float figure
+[[file:IonLibraryWithAdapters.png]].
+
+To trim off the A-adapter, use TrimGalore! with the command:
+
+#+begin_src sh
+trim_galore \
+-a CCATCTCATCCCTGCGTGTCTCCGACTCAG \
+--stringency 3 \
+FILE.fastq
+#+end_src
+
+
+The =\= sign just means that the command continues on the next
+line. You could type the entire command on a single line.
+
+
+The option =--stringency 3= means that a >3bp overlap with the adapter
+sequence will be trimmed off the 3' end. The program writes a file
+that ends with =trimming_report.txt=, which reports the number of
+reads that have been trimmed and/or removed.
+
+# XX I can't find information on what the 'expected' is based on in this report fiel 
+The output file has the ending =trimmed.fq=. Use this file as
+input to TrimGalore! to trim off the P1-adapter:
+
+#+begin_src sh
+trim_galore \
+-a CCACTACGCCTCCGCTTTCCTCTCTATGGGCAGTCGGTGAT \
+--stringency 3 \
+--fastqc FILE_trimmed.fq
+#+end_src
+
+The =--fastqc= option will automatically run FastQC in the default
+mode. Compare the FastQC outputs before and after trimming.
+
+
+#+begin_latex
+\clearpage
+#+end_latex
+
+** Trimming Illumina adapters
+Depending on the settings for Illumina sequencing, the adapters can
+be, but don't have to be, automatically removed from the fastq files
+when you get them from the sequencing machine.
+
+The Illumina adapters are as follows:
+
+#+begin_src sh
+TruSeq Universal Adapter:
+5' AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT 3'
+
+TruSeq Indexed Adapter
+5' P*GATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG 3'
+#+end_src
+
+Here, =NNNNNN= represents a barcode of six nucleotides in the indexed adapter.
+
+TrimGalore! can be run with the option =--illumina=. This trims the
+first 13bp of the Illumina universal adapter =AGATCGGAAGAGC=. This
+option removes illumina adapters from most standard libraries,
+including TruSeq adapters.
+
+
+TrimGalore! also performs trimming of paired-end libraries, as the
+Illumina libraries that were prepared in this course. This allows to
+discard too short read pairs without disturbing the sequence order of
+FastQ files, which is required by many a ligners.  With the option
+=--paired= TrimGalore! expects two paired fastq input files, like
+=file1_1.fq= and =file1_2.fq=.  Here, both sequences of a sequence
+pair must have a certain minimum length (specified by the =--length=
+option in order to be kept. If only one of the two paired end reads
+became too short, tThe option =--retain_unpaired= can be applied to
+write the unpaired read that is long enough to eithe =unpaired_1.fq=
+or =unpaired_2.fq= The length cutoff for unpaired si ngle end reads is
+governed by the parameters =--length_1= and =--length_2=
+
+To trim our illumina paired-end libraries we can use:
+
+#+begin_src sh
+trim_galore \
+--illumina \
+--stringency 3 \
+--paired \
+--retain_unpaired \
+--length_1 20 \
+--length_2 20 \
+--fastqc \
+Illumina_R1.fastq \
+Illumina_R2.fastq 
+#+end_src
+
+XX Need to test this
+
+
+
+
+#+begin_latex
+\clearpage
+#+end_latex
+
+* COMMENT Fraction of duplicate reads
+
+Duplicate reads (identical reads present more than once in the
+library) can skew genotype estimates and thus should be identified and
+removed before SNP calling. Duplicates can result from primer or PCR
+bias towards these reads and poor libraries can have levels of
+duplicates >50%.
+
+At this step, we will calculate the fraction of duplicates but we will
+remove them only after /de novo/ genome assembly and read mapping.
+The approach is based on the [[http://sfg.stanford.edu/SFG.pdf][Simple fool's guide to population
+genomics via RNAseq]] and makes use of =fastx_collapser= from the
+[[http://hannonlab.cshl.edu/fastx_toolkit/][FASTX-Toolkit]] and a python script (=fastqduplicatecounter.py=).
+
+First, use =fastx_collapser= to combine and count all identical reads.
+
+#+begin_src sh
+fastx_collapser -Q 33 -v -i INPUTFILE.fq -o OUTPUTFILE.txt
+#+end_src
+
+The =INPUTFILE= is your trimmed fastq file. =-Q 33= specifies that
+quality scores are Phred33 encoded.  The =OUTPUTFILE= is used in the
+next step with the python script 'fastqduplicatecounter.py'.
+
+#+begin_src sh
+fastqduplicatecounter.py OUTPUTFILE.txt OUTPUTFILE_header.txt > OUTPUTFILE_duplicatecount.txt
+#+end_src
+
+This script calculates the fractions of duplicate and singleton
+reads. Open the outputfile with =less OUTPUTFILE_duplicatecount.txt=
+and check the percentage of duplicate reads.
+
+
+

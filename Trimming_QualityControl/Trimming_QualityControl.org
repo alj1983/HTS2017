@@ -1,10 +1,12 @@
 #+LATEX_HEADER: \usepackage{grffile}
-
+#+OPTIONS: tex:imagemagick
 #+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 
 
 
 #+LATEX_HEADER: \usepackage[inline]{enumitem} 
+#+LATEX_HEADER: \usepackage{tikz,graphicx, graphics, pgfkeys}
+#+LATEX_HEADER: \usetikzlibrary{arrows,decorations.pathreplacing}
 # #+LATEX_HEADER: \setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
 
 #+LATEX_HEADER: \usepackage{xcolor}
@@ -86,10 +88,7 @@ you to analyze your own fastq files. The first important step for any
 kind of sequencing data is to get rid of adapter contamination and 
 bad quality reads. In this tutorial we will use the programs [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/][FastQC]]
 and [[http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/][TrimGalore!]] to check the quality of the sequenced libraries before
-and after trimming. We will also learn few more UNIX commands that
-extract important information from fastq files and that allow you to
-turn off your computer while the analysis continues to run on the
-remote server.
+and after trimming.
 
 
 *IMPORTANT NOTE* Before you get started: to compare characteristics of
@@ -100,8 +99,8 @@ libraries which may either be due to biological peculiarities of your
 species or unknown technical issues.
 
 
-Log on (with =ssh=) to the remote computer with the =-X= option to be
-able to use graphical interfaces.
+Log on (with =ssh=) to the remote computer with the =-X= option (like
+=ssh -x user@158...=) to be able to use graphical interfaces.
 
 * Overview of sequence lengths
 Next Generation Sequencing data is generally stored in fastq
@@ -150,7 +149,7 @@ The following command allows you to count the sequence lengths:
 awk '{if(NR%4==2) print length($0)}' FILE.fastq | sort -n | uniq -c > read_length.txt
 #+end_src
 
-The lines that follow makes use of the program R. If you copy and
+The lines that follow make use of the program R. If you copy and
 paste the code into the command line, you will get an overview graphic
 of the sequence length distribution 
 
@@ -199,48 +198,72 @@ command line mode. This tutorial uses the command-line version.
 
 FastQC knows a number of standard adapter sequences used for HTS,
 including adapters used on Illumina platforms; To get an overview of
-the contaminants (overrepresented sequences) that FastQC will by
-default look for, type
+the contaminants (overrepresented sequences) that FastQC will look
+for by default, type
 
 #+begin_src sh
 less /usr/share/fastqc/Contaminants/contaminant_list.txt
 #+end_src
 
-However, FastQC is not
-aware of the sequences used by the IonTorrent platform. To inform
-FastQC of the adapter sequences we have used we call FastQc with the
-=--contaminants= option to specify a file containing the
-adapter sequences we have used.
+However, FastQC is not aware of the sequences used by the IonTorrent
+platform. To inform FastQC of the Ion Torrent adapter sequences
+call FastQC with the =--contaminants= option to specify a file
+containing the adapter sequences we have used.
 
-So, to run FastQC on your file, simply type (where adapters.txt is a file
-containing the adapter sequences in a name[tab]sequence list):
+So, to run FastQC on your file, type:
 
 #+begin_src sh
 fastqc --contaminants adapters.txt FILE.fastq
 #+end_src
 
-The output will be saved in a folder that has the name of your fastq
-file and ends with fastqc, like =FILE_fastqc=. Use the =cd= command to
-move into the folder and open the produced =fastqc_report.html= either
-with =firefox= or =chromium-browser= (one of the two should work). 
+The adapters.txt file contains the adapter sequences in a
+name[tab]sequence format, like
 
 #+begin_src sh
+IonTorrentAAdapter	CCATCTCATCCCTGCGTGTCTCCGACTCAG
+IontTorrentP1Adapter	CCACTACGCCTCCGCTTTCCTCTCTATGGGCAGTCGGTGAT
+#+end_src
+
+The output of the FastQC program will be saved in a folder that has
+the name of your fastq file and ends with fastqc, like
+=FILE_fastqc=. Use the =cd= command to move into the folder and open
+the produced =fastqc_report.html= either with =firefox= or
+=chromium-browser= (one of the two should work).
+
+#+begin_src sh
+cd FILE_fastqc
 firefox fastqc_report.html
 chromium-browser fastqc_report.html
 #+end_src
 
-Get familiar with the output. You can find guidance on how to 
-interpret the output of each module [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/][here]].
+You can also copy the output folder to your computer with [[https://filezilla-project.org/][FileZilla]].
+Get familiar with the output of each module.
 
 # Tor Erik informed me that they will use the IonPGM HiQ Ion Sphere
 # protocol, which targets a library size of 400bp + adapters.
 
+For example, it is normal that the the per base sequence quality drops
+towards the end of the read, as seen in Figure 2. In the next chapter
+we will see how to trim away these low-quality reads.
+
+#+CAPTION: Per base sequence quality (from [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/2%20Per%20Base%20Sequence%20Quality.html][link]])
+#+ATTR_LaTeX: :width 10cm :float figure
+[[file:per_base_quality.png]]
+
+The figure on duplication levels (Figure 3) informs you about the
+percentage of duplicate reads in your sequenced library.  Duplicates
+result from primer or PCR bias towards these reads.  As they can skew
+genotype estimates, we will remove duplicate reads later in the week
+before SNP calling.
+
+#+CAPTION: Per base sequence quality (from [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/8%20Duplicate%20Sequences.html][link]])
+#+ATTR_LaTeX: :width 10cm :float figure
+[[file:duplication_levels.png]]
+
+You can find guidance on how to interpret the output of each module
+[[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/][here]] 
+
 * Trimming low quality reads and adapters
-
-# XX Martin checks if fastqc can be run with awareness of Ion Torrent
-# adapters (not only Illumina adapters) and how to read the fastqc input
-# into R.  (See above modification of how to run FastQC)
-
 [[http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/][TrimGalore!]] is a wrapper script to automate quality and adapter
 trimming as well as quality control ([[http://www.bioinformatics.babraham.ac.uk/projects/trim_galore/trim_galore_User_Guide_v0.3.7.pdf][User Guide]]).
 
@@ -264,7 +287,7 @@ discards reads that become shorter than 20 bp (can be changed with
 TrimGalore! uses the program [[https://code.google.com/p/cutadapt/][Cutadapt]] to find and remove adapters from
 the 3' end of the reads (see Fig. [[fig:adapters]]). The program Cutadapt
 itself gives you more options for adapter trimming and allows you to
-remove adapters from the 5'-end of the sequence (see
+remove adapters also from the 5'-end of the sequence (see
 http://cutadapt.readthedocs.org/en/latest/guide.html)
 
 #+CAPTION: 3'- and 5'-adapter trimming ([[http://cutadapt.readthedocs.org/en/latest/guide.html][source]])
@@ -287,7 +310,7 @@ Fig. [[fig:ionadapters]] and their orientation in the libraries is shown
 in Fig. [[fig:adapterorientations]].
 
 #+name: fig:ionadapters
-#+CAPTION: Non-barcoded Ion-A and -P1 adapter sequences. In each sequence, a "*" indicates a phosphorothioate bond, for protection from nucleases and to preserve the directionality of adapter ligation
+#+CAPTION: Non-barcoded Ion-A and -P1 adapter sequences. In each sequence, a "*" indicates a phosphorothioate bond, for protection from nucleases and to preserve the directionality of adapter ligation. This is not relevant for adapter trimming.
 #+ATTR_LaTeX: :width 14cm :float figure
 [[file:IonAdapters.png]]
 
@@ -335,9 +358,12 @@ mode. Compare the FastQC outputs before and after trimming.
 #+end_latex
 
 ** Trimming Illumina adapters
-Depending on the settings for Illumina sequencing, the adapters can
-be, but don't have to be, automatically removed from the fastq files
-when you get them from the sequencing machine.
+Depending on the settings for Illumina sequencing, the adapters can be
+automatically removed from the fastq files that you get from the
+sequencing machine. This, however, has to be defined before
+sequencing. If you are not sure whether adapters have been trimmed off
+or not, it is safe to trim the adapters before using the sequences for
+any further analyses.
 
 The Illumina adapters are as follows:
 
@@ -355,6 +381,25 @@ TrimGalore! can be run with the option =--illumina=. This trims the
 first 13bp of the Illumina universal adapter =AGATCGGAAGAGC=. This
 option removes illumina adapters from most standard libraries,
 including TruSeq adapters.
+
+The location of this sequence in the TruSeq adapter is shown here:
+
+#+begin_src sh
+TruSeq Universal Adapter:
+5' AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT 3'
+   Reverse                                      CGAGAAGGCTAGA 
+TruSeq Indexed Adapter
+5' P*GATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG 3'
+    AGATCGGAAGAGC
+#+end_src
+
+The A on the 5'-end of the TruSeq indexed adapter is added during
+A-tailing of your DNA library fragments.
+The orientation of the adapters in the illumina library are shown in Fig. [[fig:illuminaadapters]].
+#+name: fig:illuminaadapters
+#+CAPTION: Orientation of the illumina adapters around the DNA inserts
+#+ATTR_LaTeX: :width 17cm :float figure
+[[file:IlluminaAdaptersVisualized.pdf]]
 
 
 TrimGalore! also performs trimming of paired-end libraries, as the
@@ -385,9 +430,10 @@ Illumina_R1.fastq \
 Illumina_R2.fastq 
 #+end_src
 
-XX Need to test this
-
-
+This command runs automatically FastQC on the trimmed libraries. You
+can now compare the quality of your raw libraries and your
+quality-trimmed libraries. What did improve? Are there still any
+problems with your libraries after trimming?
 
 
 #+begin_latex

@@ -1,4 +1,4 @@
-% Created 2016-04-28 to. 15:05
+% Created 2016-05-02 ma. 15:05
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -17,9 +17,9 @@
 \usepackage{capt-of}
 \usepackage{hyperref}
 \tolerance=1000
+\usepackage{minted}
 \usepackage{tikz}
 \usepackage{parskip}
-\usepackage{minted}
 \usepackage{color}
 \usepackage{listings}
 \usepackage{grffile}
@@ -426,8 +426,15 @@ Illumina_R1.fastq \
 Illumina_R2.fastq
 \end{minted}
 
-This command runs automatically FastQC on the trimmed libraries. You
-can now compare the quality of your raw libraries and your
+This command runs automatically FastQC on the trimmed
+libraries. Besides the \texttt{fastqc.html} files, you will find fastq files
+with the validated sequences (\texttt{Illumina\_R1\_val\_1.fq},
+\texttt{Illumina\_R2\_val\_2.fq}) and with the unpaired sequences
+(\texttt{Illumina\_R1\_unpaired\_1.fq},=Illumina\(_{\text{R2}}_{\text{unpaired}}_{\text{2.fq}}\)=).  The files
+ending with \texttt{trimming\_report.txt} provide information on the number of
+reads that have been trimmed and/or removed.
+
+You can now compare the quality of your raw libraries and your
 quality-trimmed libraries. What did improve? Are there still any
 problems with your libraries after trimming?
 

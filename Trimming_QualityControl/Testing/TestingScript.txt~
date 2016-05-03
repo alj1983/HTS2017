@@ -1,0 +1,21 @@
+awk '{if(NR%4==2) print length($0)}' /home/alj/Dropbox.personal/Dropbox/Teaching/2016HTS/SampleFiles/IonTorrent.fastq | sort -n | head -n1
+awk '{if(NR%4==2) print length($0)}' /home/alj/Dropbox.personal/Dropbox/Teaching/2016HTS/SampleFiles/IonTorrent.fastq | sort -n | tail -n1
+
+awk '{if(NR%4==2) print length($0)}' /home/alj/Dropbox.personal/Dropbox/Teaching/2016HTS/SampleFiles/IonTorrent.fastq | sort -n | uniq -c > read_length.txt
+
+
+# Ok, that is not a good trial file because all reads have the same length!
+
+
+trim_galore \
+--illumina \
+--stringency 3 \
+--paired \
+--retain_unpaired \
+--length_1 20 \
+--length_2 20 \
+--fastqc \
+/home/alj/Dropbox.personal/Dropbox/Teaching/2016HTS/SampleFiles/Illumina_R1.fastq \
+/home/alj/Dropbox.personal/Dropbox/Teaching/2016HTS/SampleFiles/Illumina_R2.fastq
+
+XX Need to test this

@@ -122,9 +122,11 @@ mkdir data
 #+end_src 
 
 copy your quality-trimmed fastq file into the =data= directory with:
+
 #+begin_src sh
 cp sourcefile targetdirectory
 #+end_src
+
 Here, you have to replace =sourcefile= with your trimmed fasta files
 and =targetdirectory= with the =data= directory that you just created.
 In case of paired-end sequencing, you copy both the fasta file with
@@ -174,7 +176,7 @@ content. Each case is described in the folllowing two sections.
 project = IonTorrentDeNovoAssembly
 job = denovo,genome,accurate
 
-readgroup=UnpairedIonTorrentReadsFromHTSCourse2015
+readgroup = UnpairedIonTorrentReadsFromHTSCourse2015
 data = fastq::data/YOURINPUTFILE.fq
 technology = iontor
 #+end_src
@@ -193,71 +195,109 @@ nohup mira manifest.conf >log_assembly.txt &
 The analysis will take at least 1 hour to finish.
 
 ** manifest file for Illumina data
-# XX use this as a guide: http://mira-assembler.sourceforge.net/docs/DefinitiveGuideToMIRA.html#sect_dn_mf_manifest_for_pairedend_data
 
-XX Continue here
-XXThe =template_size= argument represents the range of fragment sizes
-XXthat you expect. Adjust this to your sequencing data. Here,
-XX=autorefine= tells MIRA to automatically refine this range during the
-XXassembly based on real, observed distances of read pairs. In case that you are very sure what
+The illumina runs produced paired end reads. To assemble these reads
+with MIRA, we have to specify two additional parameters as compared
+with single end reads:
+1. =segment_placement= The orientation of the forward and backward
+   reads to each other. In our case it is =---> <---=
+2. =template_size= The total length the fragments. The total length of
+   the reads is 600bp. The length of the fragments depends on the
+   overlap between the reads. If they overlap by 200bp, then the total
+   length of the fragments is 400bp. We can specify a range, like =500
+   700= (for 500bp-700bp). If we are unsure about this, we can
+   increase the range and use the =autorefine= feature of MIRA to
+   automatically refine this range during the assembly based on real,
+   observed distances of read pairs.
+
+Here, we specify the manifest file as:
 
 
 #+begin_src sh
-# Manifest file for de novo genome assembly with Ion Torrent single reads
-
-project = IonTorrentDeNovoAssembly
+# Manifest file for de novo genome assembly with paired end Illumina data
+project = IlluminaDeNovoAssembly
 job = denovo,genome,accurate
+parameters = -NW:cmrnl=warn
 
-readgroup=UnpairedIonTorrentReadsFromHTSCourse2015
-data = fastq::data/YOURINPUTFILE.fq
-technology = iontor
+readgroup = PairedIlluminaReadsFromHTSCourse2015
+data = fastq::data/Illumina_R1_val_1.fq fastq::data/Illumina_R2_val_2.fq
+technology = solexa
+template_size = 100 1000 autorefine
+segment_placement = ---> <---
 #+end_src
 
+The Illumina reads generally have names longer than 40
+characters. MIRA stops running in this case because several programs
+have restrictions concerning the length of the read name. In our case
+we let MIRA give us a warning about this but avoid that the program
+stops completely by providing the argument =-NW:cmrnl=warn=.
+
+
 You can copy these lines and paste them into your file by pressing
-SHIFT+CTRL+V. Change the name =YOURINPUTFILE.fq= to the name of the
-fastq-file that contains your quality-trimmed reads. Then save the
-file and exit with CTRL+O and CTRL+X.
+SHIFT+CTRL+V. Change the name =YOURINPUTFILE_1.fq=
+=YOURINPUTFILE_2.fq= to the name of the fastq-files that contain your
+quality-trimmed forward and reverse reads. Then save the file and exit
+with CTRL+O and CTRL+X.
+
+If you do not know these parameters at all, you could simply add the
+parameter =autopairing= to your manifest file, like here:
+
+#+begin_src sh
+# Manifest file for de novo genome assembly with paired end Illumina data - the lazy way;)
+
+project = IlluminaLazyDeNovoAssembly
+job = denovo,genome,accurate
+parameters = -NW:cmrnl=warn
+
+
+readgroup = PairedIlluminaReadsFromHTSCourse2015
+autopairing
+data = fastq::data/YOURINPUTFILE_1.fq fastq::data/YOURINPUTFILE_2.fq
+technology = solexa
+-NW:cmrnl=warn
+#+end_src
+
 
 That's all you need before you can start =mira= with:
+
 
 #+begin_src sh
 nohup mira manifest.conf >log_assembly.txt &
 #+end_src
 
 
-
 The analysis will take at least 1 hour to finish.
 
-
 * Results and assembly metrics
-MIRA creates a directory named =IonTorrentDeNovoAssembly_assembly= and several
-subdirectories. We are primarily interested in the following two
-subdirectories: 
-- 1. =IonTorrentDeNovoAssembly_d_results=: this directory contains all the output
+
+MIRA creates a directory named =PROJECTNAME_assembly= (you defined the
+PROJECTNAME in the manifest file) and several subdirectories. We are
+primarily interested in the following two subdirectories:
+- 1. =PROJECTNAME_d_results=: this directory contains all the output
   files of the assembly in different formats. Here we are specifically
   interested in the following fasta files:
-  - =IonTorrentDeNovoAssembly_out.padded.fasta=. This file contains the assembled contigs. Gaps are denoted by an asterisk.
-  - =IonTorrentDeNovoAssembly_out.unpadded.fasta=. This file also contains
+  - =PROJECTNAME_out.padded.fasta=. This file contains the assembled contigs. Gaps are denoted by an asterisk.
+  - =PROJECTNAME_out.unpadded.fasta=. This file also contains
     the assembled contigs, but with positions containing gaps removed.
-  - =LargeContigs_out.fasta=. This file contains the longer contigs of
+  - =PROJECTNAME_LargeContigs_out.fasta=. This file contains the longer contigs of
     your assembly, which are of particular interest. To be included in
     this file, a contig generally needs to be at least 500bp long and
     must have a coverage of at least 1/3 of the average coverage.
-- 2. =IonTorrentDeNovoAssembly_d_info=: this directory contains files describing the properties of
+- 2. =PROJECTNAME_d_info=: this directory contains files describing the properties of
   the final assembly. We are particularly interested in:
-  - =IonTorrentDeNovoAssembly_info_assembly.txt=. This file contains
+  - =PROJECTNAME_info_assembly.txt=. This file contains
     summary statistics and information about problematic areas in the
     results. Here, 'Consensus bases with [[http://www.bioinformatics.org/sms/iupac.html][IUPAC]]' refers to positions
     that are not clearly 'A', 'C', 'T', or 'G', but where two or more
     bases were equally likely. For example, 'R' refers to 'A or G', and
     'K' refers to 'G or T'.
-  - =IonTorrentDeNovoAssembly_info_contigstats.txt=. This file
+  - =PROJECTNAME_info_contigstats.txt=. This file
     contains statistics about the contigs themselves, their length,
     average consensus quality, number of reads, maximum and average
     coverage, average read length, number of A, C, G, T, N, X and gaps.
   
 
-Search for the following information in =IonTorrentDeNovoAssembly_info_assembly.txt=:
+Search for the following information in =PROJECTNAME_info_assembly.txt=:
 - Number of contigs in the assembly 
 - Maximum contig coverage
 - Largest contig
@@ -282,18 +322,19 @@ obtained by:
 
 We can use the program R to create histograms of the contig lengths
 and coverages from the file
-=IonTorrentDeNovoAssembly_info_contigstats.txt=. If you are in the
-directory named =IonTorrentDeNovoAssembly_assembly= (if you are not in
+=PROJECTNAME_info_contigstats.txt=. If you are in the
+directory named =PROJECTNAME_assembly= (if you are not in
 this directory, you can move to it with the =cd= command), you can
 copy and paste the following commands into your terminal window to
 plot histograms of the contig lengths and coverages:
 
+Replace here PROJECTNAME with the name of your own project
 #+begin_src sh
 rm Rplothistogram.r # Use this if the file Rplothistogram.r already exists.
 
 cat >> Rplothistogram.r << 'EOF'
 contigs <- read.table(
-  file="IonTorrentDeNovoAssembly_d_info/IonTorrentDeNovoAssembly_info_contigstats.txt", 
+  file="PROJECTNAME_d_info/PROJECTNAME_info_contigstats.txt", 
   sep="\t", header=FALSE)
 
 png(filename = "ContigLengths.png",
@@ -314,6 +355,8 @@ EOF
 
 R CMD BATCH Rplothistogram.r
 #+end_src
+
+
 
 Alternatively you can use R interactively by starting an R session
 (just type =R= and return) and pasting the commands one by one into the
@@ -353,15 +396,18 @@ Fig. [[fig:histcontlength]] and [[fig:histcontcov]].
 
 You can also extract the number of contigs>500bp and the sum of bases
 in these contigs with R. Until now you have used R scripts with the =R
-CMD BATCH= command, like the freshly created script =Rplothistogram.r=
+CMD BATCH= command, just like the created script =Rplothistogram.r=
 above.
 
 Instead of running =R= scripts from the shell command line, you can
 also open an =R= command-line window where you can execute commands
 directly. To start =R=, just type =R= in the terminal and hit
 enter. All that comes after this command will be executed in the R
-console. Lines preceded with a =#=-sign will be ignored and serve only as
-non-executed comments.
+console. Lines preceded with a =#=-sign will be ignored and serve only
+as non-executed comments. You should be in the directory named
+=PROJECTNAME_assembly=
+
+Again, replace here PROJECTNAME with the name of your own project.
 
 #+begin_src R
 R
@@ -385,14 +431,14 @@ sum(contigs.above500)
 
 # leave R again
 q()
+n
 #+end_src
 
 
 
 MIRA does not only assemble your reads but it comes with a command
 line tool named =miraconvert=, which allows you to extract contigs
-based on, for example, contig length and coverage (see in the [[http://mira-assembler.sourceforge.net/docs/DefinitiveGuideToMIRA.pdf][MIRA
-documentation]] for further details and options).
+based on, for example, contig length and coverage (see in the [[http://mira-assembler.sourceforge.net/docs/DefinitiveGuideToMIRA.pdf][MIRA qdocumentation]] for further details and options).
 
 
 
@@ -403,6 +449,17 @@ Hint: to identify the proportion of contigs that are protein-coding
 and the proportion that may result from bacterial contamination, you
 can use the Basic Local Alignment Search Tool ([[http://blast.ncbi.nlm.nih.gov/Blast.cgi][BLAST]]) to align the
 contigs to databases with known genes and proteins.
+
+Proper annotation of a deNovo genomes is a challenging task. An
+overview of the process for eukaryotes is given in
+[[http://www.marcottelab.org/users/BIO337_2014/EukGeneAnnotation.pdf][Yandell, Mark, and Daniel Ence. "A beginner's guide to eukaryotic genome annotation." Nature Reviews Genetics 13.5 (2012): 329-342.]]
+If you work with prokaryotes, have a look at [[http://stothard.afns.ualberta.ca/public_html/papers/curr_opin_microbiol_bacterial_annotation.pdf][Stothard, Paul, and David S. Wishart. "Automated bacterial genome analysis and annotation." Current opinion in microbiology 9.5 (2006): 505-510.]]
+
+For protein annotation it helps also to sequence the
+transcriptome. The assembled contigs of the transcriptome will only
+consist of exons; all introns are cut out. Annotation of a deNovo
+transcriptome assembly is described in [[http://sfg.stanford.edu/BLAST.html][The Simple Fool's Guide to
+Population Genomics via RNA-Seq]]. Be aware that the annotation can take several weeks to finish.
 
 MIRA assembles the reads to so-called contigs, which are based on
 overlapping sequences. Contigs can be joined with mate-pair libraries

@@ -85,12 +85,22 @@
 
 
 
-Next Generation Sequencing (NGS) data often require big memory. You
-simply can't open and work with them in a Word processor or Excel
+Next Generation Sequencing (NGS) data sets are big and although the data is
+often text based you
+simply can't open and work with them in a word processor or Excel
 table - even the attempt to open a big fasta file in a text editor can
-freeze your computer. At first, you might feel uncomfortable with the
+freeze your computer. Rather more importantly, even if you could, you
+shouldn't as word processors are not the same as text editors. Word
+processors are concerned more with the formatting of text and will store a
+great deal of additional information in addition to the text that you
+see. This additional information is irrelevant to the data and will in the
+best case scenario make further analysis impossible. Similarly try to avoid
+spreadsheets of various kinds as these almost always will try to interpret
+and convert your data to something like dates or currencies or something similar.
+
+At first, you might feel uncomfortable with the
 command line but it is a very efficient and powerful tool. Moreover,
-many programs to analyze NGS data are based on the command line and to
+many programs to analyze NGS data can only be used from the command line and to
 run them, you need to know the basic syntax. This tutorial gets you
 familiar with some of the most basic command line tools and shows
 you how they allow you to transfer files and how to extract
@@ -129,9 +139,14 @@ ECDSA key fingerprint is 38:59:f7:22:e5:85:ec:c3:9c:90:7x:c3:e4:ae:88:18.
 Are you sure you want to continue connecting (yes/no)? 
 #+end_src
 
-Just type 'yes' and hit enter. You will be asked to enter your
+Just type 'yes' and hit enter[fn:1]. You will be asked to enter your
 password. You will not see the password when you enter it, so just
 type it blindly and hit enter.
+
+[fn:1] This is an oversimplification. In general you should not simply
+ignore warnings like this, but it's too much off topic for us to
+explain here. Note though, that you shouldn't see this warning more than once,
+and if you do, you might want to read up on 'man-in-the-middle attacks'.
 
 #+begin_src sh
 user@127.0.0.1's password:
@@ -144,10 +159,10 @@ Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
 #+end_src
 
 
-If you don't only want to use the command line on the remote host, but
-also want to use the Graphical User Interface to open figures,
+If you don't want to only use the command line on the remote host, but
+also want to use the Graphical User Interface (GUI) to open figures,
 GUI-based programs or web browsers, you should add the -X option to
-your command, like:
+your command:
 
 #+begin_src sh
 ssh -X user@host
@@ -160,6 +175,19 @@ on http://www.geo.mtu.edu/geoschem/docs/putty_install.html).
 To open applications with a graphical user interface remotely on a
 MAC, you need to install [[http://xquartz.macosforge.org/landing/][XQuartz]].
 
+There are also a range of other options that let you access Unix/Linux
+servers from Macs or Windows that will let you use the command line. However,
+these often require specific software to be installed on the server and you
+can't rely on this being the case. In general, life is just easier if you run
+Linux on your own computer; it is acceptable if you run MacOS and just painful
+if you're stuck on Windows[fn:2].
+
+[fn:2] This is part opinion and part fact. There are ways to use Windows to
+communicate with Unix machines that are not painful and in many ways the
+situation is improving. But the statement is nevertheless pretty much true
+and if you are going to spend some time doing informatics you might as well
+get rid of Windows as soon as you can.
+
 * Basic orientation in the command line 
 
 The command line appears as a window/terminal similar to
@@ -171,8 +199,12 @@ Fig. [[fig:terminal]]:
 [[file:Terminal.png]]
 
 The first line starts with your user name, followed by an =@= and then
-the name of the computer you are working on. The line ends with a
-=$= - after this sign you can enter your commands.
+the name of the computer you are working on[fn:3]. The line usually ends with a
+=$= or =>= - after this sign you can enter your commands.
+
+[fn:3] The beginning of the command line is referred to as the 'prompt' and
+like many things, it can be changed by
+changing an environment variable (in this case the =PS1= variable).
 
 The Unix cheat sheet (see at the end of this file) provides an
 overview of the core commands to navigate and operate in the Unix
@@ -181,24 +213,38 @@ variety of so-called arguments or flags. Most of the commands, for
 example, display help information if you use them with the =--help=
 flag.
 
-For example, if you type =ls --help=, you'll get an overview of the
+For example, if you type =ls --help= [fn:4], you'll get an overview of the
 common usage of the command =ls= and of the flags that can change the
 behaviour of this command.  The =--help= option doesn't provide much
 help for the =ssh= command. In such cases you can try the =man=
 command. It opens a manual page of the specified tool. For example,
 try =man ssh=. If you want to leave the manual page, just hit =q=.
+To search within the =man= program, simply type =/= followed by your search
+term and hit enter. For example if you want to find something about colour
+just type =/color= and hit enter[fn:5]. For more details try =man man=
 Before we will work on some sequencing data, let's have a look
 at the commands that allow you to change directories and how to get an
 overview of files that were saved in these directories.
 
+[fn:4] Complete the command by presseing the =Enter= key (also called the 
+return key and often denoted by down and left arrow).
 
+[fn:5] Note that in most cases American spelling is used; hence no u in a lot
+of words and lots of z's.
 
 ** Directory navigation
-Navigating through your directories is a big hurdle if you are new to
-the command line and are used to 'clicking' you way in and out of folders. To
+Navigating through your directories[fn:5] is a big hurdle if you are new to
+the command line and are used to 'clicking' your way in and out of folders. To
 understand how to move in and out of folders (directories on Unix/Linux) and to look at the
 content of folders is an essential step to analyse your data on
 the command line.
+
+
+[fn:5] Directories are what you might call folders. It's probably best to
+think of the file system as a hierarchical way of organising your files on the
+computer. Think of it as a tree with the branches representing directories
+and leaves files (although in a file system, leaves can also
+grow directly from the trunk or main branches).
 
 *** Conventional directory layout
 
@@ -225,12 +271,12 @@ The root (represented as =/=) is the top-most level of this hierarchy.
 When you connect to a Unix computer, you are automatically located in
 your user home directory (=/home/username/=) and this is the only one
 you have write access rights to in this course. Many of the programs and
-scripts that you will use in ths tutorial are located in the =/usr/=
+scripts that you will use in this tutorial are located in the =/usr/=
 directory, generally in =/usr/local/bin/=. 
 
-Applications that are located in =/usr/local/bin/= can be run by any
-user because this directory is automatically specified in the so-called
-=PATH= variable of every user. The =PATH= vairable is simply a
+Applications that are located in =/usr/local/bin/= can usually be run by any
+user by simply typing the name of the application since this directory is automatically specified in the so-called
+=PATH= variable of every user. The =PATH= variable is simply a
 variable that specifies the directories where executable programs are
 located. You will meet this =PATH= variable when you learn more about
 running programs.
@@ -315,7 +361,7 @@ or use quotation marks
 cd "/home/my directory"
 #+end_src
 
-*** What is saved in the current directory?
+*** What files are present in the current directory?
  Once you navigated with =cd= to your target directory and you want to
  look at the files and sub-directories that are located in it, you can
  use the command =ls= and hit enter. The tool =ls= comes with many
@@ -374,9 +420,9 @@ Here,
 
 *** Tip
 Besides the TAB-key, that allows for auto-completion of commands or
-filenames, the UP- and DOWN-arrow keys on your keyboard can safe you
+filenames, the UP- and DOWN-arrow keys on your keyboard can save you
 some time. These buttons allow you to navigate through the history of
-command that you have entered in the command line.  Try it out.
+commands that you have entered previously.  Try it out.
 
 *** Create, move and remove files and directories
 New directories can be created with
@@ -400,7 +446,10 @@ mv file1 ../file1
 #+end_src
 
 The first command renames file1 to file2. The second command moves
-file1 one folder up.
+file1 one folder up[fn:6].
+
+[fn:6] In unix, the =..= notation indicates the containing folder (i.e. one
+up in the hierarchy).
 
 If you don't want to move but copy a file, use the command =cp=.
 
@@ -588,7 +637,7 @@ fasta files at once, you can use
 #+begin_src sh
 rsync -avz --progress /home/user/directory/*fasta user@host://home/user/
 #+end_src  
-This means that any characters can precede the =fasta= file ending
+This means that any characters can precede the =fasta= file ending.
 
 
 
@@ -629,11 +678,13 @@ to start a version of the Postgresql database installed in
 You can also specify a path that is relative to your current location.
 If for example your current working directory is
 =~/Documents/testPrograms/= and you wish to run a locally installed
-version of gcc (gnu C compiler) found in =~/bin/=:
+version of gcc (gnu C compiler) found in =~/bin/=[fn:7]:
 
 #+begin_src sh
 ../../bin/gcc -o test main.c
 #+end_src
+
+[fn:7] The =~= (tilde) character is used as shorthand for your home directory.
 
 (Remembering that ../ takes you up one level in the directory
 structure). To do the same you could also make sure that the =$PATH=
@@ -647,13 +698,16 @@ echo $PATH
 
 
 To learn how to extend your own PATH variable have a look in the hidden
-.basrc or .bash_profile file in your home directory. It usually gives a
+.basrhc or .bash_profile file in your home directory. It usually gives a
 few examples. Failing that have a look at Google.
 
 Finally if you've written a small script or installed a program in your
 current working directory you can run that by typing =./scriptname=. There
 is nothing special about that, it is merely how you represent the
-relative path to your current working directory.
+relative path to your current working directory.[fn:8]
+
+[fn:8] Previously you learnt that =../= represents the containing directory
+(one level up); the =..= is simply shortcut for the current working directory. 
 
 * Retrieving basic information from common NGS files
  
@@ -667,10 +721,14 @@ The folder PracticeFiles contains the following files:
 - HTS.fastq, a file with sequences and associated base qualities
 - HTS.sam, an alignment file
 
-** Uncover the content of a file and search for patterns 
-The tool =less= can be used to display the content of text files one
+** Look at the content of a file and search for patterns 
+The tool =less=[fn:9] can be used to display the content of text files one
 line or page after the other. Since it doesn't read the entire content
 of a file at once, it is very useful for looking into large files.
+
+[fn:9] =less= is very similar to the more basic program =more=. It's name is
+a bit of a joke on 'less is more'. Habits die hard, and at least one of the
+authors of this document has =more= hardcoded into his fingers.
 
 Let's have a look at a fastq file with the command:
 
@@ -805,8 +863,15 @@ Here a recap on what the commands mean: =grep= is used to search for
 character. Instead of printing all these lines to the terminal, we
 re-direct it to the =wc= command with the pipe symbol =|=. Using the
 =-l= option, =wc= counts all the lines. Here, =wc= doesn't need an
-input file.
+input file as it reads from the output of =grep= [fn:10].
 
+[fn:10] When a program prints it's output to the terminal (i.e. the screen)
+it's normally printing to a stream referred to as =STDOUT= (standard
+out). When we use the pipe symbol (=|=) we can redirect this output to
+programs than can read from the =STDIN= stream. We can also use the =>= to
+redirect the output to files. Note that output printed to the =STDERR= stream
+will also be printed to the terminal, but will not be redirected using =|= or
+=>= (though you can use =2>= to redirect =STDERR=). 
 
 Your turn. What command would you use to count the number of sequences
 in a fastq file? 
@@ -869,7 +934,7 @@ cat HTS.fasta
 #+end_src
 
 With the =>= and =>>= operators, you can print the content of files
-not to the screen but to other files. This allows to rapidly combine
+not to the screen but to other files. This allows you to rapidly combine
 two files, even huge ones. For example, in the following command
 =HTS.fasta= and =HTS2.fasta= are combined to
 =COMBINED.fasta=.
@@ -889,6 +954,13 @@ operator (over) writes content to a specified file while the =>>=
 operator appends content to a specified file. If you use the =>>=
 operator, the specified file needs to exist already.
 
+Note that you can achieve the same by:
+
+#+begin_src sh
+cat HST.fasta HTS2.fasta > COMBINED.fasta
+#+end_src
+
+but we wanted to show you the difference between =>= and =>>=.
 
 
 ** Counting filtered reads in SAM files with 'awk'
@@ -1075,7 +1147,7 @@ structures requires an understanding of the reference. A reference is a
 value that points to another piece of data by providing the memory
 address of that data. For example, an array of hashes is encoded as an
 array of references to hashes. To obtain the value of data referred to
-by a reference it the reference must be dereferenced. Perl has
+by a reference the reference must be dereferenced. Perl has
 a number of different ways in which this can be done, but these will not
 be explained in depth here as it can get a bit messy. 
 
@@ -1094,7 +1166,7 @@ about what kind of data we used. For example consider the following:
 #+begin_src perl
 $var1 = "one";
 $var2 = 2;
-$var3 = $var1 + $var2;  ## !!??!!
+$var3 = $var1 + $var2;  
 #+end_src
 
 Here we have assigned the value of =$var1= to a piece of text (which we
@@ -1122,8 +1194,8 @@ potential problems (common to essentially all computer programming):
 
 - Numeric values can not be arbitrarily large. On my machine the
   maximum value Perl can handle is somewhere between 1e308 and
-  1e309. That's a pretty large number which you might not think that
-  you will ever need.  However, it is smaller than the factorial of
+  1e309. That's a pretty large number which you might think 
+  you will never need.  However, it is smaller than the factorial of
   171, and this is something you may run across in statistical
   equations.
 
@@ -1138,7 +1210,7 @@ potential problems (common to essentially all computer programming):
   MacOS it might be just a carriage return (to be honest I
   forget). This can cause trouble as text files are usually written
   and read line by line (i.e.  new lines indicate a new section of
-  data). The simplest way of avoid any trouble is simply never to use
+  data). The simplest way to avoid trouble is simply never to use
   Macs or Windows machines, but that can be difficult at times.
 
 - These days text encoding is rather complicated, as it has been
@@ -1269,7 +1341,12 @@ for( $i=0; $i < @ar; $i++){
   $sum += $ar[$i];
 }
 
-$mean = $sum  @ar;
+## this will set the value of $i to 0, carry out the operation in the block
+## following the for statement, then increment (increase) the value of
+## $i by 1 and repeat as long as $i is less than the scalar value of
+## @ar (which evaluates to the length of the array).
+
+$mean = $sum / @ar;
 ## when an array variable is used in an expression it can can evaluate to either the array itself
 ## or to a scalar value equal to its length. When it's not clear as to whether the scalar or array
 ## value is indicated, the scalar value can be enforced by the scalar function.
@@ -1310,7 +1387,7 @@ also be piped to other processes as demonstrated previously in this
 guide. To open a text file and read a line at a time:
 
 #+begin_src perl
-## we wish to read from a file specified by the varialbe $fname
+## we wish to read from a file specified by the variable $fname
 
 open(IN, $fname) || die "unable to open $fname $!\n";
 ## here IN becomes specified as the filehandle (This is one of the few cases
@@ -1381,7 +1458,7 @@ pattern given by the right operand. Some examples:
 ## plain strings.
 
 ## The regular expression is usually written as follows:
-## "some string to be tested" = m/ a regular expression /
+## "some string to be tested" =~ m/ a regular expression /
 ##
 ## the character immediately following the m delimits the regular expression. If you wish to
 ## include this character within the regular expression it will need to be escaped by placing
@@ -1497,7 +1574,7 @@ is not complete).
   the value after other operations, the latter before. Consider the
   difference between =$i=5; print $i++;= and =$i=5; print ++$i;=.
 
-- =–= The auto-decrement operator. Opposite of auto-increment.
+- =--= The auto-decrement operator. Opposite of auto-increment.
 
 - =+== The increment operator. Increases the value of its left operand
   by the value of its right operand.
@@ -1578,7 +1655,6 @@ if(@ARGV != 3)\{
 ## we could also use regular expressions to check if the arguments are of the correct type
 
 $seqId = "";
-$seq = "";
 
 ## open the fasta file and read line by line.
 open(IN, $ARGV[0]) || die "unable to open $ARGV[0] $!\n";
@@ -1591,7 +1667,7 @@ while(<IN>){
   }
   ## if we have defined a sequence identifer, we will just assume that the rest of the text contains sequence
   if(length($seqId)){
-    $seq{$seqId} .= $_;
+    $seq{$seqId} .= $_;   ## extends the length of, or initialises a hash entry
   }
 }
 

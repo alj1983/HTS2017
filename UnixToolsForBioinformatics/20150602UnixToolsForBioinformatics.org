@@ -26,17 +26,6 @@
 #+LATEX_HEADER:                                                {2.5cm}{2cm}% rechts, unten
 #+LATEX_HEADER:                                                {12pt}{30pt}% Kopf: Höhe, Abstand
 #+LATEX_HEADER:                                                {12pt}{30pt}% Fuß: Höhe, AB     
-                                                
-
-# #+LATEX_HEADER:\usepackage[babel,english=british]{csquotes}
-
-# #+LATEX_HEADER:% English quotes are used.                                       
-
-#+LATEX_HEADER: \usepackage{upquote}
-                                        
-# #+LATEX_HEADER:\usepackage[english]{babel}                                     
-
-                                
 
 #+LATEX_HEADER: %  use straight quotes when printing a command in minted
 
@@ -77,7 +66,7 @@
 (setq org-latex-to-pdf-process
            '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))	      
+             "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 	      
 #+end_src
 
@@ -651,7 +640,7 @@ This means that any characters can precede or follow the =Pop1=
 character in the file name.
 
 * Running programs (and the PATH variable)
-
+** From the shell
 When using the shell you normally run a program by simply typing the
 program name and any required arguments. But how does the shell know
 what program to run and where to find it? On a typical Unix / Linux
@@ -709,6 +698,179 @@ relative path to your current working directory.[fn:8]
 [fn:8] Previously you learnt that =../= represents the containing directory
 (one level up); the =..= is simply shortcut for the current working directory. 
 
+** From a shell script
+You may have noticed that the commands to run sequence analysis programs can
+be quite long and complex. This is because the program allows you to specify
+many different options directly when invoking the program rather than by
+interactively asking you through some sort of interface. This is convenient,
+as it allows you to do something else as soon as you have invoked the
+program. However, it can be difficult to remember the exact details of how to
+run something that you do not use every day. Fortunately you do not need to
+remember this yourself; there is a better way: instead of running the program
+from the command line you create a small text file that contains the commands
+that you wish to run, and then you ask the shell (i.e. the command line
+interface) to run the commands contained within your text file. Since your
+file can also contain comments this allows you to add explanations as to what
+the command does and why you chose to run it that way.
+
+For example we could just type the following into the terminal to map
+sequences in =seqData.fastq= to the genome provided in
+=~/apps/STAR/STAR/genomeDir/Zv10/unmasked/=
+using the STAR program:
+
+#+begin_src sh
+STAR --outFilterMultimapNmax 5 \
+--outFilterMismatchNoverLmax 0.05 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+--genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ --readFilesIn seqData.fastq \
+--runThreadN 6 --outSAMtype BAM SortedByCoordinate
+#+end_src
+
+But that is both difficult to remember and to type fully without making any
+mistakes. It is much easier to create a small text file, maybe called,
+=map_seq.sh= [fn:9] that contains the code with some comments to
+explain what does what:
+
+[fn:9] Shell scripts are normally named with a =.sh= extension; this makes it
+easy to identify them. However, Unix doesn't care, and you are free to name
+the scripts as you like.
+
+#+begin_src sh
+#!/bin/bash
+
+## this command will use STAR to map the sequences in seqData.fastq to
+## the unmasked version of the Zv10 (zebra fish) genome sequence
+
+STAR --outFilterMultimapNmax 5 \
+--outFilterMismatchNoverLmax 0.05 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+--genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ --readFilesIn seqData.fastq \
+--runThreadN 6 --outSAMtype BAM SortedByCoordinate
+
+## --outFilterMismatchNoverLmax : the maximum proprotion of mismatches
+## --outFilterIntronMotifs RemoveNoncanonicalUnannotated : don't report 
+##   weird splice positions
+#+end_src 
+
+You can now run this script in two different ways. Either first make it
+executable by changing its permissions: =chmod +x map_seq.sh= and then run it
+from the directory where it exists, =./map_seq.sh=. Alternatively you can
+invoke the bash shell on the script by typing =bash map_seq.sh= and hitting
+enter. In the latter case you do not need the first line of the script
+=#!/bin/bash=, but it is usually included for completeness. Note that comments
+in shell scripts are preceded by the =#= character. Anything that follows
+this on the same line is considered as a comment and will not be executed by
+the shell.
+
+Writing a script file to run a single command like this may not look like it
+helps you very much, but there are a number of advantages over simply writing
+the command directly:
+- You can spend some time to proof-read the command making sure you don't
+  have any stupid mistakes in it.
+- You have a record of how you ran the program. This is actually _very_
+  important.
+- You can look at this file next time you have something to map and remind
+  you of how you use the program.
+
+However, the real beauty of making a shell script is that the shell provides
+a simple programming environment and this means that you can automate the
+processing of large numbers of files. For example if I wish to run the above
+command in a set of sub-directories whose names all start with =RZY-3= I can
+use the following script:
+
+#+begin_src sh
+#!/bin/bash
+
+dirs=RZY-3*
+
+for d in $dirs
+do
+    echo "entering directory: $d"
+    echo 
+    cd $d
+    f=$d.fastq
+    echo "Processing: $f $(date +'%b %D %H:%M:%S')" 
+
+##    STAR --outSAMstrandField intronMotif --outFilterMultimapNmax 5 \
+##    we have directional libraries and should not use the 
+##    outSAMstrandField intronMotif function
+    STAR --outFilterMultimapNmax 5 \
+         --outFilterMismatchNoverLmax 0.05 \
+         --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+	 --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ \
+         --readFilesIn $f --runThreadN 6 \
+	 --outSAMtype BAM SortedByCoordinate
+
+    echo "      Done: $f $(date +'%b %D %H:%M:%S')" 
+    cd ..
+done
+#+end_src 
+
+Here we first use a wild card notation =dirs=RZY-3*= to create a list of
+directory names. We then use a loop (=for d in $dirs=) to go through each
+directory in turn. For each directory we first use =cd= to change our current
+working directory, then assign the the file name (=f=$d.fastq=, in this case
+the filenames all have the same prefix as the directory name, so we can
+simply concatenate the dirname and the =.fastq= suffix together) to the =$f=
+variable and then call the command to run the program. After =STAR= returns
+(i.e. it has finished running) we go back to the starting directory (=cd ..=)
+and go to the next one.
+
+When we define a variable we simply write the name of it without any
+decoration; (eg. =f=$d.fastq= to define the =$f= variable). However, when we
+use the variable we have to decorate it with the =$= sign.
+
+We use =echo= throughout the script to print
+information about the process of the script. This ouput, in addition to that
+printed by the STAR program can be redirected to a file (a log) so that we
+can leave the process to run and then come back and see if there were any
+errors encountered during the processing. To run the script, first =chmod= it
+to an executable, then:
+
+#+begin_src sh
+./map_seq.sh > map.log &
+#+end_src
+
+This will run the commands in the shell script and redirect =STDOUT= to the
+file map.log. The =&= at the end of the line returns control back to the
+terminal so that you can do other things rather than just waiting for the
+process to complete.
+If you are using a remote computer you should probably do :
+
+#+begin_src sh
+nohup ./map_seq.sh > map.log &
+#+end_src
+
+as that will now allow you to log off, and do whatever you like. As long the
+server doesn't crash (or an administrator stops your process) the process
+will complete without any input from you.
+
+If you wish to follow the process of the mapping, you can use the =tail=
+program to view the output of the shell script. If you invoke it with the
+=-f= option it will follow the file you specify, printing the new lines of it
+as it is written to:
+
+#+begin_src sh
+tail -f map.log
+#+end_src
+
+To stop following the file you will need to hit =Ctrl-C= (i.e. the control and
+C keys simultaneously).
+
+** Writing a shell script
+To write a shell script you will need to use some sort of editor. There are
+very many to chose from; for experienced Unix / Linux users the two most
+commonly used editors are probably =emacs= and =vi= (these days perhaps
+=vim=). These editors are very powerful tools for writing computer code, but
+can take a certain amount of time to learn. For this course we recommend you
+to try the =nano= editor. To edit or create a new file with =nano= simply
+type =nano filename= and start typing. Commands to save, exit, cut, paste,
+etc. are indicated at the bottom of the screen. =^= is shorthand for the
+=Ctrl= key.
+
+#+CAPTION: The Nano editor.
+#+ATTR_LatTeX: :width 12cm :float figure
+#+name: fig:nano
+file:nanoShell.png
+
 * Retrieving basic information from common NGS files
  
 Now that we know how the commandline works, how we can change
@@ -722,11 +884,11 @@ The folder PracticeFiles contains the following files:
 - HTS.sam, an alignment file
 
 ** Look at the content of a file and search for patterns 
-The tool =less=[fn:9] can be used to display the content of text files one
+The tool =less=[fn:10] can be used to display the content of text files one
 line or page after the other. Since it doesn't read the entire content
 of a file at once, it is very useful for looking into large files.
 
-[fn:9] =less= is very similar to the more basic program =more=. It's name is
+[fn:10] =less= is very similar to the more basic program =more=. It's name is
 a bit of a joke on 'less is more'. Habits die hard, and at least one of the
 authors of this document has =more= hardcoded into his fingers.
 
@@ -807,7 +969,6 @@ sed -n '234,236p'
 #+end_src
 
 
-
 ** Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'
 If you want to get a rapid overview of the number of lines in a file,
 the =wc= command is the right tool. In output-files where
@@ -863,9 +1024,9 @@ Here a recap on what the commands mean: =grep= is used to search for
 character. Instead of printing all these lines to the terminal, we
 re-direct it to the =wc= command with the pipe symbol =|=. Using the
 =-l= option, =wc= counts all the lines. Here, =wc= doesn't need an
-input file as it reads from the output of =grep= [fn:10].
+input file as it reads from the output of =grep= [fn:11].
 
-[fn:10] When a program prints it's output to the terminal (i.e. the screen)
+[fn:11] When a program prints it's output to the terminal (i.e. the screen)
 it's normally printing to a stream referred to as =STDOUT= (standard
 out). When we use the pipe symbol (=|=) we can redirect this output to
 programs than can read from the =STDIN= stream. We can also use the =>= to
@@ -962,7 +1123,6 @@ cat HST.fasta HTS2.fasta > COMBINED.fasta
 
 but we wanted to show you the difference between =>= and =>>=.
 
-
 ** Counting filtered reads in SAM files with 'awk'
 Later in the course we will encounter specific programs that can filter
 SAM and VCF files. Here, I want to show you that we can also use basic
@@ -999,10 +1159,7 @@ that row. =-F= just specifies the field separator, and
 =\t= sets it to the TAB character. Since we pipe (using =|=) the output of =grep= to
 =awk=, and then the ouput of =awk= to =wc= the lines are not printed to screen but directly
 counted with the =wc= command. Only the output of =wc= gets printed to the screen.
-
-
-* Bonus section on PERL
-
+* Bonus section PERL
 Perl is a useful programming language whose principles can be learnt
 within a short period of time allowing researchers not familiar with
 programming to quickly become able to automate a variety of processes.
@@ -1034,7 +1191,7 @@ style of coding to ones own. Perl can also be quite a dangerous language
 and it is often said that it gives the user more than enough rope to
 hang themselves with.
 
-*** Variables in Perl
+** Variables in Perl
 
 In order to handle information within a program we assign values to
 variables and then manipulate these according to the flow of the
@@ -1055,7 +1212,7 @@ program. Perl provides three different types of variables:
    =$hash{key}=. The key value can be anything that can be assigned to a
    scalar (numbers, text, and references).
 
-*** Assigning variables
+** Assigning variables
 
 The values of variables can be assigned directly in the program's source
 code, but are more frequently assigned through the command line
@@ -1158,7 +1315,7 @@ that single statements can be spread across several lines and that a
 single line can contain a number of statements. This can greatly aid the
 readability of the code.
 
-*** Data types
+** Data types
 
 In the above examples we assigned values to variables without caring
 about what kind of data we used. For example consider the following:
@@ -1236,7 +1393,7 @@ potential problems (common to essentially all computer programming):
   that you often see the following chromosome ordering:
   1,10,11,12,...,19,20,21,3,4,5,...,9,X,Y.
 
-*** Program flow: loops and conditionals
+** Program flow: loops and conditionals
 
 We use computer programs to automate repeated processes; that is to
 carry out the same or similar operations on a large number of data
@@ -1376,7 +1533,7 @@ while($i < @ar){
 These are not the only ways in which you can loop through values or data
 structures, but they probably represent the most common usages.
 
-*** Reading and writing data
+** Reading and writing data
 
 To read or write from a file we use a filehandle. This is just an
 identifier associated with the file and the reading or writing process.
@@ -1436,7 +1593,7 @@ for $i(1..10){
 close OUT;
 #+end_src
 
-*** Regular Expressions
+** Regular Expressions
 
 You have already come across regular expressions in this course; they
 are used by a number of Unix utilities like grep. The Perl
@@ -1556,7 +1713,7 @@ if( $line =~ /^>(\S+)/ ){
 There's a lot more to regular expressions than this, but this may be enough to get
 started with.
 
-*** Various operators
+** Various operators
 
 Operators are symbols that denote specific operations; like regular
 expression matching or regular mathematical operations. We have already
@@ -1623,7 +1780,7 @@ that some operators should be used with numerical values and others with strings
 can also result in the program silently doing something unexpected (which is the
 worst kind of behaviour as it can result in corrupt output).
 
-*** A somewhat useful example
+** A somewhat useful example
 
 As an example of something potentially useful we can write a short script
 that reads in sequences from a fasta file and identifies sequences that

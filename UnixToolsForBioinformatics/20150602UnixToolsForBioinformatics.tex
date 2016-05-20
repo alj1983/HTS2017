@@ -1,4 +1,4 @@
-% Created 2016-04-14 Thu 11:02
+% Created 2016-05-19 Thu 17:38
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -33,7 +33,6 @@ urlcolor={blue!80!black}
 {2.5cm}{2cm}% rechts, unten
 {12pt}{30pt}% Kopf: Höhe, Abstand
 {12pt}{30pt}% Fuß: Höhe, AB     
-\usepackage{upquote}
 %  use straight quotes when printing a command in minted
 \AtBeginDocument{%
 \def\PYZsq{\textquotesingle}%
@@ -68,13 +67,6 @@ urlcolor={blue!80!black}
 
 
 
-                                                
-
-
-
-                                        
-
-                                
 
 
 
@@ -154,7 +146,7 @@ ECDSA key fingerprint is 38:59:f7:22:e5:85:ec:c3:9c:90:7x:c3:e4:ae:88:18.
 Are you sure you want to continue connecting (yes/no)?
 \end{verbatim}
 
-Just type `yes' and hit enter\footnote{This is an oversimplificantion. In general you should not simply
+Just type `yes' and hit enter\footnote{This is an oversimplification. In general you should not simply
 ignore warnings like this, but it's too much off topic for us to
 explain here. Note though, that you shouldn't see this warning more than once,
 and if you do, you might want to read up on `man-in-the-middle attacks'.
@@ -175,10 +167,10 @@ Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
 \end{verbatim}
 
 
-If you don't only want to use the command line on the remote host, but
-also want to use the Graphical User Interface to open figures,
+If you don't want to only use the command line on the remote host, but
+also want to use the Graphical User Interface (GUI) to open figures,
 GUI-based programs or web browsers, you should add the -X option to
-your command, like:
+your command:
 
 
 \begin{verbatim}
@@ -196,7 +188,7 @@ There are also a range of other options that let you access Unix/Linux
 servers from Macs or Windows that will let you use the command line. However,
 these often require specific software to be installed on the server and you
 can't rely on this being the case. In general, life is just easier if you run
-Linux on your own computer; is acceptable if you run MacOS and just painful
+Linux on your own computer; it is acceptable if you run MacOS and just painful
 if you're stuck on Windows\footnote{This is part opinion and part fact. There are ways to use Windows to
 communicate with Unix machines that are not painful and in many ways the
 situation is improving. But the statement is nevertheless pretty much true
@@ -212,16 +204,16 @@ Fig. \hyperref[fig-terminal]{fig:terminal}:
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=14cm]{Terminal.png}
+\includegraphics[:width 14cm : figure]{Terminal.png}
 \caption{Command line window}
 \end{figure}
 
 The first line starts with your user name, followed by an \texttt{@} and then
 the name of the computer you are working on\footnote{The beginning of the command line is referred to as the `prompt' and
 like many things, it can be changed by
-changing an environment variable (in this case the variable known as PS1).
- }. The line ends with a
-\texttt{\$} - after this sign you can enter your commands.
+changing an environment variable (in this case the \texttt{PS1} variable).
+ }. The line usually ends with a
+\texttt{\$} or \texttt{>} - after this sign you can enter your commands.
 
 The Unix cheat sheet (see at the end of this file) provides an
 overview of the core commands to navigate and operate in the Unix
@@ -230,20 +222,30 @@ variety of so-called arguments or flags. Most of the commands, for
 example, display help information if you use them with the \texttt{-{}-help}
 flag.
 
-For example, if you type \texttt{ls -{}-help}, you'll get an overview of the
+For example, if you type \texttt{ls -{}-help} \footnote{Complete the command by presseing the \texttt{Enter} key (also called the 
+return key and often denoted by down and left arrow).
+ }, you'll get an overview of the
 common usage of the command \texttt{ls} and of the flags that can change the
 behaviour of this command.  The \texttt{-{}-help} option doesn't provide much
 help for the \texttt{ssh} command. In such cases you can try the \texttt{man}
 command. It opens a manual page of the specified tool. For example,
 try \texttt{man ssh}. If you want to leave the manual page, just hit \texttt{q}.
+To search within the \texttt{man} program, simply type \texttt{/} followed by your search
+term and hit enter. For example if you want to find something about colour
+just type \texttt{/color} and hit enter\footnote{Directories are what you might call folders. It's probably best to
+think of the file system as a hierarchical way of organising your files on the
+computer. Think of it as a tree with the branches representing directories
+and leaves files (although in a file system, leaves can also
+grow directly from the trunk or main branches).
+ }. For more details try \texttt{man man}
 Before we will work on some sequencing data, let's have a look
 at the commands that allow you to change directories and how to get an
 overview of files that were saved in these directories.
 \subsection{Directory navigation}
 \label{sec-2-1}
 
-Navigating through your directories is a big hurdle if you are new to
-the command line and are used to `clicking' you way in and out of folders. To
+Navigating through your directories\footnotemark[5] is a big hurdle if you are new to
+the command line and are used to `clicking' your way in and out of folders. To
 understand how to move in and out of folders (directories on Unix/Linux) and to look at the
 content of folders is an essential step to analyse your data on
 the command line.
@@ -265,7 +267,7 @@ Fig. \hyperref[fig-linuxfiletree]{fig:linuxfiletree})
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width= 12cm ]{linuxfiletree.jpg}
+\includegraphics[:width 12cm : figure]{linuxfiletree.jpg}
 \caption{Conventional file tree structure on a UNIX system from \href{http://linuxconfig.org/filesystem-basics}{linuxconfig.org}}
 \end{figure}
 
@@ -274,12 +276,12 @@ The root (represented as \texttt{/}) is the top-most level of this hierarchy.
 When you connect to a Unix computer, you are automatically located in
 your user home directory (\texttt{/home/username/}) and this is the only one
 you have write access rights to in this course. Many of the programs and
-scripts that you will use in ths tutorial are located in the \texttt{/usr/}
+scripts that you will use in this tutorial are located in the \texttt{/usr/}
 directory, generally in \texttt{/usr/local/bin/}. 
 
-Applications that are located in \texttt{/usr/local/bin/} can be run by any
-user because this directory is automatically specified in the so-called
-\texttt{PATH} variable of every user. The \texttt{PATH} vairable is simply a
+Applications that are located in \texttt{/usr/local/bin/} can usually be run by any
+user by simply typing the name of the application since this directory is automatically specified in the so-called
+\texttt{PATH} variable of every user. The \texttt{PATH} variable is simply a
 variable that specifies the directories where executable programs are
 located. You will meet this \texttt{PATH} variable when you learn more about
 running programs.
@@ -374,7 +376,7 @@ or use quotation marks
 \begin{verbatim}
 cd "/home/my directory"
 \end{verbatim}
-\subsubsection{What is saved in the current directory?}
+\subsubsection{What files are present in the current directory?}
 \label{sec-2-1-4}
 
  Once you navigated with \texttt{cd} to your target directory and you want to
@@ -449,9 +451,9 @@ Here,
 \label{sec-2-1-6}
 
 Besides the TAB-key, that allows for auto-completion of commands or
-filenames, the UP- and DOWN-arrow keys on your keyboard can safe you
+filenames, the UP- and DOWN-arrow keys on your keyboard can save you
 some time. These buttons allow you to navigate through the history of
-command that you have entered in the command line.  Try it out.
+commands that you have entered previously.  Try it out.
 \subsubsection{Create, move and remove files and directories}
 \label{sec-2-1-7}
 
@@ -479,7 +481,9 @@ mv file1 ../file1
 \end{verbatim}
 
 The first command renames file1 to file2. The second command moves
-file1 one folder up.
+file1 one folder up\footnote{In unix, the \texttt{..} notation indicates the containing folder (i.e. one
+up in the hierarchy).
+ }.
 
 If you don't want to move but copy a file, use the command \texttt{cp}.
 
@@ -687,7 +691,7 @@ fasta files at once, you can use
 \begin{verbatim}
 rsync -avz --progress /home/user/directory/*fasta user@host://home/user/
 \end{verbatim}
-This means that any characters can precede the \texttt{fasta} file ending
+This means that any characters can precede the \texttt{fasta} file ending.
 
 
 
@@ -702,7 +706,8 @@ This means that any characters can precede or follow the \texttt{Pop1}
 character in the file name.
 \section{Running programs (and the PATH variable)}
 \label{sec-3}
-
+\subsection{From the shell}
+\label{sec-3-1}
 
 When using the shell you normally run a program by simply typing the
 program name and any required arguments. But how does the shell know
@@ -731,7 +736,8 @@ to start a version of the Postgresql database installed in
 You can also specify a path that is relative to your current location.
 If for example your current working directory is
 \texttt{\textasciitilde{}/Documents/testPrograms/} and you wish to run a locally installed
-version of gcc (gnu C compiler) found in \texttt{\textasciitilde{}/bin/}:
+version of gcc (gnu C compiler) found in \texttt{\textasciitilde{}/bin/}\footnote{The \texttt{\textasciitilde{}} (tilde) character is used as shorthand for your home directory.
+ }:
 
 
 \begin{verbatim}
@@ -751,13 +757,194 @@ echo $PATH
 
 
 To learn how to extend your own PATH variable have a look in the hidden
-.basrc or .bash$_{\mathrm{profile}}$ file in your home directory. It usually gives a
+.basrhc or .bash$_{\mathrm{profile}}$ file in your home directory. It usually gives a
 few examples. Failing that have a look at Google.
 
 Finally if you've written a small script or installed a program in your
 current working directory you can run that by typing \texttt{./scriptname}. There
 is nothing special about that, it is merely how you represent the
-relative path to your current working directory.
+relative path to your current working directory.\footnote{Previously you learnt that \texttt{../} represents the containing directory
+(one level up); the \texttt{..} is simply shortcut for the current working directory.
+ }
+\subsection{From a shell script}
+\label{sec-3-2}
+
+You may have noticed that the commands to run sequence analysis programs can
+be quite long and complex. This is because the program allows you to specify
+many different options directly when invoking the program rather than by
+interactively asking you through some sort of interface. This is convenient,
+as it allows you to do something else as soon as you have invoked the
+program. However, it can be difficult to remember the exact details of how to
+run something that you do not use every day. Fortunately you do not need to
+remember this yourself; there is a better way: instead of running the program
+from the command line you create a small text file that contains the commands
+that you wish to run, and then you ask the shell (i.e. the command line
+interface) to run the commands contained within your text file. Since your
+file can also contain comments this allows you to add explanations as to what
+the command does and why you chose to run it that way.
+
+For example we could just type the following into the terminal to map
+sequences in \texttt{seqData.fastq} to the genome provided in
+\texttt{\textasciitilde{}/apps/STAR/STAR/genomeDir/Zv10/unmasked/}
+using the STAR program:
+
+
+\begin{verbatim}
+STAR --outFilterMultimapNmax 5 \
+--outFilterMismatchNoverLmax 0.05 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+--genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ --readFilesIn seqData.fastq \
+--runThreadN 6 --outSAMtype BAM SortedByCoordinate
+\end{verbatim}
+
+But that is both difficult to remember and to type fully without making any
+mistakes. It is much easier to create a small text file, maybe called,
+\texttt{map\_seq.sh} \footnote{Shell scripts are normally named with a \texttt{.sh} extension; this makes it
+easy to identify them. However, Unix doesn't care, and you are free to name
+the scripts as you like.
+ } that contains the code with some comments to
+explain what does what:
+
+
+\begin{verbatim}
+#!/bin/bash
+
+## this command will use STAR to map the sequences in seqData.fastq to
+## the unmasked version of the Zv10 (zebra fish) genome sequence
+
+STAR --outFilterMultimapNmax 5 \
+--outFilterMismatchNoverLmax 0.05 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+--genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ --readFilesIn seqData.fastq \
+--runThreadN 6 --outSAMtype BAM SortedByCoordinate
+
+## --outFilterMismatchNoverLmax : the maximum proprotion of mismatches
+## --outFilterIntronMotifs RemoveNoncanonicalUnannotated : don't report 
+##   weird splice positions
+\end{verbatim}
+
+You can now run this script in two different ways. Either first make it
+executable by changing its permissions: \texttt{chmod +x map\_seq.sh} and then run it
+from the directory where it exists, \texttt{./map\_seq.sh}. Alternatively you can
+invoke the bash shell on the script by typing \texttt{bash map\_seq.sh} and hitting
+enter. In the latter case you do not need the first line of the script
+\texttt{\#!/bin/bash}, but it is usually included for completeness. Note that comments
+in shell scripts are preceded by the \texttt{\#} character. Anything that follows
+this on the same line is considered as a comment and will not be executed by
+the shell.
+
+Writing a script file to run a single command like this may not look like it
+helps you very much, but there are a number of advantages over simply writing
+the command directly:
+\begin{itemize}
+\item You can spend some time to proof-read the command making sure you don't
+  have any stupid mistakes in it.
+\item You have a record of how you ran the program. This is actually \underline{very}
+  important.
+\item You can look at this file next time you have something to map and remind
+  you of how you use the program.
+\end{itemize}
+
+However, the real beauty of making a shell script is that the shell provides
+a simple programming environment and this means that you can automate the
+processing of large numbers of files. For example if I wish to run the above
+command in a set of sub-directories whose names all start with \texttt{RZY-3} I can
+use the following script:
+
+
+\begin{verbatim}
+#!/bin/bash
+
+dirs=RZY-3*
+
+for d in $dirs
+do
+    echo "entering directory: $d"
+    echo 
+    cd $d
+    f=$d.fastq
+    echo "Processing: $f $(date +'%b %D %H:%M:%S')" 
+
+##    STAR --outSAMstrandField intronMotif --outFilterMultimapNmax 5 \
+##    we have directional libraries and should not use the 
+##    outSAMstrandField intronMotif function
+    STAR --outFilterMultimapNmax 5 \
+         --outFilterMismatchNoverLmax 0.05 \
+         --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+         --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ \
+         --readFilesIn $f --runThreadN 6 \
+         --outSAMtype BAM SortedByCoordinate
+
+    echo "      Done: $f $(date +'%b %D %H:%M:%S')" 
+    cd ..
+done
+\end{verbatim}
+
+Here we first use a wild card notation \texttt{dirs=RZY-3*} to create a list of
+directory names. We then use a loop (\texttt{for d in \$dirs}) to go through each
+directory in turn. For each directory we first use \texttt{cd} to change our current
+working directory, then assign the the file name (\texttt{f=\$d.fastq}, in this case
+the filenames all have the same prefix as the directory name, so we can
+simply concatenate the dirname and the \texttt{.fastq} suffix together) to the \texttt{\$f}
+variable and then call the command to run the program. After \texttt{STAR} returns
+(i.e. it has finished running) we go back to the starting directory (\texttt{cd ..})
+and go to the next one.
+
+When we define a variable we simply write the name of it without any
+decoration; (eg. \texttt{f=\$d.fastq} to define the \texttt{\$f} variable). However, when we
+use the variable we have to decorate it with the \texttt{\$} sign.
+
+We use \texttt{echo} throughout the script to print
+information about the process of the script. This ouput, in addition to that
+printed by the STAR program can be redirected to a file (a log) so that we
+can leave the process to run and then come back and see if there were any
+errors encountered during the processing. To run the script, first \texttt{chmod} it
+to an executable, then:
+
+
+\begin{verbatim}
+./map_seq.sh > map.log &
+\end{verbatim}
+
+This will run the commands in the shell script and redirect \texttt{STDOUT} to the
+file map.log. The \texttt{\&} at the end of the line returns control back to the
+terminal so that you can do other things rather than just waiting for the
+process to complete.
+If you are using a remote computer you should probably do :
+
+
+\begin{verbatim}
+nohup ./map_seq.sh > map.log &
+\end{verbatim}
+
+as that will now allow you to log off, and do whatever you like. As long the
+server doesn't crash (or an administrator stops your process) the process
+will complete without any input from you.
+
+If you wish to follow the process of the mapping, you can use the \texttt{tail}
+program to view the output of the shell script. If you invoke it with the
+\texttt{-f} option it will follow the file you specify, printing the new lines of it
+as it is written to:
+
+
+\begin{verbatim}
+tail -f map.log
+\end{verbatim}
+
+To stop following the file you will need to hit \texttt{Ctrl-C} (i.e. the control and
+C keys simultaneously).
+\subsection{Writing a shell script}
+\label{sec-3-3}
+
+To write a shell script you will need to use some sort of editor. There are
+very many to chose from; for experienced Unix / Linux users the two most
+commonly used editors are probably \texttt{emacs} and \texttt{vi} (these days perhaps
+\texttt{vim}). These editors are very powerful tools for writing computer code, but
+can take a certain amount of time to learn. For this course we recommend you
+to try the \texttt{nano} editor. To edit or create a new file with \texttt{nano} simply
+type \texttt{nano filename} and start typing. Commands to save, exit, cut, paste,
+etc. are indicated at the bottom of the screen. \texttt{\textasciicircum{}} is shorthand for the
+\texttt{Ctrl} key.
+
+\includegraphics[width=.9\linewidth]{nanoShell.png}
 \section{Retrieving basic information from common NGS files}
 \label{sec-4}
 
@@ -773,10 +960,13 @@ The folder PracticeFiles contains the following files:
 \item HTS.fastq, a file with sequences and associated base qualities
 \item HTS.sam, an alignment file
 \end{itemize}
-\subsection{Uncover the content of a file and search for patterns}
+\subsection{Look at the content of a file and search for patterns}
 \label{sec-4-1}
 
-The tool \texttt{less} can be used to display the content of text files one
+The tool \texttt{less}\footnote{\texttt{less} is very similar to the more basic program \texttt{more}. It's name is
+a bit of a joke on `less is more'. Habits die hard, and at least one of the
+authors of this document has \texttt{more} hardcoded into his fingers.
+ } can be used to display the content of text files one
 line or page after the other. Since it doesn't read the entire content
 of a file at once, it is very useful for looking into large files.
 
@@ -924,8 +1114,14 @@ Here a recap on what the commands mean: \texttt{grep} is used to search for
 character. Instead of printing all these lines to the terminal, we
 re-direct it to the \texttt{wc} command with the pipe symbol \texttt{|}. Using the
 \texttt{-l} option, \texttt{wc} counts all the lines. Here, \texttt{wc} doesn't need an
-input file.
-
+input file as it reads from the output of \texttt{grep} \footnote{When a program prints it's output to the terminal (i.e. the screen)
+it's normally printing to a stream referred to as \texttt{STDOUT} (standard
+out). When we use the pipe symbol (\texttt{|}) we can redirect this output to
+programs than can read from the \texttt{STDIN} stream. We can also use the \texttt{>} to
+redirect the output to files. Note that output printed to the \texttt{STDERR} stream
+will also be printed to the terminal, but will not be redirected using \texttt{|} or
+\texttt{>} (though you can use \texttt{2>} to redirect \texttt{STDERR}).
+ }.
 
 Your turn. What command would you use to count the number of sequences
 in a fastq file? 
@@ -939,8 +1135,8 @@ that the quality encoding is Phred+33.
 
 \begin{figure}[htb]
 \centering
-\includegraphics[width=14cm]{Fastq.png}
-\caption{Quality score encodings}
+\includegraphics[:width 14cm : figure]{Fastq.png}
+\caption{The Nano editor. Quality score encodings}
 \end{figure}
 
 
@@ -992,7 +1188,7 @@ cat HTS.fasta
 \end{verbatim}
 
 With the \texttt{>} and \texttt{>>} operators, you can print the content of files
-not to the screen but to other files. This allows to rapidly combine
+not to the screen but to other files. This allows you to rapidly combine
 two files, even huge ones. For example, in the following command
 \texttt{HTS.fasta} and \texttt{HTS2.fasta} are combined to
 \texttt{COMBINED.fasta}.
@@ -1012,6 +1208,15 @@ the \texttt{>>} operator in the second line, the content of
 operator (over) writes content to a specified file while the \texttt{>>}
 operator appends content to a specified file. If you use the \texttt{>>}
 operator, the specified file needs to exist already.
+
+Note that you can achieve the same by:
+
+
+\begin{verbatim}
+cat HST.fasta HTS2.fasta > COMBINED.fasta
+\end{verbatim}
+
+but we wanted to show you the difference between \texttt{>} and \texttt{>>}.
 \subsection{Counting filtered reads in SAM files with `awk'}
 \label{sec-4-5}
 
@@ -1052,7 +1257,40 @@ that row. \texttt{-F} just specifies the field separator, and
 \texttt{\textbackslash{}t} sets it to the TAB character. Since we pipe (using \texttt{|}) the output of \texttt{grep} to
 \texttt{awk}, and then the ouput of \texttt{awk} to \texttt{wc} the lines are not printed to screen but directly
 counted with the \texttt{wc} command. Only the output of \texttt{wc} gets printed to the screen.
-\subsubsection{Variables in Perl}
+\section{Bonus section PERL}
+\label{sec-5}
+
+Perl is a useful programming language whose principles can be learnt
+within a short period of time allowing researchers not familiar with
+programming to quickly become able to automate a variety of processes.
+Although not an official acronym, Perl is often referred to as standing
+for, `Practical Extraction and Reporting Language'; and this is pretty much
+what Perl makes easy.
+
+Perl has been used extensively within the field of Bioinformatics (see
+Bioperl, \href{http://www.bioperl.org}{http://www.bioperl.org}) though recently it has been overshadowed to
+some extent by the use of R for statistical analyses of data. However,
+Perl remains widely used and several of the tools you will use in this
+course have been written in Perl. R is incredibly useful when you have
+regular data structures that can be expressed as arrays or matrices;
+however it is unsuitable for describing irregular types of data (eg.
+structures of genes, etc.) where it may be necessary to iterate through
+the elements of a data set. Compared to R, Perl is a much more general
+programming language that can be applied to a much wider set of
+problems.
+
+The motto of Perl is, `There is more than one way to do it'. And in Perl
+this is very true; the same logic can be expressed in a number of
+different ways and masters of Perl will sometimes delight in their
+ability to fit a very large amount of functionality into a small amount
+of code. This is kind of neat, but can lead to code that is difficult to
+understand and should not be encouraged for code that will
+actually be used. The flexibility of Perl also means that it can be
+difficult to read other people's code as they may use a very different
+style of coding to ones own. Perl can also be quite a dangerous language
+and it is often said that it gives the user more than enough rope to
+hang themselves with.
+\subsection{Variables in Perl}
 \label{sec-5-1}
 
 
@@ -1074,7 +1312,7 @@ program. Perl provides three different types of variables:
    \texttt{\$hash\{key\}}. The key value can be anything that can be assigned to a
    scalar (numbers, text, and references).
 \end{itemize}
-\subsubsection{Assigning variables}
+\subsection{Assigning variables}
 \label{sec-5-2}
 
 
@@ -1174,7 +1412,7 @@ structures requires an understanding of the reference. A reference is a
 value that points to another piece of data by providing the memory
 address of that data. For example, an array of hashes is encoded as an
 array of references to hashes. To obtain the value of data referred to
-by a reference it the reference must be dereferenced. Perl has
+by a reference the reference must be dereferenced. Perl has
 a number of different ways in which this can be done, but these will not
 be explained in depth here as it can get a bit messy. 
 
@@ -1184,7 +1422,7 @@ semicolon is used to denote the end of statements. This means
 that single statements can be spread across several lines and that a
 single line can contain a number of statements. This can greatly aid the
 readability of the code.
-\subsubsection{Data types}
+\subsection{Data types}
 \label{sec-5-3}
 
 
@@ -1195,7 +1433,7 @@ about what kind of data we used. For example consider the following:
 \begin{verbatim}
 $var1 = "one";
 $var2 = 2;
-$var3 = $var1 + $var2;  ## !!??!!
+$var3 = $var1 + $var2;
 \end{verbatim}
 
 Here we have assigned the value of \texttt{\$var1} to a piece of text (which we
@@ -1223,8 +1461,8 @@ potential problems (common to essentially all computer programming):
   not equal to (0.1/0.3).
 \item Numeric values can not be arbitrarily large. On my machine the
   maximum value Perl can handle is somewhere between 1e308 and
-  1e309. That's a pretty large number which you might not think that
-  you will ever need.  However, it is smaller than the factorial of
+  1e309. That's a pretty large number which you might think 
+  you will never need.  However, it is smaller than the factorial of
   171, and this is something you may run across in statistical
   equations.
 \item Mathematical operations can result in illegal numbers, eg. 1/0. If
@@ -1237,7 +1475,7 @@ potential problems (common to essentially all computer programming):
   MacOS it might be just a carriage return (to be honest I
   forget). This can cause trouble as text files are usually written
   and read line by line (i.e.  new lines indicate a new section of
-  data). The simplest way of avoid any trouble is simply never to use
+  data). The simplest way to avoid trouble is simply never to use
   Macs or Windows machines, but that can be difficult at times.
 \item These days text encoding is rather complicated, as it has been
   expanded to cater to a range of languages and character sets
@@ -1261,7 +1499,7 @@ potential problems (common to essentially all computer programming):
   that you often see the following chromosome ordering:
   1,10,11,12,\ldots{},19,20,21,3,4,5,\ldots{},9,X,Y.
 \end{itemize}
-\subsubsection{Program flow: loops and conditionals}
+\subsection{Program flow: loops and conditionals}
 \label{sec-5-4}
 
 
@@ -1372,7 +1610,12 @@ for( $i=0; $i < @ar; $i++){
   $sum += $ar[$i];
 }
 
-$mean = $sum  @ar;
+## this will set the value of $i to 0, carry out the operation in the block
+## following the for statement, then increment (increase) the value of
+## $i by 1 and repeat as long as $i is less than the scalar value of
+## @ar (which evaluates to the length of the array).
+
+$mean = $sum / @ar;
 ## when an array variable is used in an expression it can can evaluate to either the array itself
 ## or to a scalar value equal to its length. When it's not clear as to whether the scalar or array
 ## value is indicated, the scalar value can be enforced by the scalar function.
@@ -1401,7 +1644,7 @@ while($i < @ar){
 
 These are not the only ways in which you can loop through values or data
 structures, but they probably represent the most common usages.
-\subsubsection{Reading and writing data}
+\subsection{Reading and writing data}
 \label{sec-5-5}
 
 
@@ -1415,7 +1658,7 @@ guide. To open a text file and read a line at a time:
 
 
 \begin{verbatim}
-## we wish to read from a file specified by the varialbe $fname
+## we wish to read from a file specified by the variable $fname
 
 open(IN, $fname) || die "unable to open $fname $!\n";
 ## here IN becomes specified as the filehandle (This is one of the few cases
@@ -1464,7 +1707,7 @@ for $i(1..10){
 
 close OUT;
 \end{verbatim}
-\subsubsection{Regular Expressions}
+\subsection{Regular Expressions}
 \label{sec-5-6}
 
 
@@ -1489,7 +1732,7 @@ pattern given by the right operand. Some examples:
 ## plain strings.
 
 ## The regular expression is usually written as follows:
-## "some string to be tested" = m/ a regular expression /
+## "some string to be tested" =~ m/ a regular expression /
 ##
 ## the character immediately following the m delimits the regular expression. If you wish to
 ## include this character within the regular expression it will need to be escaped by placing
@@ -1581,7 +1824,7 @@ if( $line =~ /^>(\S+)/ ){
 
 There's a lot more to regular expressions than this, but this may be enough to get
 started with.
-\subsubsection{Various operators}
+\subsection{Various operators}
 \label{sec-5-7}
 
 
@@ -1599,7 +1842,7 @@ is not complete).
   post-increment \texttt{\$v++} and pre-increment \texttt{++\$v}. The former increments
   the value after other operations, the latter before. Consider the
   difference between \texttt{\$i=5; print \$i++;} and \texttt{\$i=5; print ++\$i;}.
-\item \texttt{–} The auto-decrement operator. Opposite of auto-increment.
+\item \texttt{-{}-} The auto-decrement operator. Opposite of auto-increment.
 \item \texttt{+=} The increment operator. Increases the value of its left operand
   by the value of its right operand.
 \item \texttt{-=} The decrement operator. Opposite of the increment operator.
@@ -1633,7 +1876,7 @@ that some operators should be used with numerical values and others with strings
 (pieces of text). Using the wrong data types will sometimes raise errors, but
 can also result in the program silently doing something unexpected (which is the
 worst kind of behaviour as it can result in corrupt output).
-\subsubsection{A somewhat useful example}
+\subsection{A somewhat useful example}
 \label{sec-5-8}
 
 
@@ -1668,7 +1911,6 @@ if(@ARGV != 3)\{
 ## we could also use regular expressions to check if the arguments are of the correct type
 
 $seqId = "";
-$seq = "";
 
 ## open the fasta file and read line by line.
 open(IN, $ARGV[0]) || die "unable to open $ARGV[0] $!\n";
@@ -1681,7 +1923,7 @@ while(<IN>){
   }
   ## if we have defined a sequence identifer, we will just assume that the rest of the text contains sequence
   if(length($seqId)){
-    $seq{$seqId} .= $_;
+    $seq{$seqId} .= $_;   ## extends the length of, or initialises a hash entry
   }
 }
 
@@ -1717,40 +1959,6 @@ you should look at after this introduction if you wish to start using
 Perl seriously.
 
 Good luck with Perl!
-\section{Bonus section on PERL}
-\label{sec-5}
-
-
-Perl is a useful programming language whose principles can be learnt
-within a short period of time allowing researchers not familiar with
-programming to quickly become able to automate a variety of processes.
-Although not an official acronym, Perl is often referred to as standing
-for, `Practical Extraction and Reporting Language'; and this is pretty much
-what Perl makes easy.
-
-Perl has been used extensively within the field of Bioinformatics (see
-Bioperl, \href{http://www.bioperl.org}{http://www.bioperl.org}) though recently it has been overshadowed to
-some extent by the use of R for statistical analyses of data. However,
-Perl remains widely used and several of the tools you will use in this
-course have been written in Perl. R is incredibly useful when you have
-regular data structures that can be expressed as arrays or matrices;
-however it is unsuitable for describing irregular types of data (eg.
-structures of genes, etc.) where it may be necessary to iterate through
-the elements of a data set. Compared to R, Perl is a much more general
-programming language that can be applied to a much wider set of
-problems.
-
-The motto of Perl is, `There is more than one way to do it'. And in Perl
-this is very true; the same logic can be expressed in a number of
-different ways and masters of Perl will sometimes delight in their
-ability to fit a very large amount of functionality into a small amount
-of code. This is kind of neat, but can lead to code that is difficult to
-understand and should not be encouraged for code that will
-actually be used. The flexibility of Perl also means that it can be
-difficult to read other people's code as they may use a very different
-style of coding to ones own. Perl can also be quite a dangerous language
-and it is often said that it gives the user more than enough rope to
-hang themselves with.
 \section{Recommended books}
 \label{sec-6}
 

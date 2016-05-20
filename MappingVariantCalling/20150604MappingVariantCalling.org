@@ -419,9 +419,3 @@ MAPPEDREADS_variants_filtered.vcf.gz
 Open IGV and load the indexed bam file and the indexed vcf file.
 
 # XX 3.5 Visualize the SNPs using IGV ? We did that in the UK course. 
- 
-
-
-
-
-

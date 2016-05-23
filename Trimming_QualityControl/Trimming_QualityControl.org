@@ -59,7 +59,7 @@
 #+TITLE: *Trimming and quality control* (June 2016)
 #+AUTHOR: Alexander Jueterbock, Martin Jakt
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
-#+EMAIL: University of Nordland, Norway
+#+EMAIL: Nord University, Norway
 #+OPTIONS: toc:t H:3 email:t author:t num:t creator:t ':nil
 
 
@@ -224,6 +224,22 @@ IonTorrentAAdapter	CCATCTCATCCCTGCGTGTCTCCGACTCAG
 IontTorrentP1Adapter	CCACTACGCCTCCGCTTTCCTCTCTATGGGCAGTCGGTGAT
 #+end_src
 
+You can create this file on the adapters.txt file on the remote computer with:
+
+#+begin_src sh
+touch adapters.txt
+#+end_src
+
+Open the text file with the program nano:
+
+#+begin_src sh
+nano adapters.txt
+#+end_src
+
+Then copy and paste the name-sequence combinations of the Ion Torrent
+adapters (see above) into the file and close the file by pressing
+Ctrl+O, then Ctrl+X on your keyboard.
+
 The output of the FastQC program will be saved in a folder that has
 the name of your fastq file and ends with fastqc, like
 =FILE_fastqc=. Use the =cd= command to move into the folder and open
@@ -236,14 +252,16 @@ firefox fastqc_report.html
 chromium-browser fastqc_report.html
 #+end_src
 
-You can also copy the output folder to your computer with [[https://filezilla-project.org/][FileZilla]].
+Scrolling through this html file on the remote computer will be quite
+slow. it may be more convenient to copy the output folder to your
+computer with [[https://filezilla-project.org/][FileZilla]] or 'rsync' (see in the 'Unix tools' session) .
 Get familiar with the output of each module.
 
 # Tor Erik informed me that they will use the IonPGM HiQ Ion Sphere
 # protocol, which targets a library size of 400bp + adapters.
 
 For example, it is normal that the the per base sequence quality drops
-towards the end of the read, as seen in Figure 2. In the next chapter
+towards the end of the read, as seen in Figure 2. In the next section
 we will see how to trim away these low-quality reads.
 
 #+CAPTION: Per base sequence quality (from [[http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/3%20Analysis%20Modules/2%20Per%20Base%20Sequence%20Quality.html][link]])
@@ -295,7 +313,7 @@ http://cutadapt.readthedocs.org/en/latest/guide.html)
 #+name: fig:adapters
 [[file:adapters.png]]
 
-** Trimmiing Ion-Torrent adapters
+** Trimming Ion-Torrent adapters
 
 The Ion-P1- and Ion-A-adapters are supposed to be automatically
 trimmed off on the Ion Server. So, the fastq files with the raw reads
@@ -388,6 +406,7 @@ The location of this sequence in the TruSeq adapter is shown here:
 TruSeq Universal Adapter:
 5' AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCT 3'
    Reverse                                      CGAGAAGGCTAGA 
+
 TruSeq Indexed Adapter
 5' P*GATCGGAAGAGCACACGTCTGAACTCCAGTCACNNNNNNATCTCGTATGCCGTCTTCTGCTTG 3'
     AGATCGGAAGAGC
@@ -405,14 +424,14 @@ The orientation of the adapters in the illumina library are shown in Fig. [[fig:
 TrimGalore! also performs trimming of paired-end libraries, as the
 Illumina libraries that were prepared in this course. This allows to
 discard too short read pairs without disturbing the sequence order of
-FastQ files, which is required by many a ligners.  With the option
+FastQ files, which is required by many aligners.  With the option
 =--paired= TrimGalore! expects two paired fastq input files, like
 =file1_1.fq= and =file1_2.fq=.  Here, both sequences of a sequence
 pair must have a certain minimum length (specified by the =--length=
-option in order to be kept. If only one of the two paired end reads
-became too short, tThe option =--retain_unpaired= can be applied to
-write the unpaired read that is long enough to eithe =unpaired_1.fq=
-or =unpaired_2.fq= The length cutoff for unpaired si ngle end reads is
+option) in order to be kept. If only one of the two paired end reads
+becomes too short, the option =--retain_unpaired= can be applied to
+write the long-enough unpaired read to either =unpaired_1.fq= or
+=unpaired_2.fq=. The length cutoff for unpaired single end reads is
 governed by the parameters =--length_1= and =--length_2=
 
 To trim our illumina paired-end libraries we can use:
@@ -423,8 +442,8 @@ trim_galore \
 --stringency 3 \
 --paired \
 --retain_unpaired \
---length_1 20 \
---length_2 20 \
+--length_1 21 \
+--length_2 21 \
 --fastqc \
 Illumina_R1.fastq \
 Illumina_R2.fastq 
@@ -443,9 +462,6 @@ quality-trimmed libraries. What did improve? Are there still any
 problems with your libraries after trimming?
 
 
-#+begin_latex
-\clearpage
-#+end_latex
 
 * COMMENT Fraction of duplicate reads
 

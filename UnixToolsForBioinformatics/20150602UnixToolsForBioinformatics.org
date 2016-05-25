@@ -41,10 +41,10 @@
 #+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 
 
-#+TITLE: *Unix Tools for Bioinformatics* (2015-06-02)
-#+AUTHOR: Alexander Jueterbock, Martin Jakt
+#+TITLE: *Unix Tools for Bioinformatics* (June 2016)
+#+AUTHOR: Martin Jakt, Alexander Jueterbock
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
-#+EMAIL: University of Nordland, Norway
+#+EMAIL: Nordland University, Norway
 
 #+OPTIONS: toc:t H:3 email:t author:t num:t creator:nil ':nil
 
@@ -134,8 +134,10 @@ type it blindly and hit enter.
 
 [fn:1] This is an oversimplification. In general you should not simply
 ignore warnings like this, but it's too much off topic for us to
-explain here. Note though, that you shouldn't see this warning more than once,
-and if you do, you might want to read up on 'man-in-the-middle attacks'.
+explain here. Note though, that you shouldn't see this warning more
+than once, and if you do, you might want to read up on
+'man-in-the-middle attacks'.
+
 
 #+begin_src sh
 user@127.0.0.1's password:
@@ -437,14 +439,16 @@ mv file1 ../file1
 The first command renames file1 to file2. The second command moves
 file1 one folder up[fn:6].
 
-[fn:6] In unix, the =..= notation indicates the containing folder (i.e. one
-up in the hierarchy).
+[fn:6] In unix, the =..= notation indicates the containing folder
+(i.e. one up in the hierarchy).
+
 
 If you don't want to move but copy a file, use the command =cp=.
 
 #+begin_src sh
 cp file1 file2
 #+end_src
+
 Instead of renaming file1 to file2, as the =mv= command does, the =cp=
 command keeps file1 and creates a new file2 with the same content.
 
@@ -673,7 +677,9 @@ version of gcc (gnu C compiler) found in =~/bin/=[fn:7]:
 ../../bin/gcc -o test main.c
 #+end_src
 
-[fn:7] The =~= (tilde) character is used as shorthand for your home directory.
+[fn:7] The =~= (tilde) character is used as shorthand for your home
+directory.
+
 
 (Remembering that ../ takes you up one level in the directory
 structure). To do the same you could also make sure that the =$PATH=
@@ -725,16 +731,18 @@ STAR --outFilterMultimapNmax 5 \
 --runThreadN 6 --outSAMtype BAM SortedByCoordinate
 #+end_src
 
-But that is both difficult to remember and to type fully without making any
-mistakes. It is much easier to create a small text file, maybe called,
-=map_seq.sh= [fn:9] that contains the code with some comments to
-explain what does what:
+But that is both difficult to remember and to type fully without
+making any mistakes. It is much easier to create a small text file,
+maybe called, =map_seq.sh= [fn:9] that contains the code with some
+comments to explain what does what:
 
-[fn:9] Shell scripts are normally named with a =.sh= extension; this makes it
-easy to identify them. However, Unix doesn't care, and you are free to name
-the scripts as you like.
+[fn:9] Shell scripts are normally named with a =.sh= extension; this
+makes it easy to identify them. However, Unix doesn't care, and you
+are free to name the scripts as you like.
+
 
 #+begin_src sh
+
 #!/bin/bash
 
 ## this command will use STAR to map the sequences in seqData.fastq to
@@ -843,17 +851,17 @@ as that will now allow you to log off, and do whatever you like. As long the
 server doesn't crash (or an administrator stops your process) the process
 will complete without any input from you.
 
-If you wish to follow the process of the mapping, you can use the =tail=
-program to view the output of the shell script. If you invoke it with the
-=-f= option it will follow the file you specify, printing the new lines of it
-as it is written to:
+If you wish to follow the process of the mapping, you can use the
+=tail= program to view the output of the shell script. If you invoke
+it with the =-f= option it will follow the file you specify, printing
+the new lines of it as it is written to:
 
 #+begin_src sh
 tail -f map.log
 #+end_src
 
-To stop following the file you will need to hit =Ctrl-C= (i.e. the control and
-C keys simultaneously).
+To stop following the file you will need to hit =Ctrl-C= (i.e. the
+control and C keys simultaneously).
 
 ** Writing a shell script
 To write a shell script you will need to use some sort of editor. There are
@@ -884,13 +892,16 @@ The folder PracticeFiles contains the following files:
 - HTS.sam, an alignment file
 
 ** Look at the content of a file and search for patterns 
-The tool =less=[fn:10] can be used to display the content of text files one
-line or page after the other. Since it doesn't read the entire content
-of a file at once, it is very useful for looking into large files.
+The tool =less=[fn:10] can be used to display the content of text
+files one line or page after the other. Since it doesn't read the
+entire content of a file at once, it is very useful for looking into
+large files.
 
-[fn:10] =less= is very similar to the more basic program =more=. It's name is
-a bit of a joke on 'less is more'. Habits die hard, and at least one of the
-authors of this document has =more= hardcoded into his fingers.
+[fn:10] =less= is very similar to the more basic program =more=. It's
+name is a bit of a joke on 'less is more'. Habits die hard, and at
+least one of the authors of this document has =more= hardcoded into
+his fingers.
+
 
 Let's have a look at a fastq file with the command:
 
@@ -1026,16 +1037,18 @@ re-direct it to the =wc= command with the pipe symbol =|=. Using the
 =-l= option, =wc= counts all the lines. Here, =wc= doesn't need an
 input file as it reads from the output of =grep= [fn:11].
 
-[fn:11] When a program prints it's output to the terminal (i.e. the screen)
-it's normally printing to a stream referred to as =STDOUT= (standard
-out). When we use the pipe symbol (=|=) we can redirect this output to
-programs than can read from the =STDIN= stream. We can also use the =>= to
-redirect the output to files. Note that output printed to the =STDERR= stream
-will also be printed to the terminal, but will not be redirected using =|= or
-=>= (though you can use =2>= to redirect =STDERR=). 
+[fn:11] When a program prints it's output to the terminal (i.e. the
+screen) it's normally printing to a stream referred to as =STDOUT=
+(standard out). When we use the pipe symbol (=|=) we can redirect this
+output to programs than can read from the =STDIN= stream. We can also
+use the =>= to redirect the output to files. Note that output printed
+to the =STDERR= stream will also be printed to the terminal, but will
+not be redirected using =|= or =>= (though you can use =2>= to
+redirect =STDERR=).
+
 
 Your turn. What command would you use to count the number of sequences
-in a fastq file? 
+in a fastq file?
 # Search for the instrument name that follows the @ sign and then pipe it to |
 # Or count all lines and divide them by 4 wc -l ES24_sub.fq | awk '{print $1/4}'; 
 

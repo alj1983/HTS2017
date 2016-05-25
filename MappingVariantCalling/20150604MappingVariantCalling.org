@@ -59,10 +59,10 @@
 #+LATEX_HEADER: \newminted{common-lisp}{fontsize=\footnotesize}
 
 
-#+TITLE: *Mapping and Variant Calling* (2015-06-04)
-#+AUTHOR: Alexander Jueterbock, Martin Jakt
+#+TITLE: *Mapping and Variant Calling* (June 2016)
+#+AUTHOR: Martin Jakt, Alexander Jueterbock
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
-#+EMAIL: University of Nordland, Norway
+#+EMAIL: Nord University, Norway
 
 #+OPTIONS: toc:t H:3 email:t author:t num:t creator:t
 
@@ -127,7 +127,7 @@ What you need for mapping are two sequence files, one containing the
 quality-trimmed reads (fastq format) and the other containing the draft genome
 (in the fasta format).
 
-Create a new folder named =Mapping=[fn:folder_name] (with =mkdir=) and copy the two
+Create a new folder named =Mapping= (with =mkdir=) and copy the two
 sequence files into it (with =cp=). For example for the assembly made using
 IonTorrent data:
 
@@ -153,16 +153,19 @@ because it wastes disk space[fn:cow] and (more seriously) it makes it
 easy to end up with files with the same names, but with slightly different
 content[fn:vcs].
 
-[fn:cow] In some modern file systems that make use of Copy-On-Write, there
-won't actually be any copying of the data unless one of the files is modified.
+[fn:cow] In some modern file systems that make use of Copy-On-Write,
+there won't actually be any copying of the data unless one of the
+files is modified.
 
-[fn:vcs] How to handle lots of files created by various versions of data
-flows or pipelines is not a simple problem and there are many systems that
-have been developed to address such problems. This comes under the general
-heading of version control systems, and is outside the scope of this
-course. In general though, it is wise to follow rule number one of database design:
-'never store a piece of information in more than one location'. I.e. don't
-copy stuff around like we are doing here.
+[fn:vcs] How to handle lots of files created by various versions of
+data flows or pipelines is not a simple problem and there are many
+systems that have been developed to address such problems. This comes
+under the general heading of version control systems, and is outside
+the scope of this course. In general though, it is wise to follow rule
+number one of database design: 'never store a piece of information in
+more than one location'. I.e. don't copy stuff around like we are
+doing here.
+
 
 In the Mapping folder, we first create an index for the reference genome using the
 following command (enter the folder using =cd= before calling this command) :
@@ -221,7 +224,7 @@ applications without relying on others. If you do this, you'll see something
 like this:
 
 #+begin_src sh
-lmj@tej-X8DTG-QF:~$ bowtie2 --help
+bowtie2 --help
 Bowtie 2 version 2.1.0 by Ben Langmead (langmea@cs.jhu.edu, www.cs.jhu.edu/~langmea)
 Usage: 
   bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
@@ -245,7 +248,9 @@ Options (defaults in parentheses):
   -q                 query input files are FASTQ .fq/.fastq (default)
   --qseq             query input files are in Illumina's qseq format
 .... more options
+
 #+end_src
+
 
 Let us consider the top lines first. This is the basic usage information
 that tells you the arguments you need to specify and their order.
@@ -300,21 +305,24 @@ consider the values of =-I= and =-X= and whether the default options are
 reasonable for your libraries.
 
 ** Running the commands in a script for posterity
-As was emphasised in the section on Unix tools for bioinformatics, you really
-shouldn't type these commands directly into a terminal window. It's too easy
-to make a mistake when you have to specify many options, and you will not
-have a record of the command that you actually used. Instead we will write
-the commands into a text file and ask the shell (in this case
-bash[fn:shells]) to run the commands non-interactively. In the simplest case
-you just make one file for each command, and run these seperately. However,
-it is much better to embed the full process into a single script as all the
-information will be in a single place. Here what we have done is:
+As was emphasised in the section on Unix tools for bioinformatics, you
+really shouldn't type these commands directly into a terminal
+window. It's too easy to make a mistake when you have to specify many
+options, and you will not have a record of the command that you
+actually used. Instead we will write the commands into a text file and
+ask the shell (in this case bash[fn:shells]) to run the commands
+non-interactively. In the simplest case you just make one file for
+each command, and run these seperately. However, it is much better to
+embed the full process into a single script as all the information
+will be in a single place. 
 
-[fn:shells] bash stands for Bourne Again Shell, and is a bit of a joke on the
-fact that Bash is an extension or enhancement of the Bourne shell. These days
-it's probably the most common shell used, but as always there are people who
-consider it an abomination.
+[fn:shells] bash stands for Bourne Again Shell, and is a bit of a joke
+on the fact that Bash is an extension or enhancement of the Bourne
+shell. These days it's probably the most common shell used, but as
+always there are people who consider it an abomination.
 
+
+Here what we have done is:
 - made a directory for our mapping (=mkdir=)
 - copied the data files to that directory (=cp=)
 - entered the directory (=cd=)

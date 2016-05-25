@@ -1,4 +1,4 @@
-% Created 2016-05-19 Thu 17:38
+% Created 2016-05-25 on. 17:05
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -7,16 +7,23 @@
 \usepackage{longtable}
 \usepackage{float}
 \usepackage{wrapfig}
-\usepackage{soul}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
 \usepackage{textcomp}
 \usepackage{marvosym}
 \usepackage{wasysym}
-\usepackage{latexsym}
 \usepackage{amssymb}
+\usepackage{capt-of}
 \usepackage{hyperref}
 \tolerance=1000
+\usepackage{minted}
+\usepackage{tikz}
+\usepackage{parskip}
+\usepackage{color}
+\usepackage{listings}
 \usepackage{grffile}
-\usepackage[inline]{enumitem} 
+\usepackage[inline]{enumitem}
 \usepackage{xcolor}
 \hypersetup{
 colorlinks,
@@ -26,60 +33,32 @@ urlcolor={blue!80!black}
 }
 \usepackage{setspace}%% The linestretch
 \singlespacing
-\usepackage[format=hang,indention=0cm,singlelinecheck=true,justification=raggedright,labelfont={normalsize,bf},textfont={normalsize}]{caption} % 
+\usepackage[format=hang,indention=0cm,singlelinecheck=true,justification=raggedright,labelfont={normalsize,bf},textfont={normalsize}]{caption} %
 \usepackage{vmargin}
 \setpapersize{A4}
 \setmarginsrb{2.5cm}{1cm}% links, oben
 {2.5cm}{2cm}% rechts, unten
 {12pt}{30pt}% Kopf: Höhe, Abstand
-{12pt}{30pt}% Fuß: Höhe, AB     
+{12pt}{30pt}% Fuß: Höhe, AB
 %  use straight quotes when printing a command in minted
 \AtBeginDocument{%
 \def\PYZsq{\textquotesingle}%
-}     
-\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}   
+}
+\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
 \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
-\providecommand{\alert}[1]{\textbf{#1}}
-
-\title{\textbf{Unix Tools for Bioinformatics} (2015-06-02)}
-\author{Alexander Jueterbock, Martin Jakt\thanks{University of Nordland, Norway}}
-\date{*PhD course: High throughput sequencing of non-model organisms*}
+\author{Martin Jakt, Alexander Jueterbock\thanks{Nordland University, Norway}}
+\date{\textbf{PhD course: High throughput sequencing of non-model organisms}}
+\title{\textbf{Unix Tools for Bioinformatics} (June 2016)}
 \hypersetup{
-  pdfkeywords={},
+ pdfkeywords={},
   pdfsubject={},
-  pdfcreator={Emacs Org-mode version 7.9.3f}}
-
+  pdfcreator={}}
 \begin{document}
 
 \maketitle
-
-\setcounter{tocdepth}{3}
 \tableofcontents
-\vspace*{1cm}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -110,7 +89,6 @@ institution or on your private computer.
 
 \section{Remote connection}
 \label{sec-1}
-
 To connect remotely to one of our computers, you will get:
 
 \begin{itemize}
@@ -119,17 +97,16 @@ To connect remotely to one of our computers, you will get:
 \item An IP address (e.g. 127.0.0.1)
 \end{itemize}
 
-On `Mac' and `Linux' computers, the \texttt{ssh} (\emph{Secure Shell}) tool is
+On 'Mac' and 'Linux' computers, the \texttt{ssh} (\emph{Secure Shell}) tool is
 generally installed by default. To connect to a remote server, thus,
 just open the command line/terminal and type:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 ssh user@host
-\end{verbatim}
+\end{minted}
 
 
-Replace `user' and the IP address `host' with your own
+Replace 'user' and the IP address 'host' with your own
 username and the IP address of one of our remote computers.
 \begin{itemize}
 \item Computer 1: 158.39.60.180
@@ -139,32 +116,29 @@ username and the IP address of one of our remote computers.
 If this is the first time you want to access the remote server, you
 will likely get the following warning
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 The authenticity of host '127.0.0.1 (127.0.0.1)' can't be established.
 ECDSA key fingerprint is 38:59:f7:22:e5:85:ec:c3:9c:90:7x:c3:e4:ae:88:18.
 Are you sure you want to continue connecting (yes/no)?
-\end{verbatim}
+\end{minted}
 
-Just type `yes' and hit enter\footnote{This is an oversimplification. In general you should not simply
+Just type 'yes' and hit enter\footnote{This is an oversimplification. In general you should not simply
 ignore warnings like this, but it's too much off topic for us to
-explain here. Note though, that you shouldn't see this warning more than once,
-and if you do, you might want to read up on `man-in-the-middle attacks'.
- }. You will be asked to enter your
+explain here. Note though, that you shouldn't see this warning more
+than once, and if you do, you might want to read up on
+'man-in-the-middle attacks'.}. You will be asked to enter your
 password. You will not see the password when you enter it, so just
 type it blindly and hit enter.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 user@127.0.0.1's password:
-\end{verbatim}
+\end{minted}
 
 When you connected successfully, you will see a \emph{welcome-text} similar to:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
-\end{verbatim}
+\end{minted}
 
 
 If you don't want to only use the command line on the remote host, but
@@ -172,14 +146,13 @@ also want to use the Graphical User Interface (GUI) to open figures,
 GUI-based programs or web browsers, you should add the -X option to
 your command:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 ssh -X user@host
-\end{verbatim}
+\end{minted}
 
 If you use PUTTY on Windows you need to install Xming
-(\href{http://www.straightrunning.com/XmingNotes/}{http://www.straightrunning.com/XmingNotes/}) and follow the guidelines
-on \href{http://www.geo.mtu.edu/geoschem/docs/putty_install.html}{http://www.geo.mtu.edu/geoschem/docs/putty\_install.html}).
+(\url{http://www.straightrunning.com/XmingNotes/}) and follow the guidelines
+on \url{http://www.geo.mtu.edu/geoschem/docs/putty_install.html}).
 
 To open applications with a graphical user interface remotely on a
 MAC, you need to install \href{http://xquartz.macosforge.org/landing/}{XQuartz}.
@@ -193,27 +166,24 @@ if you're stuck on Windows\footnote{This is part opinion and part fact. There ar
 communicate with Unix machines that are not painful and in many ways the
 situation is improving. But the statement is nevertheless pretty much true
 and if you are going to spend some time doing informatics you might as well
-get rid of Windows as soon as you can.
- }.
+get rid of Windows as soon as you can.}.
+
 \section{Basic orientation in the command line}
 \label{sec-2}
 
-
 The command line appears as a window/terminal similar to
-Fig. \hyperref[fig-terminal]{fig:terminal}:
+Fig. \ref{fig:terminal}:
 
 \begin{figure}[htb]
 \centering
-\includegraphics[:width 14cm : figure]{Terminal.png}
-\caption{Command line window}
+\includegraphics[width=14cm]{Terminal.png}
+\caption{\label{fig:terminal}Command line window}
 \end{figure}
 
 The first line starts with your user name, followed by an \texttt{@} and then
-the name of the computer you are working on\footnote{The beginning of the command line is referred to as the `prompt' and
+the name of the computer you are working on\footnote{The beginning of the command line is referred to as the 'prompt' and
 like many things, it can be changed by
 changing an environment variable (in this case the \texttt{PS1} variable).
- }. The line usually ends with a
-\texttt{\$} or \texttt{>} - after this sign you can enter your commands.
 
 The Unix cheat sheet (see at the end of this file) provides an
 overview of the core commands to navigate and operate in the Unix
@@ -222,9 +192,7 @@ variety of so-called arguments or flags. Most of the commands, for
 example, display help information if you use them with the \texttt{-{}-help}
 flag.
 
-For example, if you type \texttt{ls -{}-help} \footnote{Complete the command by presseing the \texttt{Enter} key (also called the 
-return key and often denoted by down and left arrow).
- }, you'll get an overview of the
+For example, if you type \texttt{ls -{}-help} \footnotemark, you'll get an overview of the
 common usage of the command \texttt{ls} and of the flags that can change the
 behaviour of this command.  The \texttt{-{}-help} option doesn't provide much
 help for the \texttt{ssh} command. In such cases you can try the \texttt{man}
@@ -232,26 +200,27 @@ command. It opens a manual page of the specified tool. For example,
 try \texttt{man ssh}. If you want to leave the manual page, just hit \texttt{q}.
 To search within the \texttt{man} program, simply type \texttt{/} followed by your search
 term and hit enter. For example if you want to find something about colour
-just type \texttt{/color} and hit enter\footnote{Directories are what you might call folders. It's probably best to
+just type \texttt{/color} and hit enter\footnotemark. For more details try \texttt{man man}
+Before we will work on some sequencing data, let's have a look
+at the commands that allow you to change directories and how to get an
+overview of files that were saved in these directories.}\footnotetext[4]{Complete the command by presseing the \texttt{Enter} key (also called the 
+return key and often denoted by down and left arrow).}\footnotetext[5]{Directories are what you might call folders. It's probably best to
 think of the file system as a hierarchical way of organising your files on the
 computer. Think of it as a tree with the branches representing directories
 and leaves files (although in a file system, leaves can also
-grow directly from the trunk or main branches).
- }. For more details try \texttt{man man}
-Before we will work on some sequencing data, let's have a look
-at the commands that allow you to change directories and how to get an
-overview of files that were saved in these directories.
+grow directly from the trunk or main branches).}. The line usually ends with a
+\texttt{\$} or \texttt{>} - after this sign you can enter your commands.
+
 \subsection{Directory navigation}
 \label{sec-2-1}
-
-Navigating through your directories\footnotemark[5] is a big hurdle if you are new to
-the command line and are used to `clicking' your way in and out of folders. To
+Navigating through your directories\footnotemark[5]{} is a big hurdle if you are new to
+the command line and are used to 'clicking' your way in and out of folders. To
 understand how to move in and out of folders (directories on Unix/Linux) and to look at the
 content of folders is an essential step to analyse your data on
 the command line.
+
 \subsubsection{Conventional directory layout}
 \label{sec-2-1-1}
-
 
 
 \begin{quote}
@@ -262,13 +231,13 @@ This is a simplification but it is mostly true. A directory on a Unix
 system is just a file that contains names of other files. Also
 programs, images and documents are all files. These files are
 hierarchically ordered in a conventional tree-like structure (see
-Fig. \hyperref[fig-linuxfiletree]{fig:linuxfiletree})
+Fig. \ref{fig:linuxfiletree})
 
 
 \begin{figure}[htb]
 \centering
-\includegraphics[:width 12cm : figure]{linuxfiletree.jpg}
-\caption{Conventional file tree structure on a UNIX system from \href{http://linuxconfig.org/filesystem-basics}{linuxconfig.org}}
+\includegraphics[width=12cm]{linuxfiletree.jpg}
+\caption{\label{fig:linuxfiletree}Conventional file tree structure on a UNIX system from \href{http://linuxconfig.org/filesystem-basics}{linuxconfig.org}}
 \end{figure}
 
 
@@ -285,33 +254,30 @@ user by simply typing the name of the application since this directory is automa
 variable that specifies the directories where executable programs are
 located. You will meet this \texttt{PATH} variable when you learn more about
 running programs.
+
 \subsubsection{Moving in and out of directories with \texttt{cd}}
 \label{sec-2-1-2}
+\texttt{cd} stands for 'change directory'. with this command you can navigate
+in and out of your directories. To see what your present working
+directory is, simply type \texttt{pwd} (for 'present working directory') and
+hit enter
 
- \texttt{cd} stands for `change directory'. with this command you can navigate
- in and out of your directories. To see what your present working
- directory is, simply type \texttt{pwd} (for `present working directory') and
- hit enter
-
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 pwd
-\end{verbatim}
+\end{minted}
 
- The response in my case is:
+The response in my case is:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 /home/alj/
-\end{verbatim}
+\end{minted}
 
- When you want to `move' to a different directory, the TAB key comes in
- handy as it auto-completes the possible sub-directories you can `move'
- to. For example, when you type \texttt{cd} and hit the TAB key twice, you get an
- overview of all possible sub-directories. For example,
+When you want to 'move' to a different directory, the TAB key comes in
+handy as it auto-completes the possible sub-directories you can 'move'
+to. For example, when you type \texttt{cd} and hit the TAB key twice, you get an
+overview of all possible sub-directories. For example,
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cd 
 .adobe/
 Adobe/
@@ -320,84 +286,76 @@ Adobe/
 .compiz/
 .config/
 --More--
-\end{verbatim}
+\end{minted}
 
- Hit ENTER to see more sub-directories in your shell or `n' to leave the
- list of sub-directories.
+Hit ENTER to see more sub-directories in your shell or 'n' to leave the
+list of sub-directories.
 
- If you know that your target sub-directory starts with the letters
- `Do', you can type these after the \texttt{cd} command and then hit TAB twice
- (once is enough if there is only one sub-directory that starts with the
- letters `Do'):
+If you know that your target sub-directory starts with the letters
+'Do', you can type these after the \texttt{cd} command and then hit TAB twice
+(once is enough if there is only one sub-directory that starts with the
+letters 'Do'):
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cd Do
 Documents/ Downloads/
-\end{verbatim}
+\end{minted}
 
- I, for example, have two directories starting with `Do', \texttt{Documents}
- and \texttt{Downloads}. So, TAB completion helps when moving into
- sub-directories, but how to get out of them again? With
+I, for example, have two directories starting with 'Do', \texttt{Documents}
+and \texttt{Downloads}. So, TAB completion helps when moving into
+sub-directories, but how to get out of them again? With
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cd ..
-\end{verbatim}
+\end{minted}
 
- you move one level up in your hierarchical directory structure.  If
- you want to go to your home directory from wherever you are, use
+you move one level up in your hierarchical directory structure.  If
+you want to go to your home directory from wherever you are, use
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cd ~
-\end{verbatim}
+\end{minted}
 
- or just
- 
+or just
 
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cd
-\end{verbatim}
+\end{minted}
+
 \subsubsection{Tip}
 \label{sec-2-1-3}
-
 If there are empty spaces in your filepath, you need to precede them
-with a backslash (=\=) in order to navigate to them, like in 
+with a backslash (\texttt{\textbackslash{}}) in order to navigate to them, like in 
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 /home/my\ directory/
-\end{verbatim}
+\end{minted}
 
 or use quotation marks
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cd "/home/my directory"
-\end{verbatim}
+\end{minted}
+
 \subsubsection{What files are present in the current directory?}
 \label{sec-2-1-4}
+Once you navigated with \texttt{cd} to your target directory and you want to
+look at the files and sub-directories that are located in it, you can
+use the command \texttt{ls} and hit enter. The tool \texttt{ls} comes with many
+options that refine the way that the results are shown; you get an
+overview of these options with:
 
- Once you navigated with \texttt{cd} to your target directory and you want to
- look at the files and sub-directories that are located in it, you can
- use the command \texttt{ls} and hit enter. The tool \texttt{ls} comes with many
- options that refine the way that the results are shown; you get an
- overview of these options with:
-
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 ls --help
-\end{verbatim}
+\end{minted}
 
- The combination of options that I use most frequently are
+The combination of options that I use most frequently are
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 ls -lhcrta
-\end{verbatim}
+\end{minted}
 
- The option
+The option
 \begin{itemize}
 \item \texttt{-l} provides additional information to the file or folder name
 \begin{itemize}
@@ -410,87 +368,79 @@ ls -lhcrta
 \item \texttt{-c} sort by last modification of file status information
 \item \texttt{-r} reverse order while sorting (so that the newest files are the last that are printed)
 \item \texttt{-t} sort by modification time, newest first
-\item \texttt{-a} prints also the hidden files (starting with a dot `.').
+\item \texttt{-a} prints also the hidden files (starting with a dot '.').
 \end{itemize}
-  
+
 \subsubsection{Have a look at the directory structure}
 \label{sec-2-1-5}
-
 The command line tool \texttt{tree} prints the hierarchical structure of your
 files and directories (recursing into all sub-directories) to the screen.
 
- To discriminate files from folders via colors, use the \texttt{-C} option
+To discriminate files from folders via colors, use the \texttt{-C} option
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 tree -C
-\end{verbatim}
+\end{minted}
 
- To show only directories, use the \texttt{-d} option
+To show only directories, use the \texttt{-d} option
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 tree -d
-\end{verbatim}
+\end{minted}
 
- 
+
 
 Try also the following command:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 tree -sh
-\end{verbatim}
+\end{minted}
 
 Here, 
 \begin{itemize}
 \item \texttt{-s} provides the file and directory sizes
 \item \texttt{-h} prints the sizes in a human readable format
 \end{itemize}
+
 \subsubsection{Tip}
 \label{sec-2-1-6}
-
 Besides the TAB-key, that allows for auto-completion of commands or
 filenames, the UP- and DOWN-arrow keys on your keyboard can save you
 some time. These buttons allow you to navigate through the history of
 commands that you have entered previously.  Try it out.
+
 \subsubsection{Create, move and remove files and directories}
 \label{sec-2-1-7}
-
 New directories can be created with
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 mkdir directoryname
-\end{verbatim}
+\end{minted}
 Here, \texttt{directory} is the name of the directory you want to create.
 
 To create a new empty file, use the command \texttt{touch}:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 touch filename
-\end{verbatim}
+\end{minted}
 
 You can move or rename files with the command \texttt{mv}. For example:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 mv file1 file2
 mv file1 ../file1
-\end{verbatim}
+\end{minted}
 
 The first command renames file1 to file2. The second command moves
-file1 one folder up\footnote{In unix, the \texttt{..} notation indicates the containing folder (i.e. one
-up in the hierarchy).
- }.
+file1 one folder up\footnote{In unix, the \texttt{..} notation indicates the containing folder
+(i.e. one up in the hierarchy).}.
 
 If you don't want to move but copy a file, use the command \texttt{cp}.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cp file1 file2
-\end{verbatim}
+\end{minted}
+
 Instead of renaming file1 to file2, as the \texttt{mv} command does, the \texttt{cp}
 command keeps file1 and creates a new file2 with the same content.
 
@@ -500,110 +450,101 @@ can not retrieve it. But if this is what you want, you can remove, for
 example, file2 that we created above with the following command:
 
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rm file2
-\end{verbatim}
+\end{minted}
 
 To remove an entire directory, use \texttt{rm} with the \texttt{-r} flag, like:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rm -r directoryname
-\end{verbatim}
+\end{minted}
+
 \subsubsection{Tip}
 \label{sec-2-1-8}
-
 To get an overview of all the commands that you have used before, just
 type
 
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 history
-\end{verbatim}
+\end{minted}
 
 and hit ENTER.
+
 \subsection{Data transfer between computers}
 \label{sec-2-2}
-
 Before you can work on a remote server with your own data, you first
 need to know how to transfer them.  One of the best
 platform-independent GUI programs that allows you to up- and download
 files is FileZilla (Download and Documentation:
-\href{https://filezilla-project.org/}{https://filezilla-project.org/}). In the following lines I want to
+\url{https://filezilla-project.org/}). In the following lines I want to
 introduce the command line tools \texttt{rsync} and \texttt{sftp/lftp}, that allow
 you to transfer and synchronize files.
 \subsubsection{rsync}
 \label{sec-2-2-1}
 
 
+\texttt{rsync} stands for "remote sync". This powerful tool has plenty of
+options.  Here is the most basic syntax to transfer files from a
+\emph{source} (SRC) location to a \emph{destination} (DEST) with \texttt{rsync}. (Text
+in square brackets denotes optional arguments, in this case optional
+options!)
 
- \texttt{rsync} stands for ``remote sync''. This powerful tool has plenty of
- options.  Here is the most basic syntax to transfer files from a
- \emph{source} (SRC) location to a \emph{destination} (DEST) with \texttt{rsync}. (Text
- in square brackets denotes optional arguments, in this case optional
- options!)
-
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rsync [OPTIONS] SRC DEST
-\end{verbatim}
+\end{minted}
 
- SRC and DEST can either be files or folders. For example, to
- transfer the file `file.txt' from your local home folder to a remote
- server, you can type:
+SRC and DEST can either be files or folders. For example, to
+transfer the file 'file.txt' from your local home folder to a remote
+server, you can type:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rsync --progress /home/user/directory/file.txt user@host://home/user/
-\end{verbatim}
+\end{minted}
 
- Here, you need to change \texttt{/home/user/directory/} to your own filepath and
- \texttt{file.txt} to your own filename. In `=user@host=', \texttt{user}
- represents your username on the remote server and \texttt{host} the IP
- address of the remote server.  The \texttt{-{}-progress} option will indicate
- the progress of the file transfer - which is useful when transferring
- big files.
+Here, you need to change \texttt{/home/user/directory/} to your own filepath and
+\texttt{file.txt} to your own filename. In '\texttt{user@host}', \texttt{user}
+represents your username on the remote server and \texttt{host} the IP
+address of the remote server.  The \texttt{-{}-progress} option will indicate
+the progress of the file transfer - which is useful when transferring
+big files.
 
- If you want to transfer files from the remote server to your
- local computer, just swap the source and destination path
- specifications:
+If you want to transfer files from the remote server to your
+local computer, just swap the source and destination path
+specifications:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rsync --progress  user@host://home/user/file.txt /home/user/directory/
-\end{verbatim}
+\end{minted}
 
- If you want to transfer all files that are located in your local
- folder \texttt{/home/user/directory/}, you can use the following command
+If you want to transfer all files that are located in your local
+folder \texttt{/home/user/directory/}, you can use the following command
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rsync -avz --progress /home/user/directory/ user@host://home/user/
-\end{verbatim}
+\end{minted}
 
- Here,
+Here,
 \begin{itemize}
-\item \texttt{-av} will transfer the files in `archive mode' (which combines
-   several options, including recursing into directories)
+\item \texttt{-av} will transfer the files in 'archive mode' (which combines
+several options, including recursing into directories)
 \item \texttt{-z} will compress the files durig the transfer
 \end{itemize}
 
- Note the trailing slash after the source directory:
- \texttt{/home/user/directory/}. If you do not use this trailing slash, like
- \texttt{/home/user/directory}, then \texttt{rsync} will create a folder with the
- name \texttt{directory} at the destination and copy all files from the source
- folder into it.
+Note the trailing slash after the source directory:
+\texttt{/home/user/directory/}. If you do not use this trailing slash, like
+\texttt{/home/user/directory}, then \texttt{rsync} will create a folder with the
+name \texttt{directory} at the destination and copy all files from the source
+folder into it.
 
 
 Ok, that's all we need to know to get the sequencing data from last
 week to the remote computer. As we need the data in the following
 tutorials, it is best if you upload them now.
- 
+
 \subsubsection{sftp/lftp}
 \label{sec-2-2-2}
-
 rsync is a wonderful tool, but its power makes it complex and it can be
 difficult to remember how to do even simple things (try \texttt{man rsync} if
 you don't believe me!). When using rsync you also need to know and
@@ -627,10 +568,9 @@ synchronise directories) between the remote and local computers.
 
 To use the sftp program, simply type:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 sftp hostname
-\end{verbatim}
+\end{minted}
 
 into your terminal. The hostname may need to be specified as the IP
 address (a load of numbers) or can be a simple name depending on your
@@ -639,10 +579,9 @@ The sftp program assumes that you will be using the same username as you
 are using on the local computer. If this is not the case you can specify
 your username by:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 sftp username@hostname
-\end{verbatim}
+\end{minted}
 
 After having successfully logged in to the remote computer you can move
 around the directories as if you were logged in over a shell session
@@ -652,7 +591,7 @@ commands in your local shell by prefixing these with an !, eg. \texttt{!ls} or
 \texttt{!pwd}. You can create directories on the remote computer with \texttt{mkdir},
 and on the local machine with \texttt{!mkdir}. To transfer files from the
 remote to the local computer use \texttt{get fname}. You can use globbing (*)
-to expand the file set, eg. \texttt{get *.fa} for all files ending in `.fa'.
+to expand the file set, eg. \texttt{get *.fa} for all files ending in '.fa'.
 (For this you may need to use \texttt{mget *.fa} on some implementations, this
 used to be true on the old ftp command line client). Similarly you can
 upload files using \texttt{put}.
@@ -662,10 +601,9 @@ starting the program you need to specify that you wish to use the sftp
 protocol as it defaults to the standard ftp protocol (with an anonymous
 user). Hence use something like:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 lftp sftp://username@hostname
-\end{verbatim}
+\end{minted}
 
 lftp also allows you to mirror whole directory structures using the
 \texttt{mirror} command which can save you a lot of time. Finally, when I
@@ -673,13 +611,14 @@ started using lftp, the standard ftp and sftp clients did not provide
 tab completion, and this was a big advantage of lftp at that time. These
 days most if not all of the clients provide this functionality, so it is
 not quite as big a deal as it was in the long past.
+
+
 \subsubsection{Tip}
 \label{sec-2-2-3}
 
-
 If you want to transfer in one go, all files that have some common
 characteristic in their name you can use the asterisk \texttt{*}, which
-stands for `any character'. The \texttt{*} is one of the most commonly used
+stands for 'any character'. The \texttt{*} is one of the most commonly used
 wildcard symbols that stands for a continuous string of characters. To
 specify a set of filenames with wildcard characters is also referred
 to as \emph{globbing}.
@@ -687,28 +626,26 @@ to as \emph{globbing}.
 For example, if you want to transfer all
 fasta files at once, you can use
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rsync -avz --progress /home/user/directory/*fasta user@host://home/user/
-\end{verbatim}
+\end{minted}
 This means that any characters can precede the \texttt{fasta} file ending.
 
 
 
 If you want to transfer all files that belong to a certain population
-and are, for example, marked with `Pop1' in the file name, you can use:
+and are, for example, marked with 'Pop1' in the file name, you can use:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rsync -avz --progress /home/user/directory/*Pop1* user@host://home/user/
-\end{verbatim}
+\end{minted}
 This means that any characters can precede or follow the \texttt{Pop1}
 character in the file name.
+
 \section{Running programs (and the PATH variable)}
 \label{sec-3}
 \subsection{From the shell}
 \label{sec-3-1}
-
 When using the shell you normally run a program by simply typing the
 program name and any required arguments. But how does the shell know
 what program to run and where to find it? On a typical Unix / Linux
@@ -725,10 +662,9 @@ present in any directory specified by the \texttt{\$PATH} variable, or if
 multiple programs of the same name are present and you want to run one
 of the later matches:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 /usr/local/bin/pg_ctl start
-\end{verbatim}
+\end{minted}
 
 to start a version of the Postgresql database installed in
 /usr/local/bin specifically.
@@ -736,39 +672,36 @@ to start a version of the Postgresql database installed in
 You can also specify a path that is relative to your current location.
 If for example your current working directory is
 \texttt{\textasciitilde{}/Documents/testPrograms/} and you wish to run a locally installed
-version of gcc (gnu C compiler) found in \texttt{\textasciitilde{}/bin/}\footnote{The \texttt{\textasciitilde{}} (tilde) character is used as shorthand for your home directory.
- }:
+version of gcc (gnu C compiler) found in \texttt{\textasciitilde{}/bin/}\footnote{The \texttt{\textasciitilde{}} (tilde) character is used as shorthand for your home
+directory.}:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 ../../bin/gcc -o test main.c
-\end{verbatim}
+\end{minted}
 
 (Remembering that ../ takes you up one level in the directory
 structure). To do the same you could also make sure that the \texttt{\$PATH}
-contains \~{}/bin before other potential locations of gcc.
+contains \textasciitilde{}/bin before other potential locations of gcc.
 
 To check the current value of your \texttt{\$PATH}, simply use the echo command:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 echo $PATH
-\end{verbatim}
+\end{minted}
 
 
 To learn how to extend your own PATH variable have a look in the hidden
-.basrhc or .bash$_{\mathrm{profile}}$ file in your home directory. It usually gives a
+.basrhc or .bash\(_{\text{profile}}\) file in your home directory. It usually gives a
 few examples. Failing that have a look at Google.
 
 Finally if you've written a small script or installed a program in your
 current working directory you can run that by typing \texttt{./scriptname}. There
 is nothing special about that, it is merely how you represent the
 relative path to your current working directory.\footnote{Previously you learnt that \texttt{../} represents the containing directory
-(one level up); the \texttt{..} is simply shortcut for the current working directory.
- }
+(one level up); the \texttt{..} is simply shortcut for the current working directory.}
+
 \subsection{From a shell script}
 \label{sec-3-2}
-
 You may have noticed that the commands to run sequence analysis programs can
 be quite long and complex. This is because the program allows you to specify
 many different options directly when invoking the program rather than by
@@ -788,24 +721,21 @@ sequences in \texttt{seqData.fastq} to the genome provided in
 \texttt{\textasciitilde{}/apps/STAR/STAR/genomeDir/Zv10/unmasked/}
 using the STAR program:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 STAR --outFilterMultimapNmax 5 \
 --outFilterMismatchNoverLmax 0.05 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
 --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ --readFilesIn seqData.fastq \
 --runThreadN 6 --outSAMtype BAM SortedByCoordinate
-\end{verbatim}
+\end{minted}
 
-But that is both difficult to remember and to type fully without making any
-mistakes. It is much easier to create a small text file, maybe called,
-\texttt{map\_seq.sh} \footnote{Shell scripts are normally named with a \texttt{.sh} extension; this makes it
-easy to identify them. However, Unix doesn't care, and you are free to name
-the scripts as you like.
- } that contains the code with some comments to
-explain what does what:
+But that is both difficult to remember and to type fully without
+making any mistakes. It is much easier to create a small text file,
+maybe called, \texttt{map\_seq.sh} \footnote{Shell scripts are normally named with a \texttt{.sh} extension; this
+makes it easy to identify them. However, Unix doesn't care, and you
+are free to name the scripts as you like.} that contains the code with some
+comments to explain what does what:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 #!/bin/bash
 
 ## this command will use STAR to map the sequences in seqData.fastq to
@@ -819,7 +749,7 @@ STAR --outFilterMultimapNmax 5 \
 ## --outFilterMismatchNoverLmax : the maximum proprotion of mismatches
 ## --outFilterIntronMotifs RemoveNoncanonicalUnannotated : don't report 
 ##   weird splice positions
-\end{verbatim}
+\end{minted}
 
 You can now run this script in two different ways. Either first make it
 executable by changing its permissions: \texttt{chmod +x map\_seq.sh} and then run it
@@ -836,11 +766,11 @@ helps you very much, but there are a number of advantages over simply writing
 the command directly:
 \begin{itemize}
 \item You can spend some time to proof-read the command making sure you don't
-  have any stupid mistakes in it.
-\item You have a record of how you ran the program. This is actually \underline{very}
+have any stupid mistakes in it.
+\item You have a record of how you ran the program. This is actually \uline{very}
   important.
 \item You can look at this file next time you have something to map and remind
-  you of how you use the program.
+you of how you use the program.
 \end{itemize}
 
 However, the real beauty of making a shell script is that the shell provides
@@ -849,8 +779,7 @@ processing of large numbers of files. For example if I wish to run the above
 command in a set of sub-directories whose names all start with \texttt{RZY-3} I can
 use the following script:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 #!/bin/bash
 
 dirs=RZY-3*
@@ -876,7 +805,7 @@ do
     echo "      Done: $f $(date +'%b %D %H:%M:%S')" 
     cd ..
 done
-\end{verbatim}
+\end{minted}
 
 Here we first use a wild card notation \texttt{dirs=RZY-3*} to create a list of
 directory names. We then use a loop (\texttt{for d in \$dirs}) to go through each
@@ -899,10 +828,9 @@ can leave the process to run and then come back and see if there were any
 errors encountered during the processing. To run the script, first \texttt{chmod} it
 to an executable, then:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 ./map_seq.sh > map.log &
-\end{verbatim}
+\end{minted}
 
 This will run the commands in the shell script and redirect \texttt{STDOUT} to the
 file map.log. The \texttt{\&} at the end of the line returns control back to the
@@ -910,30 +838,28 @@ terminal so that you can do other things rather than just waiting for the
 process to complete.
 If you are using a remote computer you should probably do :
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 nohup ./map_seq.sh > map.log &
-\end{verbatim}
+\end{minted}
 
 as that will now allow you to log off, and do whatever you like. As long the
 server doesn't crash (or an administrator stops your process) the process
 will complete without any input from you.
 
-If you wish to follow the process of the mapping, you can use the \texttt{tail}
-program to view the output of the shell script. If you invoke it with the
-\texttt{-f} option it will follow the file you specify, printing the new lines of it
-as it is written to:
+If you wish to follow the process of the mapping, you can use the
+\texttt{tail} program to view the output of the shell script. If you invoke
+it with the \texttt{-f} option it will follow the file you specify, printing
+the new lines of it as it is written to:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 tail -f map.log
-\end{verbatim}
+\end{minted}
 
-To stop following the file you will need to hit \texttt{Ctrl-C} (i.e. the control and
-C keys simultaneously).
+To stop following the file you will need to hit \texttt{Ctrl-C} (i.e. the
+control and C keys simultaneously).
+
 \subsection{Writing a shell script}
 \label{sec-3-3}
-
 To write a shell script you will need to use some sort of editor. There are
 very many to chose from; for experienced Unix / Linux users the two most
 commonly used editors are probably \texttt{emacs} and \texttt{vi} (these days perhaps
@@ -944,11 +870,15 @@ type \texttt{nano filename} and start typing. Commands to save, exit, cut, paste
 etc. are indicated at the bottom of the screen. \texttt{\textasciicircum{}} is shorthand for the
 \texttt{Ctrl} key.
 
+\begin{figure}[htb]
+\centering
 \includegraphics[width=.9\linewidth]{nanoShell.png}
+\caption{\label{fig:nano}The Nano editor.}
+\end{figure}
+
 \section{Retrieving basic information from common NGS files}
 \label{sec-4}
 
- 
 Now that we know how the commandline works, how we can change
 directories and transfer files, it's time to look at NGS data output
 and to learn how to open and summarize information from such files -
@@ -960,47 +890,44 @@ The folder PracticeFiles contains the following files:
 \item HTS.fastq, a file with sequences and associated base qualities
 \item HTS.sam, an alignment file
 \end{itemize}
+
 \subsection{Look at the content of a file and search for patterns}
 \label{sec-4-1}
-
-The tool \texttt{less}\footnote{\texttt{less} is very similar to the more basic program \texttt{more}. It's name is
-a bit of a joke on `less is more'. Habits die hard, and at least one of the
-authors of this document has \texttt{more} hardcoded into his fingers.
- } can be used to display the content of text files one
-line or page after the other. Since it doesn't read the entire content
-of a file at once, it is very useful for looking into large files.
+The tool \texttt{less}\footnote{\texttt{less} is very similar to the more basic program \texttt{more}. It's
+name is a bit of a joke on 'less is more'. Habits die hard, and at
+least one of the authors of this document has \texttt{more} hardcoded into
+his fingers.} can be used to display the content of text
+files one line or page after the other. Since it doesn't read the
+entire content of a file at once, it is very useful for looking into
+large files.
 
 Let's have a look at a fastq file with the command:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 less Fastqfile.fastq
-\end{verbatim}
+\end{minted}
 
 Once you have opened a fasta file, for example, with \texttt{less} \ldots{}
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 less Fastqfile.fasta
-\end{verbatim}
+\end{minted}
 
-\ldots{} you can search for patterns, like the nucleotide sequence `GCTC', with \texttt{/}, like
+\ldots{} you can search for patterns, like the nucleotide sequence 'GCTC', with \texttt{/}, like
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 /GCTC
-\end{verbatim}
+\end{minted}
 
 hitting \texttt{n} repeats this search on the remainder of the file.
 
 To show only those lines in the file that match the nucleotide
-sequence `GCTC', type this sequence after the \texttt{\&} sign:
+sequence 'GCTC', type this sequence after the \texttt{\&} sign:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 &GCTC
-\end{verbatim}
- 
+\end{minted}
+
 To go to the last line of the file, just type \texttt{G}, to go to the first
 line, type \texttt{g}. To close the file again, hit \texttt{q}.
 
@@ -1008,10 +935,9 @@ line, type \texttt{g}. To close the file again, hit \texttt{q}.
 The \texttt{less} command has more options than this. You get an overview of
 these with the \texttt{-{}-help} flag:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 less --help
-\end{verbatim}
+\end{minted}
 
 
 The \texttt{head} command, followed by the name of a text file, prints by
@@ -1021,19 +947,17 @@ printed. For example, to extract the first sequence-id along with the
 nucleotide sequence from HTS.fasta, you can select the first two lines
 with:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 head -n 2 HTS.fasta
-\end{verbatim}
+\end{minted}
 
 When the line number \texttt{K} is preceded with \texttt{-}, then all but the last \texttt{K}
 lines are printed. For example, the command to print all but the last
 ten lines from a HTS.fasta is:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 head -n -10 HTS.fasta
-\end{verbatim}
+\end{minted}
 
 The \texttt{tail} command, in contrast, prints by default the last 10 lines
 of a file to the terminal. Also here you can select the number of
@@ -1041,31 +965,29 @@ lines with the \texttt{-n} option. When the line number \texttt{K} is preceded b
 \texttt{+}, then all but the first \texttt{K} lines are printed.  For example, to
 exclude the first two lines from HTS.fasta
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 tail -n +2 HTS.fasta
-\end{verbatim}
+\end{minted}
 
 
 To extract specific lines from a file, the tool \texttt{sed} can help you. To
 print all lines between line 234 and 236 from HTS.fasta, for example, use:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 sed -n '234,236p'
-\end{verbatim}
-\subsection{Counting words, lines, and characters with `wc' and searching for patterns with `grep'}
-\label{sec-4-2}
+\end{minted}
 
+
+\subsection{Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'}
+\label{sec-4-2}
 If you want to get a rapid overview of the number of lines in a file,
 the \texttt{wc} command is the right tool. In output-files where
 every line represents a sequence, for example, \texttt{wc -l} is all you need to count the
 number of sequences.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 wc -l File.txt
-\end{verbatim}
+\end{minted}
 
 The \texttt{-l} option specifies that you want to count the number of
 lines. The \texttt{-m} and \texttt{-w} options further allow you to count the number
@@ -1073,80 +995,76 @@ of characters or words.
 
 
 To count the number of sequences in a fasta file, you have to limit
-the lines that are counted to those starting with a ``>'' sign
-because ``>'' precedes every sequence identifier:
+the lines that are counted to those starting with a ">" sign
+because ">" precedes every sequence identifier:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 >SEQ1_ID
 GGATTCATAGAAACCATAGATACATAGATACATAGATTAGGGACAGATAATAG
 >SEQ2_ID
 GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
 >SEQ3_ID
 AGATACAGAGAGACAAGACATAGACAGATAACAGAATAGAGATAGAGGAGAGG
-\end{verbatim}
+\end{minted}
 
 \texttt{grep} allows you to extract lines that contain specific
-characters, like ``>''. 
+characters, like ">". 
 
 
 If you type
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 grep ">" HTS.fasta
-\end{verbatim}
+\end{minted}
 
-All lines in HTS.fasta that contain the ``>'' character are printed to
+All lines in HTS.fasta that contain the ">" character are printed to
 the screen. You can stop the flow of output by pressing Ctrl+C. If you
 don't want to write these lines to the screen but want to count them,
-the \texttt{|} symbol provides a `pipe' to pass the output from the \texttt{grep}
+the \texttt{|} symbol provides a 'pipe' to pass the output from the \texttt{grep}
 command to the \texttt{wc} command. So, to count the number of
 sequences in HTS.fasta, you can use the following command:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 grep ">" HTS.fasta | wc -l
-\end{verbatim}
+\end{minted}
 
 Here a recap on what the commands mean: \texttt{grep} is used to search for
 \texttt{>} signs in the fasta file. All sequence-id's start with this
 character. Instead of printing all these lines to the terminal, we
 re-direct it to the \texttt{wc} command with the pipe symbol \texttt{|}. Using the
 \texttt{-l} option, \texttt{wc} counts all the lines. Here, \texttt{wc} doesn't need an
-input file as it reads from the output of \texttt{grep} \footnote{When a program prints it's output to the terminal (i.e. the screen)
-it's normally printing to a stream referred to as \texttt{STDOUT} (standard
-out). When we use the pipe symbol (\texttt{|}) we can redirect this output to
-programs than can read from the \texttt{STDIN} stream. We can also use the \texttt{>} to
-redirect the output to files. Note that output printed to the \texttt{STDERR} stream
-will also be printed to the terminal, but will not be redirected using \texttt{|} or
-\texttt{>} (though you can use \texttt{2>} to redirect \texttt{STDERR}).
- }.
+input file as it reads from the output of \texttt{grep} \footnote{When a program prints it's output to the terminal (i.e. the
+screen) it's normally printing to a stream referred to as \texttt{STDOUT}
+(standard out). When we use the pipe symbol (\texttt{|}) we can redirect this
+output to programs than can read from the \texttt{STDIN} stream. We can also
+use the \texttt{>} to redirect the output to files. Note that output printed
+to the \texttt{STDERR} stream will also be printed to the terminal, but will
+not be redirected using \texttt{|} or \texttt{>} (though you can use \texttt{2>} to
+redirect \texttt{STDERR}).}.
 
 Your turn. What command would you use to count the number of sequences
-in a fastq file? 
+in a fastq file?
 
 
 If you are in doubt what quality encoding your fastq file has, \texttt{grep}
-can help you. Have a look at Fig. \hyperref[Fig-QC]{Fig:QC}. If you find one of the ASCII
-characters 33 (character'!') to 58 (character `:'), you can be sure
+can help you. Have a look at Fig. \ref{Fig:QC}. If you find one of the ASCII
+characters 33 (character'!') to 58 (character ':'), you can be sure
 that the quality encoding is Phred+33. 
 
 
 \begin{figure}[htb]
 \centering
-\includegraphics[:width 14cm : figure]{Fastq.png}
-\caption{The Nano editor. Quality score encodings}
+\includegraphics[width=14cm]{Fastq.png}
+\caption{\label{Fig:QC}Quality score encodings}
 \end{figure}
 
 
 So, try if you find one of the Phred+33-specific quality characters in
 HTS.fastq. For example:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 grep "!" HTS.fastq | wc -l
-\end{verbatim}
+\end{minted}
 
 
 
@@ -1154,17 +1072,16 @@ grep "!" HTS.fastq | wc -l
 gene-id and identify the line of the hit in a fasta file, if you use
 it with the \texttt{-n} flag. For example, if you want to know which line
 in the HTS.fasta file holds the sequence with the gene-id
-`gi|612475216|gb|AZHG01011862.1|', you can use:
+'gi|612475216|gb|AZHG01011862.1|', you can use:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 grep -n "gi|612475216|gb|AZHG01011862.1|" HTS.fasta
-\end{verbatim}
+\end{minted}
 
 It is line 23724.
+
 \subsection{INFO on regular expressions}
 \label{sec-4-3}
-
 
 \texttt{grep} stands for \emph{global regular expression printer} and is a
 command-line utility for searching plain-text data for lines matching
@@ -1174,18 +1091,17 @@ go into further detail here, but you can read more about regular
 expressions in \href{http://www.scootersoftware.com/RegEx.html}{A Tao of Regular Expressions} and you can find a 
 short introduction in the Perl section below. Also, \href{http://www.cheatography.com/davechild/cheat-sheets/regular-expressions/}{here} you will find
 a cheat sheet with essential regular expressions.
-\subsection{Combine the content of files with `cat' and `>'}
-\label{sec-4-4}
 
+\subsection{Combine the content of files with 'cat' and '>'}
+\label{sec-4-4}
 The most common use of the \texttt{cat} command is to redirect the contents of
 text files to other files or commands.
 
 The following command, for example prints the content of HTS.fasta to the screen
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cat HTS.fasta
-\end{verbatim}
+\end{minted}
 
 With the \texttt{>} and \texttt{>>} operators, you can print the content of files
 not to the screen but to other files. This allows you to rapidly combine
@@ -1193,11 +1109,10 @@ two files, even huge ones. For example, in the following command
 \texttt{HTS.fasta} and \texttt{HTS2.fasta} are combined to
 \texttt{COMBINED.fasta}.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cat HTS.fasta > COMBINED.fasta
 cat HTS2.fasta >> COMBINED.fasta
-\end{verbatim}
+\end{minted}
 
 The \texttt{>} operator redirects the output of the \texttt{cat HTS.fasta}
 command (the content of \texttt{HTS.fasta}) to \texttt{COMBINED.fasta}. The
@@ -1211,15 +1126,14 @@ operator, the specified file needs to exist already.
 
 Note that you can achieve the same by:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 cat HST.fasta HTS2.fasta > COMBINED.fasta
-\end{verbatim}
+\end{minted}
 
 but we wanted to show you the difference between \texttt{>} and \texttt{>>}.
-\subsection{Counting filtered reads in SAM files with `awk'}
-\label{sec-4-5}
 
+\subsection{Counting filtered reads in SAM files with 'awk'}
+\label{sec-4-5}
 Later in the course we will encounter specific programs that can filter
 SAM and VCF files. Here, I want to show you that we can also use basic
 command line tools to filter such files.  The command line tool \texttt{awk}
@@ -1234,10 +1148,9 @@ We learned this morning that SAM files (alignment files) are
  have qualities > 20, we first strip off the header lines
  containing the \texttt{@} character  with \texttt{grep}:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 grep -v "^@" HTS.sam
-\end{verbatim}
+\end{minted}
 
 Here, the \texttt{-v} option inverts our search (all lines including \texttt{@} at
 the beginning of the line - specified by the \texttt{\textasciicircum{}} sign - are excluded).
@@ -1247,10 +1160,9 @@ screen. Instead, we want to pipe the output of this command to \texttt{awk},
 in order to extract only those reads with a mapping quality >20 and
 then pipe this output to \texttt{wc} to count the lines:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 grep -v "^@" HTS.sam | awk -F "\t" '$5 > 20 {print $0}' | wc -l
-\end{verbatim}
+\end{minted}
 
 Here, \texttt{\$0} refers to the entire row, while \texttt{\$5} refers to column 5 of
 that row. \texttt{-F} just specifies the field separator, and
@@ -1259,16 +1171,15 @@ that row. \texttt{-F} just specifies the field separator, and
 counted with the \texttt{wc} command. Only the output of \texttt{wc} gets printed to the screen.
 \section{Bonus section PERL}
 \label{sec-5}
-
 Perl is a useful programming language whose principles can be learnt
 within a short period of time allowing researchers not familiar with
 programming to quickly become able to automate a variety of processes.
 Although not an official acronym, Perl is often referred to as standing
-for, `Practical Extraction and Reporting Language'; and this is pretty much
+for, 'Practical Extraction and Reporting Language'; and this is pretty much
 what Perl makes easy.
 
 Perl has been used extensively within the field of Bioinformatics (see
-Bioperl, \href{http://www.bioperl.org}{http://www.bioperl.org}) though recently it has been overshadowed to
+Bioperl, \url{http://www.bioperl.org}) though recently it has been overshadowed to
 some extent by the use of R for statistical analyses of data. However,
 Perl remains widely used and several of the tools you will use in this
 course have been written in Perl. R is incredibly useful when you have
@@ -1279,7 +1190,7 @@ the elements of a data set. Compared to R, Perl is a much more general
 programming language that can be applied to a much wider set of
 problems.
 
-The motto of Perl is, `There is more than one way to do it'. And in Perl
+The motto of Perl is, 'There is more than one way to do it'. And in Perl
 this is very true; the same logic can be expressed in a number of
 different ways and masters of Perl will sometimes delight in their
 ability to fit a very large amount of functionality into a small amount
@@ -1290,9 +1201,9 @@ difficult to read other people's code as they may use a very different
 style of coding to ones own. Perl can also be quite a dangerous language
 and it is often said that it gives the user more than enough rope to
 hang themselves with.
+
 \subsection{Variables in Perl}
 \label{sec-5-1}
-
 
 In order to handle information within a program we assign values to
 variables and then manipulate these according to the flow of the
@@ -1300,52 +1211,51 @@ program. Perl provides three different types of variables:
 
 \begin{itemize}
 \item Scalar variables: these take a single value (usually a number or some text) 
-   and are denoted by a \texttt{\$} prefix, eg. \texttt{\$var}.
+and are denoted by a \texttt{\$} prefix, eg. \texttt{\$var}.
+
 \item Arrays: these contain an ordered series of values that are accessed by their
-   position. Arrays are denoted by an \texttt{@} prefix, eg. \texttt{@array}.
-   Individual values are accessed as scalars, using square brackets to
-   indicate the position, eg. \texttt{\$array[3]} accesses the fourth element of
-   \texttt{@array} (the fourth rather than the third as we count from 0).
+position. Arrays are denoted by an \texttt{@} prefix, eg. \texttt{@array}.
+Individual values are accessed as scalars, using square brackets to
+indicate the position, eg. \texttt{\$array[3]} accesses the fourth element of
+\texttt{@array} (the fourth rather than the third as we count from 0).
+
 \item Hashes (or associative arrays): these hold key-value pairs and are
-   denoted by the \texttt{\%} prefix, eg. \texttt{\%hash}. Individual elements are again
-   accessed as scalars, but this time using curly brackets, eg.
-   \texttt{\$hash\{key\}}. The key value can be anything that can be assigned to a
-   scalar (numbers, text, and references).
+denoted by the \texttt{\%} prefix, eg. \texttt{\%hash}. Individual elements are again
+accessed as scalars, but this time using curly brackets, eg.
+\texttt{\$hash\{key\}}. The key value can be anything that can be assigned to a
+scalar (numbers, text, and references).
 \end{itemize}
+
 \subsection{Assigning variables}
 \label{sec-5-2}
-
 
 The values of variables can be assigned directly in the program's source
 code, but are more frequently assigned through the command line
 arguments (see below) or by the program reading input (data or
 configuration) files (see lower section). Scalars are the simplest:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 $var1='hello'; 
 $var2="world";
 $var3=3.14;
-\end{verbatim}
+\end{minted}
 
 Strings (i.e. text elements) can be assigned using either single \texttt{’} or
-double `` quotes. The use of double quotes expands variables within the
+double " quotes. The use of double quotes expands variables within the
 quoted text such that:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 $var4="goodbye $var1";
-\end{verbatim}
+\end{minted}
 
-will assign the text ``goodbye world'' to the variable \texttt{\$var4}.
+will assign the text "goodbye world" to the variable \texttt{\$var4}.
 In contrast:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 $var4='goodbye $var1';
-\end{verbatim}
+\end{minted}
 
-will assign the text `goodbye \$var1' to \texttt{\$var4} (without the quotation
+will assign the text 'goodbye \$var1' to \texttt{\$var4} (without the quotation
 marks!).
 Double quotes also allow escape codes such as \texttt{\textbackslash{}n \textbackslash{}t} to be interpreted
 as newline and tab characters respectively.
@@ -1353,17 +1263,15 @@ as newline and tab characters respectively.
 Arrays can be assigned in a number of ways, occassionally directly in
 the code:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 @ar1 = (1, 2, "three");
-\end{verbatim}
+\end{minted}
 
 An empty array can also be created and then extended by adding elements.
 This can be done by either using the \texttt{push} function or by using
 subscripts beyond the range of the array:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## text following a # character are treated as comments
 
 @ar1 = (); ## creates an empty array of length 0 
@@ -1372,7 +1280,7 @@ push @ar1, "hello"; ##extends this array to have a length of 1
 $ar1[2] = "three"; 
 ## the array now has a length of three, but an undefined value in the second position 
 ## $ar1[1]
-\end{verbatim}
+\end{minted}
 
 In most cases, elements of an array will be assigned to values found in
 input files containing the data to be analysed, rather than being
@@ -1382,8 +1290,7 @@ Hashes (associative arrays) that store key value pairs are defined in a
 similar way to arrays. Again the actual values are usually obtained from
 input files, but can also be defined in the code.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 %kv1 = ();
 ## this creates an empty hash structure. It is actually not necessary to
 ## declare it, but one can directly assign elements of the hash:
@@ -1402,7 +1309,7 @@ $kv1{'three'} = 3;
 print "$keys[0] $kv1{$keys[0]}\n";
 
 ## the \n simply defines a newline character
-\end{verbatim}
+\end{minted}
 
 
 Scalars, arrays and associative arrays can be combined to create
@@ -1422,19 +1329,18 @@ semicolon is used to denote the end of statements. This means
 that single statements can be spread across several lines and that a
 single line can contain a number of statements. This can greatly aid the
 readability of the code.
+
 \subsection{Data types}
 \label{sec-5-3}
-
 
 In the above examples we assigned values to variables without caring
 about what kind of data we used. For example consider the following:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 $var1 = "one";
 $var2 = 2;
 $var3 = $var1 + $var2;
-\end{verbatim}
+\end{minted}
 
 Here we have assigned the value of \texttt{\$var1} to a piece of text (which we
 will refer to as a string from here on) whereas \texttt{\$var2} has been
@@ -1458,50 +1364,55 @@ potential problems (common to essentially all computer programming):
 
 \begin{itemize}
 \item Numeric values do not have infinite precision. For example (1/3) is
-  not equal to (0.1/0.3).
+not equal to (0.1/0.3).
+
 \item Numeric values can not be arbitrarily large. On my machine the
-  maximum value Perl can handle is somewhere between 1e308 and
-  1e309. That's a pretty large number which you might think 
-  you will never need.  However, it is smaller than the factorial of
-  171, and this is something you may run across in statistical
-  equations.
+maximum value Perl can handle is somewhere between 1e308 and
+1e309. That's a pretty large number which you might think 
+you will never need.  However, it is smaller than the factorial of
+171, and this is something you may run across in statistical
+equations.
+
 \item Mathematical operations can result in illegal numbers, eg. 1/0. If
-  your program carries out any calcuations you need to be aware of
-  this and how Perl handles the resulting values.
+your program carries out any calcuations you need to be aware of
+this and how Perl handles the resulting values.
+
 \item Text is actually not that simple. From the beginning, the end of
-  lines has been encoded differently in Windows (i.e. DOS), MacOS and
-  Unix. In Unix an end of line is encoded with a newline character, on
-  Windows, a newline character followed by a carriage return, and on
-  MacOS it might be just a carriage return (to be honest I
-  forget). This can cause trouble as text files are usually written
-  and read line by line (i.e.  new lines indicate a new section of
-  data). The simplest way to avoid trouble is simply never to use
-  Macs or Windows machines, but that can be difficult at times.
+lines has been encoded differently in Windows (i.e. DOS), MacOS and
+Unix. In Unix an end of line is encoded with a newline character, on
+Windows, a newline character followed by a carriage return, and on
+MacOS it might be just a carriage return (to be honest I
+forget). This can cause trouble as text files are usually written
+and read line by line (i.e.  new lines indicate a new section of
+data). The simplest way to avoid trouble is simply never to use
+Macs or Windows machines, but that can be difficult at times.
+
 \item These days text encoding is rather complicated, as it has been
-  expanded to cater to a range of languages and character sets
-  (eg. Arabic, Chinese, Japanese, Thai, etc..). This is not
-  straightforward and several conflicting encodings have been
-  developed. For bioinformatics you usually do not have to care; but
-  you have to be aware of potential problems when handling text that
-  contains unstructured descriptive data. Such text may contain
-  names, or places written in glyphs that require Unicode
-  encoding. Such descriptions may even contain characters that look
-  like normal roman letters, but which have been encoded differently.
-  Google, `halfwidth fullwidth characters' to confuse yourself.
+expanded to cater to a range of languages and character sets
+(eg. Arabic, Chinese, Japanese, Thai, etc..). This is not
+straightforward and several conflicting encodings have been
+developed. For bioinformatics you usually do not have to care; but
+you have to be aware of potential problems when handling text that
+contains unstructured descriptive data. Such text may contain
+names, or places written in glyphs that require Unicode
+encoding. Such descriptions may even contain characters that look
+like normal roman letters, but which have been encoded differently.
+Google, 'halfwidth fullwidth characters' to confuse yourself.
+
 \item Sorting. Numbers and strings are obviously sorted
-  differently. Consider that \texttt{(12 > 8)}, but \texttt{('12' < '8')}. In the latter
-  case we are comparing strings through a lexicographic comparison
-  where the first character is the most significant for the
-  sort. Since 8 is larger than 1, ``8'' is also larger than ``12''. In
-  Perl sorting is lexicographic by default, and a numeric sort has to
-  be explicitly specified. This is sometimes problematic when a mix of
-  numerical and character based identifiers are used and the reason
-  that you often see the following chromosome ordering:
-  1,10,11,12,\ldots{},19,20,21,3,4,5,\ldots{},9,X,Y.
+differently. Consider that \texttt{(12 > 8)}, but \texttt{('12' < '8')}. In the latter
+case we are comparing strings through a lexicographic comparison
+where the first character is the most significant for the
+sort. Since 8 is larger than 1, "8" is also larger than "12". In
+Perl sorting is lexicographic by default, and a numeric sort has to
+be explicitly specified. This is sometimes problematic when a mix of
+numerical and character based identifiers are used and the reason
+that you often see the following chromosome ordering:
+1,10,11,12,\ldots{},19,20,21,3,4,5,\ldots{},9,X,Y.
 \end{itemize}
+
 \subsection{Program flow: loops and conditionals}
 \label{sec-5-4}
-
 
 We use computer programs to automate repeated processes; that is to
 carry out the same or similar operations on a large number of data
@@ -1517,18 +1428,17 @@ Conditional statements are also used in lots of other cases including to
 control loops. Consider the following statement that checks for the
 equality of two variables.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## $a and $b are two variables whose values are specified somewhere else in the program.
 if($a == $b){
   ## then do something. For example increase the value of $b
   $b = $b + 1;
 }
-\end{verbatim}
+\end{minted}
 
-There are a few things to mention here. The first is the use of the ====
+There are a few things to mention here. The first is the use of the \texttt{==}
 operator. This tests for numerical equality. It is very important not to
-confuse this with the === operator which assigns values. Comparison
+confuse this with the \texttt{=} operator which assigns values. Comparison
 operators can be thought of as returning a TRUE or a FALSE value. If a
 TRUE value is obtained then the conditional statement is carried out,
 and if FALSE not. Perl doesn't actually have explicit TRUE and FALSE
@@ -1537,8 +1447,7 @@ considered as FALSE. To confuse things the use of the assignment
 operator returns the value that was assigned and this can cause some
 rather specific problems. Consider:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 $a = ($b = 10);
 ## $a is now assigned to the value of 10
 
@@ -1551,7 +1460,7 @@ if( $a = 25 ){
 if($a = 0){
   ## this part of the program will never be reached
 }
-\end{verbatim}
+\end{minted}
 
 The second thing to mention is the use of the curly brackets (\{and\}). In
 Perl (and quite a few other programming languages) these are used to
@@ -1564,8 +1473,7 @@ where it is easy to accidentally use the same variable names to represent
 different properties.
 Consider the following snippet:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## We start in the global scope. Variables defined here will be visible and modifiable
 ## anywhere within the main body of the code (though not in external functions).
 
@@ -1585,7 +1493,7 @@ print "a is $a \n";
 print "a is now $a \n";
 ## does not print 30, as we $a was declared using the
 ## my keyword.
-\end{verbatim}
+\end{minted}
 
 It is good practice to use \texttt{my} and the related \texttt{our} keyword throughout
 the code as it will make it easier to catch a range of different types
@@ -1596,8 +1504,7 @@ obtain the mean value of. To do this we wish to find the sum of the
 values and divide by the length of the array. As always in Perl there
 are a number of ways in which this can be done:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## @ar is an array of values specified somewhere else in the program.
 ## ++ is an increment operator that increases the value of its operand
 ## by one each time it is called.
@@ -1639,14 +1546,14 @@ while($i < @ar){
   $sum += $ar[$i];
   $i++;
 }
-\end{verbatim}
+\end{minted}
 
 
 These are not the only ways in which you can loop through values or data
 structures, but they probably represent the most common usages.
+
 \subsection{Reading and writing data}
 \label{sec-5-5}
-
 
 To read or write from a file we use a filehandle. This is just an
 identifier associated with the file and the reading or writing process.
@@ -1656,8 +1563,7 @@ STDOUT. In most cases this means your terminal screen, but STDOUT can
 also be piped to other processes as demonstrated previously in this
 guide. To open a text file and read a line at a time:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## we wish to read from a file specified by the variable $fname
 
 open(IN, $fname) || die "unable to open $fname $!\n";
@@ -1676,17 +1582,16 @@ while(<IN>){
   ## normally we would do something useful first by processing the data in the line.
   ## but more of that later.
 }
-\end{verbatim}
+\end{minted}
 
 
 
 To write to a file we also use open, but modify the filename to indicate
-that we wish to write to a new file by prefixing the name with a `>'
+that we wish to write to a new file by prefixing the name with a '>'
 character. If a file of the same name exists it will be overwritten. If
-we wish to append to an existing file we can use `>>'.
+we wish to append to an existing file we can use '>>'.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## given that we wish to write something to a file specified by the
 ## $fname variable.
 open(OUT, ">$fname") || die "unable to open $fname $!\n";
@@ -1706,10 +1611,10 @@ for $i(1..10){
 }
 
 close OUT;
-\end{verbatim}
+\end{minted}
+
 \subsection{Regular Expressions}
 \label{sec-5-6}
-
 
 You have already come across regular expressions in this course; they
 are used by a number of Unix utilities like grep. The Perl
@@ -1722,12 +1627,11 @@ to generalised text patterns in strings. There are a very large number
 of tutorials on how to use regular expressions in Perl available on the
 net and we will only provide a very short introduction here.
 
-In Perl, regular expression matching makes use of the ==~= operator,
+In Perl, regular expression matching makes use of the \texttt{=\textasciitilde{}} operator,
 where the left operand contains the text to searched for matches to the
 pattern given by the right operand. Some examples:
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## The left operand is usually a variable, but for clarity we'll use
 ## plain strings.
 
@@ -1773,7 +1677,7 @@ $string =~ s/ /_/g;
 
 ## here we also make use of the g (global) modifier to replace all instances rather than just the first
 ## match.
-\end{verbatim}
+\end{minted}
 
 Regular expressions make use of a number of special characters and
 modifiers to represent textual patterns. The characters represent
@@ -1783,11 +1687,17 @@ characters are:
 
 \begin{itemize}
 \item \texttt{.} The dot. This matches any character.
+
 \item \texttt{\textbackslash{}d} A numeric character. Equivalent to specifying [0-9].
+
 \item \texttt{\textbackslash{}s} A space.
+
 \item \texttt{\textbackslash{}S} Non space characters.
+
 \item \texttt{\textbackslash{}w} Word characters (alpha numeric and some others).
+
 \item \texttt{\textbackslash{}b} Word boundaries (tabs, spaces, newlines, punctuation).
+
 \item \texttt{\textbackslash{}t} Tab characters.
 \end{itemize}
 
@@ -1796,9 +1706,13 @@ character should be present in the text.
 
 \begin{itemize}
 \item \texttt{+} 1 or more.
+
 \item \texttt{*} 0 or more.
+
 \item \texttt{?} 0 or 1.
+
 \item \texttt{\{N\}} Exactly N times.
+
 \item \texttt{\{n..N\}} n to N times.
 \end{itemize}
 
@@ -1811,8 +1725,7 @@ Regular expressions can also be used to capture specific subsections of
 text. A very common example would be to extract a sequence identifier
 from a fasta file. This can easily be done in Perl.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 ## $line contains a line from a file. Identifiers begin with the > character.
 if( $line =~ /^>(\S+)/ ){
     $seqId = $1;
@@ -1820,13 +1733,13 @@ if( $line =~ /^>(\S+)/ ){
 ## if brackets are used in the regular expression, the values matching within the brackets
 ## will be assigned to variables $1 - $9. (Ordered from left to right). If you wish to match
 ## brackets you will need to escape them with backslashes.
-\end{verbatim}
+\end{minted}
 
 There's a lot more to regular expressions than this, but this may be enough to get
 started with.
+
 \subsection{Various operators}
 \label{sec-5-7}
-
 
 Operators are symbols that denote specific operations; like regular
 expression matching or regular mathematical operations. We have already
@@ -1835,39 +1748,57 @@ is not complete).
 
 \begin{itemize}
 \item \texttt{+} The addition operator. Returns the sum of the left and right
-  operand.
+operand.
+
 \item \texttt{-} The subtraction operator.
+
 \item \texttt{++} The auto-increment operator. Increases the value of its single
-  operand by 1. There are in fact two different increment operators;
-  post-increment \texttt{\$v++} and pre-increment \texttt{++\$v}. The former increments
-  the value after other operations, the latter before. Consider the
-  difference between \texttt{\$i=5; print \$i++;} and \texttt{\$i=5; print ++\$i;}.
+operand by 1. There are in fact two different increment operators;
+post-increment \texttt{\$v++} and pre-increment \texttt{++\$v}. The former increments
+the value after other operations, the latter before. Consider the
+difference between \texttt{\$i=5; print \$i++;} and \texttt{\$i=5; print ++\$i;}.
+
 \item \texttt{-{}-} The auto-decrement operator. Opposite of auto-increment.
+
 \item \texttt{+=} The increment operator. Increases the value of its left operand
-  by the value of its right operand.
+by the value of its right operand.
+
 \item \texttt{-=} The decrement operator. Opposite of the increment operator.
+
 \item \texttt{*} Multiplication.
+
 \item \texttt{/} Division.
+
 \item \texttt{*=} Sets the value of its left operand to the product of the left
-  and right operands. Identical to \texttt{\$left = \$left * \$right}.
+and right operands. Identical to \texttt{\$left = \$left * \$right}.
+
 \item \texttt{/=} As above but for division.
+
 \item \texttt{**} Exponentiation. Returns the value of the left operand to the
-  power of the right operand.
+power of the right operand.
+
 \item \texttt{.} String concatenation. Concatenates left and right operands.
+
 \item \texttt{.=} Concatenates right operand to left operand.
-\item ==== Numerical equality operator. Returns TRUE if the value of the
-  left and right operands are equal. Causes an error if either
-  operand is not numerical.
+
+\item \texttt{==} Numerical equality operator. Returns TRUE if the value of the
+left and right operands are equal. Causes an error if either
+operand is not numerical.
+
 \item \texttt{!=} Numerical inequality operator. Returns TRUE if the value of the
-  left and right operands are not equal. Causes an error if either
-  operand is not numerical.
+left and right operands are not equal. Causes an error if either
+operand is not numerical.
+
 \item \texttt{eq} String equality operator. Returns TRUE if the strings specified
-  by the left and the right hand operators are the same.
+by the left and the right hand operators are the same.
+
 \item \texttt{ne} String inequality operator. Returns TRUE if the strings specified
-  by left and right hand operators are not the same.
+by left and right hand operators are not the same.
 \item \texttt{>} Numerical greater than. Returns true if left operator is larger than
-  the right operator.
+the right operator.
+
 \item \texttt{<} Numerical less than. Opposite of above.
+
 \item \texttt{>=} Numerical greater than or equal to.
 \end{itemize}
 
@@ -1876,9 +1807,9 @@ that some operators should be used with numerical values and others with strings
 (pieces of text). Using the wrong data types will sometimes raise errors, but
 can also result in the program silently doing something unexpected (which is the
 worst kind of behaviour as it can result in corrupt output).
+
 \subsection{A somewhat useful example}
 \label{sec-5-8}
-
 
 As an example of something potentially useful we can write a short script
 that reads in sequences from a fasta file and identifies sequences that
@@ -1892,8 +1823,7 @@ the user wants to do.
 The following segment contains a full script that you should be able to
 run, using the ./scriptname invocation.
 
-
-\begin{verbatim}
+\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
 #!/usr/bin/perl -w
 
 ## the first line is not really a comment, but is used to make the shell invoke the perl interpreter on the
@@ -1939,7 +1869,7 @@ for $seqId(keys %seq){
 }
 
 ## end of the script!
-\end{verbatim}
+\end{minted}
 
 This script probably has a few bugs in it. Working out where those bugs
 are is a pretty good exercise for honing your Perl skills. Note also
@@ -1959,9 +1889,9 @@ you should look at after this introduction if you wish to start using
 Perl seriously.
 
 Good luck with Perl!
+
 \section{Recommended books}
 \label{sec-6}
-
 \begin{itemize}
 \item \href{http://unixandperl.com/}{Unix and Perl to the Rescue}
 \item \href{http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2}{Computational Biology}
@@ -1970,175 +1900,166 @@ Good luck with Perl!
 \label{sec-7}
 \subsection{FILE system}
 \label{sec-7-1}
-
 \small
 
-
 \begin{center}
-\begin{tabular}{ll}
- Command                        &  Meaning                                                                                                \\
+\begin{tabular}{p{4cm}p{10cm}}
+Command & Meaning\\
 \hline
- \texttt{cd DIR}                &  change directory to DIR                                                                                \\
+\texttt{cd DIR} & change directory to DIR\\
 \hline
- \texttt{cd ..}                 &  go up one directory                                                                                    \\
+\texttt{cd ..} & go up one directory\\
 \hline
- \texttt{cd \textasciitilde{}}  &  to to your home directory                                                                              \\
+\texttt{cd \textasciitilde{}} & to to your home directory\\
 \hline
- \texttt{pwd}                   &  show present working directory                                                                         \\
+\texttt{pwd} & show present working directory\\
 \hline
- \texttt{ls}                    &  list items in current directory                                                                        \\
+\texttt{ls} & list items in current directory\\
 \hline
- \texttt{ls -a}                 &  list all items, including hidden ones                                                                  \\
+\texttt{ls -a} & list all items, including hidden ones\\
 \hline
- \texttt{ls -lhcrt}             &  list all items in long, human-readable format and sort in reverse order by modification time           \\
+\texttt{ls -lhcrt} & list all items in long, human-readable format and sort in reverse order by modification time\\
 \hline
- \texttt{ls -F}                 &  list all items in current directory and show directories with a slash and executables with a star      \\
+\texttt{ls -F} & list all items in current directory and show directories with a slash and executables with a star\\
 \hline
- \texttt{tree  -C}              &  print hierarchical structure of your FILEs and directories (color-coded)                               \\
+\texttt{tree  -C} & print hierarchical structure of your FILEs and directories (color-coded)\\
 \hline
- \texttt{tree -d}               &  print hierarchical structure of all subdirectories                                                     \\
+\texttt{tree -d} & print hierarchical structure of all subdirectories\\
 \hline
- \texttt{tree -sh}              &  print hierarchical structure of FILEs and directories with sizes (-s) in a human-readable format (-h)  \\
+\texttt{tree -sh} & print hierarchical structure of FILEs and directories with sizes (-s) in a human-readable format (-h)\\
 \hline
- \texttt{mkdir directoryname}   &  make new directory named directoryname                                                                 \\
+\texttt{mkdir directoryname} & make new directory named directoryname\\
 \hline
- \texttt{mv FILE1 FILE2}        &  rename FILE1 to FILE2                                                                                  \\
+\texttt{mv FILE1 FILE2} & rename FILE1 to FILE2\\
 \hline
- \texttt{mv FILE1 ../FILE2}     &  move FILE1 one directory up                                                                            \\
+\texttt{mv FILE1 ../FILE2} & move FILE1 one directory up\\
 \hline
- \texttt{cp FILE1 FILE2}        &  copy FILE1 and save it as FILE2                                                                        \\
+\texttt{cp FILE1 FILE2} & copy FILE1 and save it as FILE2\\
 \hline
- \texttt{rm FILE}               &  remove FILE                                                                                            \\
+\texttt{rm FILE} & remove FILE\\
 \hline
- \texttt{rm -r DIRECTORY}       &  remove directory and all of its contents                                                               \\
+\texttt{rm -r DIRECTORY} & remove directory and all of its contents\\
 \end{tabular}
 \end{center}
+
 \subsection{Opening FILEs and extracting information}
 \label{sec-7-2}
-
-
 \begin{center}
-\begin{tabular}{ll}
- Command                                                            &  Meaning                                                                                     \\
+\begin{tabular}{p{4cm}p{10cm}}
+Command & Meaning\\
 \hline
- \texttt{less FILE}                                                 &  open FILE and scroll through it line by line                                                \\
+\texttt{less FILE} & open FILE and scroll through it line by line\\
 \hline
- \texttt{wc -l -w -m  FILE}                                         &  counting lines, words, and characters in FILE                                               \\
+\texttt{wc -l -w -m  FILE} & counting lines, words, and characters in FILE\\
 \hline
- \texttt{grep "pattern" FILE}                                       &  print lines from FILE that contain ``pattern''                                              \\
+\texttt{grep "pattern" FILE} & print lines from FILE that contain "pattern"\\
 \hline
- \texttt{grp -v "pattern" FILE}                                     &  print lines from FILE that do not contain ``pattern''                                       \\
+\texttt{grp -v "pattern" FILE} & print lines from FILE that do not contain "pattern"\\
 \hline
- \texttt{cat FILE > FILE2}                                          &  write the content of FILE to FILE2                                                          \\
+\texttt{cat FILE > FILE2} & write the content of FILE to FILE2\\
 \hline
- \texttt{cat FILE >> FILE2}                                         &  append the content of FILE to FILE2                                                         \\
+\texttt{cat FILE >> FILE2} & append the content of FILE to FILE2\\
 \hline
- \texttt{sed -n 11,12p FILE}                                        &  extract lines 11 to 12 from FILE                                                            \\
+\texttt{sed -n 11,12p FILE} & extract lines 11 to 12 from FILE\\
 \hline
- \texttt{awk -F "\textbackslash{}t" '\$1 > 20 \{print \$0\}' FILE}  &  Print all columns of a line (\$0) in FILE if the value in column 1 (\$1) is bigger than 20  \\
+\texttt{awk -F "\textbackslash{}t" '\$1 > 20 \{print \$0\}' FILE} & Print all columns of a line (\$0) in FILE if the value in column 1 (\$1) is bigger than 20\\
 \hline
- \texttt{unzip FILE.zip}                                            &  unzip the zip-compressed FILE                                                               \\
+\texttt{unzip FILE.zip} & unzip the zip-compressed FILE\\
 \hline
- \texttt{gunzip FILE.gz}                                            &  unzip the gz-compressed FILE                                                                \\
+\texttt{gunzip FILE.gz} & unzip the gz-compressed FILE\\
 \hline
- \texttt{sort -n  NUMBERS}                                          &  sort a row of NUMBERS numerically                                                           \\
+\texttt{sort -n  NUMBERS} & sort a row of NUMBERS numerically\\
 \hline
- \texttt{uniq -c  FILE}                                             &  count unique lines in FILE                                                                  \\
+\texttt{uniq -c  FILE} & count unique lines in FILE\\
 \hline
- \texttt{nano FILE}                                                 &  open FILE on the command-line                                                               \\
+\texttt{nano FILE} & open FILE on the command-line\\
 \hline
- \texttt{xdg-open  FILE}                                            &  open FILE with the standard program for its file type                                       \\
+\texttt{xdg-open  FILE} & open FILE with the standard program for its file type\\
 \hline
- \texttt{eog FILE}                                                  &  open FILE (which is a figure) with the Eye of Gnome graphics viewer program                 \\
+\texttt{eog FILE} & open FILE (which is a figure) with the Eye of Gnome graphics viewer program\\
 \end{tabular}
 \end{center}
+
 \subsection{Data transfer}
 \label{sec-7-3}
-
-
 \begin{center}
-\begin{tabular}{ll}
- Command                                    &  Meaning                                                                                                                                             \\
+\begin{tabular}{p{4cm}p{10cm}}
+Command & Meaning\\
 \hline
- \texttt{rsync -{}-progress -avz SRC DEST}  &  transfer from SRC to DEST, show the progress while FILEs are compressed during the transfer in archive mode (including recursing into directories)  \\
+\texttt{rsync -{}-progress -avz SRC DEST} & transfer from SRC to DEST, show the progress while FILEs are compressed during the transfer in archive mode (including recursing into directories)\\
 \hline
- \texttt{rsync FILE user@host://home/usr/}  &  transfer FILE to the folder /home/usr on the remote server user@host                                                                                \\
+\texttt{rsync FILE user@host://home/usr/} & transfer FILE to the folder /home/usr on the remote server user@host\\
 \hline
- \texttt{rsync -avz directory/ DEST}        &  transfer all FILEs saved in directory to DEST                                                                                                       \\
+\texttt{rsync -avz directory/ DEST} & transfer all FILEs saved in directory to DEST\\
 \hline
- \texttt{rsync -avz directory DEST}         &  create the folder directory in DEST and transfer all FILEs in this directory                                                                        \\
+\texttt{rsync -avz directory DEST} & create the folder directory in DEST and transfer all FILEs in this directory\\
 \hline
- \texttt{scp -r SRC DEST}                   &  transfer all FILEs in SRC to DEST                                                                                                                   \\
+\texttt{scp -r SRC DEST} & transfer all FILEs in SRC to DEST\\
 \hline
- \texttt{scp FILE DEST}                     &  transfer FILE to DEST                                                                                                                               \\
+\texttt{scp FILE DEST} & transfer FILE to DEST\\
 \end{tabular}
 \end{center}
+
 \subsection{Executing scripts and programs}
 \label{sec-7-4}
-
-
 \begin{center}
-\begin{tabular}{ll}
- Command                           &  Meaning                                                                   \\
+\begin{tabular}{p{4cm}p{10cm}}
+Command & Meaning\\
 \hline
- \texttt{nohup ... \&}             &  execute \ldots{} in the background                                        \\
+\texttt{nohup ... \&} & execute \ldots{} in the background\\
 \hline
- \texttt{nohup ... > FILE.txt \&}  &  execute \ldots{} in the background and redirect output to FILE.txt        \\
+\texttt{nohup ... > FILE.txt \&} & execute \ldots{} in the background and redirect output to FILE.txt\\
 \hline
- \texttt{ps -p ID}                 &  print the status of a process with the specified process-ID               \\
+\texttt{ps -p ID} & print the status of a process with the specified process-ID\\
 \hline
- \texttt{kill ID}                  &  stop the process witht the specified process-ID                           \\
+\texttt{kill ID} & stop the process witht the specified process-ID\\
 \hline
- \texttt{pkill NAME}               &  stop all processes with NAME (NAME could be for example `R' or `python')  \\
+\texttt{pkill NAME} & stop all processes with NAME (NAME could be for example 'R' or 'python')\\
 \hline
- \texttt{top}                      &  provides an ongoing look at processor activity in real time               \\
+\texttt{top} & provides an ongoing look at processor activity in real time\\
 \end{tabular}
 \end{center}
+
 \subsection{Networking}
 \label{sec-7-5}
-
-
 \begin{center}
-\begin{tabular}{ll}
- Command                    &  Meaning                                                                                                    \\
+\begin{tabular}{p{4cm}p{10cm}}
+Command & Meaning\\
 \hline
- \texttt{ssh user@host}     &  connect to host as user                                                                                    \\
+\texttt{ssh user@host} & connect to host as user\\
 \hline
- \texttt{ssh -X user@host}  &  connect to host as user with X11 forwarding enabled (you can open programs with graphical user interface)  \\
+\texttt{ssh -X user@host} & connect to host as user with X11 forwarding enabled (you can open programs with graphical user interface)\\
 \end{tabular}
 \end{center}
+
 \subsection{Help}
 \label{sec-7-6}
-
-
 \begin{center}
-\begin{tabular}{ll}
- Command                    &  Meaning                                            \\
+\begin{tabular}{p{4cm}p{10cm}}
+Command & Meaning\\
 \hline
- \texttt{command -{}-help}  &  Lists the options for command                      \\
+\texttt{command -{}-help} & Lists the options for command\\
 \hline
- \texttt{man command}       &  opens the manual page for command (exit with `q')  \\
+\texttt{man command} & opens the manual page for command (exit with 'q')\\
 \end{tabular}
 \end{center}
+
 \subsection{Tricks}
 \label{sec-7-7}
 
-
 Pipe output from one command with \texttt{|} as input to another command.
 
-
 \begin{center}
-\begin{tabular}{ll}
- Command                     &  Meaning                                                                                        \\
+\begin{tabular}{p{4cm}p{10cm}}
+Command & Meaning\\
 \hline
- \texttt{TAB key}            &  auto-completion of commands, FILE names etc.                                                   \\
+\texttt{TAB key} & auto-completion of commands, FILE names etc.\\
 \hline
- \texttt{UP or DOWN arrows}  &  move through the history of your commands                                                      \\
+\texttt{UP or DOWN arrows} & move through the history of your commands\\
 \hline
- \texttt{history}            &  Get overview of the commands you have used                                                     \\
+\texttt{history} & Get overview of the commands you have used\\
 \hline
- \texttt{*}                  &  Allows to generalize file names. For example, *fasta refers to all fasta files in a directory  \\
+\texttt{*} & Allows to generalize file names. For example, *fasta refers to all fasta files in a directory\\
 \end{tabular}
 \end{center}
-
 \end{document}

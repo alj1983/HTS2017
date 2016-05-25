@@ -1,13 +1,5 @@
 
 #+LATEX_HEADER: \usepackage{grffile}
-
-#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
-
-
-
-#+LATEX_HEADER: \usepackage[inline]{enumitem} 
-# #+LATEX_HEADER: \setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
-
 #+LATEX_HEADER: \usepackage{xcolor}
 #+LATEX_HEADER: \hypersetup{
 #+LATEX_HEADER:    colorlinks,
@@ -15,6 +7,12 @@
 #+LATEX_HEADER:    citecolor={blue!50!black},
 #+LATEX_HEADER:    urlcolor={blue!80!black}
 #+LATEX_HEADER:}
+
+
+
+#+LATEX_HEADER: \usepackage[inline]{enumitem} 
+# #+LATEX_HEADER: \setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
+
 
 
 #+LATEX_HEADER: \usepackage{tikz,graphics,graphicx}
@@ -56,7 +54,9 @@
 #+LATEX_HEADER: \setlength{\parindent}{0pt}
 #+LATEX_HEADER: \setlength{\parskip}{\baselineskip}
 
+#+LATEX_HEADER: \usepackage{minted}
 #+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+#+LATEX_HEADER: \newminted{common-lisp}{fontsize=\footnotesize}
 
 
 #+TITLE: *Mapping and Variant Calling* (2015-06-04)
@@ -69,7 +69,6 @@
 
 #+name: setup-minted
 #+begin_src emacs-lisp :exports results :results silent
-(setq org-latex-listings 'listings)
 (setq org-latex-listings 'minted)
 (setq org-latex-custom-lang-environments
         '((emacs-lisp "common-lispcode")))
@@ -97,26 +96,45 @@ individuals of differing phenotypes or obtained from several
 environments.
 
 * Mapping with Bowtie2
+Mapping next-generation sequencing data against genomes requires very high
+performance algorithms that must balance the accuracy of the mapping with the
+time taken. This is an interesting problem to work on and a rather large
+number of different applications have been developed. 
 To map reads against the assembled draft genome, we will use [[http://bowtie-bio.sourceforge.net/bowtie2/index.shtml][Bowtie2]].
 Bowtie2 defaults to finding global alignments (no soft-clipping of
 terminal bases) and it allows for gaps in the alignment, thereby
 increasing mapping accurracy ([[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlotterer /et al/. (2014) /Nature
-Reviews Genetics/]]). Although the aligner [[https://www.google.no/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&ved=0CD4QFjAE&url=https%3A%2F%2Fgithub.com%2Fiontorrent%2FTMAP&ei=1u07VZCXFYGqywPBz4DoDg&usg=AFQjCNE3vZXuQ1ygljhBcrozKj_nBU84TQ&sig2=u5_YVYBE904ay-9oLUuMOQ&bvm=bv.91665533,d.bGQ][TMAP]] was specifically
-compiled for Ion Torrent data, in this tutorial we want use an aligner
-that can also be used with Illumina or SoliD data - as you are likely
-to work with sequencing data that were obtained from these
-platforms in the future. An alternative aligner that is currently widely used is
-[[http://bio-bwa.sourceforge.net/][BWA]].
+Reviews Genetics/]]). 
 
-What you need for mapping are two fasta files, one containing the
-quality-trimmed reads and the other containing the draft genome.
-Create a new folder named =Mapping= (with =mkdir=) and copy the two
-fasta files into it (with =cp=). For example:
+A number of aligners have been written to either compensate or make use of
+the specific properties of sequence data obtained using different
+technologies. For example the aligner [[https://www.google.no/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&ved=0CD4QFjAE&url=https%3A%2F%2Fgithub.com%2Fiontorrent%2FTMAP&ei=1u07VZCXFYGqywPBz4DoDg&usg=AFQjCNE3vZXuQ1ygljhBcrozKj_nBU84TQ&sig2=u5_YVYBE904ay-9oLUuMOQ&bvm=bv.91665533,d.bGQ][TMAP]] was specifically
+designed to be used with Ion Torrent data which has problems with resolving
+homopolymer lengths accurately. Similarly there are specific aligners that
+handle SoliD color-space data which cannot be effectively aligned as
+nucleotide sequences. In this tutorial we will make use of Bowtie2 as it is
+one of the most commonly used aligners that balances speed, accuracy and
+memory requirements. My current favourite aligner is the [[http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635][STAR aligner]], which
+was designed to align RNA sequences to genomic locations; it is rather
+accurate and very fast, but requires far more memory to run than bowtie/bowtie2.
+An alternative aligner that is also widely used is the [[http://bio-bwa.sourceforge.net/][BWA]] aligner. You can
+find an unpublished comparison of mapping performance [[http://genomespot.blogspot.no/2014/11/dna-aligner-accuracy-bwa-bowtie-soap.html][here]], a benchmarking of
+9 mapping tools [[http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-14-184][here]] and a more in-depth look at mapping RNA sequences to genomes [[http://www.nature.com/nmeth/journal/v10/n12/full/nmeth.2722.html][here]].
+
+** The mapping commands
+
+What you need for mapping are two sequence files, one containing the
+quality-trimmed reads (fastq format) and the other containing the draft genome
+(in the fasta format).
+
+Create a new folder named =Mapping=[fn:folder_name] (with =mkdir=) and copy the two
+sequence files into it (with =cp=). For example for the assembly made using
+IonTorrent data:
 
 #+begin_src sh
 mkdir Mapping
 
-cp GenomeAssembly/IonTorrentDeNovoAssembly_d_results/\
+cp GenomeAssembly/IonTorrentDeNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/\
 IonTorrentDeNovoAssembly_out.unpadded.fasta \
 Mapping/
 
@@ -127,14 +145,33 @@ cd Mapping
 #+end_src
 
 
+Here the =RAWREADS_trimmed_trimmed.fq= refer to the IonTorrent reads after
+quality trimming using TrimGalore. Here we are simply making copies of the
+various files in different locations for performing different analyses. This is simple to describe and
+understand, but is not a particularly good way to organise your files, both
+because it wastes disk space[fn:cow] and (more seriously) it makes it
+easy to end up with files with the same names, but with slightly different
+content[fn:vcs].
+
+[fn:cow] In some modern file systems that make use of Copy-On-Write, there
+won't actually be any copying of the data unless one of the files is modified.
+
+[fn:vcs] How to handle lots of files created by various versions of data
+flows or pipelines is not a simple problem and there are many systems that
+have been developed to address such problems. This comes under the general
+heading of version control systems, and is outside the scope of this
+course. In general though, it is wise to follow rule number one of database design:
+'never store a piece of information in more than one location'. I.e. don't
+copy stuff around like we are doing here.
+
 In the Mapping folder, we first create an index for the reference genome using the
-following command:
+following command (enter the folder using =cd= before calling this command) :
 
 #+begin_src sh  
 bowtie2-build -f IonTorrentDeNovoAssembly_out.unpadded.fasta GENOMENAME
 #+end_src 
 
-You can change =GENOMENAME= to whatever you like.
+You should change =GENOMENAME= to something that is suitable for your data.
 
 Now, to align the trimmed reads against the genome, use the following command:
 
@@ -174,6 +211,178 @@ adjust the mismatch penalty.
 The program should run no longer than 10-20 mins. The resulting output file will be
 in the SAM format. For a detailed description of this format, see [[https://samtools.github.io/hts-specs/SAMv1.pdf][here]].
 
+To map the Illumina data we follow a similar procedure; however, we need to
+modify the call to =bowtie2= as the Illumina data is paired ended. To find
+out how we can do this, we can run =bowtie2= without any arguments or
+specifying the =--help= option. This will
+print out the usage information. Knowing how to read usage information is one
+of the most important things you can do as you'll then be able to run most
+applications without relying on others. If you do this, you'll see something
+like this:
+
+#+begin_src sh
+lmj@tej-X8DTG-QF:~$ bowtie2 --help
+Bowtie 2 version 2.1.0 by Ben Langmead (langmea@cs.jhu.edu, www.cs.jhu.edu/~langmea)
+Usage: 
+  bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
+
+  <bt2-idx>  Index filename prefix (minus trailing .X.bt2).
+             NOTE: Bowtie 1 and Bowtie 2 indexes are not compatible.
+  <m1>       Files with #1 mates, paired with files in <m2>.
+             Could be gzip'ed (extension: .gz) or bzip2'ed (extension: .bz2).
+  <m2>       Files with #2 mates, paired with files in <m1>.
+             Could be gzip'ed (extension: .gz) or bzip2'ed (extension: .bz2).
+  <r>        Files with unpaired reads.
+             Could be gzip'ed (extension: .gz) or bzip2'ed (extension: .bz2).
+  <sam>      File for SAM output (default: stdout)
+
+  <m1>, <m2>, <r> can be comma-separated lists (no whitespace) and can be
+  specified many times.  E.g. '-U file1.fq,file2.fq -U file3.fq'.
+
+Options (defaults in parentheses):
+
+ Input:
+  -q                 query input files are FASTQ .fq/.fastq (default)
+  --qseq             query input files are in Illumina's qseq format
+.... more options
+#+end_src
+
+Let us consider the top lines first. This is the basic usage information
+that tells you the arguments you need to specify and their order.
+
+#+begin_src sh
+Usage: 
+  bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
+#+end_src
+
+Things contained in square brackets =[stuff in square brackets]= denote
+optional arguments. So, the above (=bowtie2 [options] ...=) indicates that optional options (specified
+with =-= or =--=) should be specified before other arguments. After these
+options (of which there may be none) you should specify the value of the =-x=
+option. Looking down, you can see that =<bt2-idx>=, is a placeholder for
+the name of the index that you built using =bowtie2= in the
+previous section. If you have assembled a genome from the Illumina data on
+its own this will be a different index file based on a different assembly
+sequence, so we will need to change this value.
+
+The next section of the usage line is contained in squiggly brackets (usually
+referred to as braces) indicating that you have a choice of two or more
+alternatives. These alternatives are seperated by the pipe (=|=) character
+which in computing languages is usually taken to mean 'or'. So the section 
+={-1 <m1> -2 <m2> | -U <r>}= reads as 'either specify the values of =-1= and
+=-2= or the value of =-U=. Looking at the explanation further down, you can
+see that =<m1>= and =<m2>= refer to mate or paired sequences, whereas =<r>=
+refers to unpaired reads. The last section simply specifies to which file we
+wish to write the output; if you don't specify this, it will simply be
+written to the terminal (i.e. =STDOUT=). This is useful, because we can then
+pipe the data to other applications in a single command.
+
+So reading the usage line (also known as the synopsis) we can design our
+command line. If our paired reads are in files
+=RAWREADS_fw_trimmed_trimmed.fq= and 
+=RAWREADS_rv_trimmed_trimmed.fq=, and the index for our assembly genome is in 
+=GENOMENAME.X.bt2=, the command without any of the optional options would be:
+
+#+begin_src sh
+bowtie2 -x GENOMENAME -1 RAWREADS_fw_trimmed_trimmed.fq\
+-2 RAWREADS_rv_trimmed_trimmed.fq -S MAPPED.sam
+#+end_src
+
+Here we haven't specifed any of the options we used for the IonTorrent data
+above and the program will simply use the default options. To see what the
+default options are you should read the rest of the help section that is
+printed out when you run =bowtie2= without any arguments. You can probably
+use most of the options as we used above, though you should not assume this.
+
+Given that the Illumina data is paired end sequence data you should pay
+special attention to the Paired-end section of the help text. In particular
+consider the values of =-I= and =-X= and whether the default options are
+reasonable for your libraries.
+
+** Running the commands in a script for posterity
+As was emphasised in the section on Unix tools for bioinformatics, you really
+shouldn't type these commands directly into a terminal window. It's too easy
+to make a mistake when you have to specify many options, and you will not
+have a record of the command that you actually used. Instead we will write
+the commands into a text file and ask the shell (in this case
+bash[fn:shells]) to run the commands non-interactively. In the simplest case
+you just make one file for each command, and run these seperately. However,
+it is much better to embed the full process into a single script as all the
+information will be in a single place. Here what we have done is:
+
+[fn:shells] bash stands for Bourne Again Shell, and is a bit of a joke on the
+fact that Bash is an extension or enhancement of the Bourne shell. These days
+it's probably the most common shell used, but as always there are people who
+consider it an abomination.
+
+- made a directory for our mapping (=mkdir=)
+- copied the data files to that directory (=cp=)
+- entered the directory (=cd=)
+- run bowtie2 to make an index
+- run bowtie2 to map the sequences
+
+We can put all of those commands into a single shell script, or we can make
+the directories manually and only include the more complicated commands in
+the script. Which is better depends a little bit on the situation; if you
+have lots of different sequence files that you wish to map in different ways
+then you might want to put all the directory commands into the script;
+ideally doing this in an automated way using loops and
+assembling the directory names automatically. However, here I would suggest
+the simple option of manually making the directories and having simpler
+script files to avoid using more complex shell scripting.
+
+Hence once you have created the appropriate directory and copied the sequence
+files (as above) you can write (eg: =nano pgm_map.sh=) a script (to map
+IonTorrent data) that looks a bit like:
+
+#+begin_src sh
+#!/bin/bash
+
+## here you can define some variables that specify the names of
+## input and output files
+
+RAWREADS=breiflabb_pgm
+GENOMENAME=breiflabb_pgm
+FILE="$GENOMENAME"_bt2
+
+## note that when you use the variables you have to put a $
+## sign in front of them
+## and if you want to concatenate to words you need to
+## to quote them
+
+## first build the index:
+bowtie2-build -f IonTorrentDeNovoAssembly_out.unpadded.fasta $GENOMENAME
+
+## then use that to map the sequences:
+bowtie2 -p 1 -q -phred33 --sensitive --no-unal \
+--al-gz "$FILE"_Aligned.fq.gz --un-gz "$FILE"_Unaligned.fq.gz \
+--met-file MetricsFile.txt \
+-x $GENOMENAME -U $RAWREADS_trimmed_trimmed.fq \
+-S "$GENOMENAME"_bt2_mapped.sam" > bt2_log.log
+
+## here you can put some comments to indicate what the different
+## options indicate and why you have chosen the specific options.
+#+end_src
+
+To run this script (=pgm_map.sh=) you can either :
+
+#+begin_src sh
+bash pgm_map.sh
+#+end_src sh
+
+or:
+
+#+begin_src sh
+chmod +x pgm_map.sh
+./pgm_map.sh
+#+end_src_sh
+
+Of course, as before, you should probably run it using =nohup= as before:
+
+#+begin_src sh
+nohup bash pgm_map.sh > map_log &
+#+end_src
+
 * Filter mappings
 To remove unmapped reads, reads below a mapping quality of 20, and
 reads that were not aligned uniquely (reads that were mapped to >1
@@ -197,6 +406,14 @@ Options:
 - =-S= :: Input is in the sam format
 - =-h= :: Include the samfile header in the output 
 - =-q= :: Skip alignments with a mapping quality below 20
+
+Note that it is usually possible to limit the alignments reported by the
+mapping program by adjusting the options; for at least some programs you can
+instruct the program to only report unique matches and so it might seem
+unnecessary to perform post-filtering steps like these. However, given that
+the mapping process takes far more time than the filtering process it often
+makes sense to map using permimssive criteria and then to filter these
+depending on the questions being asked.
 
 ** Removing duplicate reads
 After quality-trimming, we counted the fraction of duplicate
@@ -245,7 +462,9 @@ VALIDATION_STRINGENCY=SILENT \
 REMOVE_DUPLICATES=true
 #+end_src
 
-Duplication metrics will be written to the =MAPPED_metricsfile=.
+Duplication metrics will be written to the =MAPPED_metricsfile=. We again
+very strongly recommend that you put these commands into a shell file and run
+that rather than to run directly from the command line.
 
 
 ** Re-alignment around indels
@@ -275,9 +494,9 @@ IonTorrentDeNovoAssembly_out.unpadded.fasta
 
 Fig. [[fig:tview]] shows a screenshot of tview.  When you hit the =?= on
 your keyboard, you will see the range of options to navigate through
-the alingment. You can change the contig that you are looking at by
+the alignment. You can change the contig that you are looking at by
 hitting =g= and then enter in the Goto-window the name of the contig,
-like '=IonTorrentDeNovoAssembly_c3='.  You can exit the alignment viewer
+like =IonTorrentDeNovoAssembly_c3=.  You can exit the alignment viewer
 by hitting =q=.
 
 #+name: fig:tview
@@ -312,12 +531,37 @@ the mapped, sorted and indexed bam file.
 \clearpage
 #+end_latex
 * BONUS: SNP calling with samtools mpileup and bcftools
-A widely used tool to identify sequence variants is =samtools
-mpileup=. See [[http://samtools.sourceforge.net/samtools.shtml][here]] for an overview of its options. The tool =samtools
-mpileup= defaults to creating a pileup file, which summarizes aligned
-base calls in text format (see here for a detailed characterization of
+Given sequences aligned to a reference it seems that it should be trivial to
+identify sequence variants. Surely any mismatches between the reference (in this case our assembly)
+and reads is evidence for the
+presence of a sequence variant. However, if the probability of observing a
+sequencing error is larger than the frequency of sequence variants within the
+population (an individual can be considered as a population of
+two haploid genomes) then most sequence mismatches will be caused by
+sequencing errors. This is usually the case (and overwhelmingly so) when looking at individuals from
+within a single species and in order to identify a position as a sequence
+variant we need to have more than one read diverging from the reference. How
+many reads are required depends on the total number of reads, the qualities
+of those reads and the expected variant frequency. If we are sequencing
+populations, then we also have to consider the rarity of a given allele;
+the rarer the allele one wishes to discover the larger the sequencing coverage
+required. This has led to the
+development of a rather large number of variant detection algorithms and
+programs (see
+[[http://www.nature.com/nrg/journal/v15/n11/fig_tab/nrg3803_T3.html][table 3]] of [[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlotterer /et al/]] for a list), and the difficulty of balancing
+computation times, sensititivy and accuracy makes it likely that more methods
+and or implementations will be written.
+
+Here we will use the =samtools mpileup= in conjuction with 
+=bcftools=. Computationally these are some of the simplest ways to detect variants
+and are widely used. For more in depth analyses we would recommend that you
+consider using other tool sets that have the potential to provide more
+accurate variant detection at the cost of more processing time.
+
+The tool =samtools mpileup= defaults to creating a pileup file, which summarizes aligned
+base calls in text format (See [[http://samtools.sourceforge.net/samtools.shtml][here]] for an overview of its options, and here for a detailed characterization of
 a pileup file http://samtools.sourceforge.net/pileup.shtml). If you
-call =samtools mpileup= with the =-u= or =-g= option, instead, the
+call =samtools mpileup= with the =-u= or =-g= option the
 output format is a vcf or bcf (compressed binary version of vcf) file;
 vcf stands for 'variant call format'. Its format specifications are
 described [[https://samtools.github.io/hts-specs/VCFv4.2.pdf][here]] and summarized in Fig. [[fig:vcf]].
@@ -328,8 +572,7 @@ reads is:
 #+begin_src sh
 samtools mpileup -g \
 -f \
-IonTorrentDeNovoAssembly_out\
-.unpadded.fasta \
+IonTorrentDeNovoAssembly_out.unpadded.fasta \
 -q 20 \
 -Q 20 \
 -t DP \

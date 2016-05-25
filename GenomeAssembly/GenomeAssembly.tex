@@ -1,4 +1,4 @@
-% Created 2016-05-06 fr. 16:38
+% Created 2016-05-23 ma. 22:35
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -59,7 +59,7 @@ urlcolor={blue!80!black}
 \hypersetup{
  pdfkeywords={},
   pdfsubject={},
-  pdfcreator={Emacs 24.3.1 (Org mode 8.3beta)}}
+  pdfcreator={Emacs 24.5.1 (Org mode 8.3beta)}}
 \begin{document}
 
 \maketitle
@@ -109,21 +109,20 @@ mkdir data
 copy your quality-trimmed fastq file into the \texttt{data} directory with:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
-cp sourcefile targetdirectory
+cp SOURCEFILE TARGETDIRECTORY
 \end{minted}
 
-Here, you have to replace \texttt{sourcefile} with your trimmed fasta files
-and \texttt{targetdirectory} with the \texttt{data} directory that you just created.
+Here, you have to replace \texttt{SOURCEFILE} with your trimmed fasta files
+and \texttt{TARGETDIRECTORY} with the path to the \texttt{data} directory that you just created.
 In case of paired-end sequencing, you copy both the fasta file with
 trimmed forward reads and the fasta file with trimmed reverse reads
 into this folder.
 
 
 
-The configurations for \texttt{mira} are specified in a so-called
-\texttt{manifest} file. We won't have much time to play around with different
-setting in this tutorial and will choose the most simple settings for
-a \emph{de novo} genome assembly.
+The configurations for \texttt{mira} are specified in a so-called \texttt{manifest}
+file. In this tutorial and will choose the most simple settings for a
+\emph{de novo} genome assembly.
 
 
 
@@ -209,7 +208,7 @@ job = denovo,genome,accurate
 parameters = -NW:cmrnl=warn
 
 readgroup = PairedIlluminaReadsFromHTSCourse2015
-data = fastq::data/Illumina_R1_val_1.fq fastq::data/Illumina_R2_val_2.fq
+data = fastq::data/YOURINPUTFILE_1.fq fastq::data/YOURINPUTFILE_2.fq
 technology = solexa
 template_size = 100 1000 autorefine
 segment_placement = ---> <---
@@ -329,7 +328,11 @@ this directory, you can move to it with the \texttt{cd} command), you can
 copy and paste the following commands into your terminal window to
 plot histograms of the contig lengths and coverages:
 
-Replace here PROJECTNAME with the name of your own project
+Replace here PROJECTNAME with the name of your own project. For this,
+you can first copy all of the following commands besides the last line
+(\texttt{R CMD BATCH...}) and past it in your terminal. Then you can use
+\texttt{nano Rplothistogram.r} to change the contents of this file.
+
 \begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
 rm Rplothistogram.r # Use this if the file Rplothistogram.r already exists.
 
@@ -376,7 +379,6 @@ eog ContigCoverages.png
 Example histograms of contig lengths and coverages are shown in
 Fig. \ref{fig:histcontlength} and \ref{fig:histcontcov}.
 
-\clearpage
 
 \begin{figure}[htb]
 \centering
@@ -391,6 +393,7 @@ Fig. \ref{fig:histcontlength} and \ref{fig:histcontcov}.
 \caption{\label{fig:histcontcov}Histogram of contig coverages}
 \end{figure}
 
+\clearpage
 
 
 
@@ -415,7 +418,7 @@ R
 
 # open the output file from MIRA
 contigs <- read.table( 
-file="IonTorrentDeNovoAssembly_d_info/IonTorrentDeNovoAssembly_info_contigstats.txt", 
+file="PROJECTNAME_d_info/PROJECTNAME_info_contigstats.txt", 
   sep="\t", header=FALSE)
 
 # Extract only those contigs that are longer than 500bp
@@ -439,7 +442,7 @@ n
 
 MIRA does not only assemble your reads but it comes with a command
 line tool named \texttt{miraconvert}, which allows you to extract contigs
-based on, for example, contig length and coverage (see in the \href{http://mira-assembler.sourceforge.net/docs/DefinitiveGuideToMIRA.pdf}{MIRA qdocumentation} for further details and options).
+based on, for example, contig length and coverage (see in the \href{http://mira-assembler.sourceforge.net/docs/DefinitiveGuideToMIRA.pdf}{MIRA documentation} for further details and options).
 
 
 
@@ -452,14 +455,14 @@ and the proportion that may result from bacterial contamination, you
 can use the Basic Local Alignment Search Tool (\href{http://blast.ncbi.nlm.nih.gov/Blast.cgi}{BLAST}) to align the
 contigs to databases with known genes and proteins.
 
-Proper annotation of a deNovo genomes is a challenging task. An
+Proper annotation of a \emph{de novo} genomes is a challenging task. An
 overview of the process for eukaryotes is given in
 \href{http://www.marcottelab.org/users/BIO337_2014/EukGeneAnnotation.pdf}{Yandell, Mark, and Daniel Ence. "A beginner's guide to eukaryotic genome annotation." Nature Reviews Genetics 13.5 (2012): 329-342.}
 If you work with prokaryotes, have a look at \href{http://stothard.afns.ualberta.ca/public_html/papers/curr_opin_microbiol_bacterial_annotation.pdf}{Stothard, Paul, and David S. Wishart. "Automated bacterial genome analysis and annotation." Current opinion in microbiology 9.5 (2006): 505-510.}
 
 For protein annotation it helps also to sequence the
 transcriptome. The assembled contigs of the transcriptome will only
-consist of exons; all introns are cut out. Annotation of a deNovo
+consist of exons; all introns are cut out. Annotation of a \emph{de novo}
 transcriptome assembly is described in \href{http://sfg.stanford.edu/BLAST.html}{The Simple Fool's Guide to
 Population Genomics via RNA-Seq}. Be aware that the annotation can take several weeks to finish.
 
@@ -512,5 +515,5 @@ does not perform scaffolding. This can be done with the stand-alone
 } 
 \end{figure}
 \end{center}
-Emacs 24.3.1 (Org mode 8.3beta)
+Emacs 24.5.1 (Org mode 8.3beta)
 \end{document}

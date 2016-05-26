@@ -1,4 +1,4 @@
-% Created 2016-04-22 fr. 11:25
+% Created 2016-05-26 to. 15:19
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -18,6 +18,8 @@
 \usepackage{hyperref}
 \tolerance=1000
 \usepackage{minted}
+\usepackage{tikz}
+\usepackage{parskip}
 \usepackage{color}
 \usepackage{listings}
 \usepackage{minted}
@@ -27,7 +29,7 @@
 \useinnertheme{rectangles}
 \setbeamertemplate{footline}[frame number]
 \usemintedstyle{emacs}
-\usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=bibtex,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
+\usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
 \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
 \usepackage{tikz,graphics,graphicx}
 \usetikzlibrary{decorations.shapes,arrows,decorations.pathreplacing,decorations.pathmorphing,backgrounds}
@@ -1521,9 +1523,9 @@ for Illumina sequencing.
 \end{itemize}
 \end{itemize}
 \end{frame}
-\begin{frame}[label=sec-5-0-2]{References}
+\begin{frame}[allowframebreaks]{References}
 \raggedright
 \printbibliography[sorting=nty,heading=bibnumbered]
 \end{frame}
-% Emacs 24.3.1 (Org mode 8.3beta)
+% Emacs 24.5.1 (Org mode 8.3beta)
 \end{document}

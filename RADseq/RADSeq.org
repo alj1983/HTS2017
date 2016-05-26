@@ -10,7 +10,7 @@
 #+LaTeX_HEADER: \setbeamertemplate{footline}[frame number]
 
 #+LaTeX_HEADER: \usemintedstyle{emacs}
-#+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=bibtex,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
+#+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
 #+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
 
 # #+LATEX_HEADER:\bibliography{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}

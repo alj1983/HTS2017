@@ -1,4 +1,4 @@
-% Created 2016-05-26 Thu 08:16
+% Created 2016-05-26 Thu 12:51
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -73,7 +73,7 @@ individuals of differing phenotypes or obtained from several
 environments.
 
 \section{Mapping with Bowtie2}
-\label{sec:orgheadline3}
+\label{sec:orgheadline4}
 Mapping next-generation sequencing data against genomes requires very high
 performance algorithms that must balance the accuracy of the mapping with the
 time taken. This is an interesting problem to work on and a rather large
@@ -264,7 +264,7 @@ command line. If our paired reads are in files
 \texttt{GENOMENAME.X.bt2}, the command without any of the optional options would be:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
-bowtie2 -x GENOMENAME -1 RAWREADS_fw_trimmed_trimmed.fq\
+bowtie2 -x GENOMENAME -1 RAWREADS_fw_trimmed_trimmed.fq \
 -2 RAWREADS_rv_trimmed_trimmed.fq -S MAPPED.sam
 \end{minted}
 
@@ -367,8 +367,21 @@ Of course, as before, you should probably run it using \texttt{nohup}:
 nohup bash pgm_map.sh > map_log &
 \end{minted}
 
+\subsection{The (lack of) directory structure}
+\label{sec:orgheadline3}
+If you follow these procedures you will end up with one or more directories containing
+copies of the raw reads, the assembly sequence, genome index files, and as you keep following the
+instructions below, a whole load of other files. This really is a bit of an unholy
+mess. Don't do this at home. Instead try to set up directory structures that
+make sense for your project and try to follow some sort of rules as to what
+goes where. This is most easily established by running the analyses through scripts
+that you can reuse for new data. As usual though, there isn't that much point
+in trying to work out exactly how to structure your project before you started
+as you will almost certainly wish to change it as it develops. Learn the
+Unix basics well and this won't be a problem.
+
 \section{Filter mappings}
-\label{sec:orgheadline6}
+\label{sec:orgheadline7}
 To remove unmapped reads, reads below a mapping quality of 20, and
 reads that were not aligned uniquely (reads that were mapped to >1
 places in the genome), use the python script \href{http://marinetics.org/2015/03/03/Bowtie2Filtering.html}{Bowtie2Filtering.py}:
@@ -403,7 +416,7 @@ makes sense to map using permissive criteria and then to filter these
 depending on the questions being addressed.
 
 \subsection{Removing duplicate reads}
-\label{sec:orgheadline4}
+\label{sec:orgheadline5}
 After quality-trimming, we counted the fraction of duplicate
 reads. Duplicate reads have the same start and end
 coordinates and map to the same region. Duplicates result from primer
@@ -422,7 +435,7 @@ the reads by the leftmost mapping coordinates.
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 samtools view -bSh MAPPEDREADS.sam  > MAPPEDREADS.bam
-samtools sort MAPPEDREADS.bam MAPPEDREADS_sorted
+samtools sort -o MAPPEDREADS_sorted.bam MAPPEDREADS.bam
 \end{minted}
 
 Meaning of the options:
@@ -432,8 +445,40 @@ Meaning of the options:
 \item[{\texttt{-h}}] include the header in the output
 \end{description}
 
-Then, you can use the java script 'MarkDuplicates.jar' from Picard
-tools to remove the duplicates from the sorted bam file:
+Then, you can use the 'MarkDuplicates' tool from Picard
+to remove the duplicates from the sorted bam file. Here we invoke
+the Picard tools using the command \texttt{picard-tools}. However, 
+there isn't actually any such program. The Picard tools are implemented
+as a Java archive, and to be run should invoke the java virtual machine 
+(or run time environment). If you look at the documentation on the 
+Picard tool \href{http://broadinstitute.github.io/picard/}{web site} it will tell you to invoke the Picard tools using:
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+java jvm-args -jar picard.jar PicardToolName OPTION1=value1 OPTION2=value2...
+\end{minted}
+
+That's a bit of a mouthful, and in order to use it you would also need to know where
+to find the picard.jar file. To simplify this, I've set up an alias to
+this command using the \texttt{alias} program. This has been added to the end
+of your \texttt{.bashrc} files which are read by \texttt{bash} when you log in to
+your account (try \texttt{more .bashrc} after logging in to see the contents
+of this file). At the end of the \texttt{.bashrc} file you will find following
+lines:
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+## in order to run picard-tools as picard tools we set up an alias
+alias picard-tools='java -jar /usr/local/picard-tools/picard.jar'
+\end{minted}
+
+As a result, when you type \texttt{picard-tools} into your terminal, the shell actually sees
+\texttt{java -jar /usr/local/picard-tools/picard.jar}, after which you can specify the
+tool and the options you wish to use. Note that this isn't standard in any way,
+and that you may need to use the Picard tools differently depending on your
+local setup. Doing it this way also doesn't let you specify any options to the
+java virtual machine (the \texttt{jvm-args} above) and if for whatever reason you need
+to do this you will have to use the full command as shown above.
+
+To remove duplicates using the Picard MarkDuplicates tool we can then simply:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 picard-tools MarkDuplicates \
@@ -451,7 +496,7 @@ that rather than to run directly from the command line.
 
 
 \subsection{Re-alignment around indels}
-\label{sec:orgheadline5}
+\label{sec:orgheadline6}
 Reads that are spanning InDels are often misaligned and can result in
 false SNPs (see \href{http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html}{Schlotterer \emph{et al}. (2014) \emph{Nature Reviews
 Genetics}}). These reads should be removed or re-aligned. We have not
@@ -460,9 +505,9 @@ steps (using \href{https://www.broadinstitute.org/gatk/}{GATK}) are described in
 \url{http://sfg.stanforde.edu/SFG.pdf}.
 
 \section{Visualizing alignments}
-\label{sec:orgheadline9}
+\label{sec:orgheadline10}
 \subsection{Samtools tview: command-line viewer}
-\label{sec:orgheadline7}
+\label{sec:orgheadline8}
 The command line tool samtools tview allows you to view your
 alignments directly in the command line window. What you need is the
 reference genome (fasta file) and the sorted and deduplicated
@@ -494,7 +539,7 @@ Screenshot of tview}
 
 \clearpage
 \subsection{IGV: viewer with a graphical user interface}
-\label{sec:orgheadline8}
+\label{sec:orgheadline9}
 I bet that many of you prefer to look at the alignment in a graphical
 user interface. A decent free alignment viewer is \href{https://www.broadinstitute.org/igv/}{igv}, the Integrative
 Genomics Viewer (see Fig. \ref{fig:orgparagraph2} for a screenshot). Once you have
@@ -518,7 +563,7 @@ Screenshot of igv with reads aligned to a reference and colored mismatches}
 
 \clearpage
 \section{BONUS: SNP calling with samtools mpileup and bcftools}
-\label{sec:orgheadline10}
+\label{sec:orgheadline11}
 Given sequences aligned to a reference it seems that it should be trivial to
 identify sequence variants. Surely any mismatches between the reference (in this case our assembly)
 and reads is evidence for the

@@ -1,4 +1,4 @@
-% Created 2016-05-26 Thu 08:13
+% Created 2016-05-26 Thu 09:55
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -432,8 +432,40 @@ Meaning of the options:
 \item[{\texttt{-h}}] include the header in the output
 \end{description}
 
-Then, you can use the java script 'MarkDuplicates.jar' from Picard
-tools to remove the duplicates from the sorted bam file:
+Then, you can use the 'MarkDuplicates' tool from Picard
+to remove the duplicates from the sorted bam file. Here we invoke
+the Picard tools using the command \texttt{picard-tools}. However, 
+there isn't actually any such program. The Picard tools are implemented
+as a Java archive, and to be run should invoke the java virtual machine 
+(or run time environment). If you look at the documentation on the 
+Picard tool \href{http://broadinstitute.github.io/picard/}{web site} it will tell you to invoke the Picard tools using:
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+java jvm-args -jar picard.jar PicardToolName OPTION1=value1 OPTION2=value2...
+\end{minted}
+
+That's a bit of a mouthful, and in order to use you would also know where
+to find the picard.jar file. To simplify this, I've set up an alias to
+this command using the \texttt{alias} command. This has been added to the end
+of your \texttt{.bashrc} files which are read by \texttt{bash} when you log in to
+your account (try \texttt{more .bashrc} after logging in to see the contents
+of this file). At the end of the \texttt{.bashrc} file you will find following
+lines:
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+## in order to run picard-tools as picard tools we set up an alias
+alias picard-tools='java -jar /usr/local/picard-tools/picard.jar'
+\end{minted}
+
+As a result, when you type \texttt{picard-tools} into your terminal, the shell actually sees
+\texttt{java -jar /usr/local/picard-tools/picard.jar}, after which you can specify the
+tool and the options you wish to use. Note that this isn't standard in any way,
+and that you may need to use the Picard tools differently depending on your
+local setup. Doing it this way also doesn't let you specify any options to the
+java virtual machine (the \texttt{jvm-args} above) and if for whatever reason you need
+to do this you will have to use the full command as shown above.
+
+To remove duplicates using the Picard MarkDuplicates tool we can then simply:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 picard-tools MarkDuplicates \
@@ -547,7 +579,7 @@ consider using other tool sets that have the potential to provide more
 accurate variant detection at the cost of more processing time.
 
 The tool \texttt{samtools mpileup} defaults to creating a pileup file, which summarizes aligned
-base calls in text format (See \href{http://samtools.sourceforge.net/samtools.shtml}{here} for an overview of its options, and here for a detailed characterization of
+base calls in a text format (See \href{http://samtools.sourceforge.net/samtools.shtml}{here} for an overview of its options, and here for a detailed characterization of
 a pileup file \url{http://samtools.sourceforge.net/pileup.shtml}). If you
 call \texttt{samtools mpileup} with the \texttt{-u} or \texttt{-g} option the
 output format is a vcf or bcf (compressed binary version of vcf) file;

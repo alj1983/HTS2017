@@ -13,8 +13,6 @@
 #+LATEX_HEADER: \usepackage[inline]{enumitem} 
 # #+LATEX_HEADER: \setdescription{style=multiline,leftmargin=3cm,font=\normalfont}
 
-
-
 #+LATEX_HEADER: \usepackage{tikz,graphics,graphicx}
 
 #+LATEX_HEADER: \usetikzlibrary{decorations.shapes,arrows,decorations.pathreplacing,decorations.pathmorphing,backgrounds}
@@ -55,7 +53,7 @@
 #+LATEX_HEADER: \setlength{\parskip}{\baselineskip}
 
 #+LATEX_HEADER: \usepackage{minted}
-#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.85,0.85,0.85}
 #+LATEX_HEADER: \newminted{common-lisp}{fontsize=\footnotesize}
 
 
@@ -75,7 +73,7 @@
 
 (setq org-latex-minted-options
       '(("fontsize" "\\scriptsize")
-        ("bgcolor=lightgray")
+        ("bgcolor=mintedbackground")
         ("linenos" "")))
 
 (setq org-latex-to-pdf-process
@@ -131,6 +129,7 @@ Create a new folder named =Mapping= (with =mkdir=) and copy the two
 sequence files into it (with =cp=). For example for the assembly made using
 IonTorrent data:
 
+
 #+begin_src sh
 mkdir Mapping
 
@@ -149,23 +148,18 @@ Here the =RAWREADS_trimmed_trimmed.fq= refer to the IonTorrent reads after
 quality trimming using TrimGalore. Here we are simply making copies of the
 various files in different locations for performing different analyses. This is simple to describe and
 understand, but is not a particularly good way to organise your files, both
-because it wastes disk space[fn:cow] and (more seriously) it makes it
+
+because it wastes disk space[fn:: In some modern file systems that make use of Copy-On-Write, there
+won't actually be any copying of the data unless one of the files is modified.
+] and (more seriously) it makes it
 easy to end up with files with the same names, but with slightly different
-content[fn:vcs].
-
-[fn:cow] In some modern file systems that make use of Copy-On-Write,
-there won't actually be any copying of the data unless one of the
-files is modified.
-
-[fn:vcs] How to handle lots of files created by various versions of
-data flows or pipelines is not a simple problem and there are many
-systems that have been developed to address such problems. This comes
-under the general heading of version control systems, and is outside
-the scope of this course. In general though, it is wise to follow rule
-number one of database design: 'never store a piece of information in
-more than one location'. I.e. don't copy stuff around like we are
-doing here.
-
+content[fn:: How to handle lots of files created by various versions of data
+flows or pipelines is not a simple problem and there are many systems that
+have been developed to address such problems. This comes under the general
+heading of version control systems, and is outside the scope of this
+course. In general though, it is wise to follow rule number one of database design:
+'never store a piece of information in more than one location'. I.e. don't
+copy stuff around like we are doing here.].
 
 In the Mapping folder, we first create an index for the reference genome using the
 following command (enter the folder using =cd= before calling this command) :
@@ -192,8 +186,7 @@ nohup bowtie2 -p 1 \
 -S MAPPEDREADS.sam >Logfile.log &
 #+end_src
 
-Here an overview of the meaning of the used options:
-
+The meaning of the options used:
 
 - =-p 1= :: Causes Bowtie 2 to use a single thread.
 	    Depending on the number of users and libraries we will  probably increase this.
@@ -215,7 +208,7 @@ The program should run no longer than 10-20 mins. The resulting output file will
 in the SAM format. For a detailed description of this format, see [[https://samtools.github.io/hts-specs/SAMv1.pdf][here]].
 
 To map the Illumina data we follow a similar procedure; however, we need to
-modify the call to =bowtie2= as the Illumina data is paired ended. To find
+modify the call to =bowtie2= as the Illumina data contains paired reads. To find
 out how we can do this, we can run =bowtie2= without any arguments or
 specifying the =--help= option. This will
 print out the usage information. Knowing how to read usage information is one
@@ -223,8 +216,8 @@ of the most important things you can do as you'll then be able to run most
 applications without relying on others. If you do this, you'll see something
 like this:
 
-#+begin_src sh
-bowtie2 --help
+#+begin_src console
+lmj@tej-X8DTG-QF:~$ bowtie2 --help
 Bowtie 2 version 2.1.0 by Ben Langmead (langmea@cs.jhu.edu, www.cs.jhu.edu/~langmea)
 Usage: 
   bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
@@ -255,7 +248,7 @@ Options (defaults in parentheses):
 Let us consider the top lines first. This is the basic usage information
 that tells you the arguments you need to specify and their order.
 
-#+begin_src sh
+#+begin_src console
 Usage: 
   bowtie2 [options]* -x <bt2-idx> {-1 <m1> -2 <m2> | -U <r>} [-S <sam>]
 #+end_src
@@ -275,10 +268,11 @@ referred to as braces) indicating that you have a choice of two or more
 alternatives. These alternatives are seperated by the pipe (=|=) character
 which in computing languages is usually taken to mean 'or'. So the section 
 ={-1 <m1> -2 <m2> | -U <r>}= reads as 'either specify the values of =-1= and
-=-2= or the value of =-U=. Looking at the explanation further down, you can
+=-2= or the value of =-U='. Looking at the explanation further down, you can
 see that =<m1>= and =<m2>= refer to mate or paired sequences, whereas =<r>=
 refers to unpaired reads. The last section simply specifies to which file we
-wish to write the output; if you don't specify this, it will simply be
+wish to write the output; it's optional (inside =[]=) and if you don't specify this, 
+the output will simply be
 written to the terminal (i.e. =STDOUT=). This is useful, because we can then
 pipe the data to other applications in a single command.
 
@@ -289,7 +283,7 @@ command line. If our paired reads are in files
 =GENOMENAME.X.bt2=, the command without any of the optional options would be:
 
 #+begin_src sh
-bowtie2 -x GENOMENAME -1 RAWREADS_fw_trimmed_trimmed.fq\
+bowtie2 -x GENOMENAME -1 RAWREADS_fw_trimmed_trimmed.fq \
 -2 RAWREADS_rv_trimmed_trimmed.fq -S MAPPED.sam
 #+end_src
 
@@ -305,24 +299,20 @@ consider the values of =-I= and =-X= and whether the default options are
 reasonable for your libraries.
 
 ** Running the commands in a script for posterity
-As was emphasised in the section on Unix tools for bioinformatics, you
-really shouldn't type these commands directly into a terminal
-window. It's too easy to make a mistake when you have to specify many
-options, and you will not have a record of the command that you
-actually used. Instead we will write the commands into a text file and
-ask the shell (in this case bash[fn:shells]) to run the commands
-non-interactively. In the simplest case you just make one file for
-each command, and run these seperately. However, it is much better to
-embed the full process into a single script as all the information
-will be in a single place. 
 
-[fn:shells] bash stands for Bourne Again Shell, and is a bit of a joke
-on the fact that Bash is an extension or enhancement of the Bourne
-shell. These days it's probably the most common shell used, but as
-always there are people who consider it an abomination.
+As was emphasised in the section on Unix tools for bioinformatics, you really
+shouldn't type these commands directly into a terminal window. It's too easy
+to make a mistake when you have to specify many options, and you will not
+have a record of the command that you actually used. Instead we will write
+the commands into a text file and ask the shell (in this case
+bash[fn:: bash stands for Bourne Again Shell, and is a bit of a joke on the
+fact that Bash is an extension or enhancement of the Bourne shell. These days
+it's probably the most common shell used, but as always there are people who
+consider it an abomination.]) to run the commands non-interactively. In the simplest case
+you just make one file for each command, and run these seperately. However,
+it is much better to embed the full process into a single script as all the
+information will be in a single place. Here what we have done is:
 
-
-Here what we have done is:
 - made a directory for our mapping (=mkdir=)
 - copied the data files to that directory (=cp=)
 - entered the directory (=cd=)
@@ -356,7 +346,8 @@ FILE="$GENOMENAME"_bt2
 ## note that when you use the variables you have to put a $
 ## sign in front of them
 ## and if you want to concatenate to words you need to
-## to quote them
+## to quote the variables so that the shell knows where
+## the variable ends
 
 ## first build the index:
 bowtie2-build -f IonTorrentDeNovoAssembly_out.unpadded.fasta $GENOMENAME
@@ -366,30 +357,43 @@ bowtie2 -p 1 -q -phred33 --sensitive --no-unal \
 --al-gz "$FILE"_Aligned.fq.gz --un-gz "$FILE"_Unaligned.fq.gz \
 --met-file MetricsFile.txt \
 -x $GENOMENAME -U $RAWREADS_trimmed_trimmed.fq \
--S "$GENOMENAME"_bt2_mapped.sam" > bt2_log.log
+-S "$GENOMENAME"_bt2_mapped.sam > bt2_log.log
 
 ## here you can put some comments to indicate what the different
-## options indicate and why you have chosen the specific options.
+## options mean and why you have chosen them
 #+end_src
 
-To run this script (=pgm_map.sh=) you can either :
+To run this script (=pgm_map.sh=) you can manually invoke the bash
+interpreter:
 
 #+begin_src sh
 bash pgm_map.sh
-#+end_src sh
+#+end_src 
 
-or:
+Or you can change the permissions of the file and run it directly as its own program:
 
 #+begin_src sh
 chmod +x pgm_map.sh
 ./pgm_map.sh
-#+end_src_sh
+#+end_src
 
-Of course, as before, you should probably run it using =nohup= as before:
+Of course, as before, you should probably run it using =nohup=:
 
 #+begin_src sh
 nohup bash pgm_map.sh > map_log &
 #+end_src
+
+** The (lack of) directory structure
+If you follow these procedures you will end up with one or more directories containing
+copies of the raw reads, the assembly sequence, genome index files, and as you keep following the
+instructions below, a whole load of other files. This really is a bit of an unholy
+mess. Don't do this at home. Instead try to set up directory structures that
+make sense for your project and try to follow some sort of rules as to what
+goes where. This is most easily established by running the analyses through scripts
+that you can reuse for new data. As usual though, there isn't that much point
+in trying to work out exactly how to structure your project before you started
+as you will almost certainly wish to change it as it develops. Learn the
+Unix basics well and this won't be a problem.
 
 * Filter mappings
 To remove unmapped reads, reads below a mapping quality of 20, and
@@ -420,8 +424,8 @@ mapping program by adjusting the options; for at least some programs you can
 instruct the program to only report unique matches and so it might seem
 unnecessary to perform post-filtering steps like these. However, given that
 the mapping process takes far more time than the filtering process it often
-makes sense to map using permimssive criteria and then to filter these
-depending on the questions being asked.
+makes sense to map using permissive criteria and then to filter these
+depending on the questions being addressed.
 
 ** Removing duplicate reads
 After quality-trimming, we counted the fraction of duplicate
@@ -442,7 +446,7 @@ the reads by the leftmost mapping coordinates.
 
 #+begin_src sh
 samtools view -bSh MAPPEDREADS.sam  > MAPPEDREADS.bam
-samtools sort MAPPEDREADS.bam MAPPEDREADS_sorted
+samtools sort -o MAPPEDREADS_sorted.bam MAPPEDREADS.bam
 #+end_src
 
 Meaning of the options:
@@ -457,8 +461,40 @@ Meaning of the options:
 # samtools flagstat MAPPEDREADS_sorted.bam
 # #+end_src
 
-Then, you can use the java script 'MarkDuplicates.jar' from Picard
-tools to remove the duplicates from the sorted bam file:
+Then, you can use the 'MarkDuplicates' tool from Picard
+to remove the duplicates from the sorted bam file. Here we invoke
+the Picard tools using the command =picard-tools=. However, 
+there isn't actually any such program. The Picard tools are implemented
+as a Java archive, and to be run should invoke the java virtual machine 
+(or run time environment). If you look at the documentation on the 
+Picard tool [[http://broadinstitute.github.io/picard/][web site]] it will tell you to invoke the Picard tools using:
+
+#+begin_src sh
+java jvm-args -jar picard.jar PicardToolName OPTION1=value1 OPTION2=value2...
+#+end_src
+
+That's a bit of a mouthful, and in order to use it you would also need to know where
+to find the picard.jar file. To simplify this, I've set up an alias to
+this command using the =alias= program. This has been added to the end
+of your =.bashrc= files which are read by =bash= when you log in to
+your account (try =more .bashrc= after logging in to see the contents
+of this file). At the end of the =.bashrc= file you will find following
+lines:
+
+#+begin_src sh
+## in order to run picard-tools as picard tools we set up an alias
+alias picard-tools='java -jar /usr/local/picard-tools/picard.jar'
+#+end_src
+
+As a result, when you type =picard-tools= into your terminal, the shell actually sees
+=java -jar /usr/local/picard-tools/picard.jar=, after which you can specify the
+tool and the options you wish to use. Note that this isn't standard in any way,
+and that you may need to use the Picard tools differently depending on your
+local setup. Doing it this way also doesn't let you specify any options to the
+java virtual machine (the =jvm-args= above) and if for whatever reason you need
+to do this you will have to use the full command as shown above.
+
+To remove duplicates using the Picard MarkDuplicates tool we can then simply:
 
 #+begin_src sh
 picard-tools MarkDuplicates \
@@ -567,7 +603,7 @@ consider using other tool sets that have the potential to provide more
 accurate variant detection at the cost of more processing time.
 
 The tool =samtools mpileup= defaults to creating a pileup file, which summarizes aligned
-base calls in text format (See [[http://samtools.sourceforge.net/samtools.shtml][here]] for an overview of its options, and here for a detailed characterization of
+base calls in a text format (See [[http://samtools.sourceforge.net/samtools.shtml][here]] for an overview of its options, and here for a detailed characterization of
 a pileup file http://samtools.sourceforge.net/pileup.shtml). If you
 call =samtools mpileup= with the =-u= or =-g= option the
 output format is a vcf or bcf (compressed binary version of vcf) file;

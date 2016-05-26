@@ -1,27 +1,19 @@
-% Created 2016-05-25 on. 17:05
+% Created 2016-05-26 Thu 13:26
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{fixltx2e}
 \usepackage{graphicx}
+\usepackage{grffile}
 \usepackage{longtable}
-\usepackage{float}
 \usepackage{wrapfig}
 \usepackage{rotating}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
-\tolerance=1000
-\usepackage{minted}
-\usepackage{tikz}
-\usepackage{parskip}
-\usepackage{color}
-\usepackage{listings}
 \usepackage{grffile}
 \usepackage[inline]{enumitem}
 \usepackage{xcolor}
@@ -44,24 +36,24 @@ urlcolor={blue!80!black}
 \AtBeginDocument{%
 \def\PYZsq{\textquotesingle}%
 }
-\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{\baselineskip}
-\definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+\usepackage{minted}
+\definecolor{mintedbackground}{rgb}{0.85,0.85,0.85}
 \author{Martin Jakt, Alexander Jueterbock\thanks{Nordland University, Norway}}
 \date{\textbf{PhD course: High throughput sequencing of non-model organisms}}
 \title{\textbf{Unix Tools for Bioinformatics} (June 2016)}
 \hypersetup{
+ pdfauthor={Martin Jakt, Alexander Jueterbock},
+ pdftitle={\textbf{Unix Tools for Bioinformatics} (June 2016)},
  pdfkeywords={},
-  pdfsubject={},
-  pdfcreator={}}
+ pdfsubject={},
+ pdfcreator={Emacs 24.3.1 (Org mode 8.3.4)}, 
+ pdflang={English}}
 \begin{document}
 
 \maketitle
 \tableofcontents
-
-
-
 
 Next Generation Sequencing (NGS) data sets are big and although the data is
 often text based you
@@ -88,7 +80,7 @@ institution or on your private computer.
 
 
 \section{Remote connection}
-\label{sec-1}
+\label{sec:orgheadline1}
 To connect remotely to one of our computers, you will get:
 
 \begin{itemize}
@@ -101,7 +93,7 @@ On 'Mac' and 'Linux' computers, the \texttt{ssh} (\emph{Secure Shell}) tool is
 generally installed by default. To connect to a remote server, thus,
 just open the command line/terminal and type:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 ssh user@host
 \end{minted}
 
@@ -116,7 +108,7 @@ username and the IP address of one of our remote computers.
 If this is the first time you want to access the remote server, you
 will likely get the following warning
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
 The authenticity of host '127.0.0.1 (127.0.0.1)' can't be established.
 ECDSA key fingerprint is 38:59:f7:22:e5:85:ec:c3:9c:90:7x:c3:e4:ae:88:18.
 Are you sure you want to continue connecting (yes/no)?
@@ -130,13 +122,14 @@ than once, and if you do, you might want to read up on
 password. You will not see the password when you enter it, so just
 type it blindly and hit enter.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
 user@127.0.0.1's password:
 \end{minted}
 
 When you connected successfully, you will see a \emph{welcome-text} similar to:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
 Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
 \end{minted}
 
@@ -146,7 +139,7 @@ also want to use the Graphical User Interface (GUI) to open figures,
 GUI-based programs or web browsers, you should add the -X option to
 your command:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 ssh -X user@host
 \end{minted}
 
@@ -169,21 +162,24 @@ and if you are going to spend some time doing informatics you might as well
 get rid of Windows as soon as you can.}.
 
 \section{Basic orientation in the command line}
-\label{sec-2}
+\label{sec:orgheadline15}
 
 The command line appears as a window/terminal similar to
-Fig. \ref{fig:terminal}:
+Fig. \ref{fig:orgparagraph1}:
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=14cm]{Terminal.png}
-\caption{\label{fig:terminal}Command line window}
+\caption{\label{fig:orgparagraph1}
+Command line window}
 \end{figure}
 
 The first line starts with your user name, followed by an \texttt{@} and then
 the name of the computer you are working on\footnote{The beginning of the command line is referred to as the 'prompt' and
-like many things, it can be changed by
-changing an environment variable (in this case the \texttt{PS1} variable).
+like many things, it can be changed by 
+changing an environment variable (in this case the \texttt{PS1} variable).}. 
+The line usually ends with a
+\texttt{\$} or \texttt{>} - after this sign you can enter your commands.
 
 The Unix cheat sheet (see at the end of this file) provides an
 overview of the core commands to navigate and operate in the Unix
@@ -192,7 +188,8 @@ variety of so-called arguments or flags. Most of the commands, for
 example, display help information if you use them with the \texttt{-{}-help}
 flag.
 
-For example, if you type \texttt{ls -{}-help} \footnotemark, you'll get an overview of the
+For example, if you type \texttt{ls -{}-help} \footnote{Complete the command by presseing the \texttt{Enter} key (also called the 
+return key and often denoted by down and left arrow).}, you'll get an overview of the
 common usage of the command \texttt{ls} and of the flags that can change the
 behaviour of this command.  The \texttt{-{}-help} option doesn't provide much
 help for the \texttt{ssh} command. In such cases you can try the \texttt{man}
@@ -200,28 +197,26 @@ command. It opens a manual page of the specified tool. For example,
 try \texttt{man ssh}. If you want to leave the manual page, just hit \texttt{q}.
 To search within the \texttt{man} program, simply type \texttt{/} followed by your search
 term and hit enter. For example if you want to find something about colour
-just type \texttt{/color} and hit enter\footnotemark. For more details try \texttt{man man}
+just type \texttt{/color} and hit enter\footnote{Note that in most cases American spelling is used; hence no u in a lot
+of words and lots of z's.}. For more details try \texttt{man man}
 Before we will work on some sequencing data, let's have a look
 at the commands that allow you to change directories and how to get an
-overview of files that were saved in these directories.}\footnotetext[4]{Complete the command by presseing the \texttt{Enter} key (also called the 
-return key and often denoted by down and left arrow).}\footnotetext[5]{Directories are what you might call folders. It's probably best to
+overview of files that were saved in these directories.
+
+\subsection{Directory navigation}
+\label{sec:orgheadline10}
+Navigating through your directories\footnote{Directories are what you might call folders. It's probably best to
 think of the file system as a hierarchical way of organising your files on the
 computer. Think of it as a tree with the branches representing directories
 and leaves files (although in a file system, leaves can also
-grow directly from the trunk or main branches).}. The line usually ends with a
-\texttt{\$} or \texttt{>} - after this sign you can enter your commands.
-
-\subsection{Directory navigation}
-\label{sec-2-1}
-Navigating through your directories\footnotemark[5]{} is a big hurdle if you are new to
+grow directly from the trunk or main branches).} is a big hurdle if you are new to
 the command line and are used to 'clicking' your way in and out of folders. To
 understand how to move in and out of folders (directories on Unix/Linux) and to look at the
 content of folders is an essential step to analyse your data on
 the command line.
 
 \subsubsection{Conventional directory layout}
-\label{sec-2-1-1}
-
+\label{sec:orgheadline2}
 
 \begin{quote}
 On a UNIX system, everything is a file; if something is not a file, it is a process.
@@ -231,13 +226,14 @@ This is a simplification but it is mostly true. A directory on a Unix
 system is just a file that contains names of other files. Also
 programs, images and documents are all files. These files are
 hierarchically ordered in a conventional tree-like structure (see
-Fig. \ref{fig:linuxfiletree})
+Fig. \ref{fig:orgparagraph2})
 
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=12cm]{linuxfiletree.jpg}
-\caption{\label{fig:linuxfiletree}Conventional file tree structure on a UNIX system from \href{http://linuxconfig.org/filesystem-basics}{linuxconfig.org}}
+\caption{\label{fig:orgparagraph2}
+Conventional file tree structure on a UNIX system from \href{http://linuxconfig.org/filesystem-basics}{linuxconfig.org}}
 \end{figure}
 
 
@@ -256,19 +252,19 @@ located. You will meet this \texttt{PATH} variable when you learn more about
 running programs.
 
 \subsubsection{Moving in and out of directories with \texttt{cd}}
-\label{sec-2-1-2}
+\label{sec:orgheadline3}
 \texttt{cd} stands for 'change directory'. with this command you can navigate
 in and out of your directories. To see what your present working
 directory is, simply type \texttt{pwd} (for 'present working directory') and
 hit enter
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 pwd
 \end{minted}
 
 The response in my case is:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 /home/alj/
 \end{minted}
 
@@ -277,8 +273,8 @@ handy as it auto-completes the possible sub-directories you can 'move'
 to. For example, when you type \texttt{cd} and hit the TAB key twice, you get an
 overview of all possible sub-directories. For example,
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
-cd 
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
+alj@inspiron:~$ cd 
 .adobe/
 Adobe/
 .cabal/
@@ -296,8 +292,8 @@ If you know that your target sub-directory starts with the letters
 (once is enough if there is only one sub-directory that starts with the
 letters 'Do'):
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
-cd Do
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
+alj@inspiron:~$ cd Do
 Documents/ Downloads/
 \end{minted}
 
@@ -305,53 +301,53 @@ I, for example, have two directories starting with 'Do', \texttt{Documents}
 and \texttt{Downloads}. So, TAB completion helps when moving into
 sub-directories, but how to get out of them again? With
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
-cd ..
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
+alj@inspiron:~$ cd ..
 \end{minted}
 
 you move one level up in your hierarchical directory structure.  If
 you want to go to your home directory from wherever you are, use
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
-cd ~
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
+alj@inspiron:~$ cd ~
 \end{minted}
 
 or just
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
-cd
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
+alj@inspiron:~$ cd
 \end{minted}
 
 \subsubsection{Tip}
-\label{sec-2-1-3}
+\label{sec:orgheadline4}
 If there are empty spaces in your filepath, you need to precede them
 with a backslash (\texttt{\textbackslash{}}) in order to navigate to them, like in 
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 /home/my\ directory/
 \end{minted}
 
 or use quotation marks
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 cd "/home/my directory"
 \end{minted}
 
 \subsubsection{What files are present in the current directory?}
-\label{sec-2-1-4}
+\label{sec:orgheadline5}
 Once you navigated with \texttt{cd} to your target directory and you want to
 look at the files and sub-directories that are located in it, you can
 use the command \texttt{ls} and hit enter. The tool \texttt{ls} comes with many
 options that refine the way that the results are shown; you get an
 overview of these options with:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 ls --help
 \end{minted}
 
 The combination of options that I use most frequently are
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 ls -lhcrta
 \end{minted}
 
@@ -372,19 +368,19 @@ The option
 \end{itemize}
 
 \subsubsection{Have a look at the directory structure}
-\label{sec-2-1-5}
+\label{sec:orgheadline6}
 The command line tool \texttt{tree} prints the hierarchical structure of your
 files and directories (recursing into all sub-directories) to the screen.
 
 To discriminate files from folders via colors, use the \texttt{-C} option
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 tree -C
 \end{minted}
 
 To show only directories, use the \texttt{-d} option
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 tree -d
 \end{minted}
 
@@ -392,7 +388,7 @@ tree -d
 
 Try also the following command:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 tree -sh
 \end{minted}
 
@@ -403,30 +399,30 @@ Here,
 \end{itemize}
 
 \subsubsection{Tip}
-\label{sec-2-1-6}
+\label{sec:orgheadline7}
 Besides the TAB-key, that allows for auto-completion of commands or
 filenames, the UP- and DOWN-arrow keys on your keyboard can save you
 some time. These buttons allow you to navigate through the history of
 commands that you have entered previously.  Try it out.
 
 \subsubsection{Create, move and remove files and directories}
-\label{sec-2-1-7}
+\label{sec:orgheadline8}
 New directories can be created with
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 mkdir directoryname
 \end{minted}
-Here, \texttt{directory} is the name of the directory you want to create.
+Here, \texttt{directoryname} is the name of the directory you want to create.
 
 To create a new empty file, use the command \texttt{touch}:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 touch filename
 \end{minted}
 
 You can move or rename files with the command \texttt{mv}. For example:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 mv file1 file2
 mv file1 ../file1
 \end{minted}
@@ -437,43 +433,43 @@ file1 one folder up\footnote{In unix, the \texttt{..} notation indicates the con
 
 If you don't want to move but copy a file, use the command \texttt{cp}.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 cp file1 file2
 \end{minted}
 
 Instead of renaming file1 to file2, as the \texttt{mv} command does, the \texttt{cp}
 command keeps file1 and creates a new file2 with the same content.
 
-The most dangerous command that you learn to day is \texttt{rm}, which stands
+The most dangerous command that you will learn today is \texttt{rm}, which stands
 for remove. If you remove a file with this command, it is gone and you
 can not retrieve it. But if this is what you want, you can remove, for
 example, file2 that we created above with the following command:
 
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rm file2
 \end{minted}
 
 To remove an entire directory, use \texttt{rm} with the \texttt{-r} flag, like:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rm -r directoryname
 \end{minted}
 
 \subsubsection{Tip}
-\label{sec-2-1-8}
+\label{sec:orgheadline9}
 To get an overview of all the commands that you have used before, just
 type
 
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 history
 \end{minted}
 
 and hit ENTER.
 
 \subsection{Data transfer between computers}
-\label{sec-2-2}
+\label{sec:orgheadline14}
 Before you can work on a remote server with your own data, you first
 need to know how to transfer them.  One of the best
 platform-independent GUI programs that allows you to up- and download
@@ -482,7 +478,7 @@ files is FileZilla (Download and Documentation:
 introduce the command line tools \texttt{rsync} and \texttt{sftp/lftp}, that allow
 you to transfer and synchronize files.
 \subsubsection{rsync}
-\label{sec-2-2-1}
+\label{sec:orgheadline11}
 
 
 \texttt{rsync} stands for "remote sync". This powerful tool has plenty of
@@ -491,7 +487,7 @@ options.  Here is the most basic syntax to transfer files from a
 in square brackets denotes optional arguments, in this case optional
 options!)
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rsync [OPTIONS] SRC DEST
 \end{minted}
 
@@ -499,7 +495,7 @@ SRC and DEST can either be files or folders. For example, to
 transfer the file 'file.txt' from your local home folder to a remote
 server, you can type:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rsync --progress /home/user/directory/file.txt user@host://home/user/
 \end{minted}
 
@@ -514,14 +510,14 @@ If you want to transfer files from the remote server to your
 local computer, just swap the source and destination path
 specifications:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rsync --progress  user@host://home/user/file.txt /home/user/directory/
 \end{minted}
 
 If you want to transfer all files that are located in your local
 folder \texttt{/home/user/directory/}, you can use the following command
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rsync -avz --progress /home/user/directory/ user@host://home/user/
 \end{minted}
 
@@ -544,7 +540,7 @@ week to the remote computer. As we need the data in the following
 tutorials, it is best if you upload them now.
 
 \subsubsection{sftp/lftp}
-\label{sec-2-2-2}
+\label{sec:orgheadline12}
 rsync is a wonderful tool, but its power makes it complex and it can be
 difficult to remember how to do even simple things (try \texttt{man rsync} if
 you don't believe me!). When using rsync you also need to know and
@@ -568,7 +564,7 @@ synchronise directories) between the remote and local computers.
 
 To use the sftp program, simply type:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 sftp hostname
 \end{minted}
 
@@ -579,7 +575,7 @@ The sftp program assumes that you will be using the same username as you
 are using on the local computer. If this is not the case you can specify
 your username by:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 sftp username@hostname
 \end{minted}
 
@@ -601,7 +597,7 @@ starting the program you need to specify that you wish to use the sftp
 protocol as it defaults to the standard ftp protocol (with an anonymous
 user). Hence use something like:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 lftp sftp://username@hostname
 \end{minted}
 
@@ -614,7 +610,7 @@ not quite as big a deal as it was in the long past.
 
 
 \subsubsection{Tip}
-\label{sec-2-2-3}
+\label{sec:orgheadline13}
 
 If you want to transfer in one go, all files that have some common
 characteristic in their name you can use the asterisk \texttt{*}, which
@@ -626,7 +622,7 @@ to as \emph{globbing}.
 For example, if you want to transfer all
 fasta files at once, you can use
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rsync -avz --progress /home/user/directory/*fasta user@host://home/user/
 \end{minted}
 This means that any characters can precede the \texttt{fasta} file ending.
@@ -636,16 +632,16 @@ This means that any characters can precede the \texttt{fasta} file ending.
 If you want to transfer all files that belong to a certain population
 and are, for example, marked with 'Pop1' in the file name, you can use:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 rsync -avz --progress /home/user/directory/*Pop1* user@host://home/user/
 \end{minted}
 This means that any characters can precede or follow the \texttt{Pop1}
 character in the file name.
 
 \section{Running programs (and the PATH variable)}
-\label{sec-3}
+\label{sec:orgheadline19}
 \subsection{From the shell}
-\label{sec-3-1}
+\label{sec:orgheadline16}
 When using the shell you normally run a program by simply typing the
 program name and any required arguments. But how does the shell know
 what program to run and where to find it? On a typical Unix / Linux
@@ -656,13 +652,25 @@ typing its name, the shell will look for an executable file of that name
 in a list of directories specified by the \texttt{\$PATH} environment variable.
 The first matching program is then run.
 
+In practice the shell may keep the locations of executable files in
+a cache in order to speed up the process of finding the program files
+(remember that reading from disk is slow). In this case you may find
+that a newly installed program in \texttt{\textasciitilde{}/bin/} isn't run even though it
+\texttt{\textasciitilde{}/bin/} is first in the \texttt{\$PATH}. To fix this, you need to:
+
+\#+begin-src sh
+hash -r
+\#+end\(_{\text{src}}\)
+
+which will reset the internal cache and research the PATH.
+
 The user can also directly specify the location (path) of the
 executable; this is necessary if the program you wish to run is not
 present in any directory specified by the \texttt{\$PATH} variable, or if
 multiple programs of the same name are present and you want to run one
 of the later matches:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 /usr/local/bin/pg_ctl start
 \end{minted}
 
@@ -675,9 +683,10 @@ If for example your current working directory is
 version of gcc (gnu C compiler) found in \texttt{\textasciitilde{}/bin/}\footnote{The \texttt{\textasciitilde{}} (tilde) character is used as shorthand for your home
 directory.}:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 ../../bin/gcc -o test main.c
 \end{minted}
+
 
 (Remembering that ../ takes you up one level in the directory
 structure). To do the same you could also make sure that the \texttt{\$PATH}
@@ -685,7 +694,7 @@ contains \textasciitilde{}/bin before other potential locations of gcc.
 
 To check the current value of your \texttt{\$PATH}, simply use the echo command:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 echo $PATH
 \end{minted}
 
@@ -701,7 +710,7 @@ relative path to your current working directory.\footnote{Previously you learnt 
 (one level up); the \texttt{..} is simply shortcut for the current working directory.}
 
 \subsection{From a shell script}
-\label{sec-3-2}
+\label{sec:orgheadline17}
 You may have noticed that the commands to run sequence analysis programs can
 be quite long and complex. This is because the program allows you to specify
 many different options directly when invoking the program rather than by
@@ -721,7 +730,7 @@ sequences in \texttt{seqData.fastq} to the genome provided in
 \texttt{\textasciitilde{}/apps/STAR/STAR/genomeDir/Zv10/unmasked/}
 using the STAR program:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 STAR --outFilterMultimapNmax 5 \
 --outFilterMismatchNoverLmax 0.05 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
 --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ --readFilesIn seqData.fastq \
@@ -735,7 +744,7 @@ makes it easy to identify them. However, Unix doesn't care, and you
 are free to name the scripts as you like.} that contains the code with some
 comments to explain what does what:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 #!/bin/bash
 
 ## this command will use STAR to map the sequences in seqData.fastq to
@@ -779,7 +788,7 @@ processing of large numbers of files. For example if I wish to run the above
 command in a set of sub-directories whose names all start with \texttt{RZY-3} I can
 use the following script:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 #!/bin/bash
 
 dirs=RZY-3*
@@ -796,11 +805,11 @@ do
 ##    we have directional libraries and should not use the 
 ##    outSAMstrandField intronMotif function
     STAR --outFilterMultimapNmax 5 \
-         --outFilterMismatchNoverLmax 0.05 \
-         --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
-         --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ \
-         --readFilesIn $f --runThreadN 6 \
-         --outSAMtype BAM SortedByCoordinate
+	 --outFilterMismatchNoverLmax 0.05 \
+	 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+	 --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ \
+	 --readFilesIn $f --runThreadN 6 \
+	 --outSAMtype BAM SortedByCoordinate
 
     echo "      Done: $f $(date +'%b %D %H:%M:%S')" 
     cd ..
@@ -828,7 +837,7 @@ can leave the process to run and then come back and see if there were any
 errors encountered during the processing. To run the script, first \texttt{chmod} it
 to an executable, then:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 ./map_seq.sh > map.log &
 \end{minted}
 
@@ -838,7 +847,7 @@ terminal so that you can do other things rather than just waiting for the
 process to complete.
 If you are using a remote computer you should probably do :
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 nohup ./map_seq.sh > map.log &
 \end{minted}
 
@@ -851,7 +860,7 @@ If you wish to follow the process of the mapping, you can use the
 it with the \texttt{-f} option it will follow the file you specify, printing
 the new lines of it as it is written to:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 tail -f map.log
 \end{minted}
 
@@ -859,7 +868,7 @@ To stop following the file you will need to hit \texttt{Ctrl-C} (i.e. the
 control and C keys simultaneously).
 
 \subsection{Writing a shell script}
-\label{sec-3-3}
+\label{sec:orgheadline18}
 To write a shell script you will need to use some sort of editor. There are
 very many to chose from; for experienced Unix / Linux users the two most
 commonly used editors are probably \texttt{emacs} and \texttt{vi} (these days perhaps
@@ -873,11 +882,12 @@ etc. are indicated at the bottom of the screen. \texttt{\textasciicircum{}} is s
 \begin{figure}[htb]
 \centering
 \includegraphics[width=.9\linewidth]{nanoShell.png}
-\caption{\label{fig:nano}The Nano editor.}
+\caption{\label{fig:orgparagraph3}
+The Nano editor.}
 \end{figure}
 
 \section{Retrieving basic information from common NGS files}
-\label{sec-4}
+\label{sec:orgheadline25}
 
 Now that we know how the commandline works, how we can change
 directories and transfer files, it's time to look at NGS data output
@@ -892,8 +902,8 @@ The folder PracticeFiles contains the following files:
 \end{itemize}
 
 \subsection{Look at the content of a file and search for patterns}
-\label{sec-4-1}
-The tool \texttt{less}\footnote{\texttt{less} is very similar to the more basic program \texttt{more}. It's
+\label{sec:orgheadline20}
+The tool \texttt{less}\footnote{\texttt{less} is very similar to the more basic program \texttt{more}. Its
 name is a bit of a joke on 'less is more'. Habits die hard, and at
 least one of the authors of this document has \texttt{more} hardcoded into
 his fingers.} can be used to display the content of text
@@ -901,21 +911,22 @@ files one line or page after the other. Since it doesn't read the
 entire content of a file at once, it is very useful for looking into
 large files.
 
+
 Let's have a look at a fastq file with the command:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 less Fastqfile.fastq
 \end{minted}
 
 Once you have opened a fasta file, for example, with \texttt{less} \ldots{}
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 less Fastqfile.fasta
 \end{minted}
 
 \ldots{} you can search for patterns, like the nucleotide sequence 'GCTC', with \texttt{/}, like
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 /GCTC
 \end{minted}
 
@@ -924,7 +935,7 @@ hitting \texttt{n} repeats this search on the remainder of the file.
 To show only those lines in the file that match the nucleotide
 sequence 'GCTC', type this sequence after the \texttt{\&} sign:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 &GCTC
 \end{minted}
 
@@ -935,7 +946,7 @@ line, type \texttt{g}. To close the file again, hit \texttt{q}.
 The \texttt{less} command has more options than this. You get an overview of
 these with the \texttt{-{}-help} flag:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 less --help
 \end{minted}
 
@@ -947,7 +958,7 @@ printed. For example, to extract the first sequence-id along with the
 nucleotide sequence from HTS.fasta, you can select the first two lines
 with:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 head -n 2 HTS.fasta
 \end{minted}
 
@@ -955,7 +966,7 @@ When the line number \texttt{K} is preceded with \texttt{-}, then all but the la
 lines are printed. For example, the command to print all but the last
 ten lines from a HTS.fasta is:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 head -n -10 HTS.fasta
 \end{minted}
 
@@ -965,7 +976,7 @@ lines with the \texttt{-n} option. When the line number \texttt{K} is preceded b
 \texttt{+}, then all but the first \texttt{K} lines are printed.  For example, to
 exclude the first two lines from HTS.fasta
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 tail -n +2 HTS.fasta
 \end{minted}
 
@@ -973,19 +984,19 @@ tail -n +2 HTS.fasta
 To extract specific lines from a file, the tool \texttt{sed} can help you. To
 print all lines between line 234 and 236 from HTS.fasta, for example, use:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 sed -n '234,236p'
 \end{minted}
 
 
 \subsection{Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'}
-\label{sec-4-2}
+\label{sec:orgheadline21}
 If you want to get a rapid overview of the number of lines in a file,
 the \texttt{wc} command is the right tool. In output-files where
 every line represents a sequence, for example, \texttt{wc -l} is all you need to count the
 number of sequences.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 wc -l File.txt
 \end{minted}
 
@@ -998,7 +1009,7 @@ To count the number of sequences in a fasta file, you have to limit
 the lines that are counted to those starting with a ">" sign
 because ">" precedes every sequence identifier:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 >SEQ1_ID
 GGATTCATAGAAACCATAGATACATAGATACATAGATTAGGGACAGATAATAG
 >SEQ2_ID
@@ -1013,7 +1024,7 @@ characters, like ">".
 
 If you type
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 grep ">" HTS.fasta
 \end{minted}
 
@@ -1024,7 +1035,7 @@ the \texttt{|} symbol provides a 'pipe' to pass the output from the \texttt{grep
 command to the \texttt{wc} command. So, to count the number of
 sequences in HTS.fasta, you can use the following command:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 grep ">" HTS.fasta | wc -l
 \end{minted}
 
@@ -1042,12 +1053,12 @@ to the \texttt{STDERR} stream will also be printed to the terminal, but will
 not be redirected using \texttt{|} or \texttt{>} (though you can use \texttt{2>} to
 redirect \texttt{STDERR}).}.
 
+
 Your turn. What command would you use to count the number of sequences
 in a fastq file?
 
-
 If you are in doubt what quality encoding your fastq file has, \texttt{grep}
-can help you. Have a look at Fig. \ref{Fig:QC}. If you find one of the ASCII
+can help you. Have a look at Fig. \ref{fig:orgparagraph4}. If you find one of the ASCII
 characters 33 (character'!') to 58 (character ':'), you can be sure
 that the quality encoding is Phred+33. 
 
@@ -1055,14 +1066,15 @@ that the quality encoding is Phred+33.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=14cm]{Fastq.png}
-\caption{\label{Fig:QC}Quality score encodings}
+\caption{\label{fig:orgparagraph4}
+Quality score encodings}
 \end{figure}
 
 
 So, try if you find one of the Phred+33-specific quality characters in
 HTS.fastq. For example:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 grep "!" HTS.fastq | wc -l
 \end{minted}
 
@@ -1074,14 +1086,14 @@ it with the \texttt{-n} flag. For example, if you want to know which line
 in the HTS.fasta file holds the sequence with the gene-id
 'gi|612475216|gb|AZHG01011862.1|', you can use:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 grep -n "gi|612475216|gb|AZHG01011862.1|" HTS.fasta
 \end{minted}
 
 It is line 23724.
 
 \subsection{INFO on regular expressions}
-\label{sec-4-3}
+\label{sec:orgheadline22}
 
 \texttt{grep} stands for \emph{global regular expression printer} and is a
 command-line utility for searching plain-text data for lines matching
@@ -1093,13 +1105,13 @@ short introduction in the Perl section below. Also, \href{http://www.cheatograph
 a cheat sheet with essential regular expressions.
 
 \subsection{Combine the content of files with 'cat' and '>'}
-\label{sec-4-4}
+\label{sec:orgheadline23}
 The most common use of the \texttt{cat} command is to redirect the contents of
 text files to other files or commands.
 
 The following command, for example prints the content of HTS.fasta to the screen
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 cat HTS.fasta
 \end{minted}
 
@@ -1109,7 +1121,7 @@ two files, even huge ones. For example, in the following command
 \texttt{HTS.fasta} and \texttt{HTS2.fasta} are combined to
 \texttt{COMBINED.fasta}.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 cat HTS.fasta > COMBINED.fasta
 cat HTS2.fasta >> COMBINED.fasta
 \end{minted}
@@ -1126,14 +1138,14 @@ operator, the specified file needs to exist already.
 
 Note that you can achieve the same by:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 cat HST.fasta HTS2.fasta > COMBINED.fasta
 \end{minted}
 
 but we wanted to show you the difference between \texttt{>} and \texttt{>>}.
 
 \subsection{Counting filtered reads in SAM files with 'awk'}
-\label{sec-4-5}
+\label{sec:orgheadline24}
 Later in the course we will encounter specific programs that can filter
 SAM and VCF files. Here, I want to show you that we can also use basic
 command line tools to filter such files.  The command line tool \texttt{awk}
@@ -1148,7 +1160,7 @@ We learned this morning that SAM files (alignment files) are
  have qualities > 20, we first strip off the header lines
  containing the \texttt{@} character  with \texttt{grep}:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 grep -v "^@" HTS.sam
 \end{minted}
 
@@ -1160,7 +1172,7 @@ screen. Instead, we want to pipe the output of this command to \texttt{awk},
 in order to extract only those reads with a mapping quality >20 and
 then pipe this output to \texttt{wc} to count the lines:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{sh}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 grep -v "^@" HTS.sam | awk -F "\t" '$5 > 20 {print $0}' | wc -l
 \end{minted}
 
@@ -1170,7 +1182,7 @@ that row. \texttt{-F} just specifies the field separator, and
 \texttt{awk}, and then the ouput of \texttt{awk} to \texttt{wc} the lines are not printed to screen but directly
 counted with the \texttt{wc} command. Only the output of \texttt{wc} gets printed to the screen.
 \section{Bonus section PERL}
-\label{sec-5}
+\label{sec:orgheadline34}
 Perl is a useful programming language whose principles can be learnt
 within a short period of time allowing researchers not familiar with
 programming to quickly become able to automate a variety of processes.
@@ -1203,7 +1215,7 @@ and it is often said that it gives the user more than enough rope to
 hang themselves with.
 
 \subsection{Variables in Perl}
-\label{sec-5-1}
+\label{sec:orgheadline26}
 
 In order to handle information within a program we assign values to
 variables and then manipulate these according to the flow of the
@@ -1227,14 +1239,14 @@ scalar (numbers, text, and references).
 \end{itemize}
 
 \subsection{Assigning variables}
-\label{sec-5-2}
+\label{sec:orgheadline27}
 
 The values of variables can be assigned directly in the program's source
 code, but are more frequently assigned through the command line
 arguments (see below) or by the program reading input (data or
 configuration) files (see lower section). Scalars are the simplest:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 $var1='hello'; 
 $var2="world";
 $var3=3.14;
@@ -1244,14 +1256,14 @@ Strings (i.e. text elements) can be assigned using either single \texttt{’} or
 double " quotes. The use of double quotes expands variables within the
 quoted text such that:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 $var4="goodbye $var1";
 \end{minted}
 
 will assign the text "goodbye world" to the variable \texttt{\$var4}.
 In contrast:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 $var4='goodbye $var1';
 \end{minted}
 
@@ -1263,7 +1275,7 @@ as newline and tab characters respectively.
 Arrays can be assigned in a number of ways, occassionally directly in
 the code:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 @ar1 = (1, 2, "three");
 \end{minted}
 
@@ -1271,7 +1283,7 @@ An empty array can also be created and then extended by adding elements.
 This can be done by either using the \texttt{push} function or by using
 subscripts beyond the range of the array:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## text following a # character are treated as comments
 
 @ar1 = (); ## creates an empty array of length 0 
@@ -1290,7 +1302,7 @@ Hashes (associative arrays) that store key value pairs are defined in a
 similar way to arrays. Again the actual values are usually obtained from
 input files, but can also be defined in the code.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 %kv1 = ();
 ## this creates an empty hash structure. It is actually not necessary to
 ## declare it, but one can directly assign elements of the hash:
@@ -1331,12 +1343,12 @@ single line can contain a number of statements. This can greatly aid the
 readability of the code.
 
 \subsection{Data types}
-\label{sec-5-3}
+\label{sec:orgheadline28}
 
 In the above examples we assigned values to variables without caring
 about what kind of data we used. For example consider the following:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 $var1 = "one";
 $var2 = 2;
 $var3 = $var1 + $var2;
@@ -1412,7 +1424,7 @@ that you often see the following chromosome ordering:
 \end{itemize}
 
 \subsection{Program flow: loops and conditionals}
-\label{sec-5-4}
+\label{sec:orgheadline29}
 
 We use computer programs to automate repeated processes; that is to
 carry out the same or similar operations on a large number of data
@@ -1428,7 +1440,7 @@ Conditional statements are also used in lots of other cases including to
 control loops. Consider the following statement that checks for the
 equality of two variables.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## $a and $b are two variables whose values are specified somewhere else in the program.
 if($a == $b){
   ## then do something. For example increase the value of $b
@@ -1447,7 +1459,7 @@ considered as FALSE. To confuse things the use of the assignment
 operator returns the value that was assigned and this can cause some
 rather specific problems. Consider:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 $a = ($b = 10);
 ## $a is now assigned to the value of 10
 
@@ -1473,7 +1485,7 @@ where it is easy to accidentally use the same variable names to represent
 different properties.
 Consider the following snippet:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## We start in the global scope. Variables defined here will be visible and modifiable
 ## anywhere within the main body of the code (though not in external functions).
 
@@ -1504,7 +1516,7 @@ obtain the mean value of. To do this we wish to find the sum of the
 values and divide by the length of the array. As always in Perl there
 are a number of ways in which this can be done:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## @ar is an array of values specified somewhere else in the program.
 ## ++ is an increment operator that increases the value of its operand
 ## by one each time it is called.
@@ -1553,7 +1565,7 @@ These are not the only ways in which you can loop through values or data
 structures, but they probably represent the most common usages.
 
 \subsection{Reading and writing data}
-\label{sec-5-5}
+\label{sec:orgheadline30}
 
 To read or write from a file we use a filehandle. This is just an
 identifier associated with the file and the reading or writing process.
@@ -1563,7 +1575,7 @@ STDOUT. In most cases this means your terminal screen, but STDOUT can
 also be piped to other processes as demonstrated previously in this
 guide. To open a text file and read a line at a time:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## we wish to read from a file specified by the variable $fname
 
 open(IN, $fname) || die "unable to open $fname $!\n";
@@ -1591,7 +1603,7 @@ that we wish to write to a new file by prefixing the name with a '>'
 character. If a file of the same name exists it will be overwritten. If
 we wish to append to an existing file we can use '>>'.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## given that we wish to write something to a file specified by the
 ## $fname variable.
 open(OUT, ">$fname") || die "unable to open $fname $!\n";
@@ -1614,7 +1626,7 @@ close OUT;
 \end{minted}
 
 \subsection{Regular Expressions}
-\label{sec-5-6}
+\label{sec:orgheadline31}
 
 You have already come across regular expressions in this course; they
 are used by a number of Unix utilities like grep. The Perl
@@ -1631,7 +1643,7 @@ In Perl, regular expression matching makes use of the \texttt{=\textasciitilde{}
 where the left operand contains the text to searched for matches to the
 pattern given by the right operand. Some examples:
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## The left operand is usually a variable, but for clarity we'll use
 ## plain strings.
 
@@ -1725,7 +1737,7 @@ Regular expressions can also be used to capture specific subsections of
 text. A very common example would be to extract a sequence identifier
 from a fasta file. This can easily be done in Perl.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 ## $line contains a line from a file. Identifiers begin with the > character.
 if( $line =~ /^>(\S+)/ ){
     $seqId = $1;
@@ -1739,7 +1751,7 @@ There's a lot more to regular expressions than this, but this may be enough to g
 started with.
 
 \subsection{Various operators}
-\label{sec-5-7}
+\label{sec:orgheadline32}
 
 Operators are symbols that denote specific operations; like regular
 expression matching or regular mathematical operations. We have already
@@ -1809,7 +1821,7 @@ can also result in the program silently doing something unexpected (which is the
 worst kind of behaviour as it can result in corrupt output).
 
 \subsection{A somewhat useful example}
-\label{sec-5-8}
+\label{sec:orgheadline33}
 
 As an example of something potentially useful we can write a short script
 that reads in sequences from a fasta file and identifies sequences that
@@ -1823,7 +1835,7 @@ the user wants to do.
 The following segment contains a full script that you should be able to
 run, using the ./scriptname invocation.
 
-\begin{minted}[fontsize=\scriptsize,bgcolor=lightgray,linenos]{perl}
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{perl}
 #!/usr/bin/perl -w
 
 ## the first line is not really a comment, but is used to make the shell invoke the perl interpreter on the
@@ -1891,15 +1903,15 @@ Perl seriously.
 Good luck with Perl!
 
 \section{Recommended books}
-\label{sec-6}
+\label{sec:orgheadline35}
 \begin{itemize}
 \item \href{http://unixandperl.com/}{Unix and Perl to the Rescue}
 \item \href{http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2}{Computational Biology}
 \end{itemize}
 \section{Unix cheat sheet}
-\label{sec-7}
+\label{sec:orgheadline43}
 \subsection{FILE system}
-\label{sec-7-1}
+\label{sec:orgheadline36}
 \small
 
 \begin{center}
@@ -1943,7 +1955,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Opening FILEs and extracting information}
-\label{sec-7-2}
+\label{sec:orgheadline37}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -1981,7 +1993,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Data transfer}
-\label{sec-7-3}
+\label{sec:orgheadline38}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2001,7 +2013,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Executing scripts and programs}
-\label{sec-7-4}
+\label{sec:orgheadline39}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2021,7 +2033,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Networking}
-\label{sec-7-5}
+\label{sec:orgheadline40}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2033,7 +2045,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Help}
-\label{sec-7-6}
+\label{sec:orgheadline41}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2045,7 +2057,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Tricks}
-\label{sec-7-7}
+\label{sec:orgheadline42}
 
 Pipe output from one command with \texttt{|} as input to another command.
 

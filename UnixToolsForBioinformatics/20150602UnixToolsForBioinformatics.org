@@ -33,12 +33,11 @@
 #+LATEX_HEADER: \def\PYZsq{\textquotesingle}%
 #+LATEX_HEADER: }     
 
-#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}   
-
 #+LATEX_HEADER: \setlength{\parindent}{0pt}
 #+LATEX_HEADER: \setlength{\parskip}{\baselineskip}
 
-#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.85,0.85,0.85}
 
 
 #+TITLE: *Unix Tools for Bioinformatics* (June 2016)
@@ -60,7 +59,7 @@
 
 (setq org-latex-minted-options
       '(("fontsize" "\\scriptsize")
-        ("bgcolor=lightgray")
+        ("bgcolor=mintedbackground")
         ("linenos" "")))
 
 (setq org-latex-to-pdf-process
@@ -122,30 +121,28 @@ username and the IP address of one of our remote computers.
 If this is the first time you want to access the remote server, you
 will likely get the following warning
 
-#+begin_src sh
+#+begin_src console
 The authenticity of host '127.0.0.1 (127.0.0.1)' can't be established.
 ECDSA key fingerprint is 38:59:f7:22:e5:85:ec:c3:9c:90:7x:c3:e4:ae:88:18.
 Are you sure you want to continue connecting (yes/no)? 
 #+end_src
 
-Just type 'yes' and hit enter[fn:1]. You will be asked to enter your
-password. You will not see the password when you enter it, so just
-type it blindly and hit enter.
-
-[fn:1] This is an oversimplification. In general you should not simply
+Just type 'yes' and hit enter[fn:: This is an oversimplification. In general you should not simply
 ignore warnings like this, but it's too much off topic for us to
 explain here. Note though, that you shouldn't see this warning more
 than once, and if you do, you might want to read up on
-'man-in-the-middle attacks'.
+'man-in-the-middle attacks'.]. You will be asked to enter your
+password. You will not see the password when you enter it, so just
+type it blindly and hit enter.
 
 
-#+begin_src sh
+#+begin_src console
 user@127.0.0.1's password:
 #+end_src
 
 When you connected successfully, you will see a /welcome-text/ similar to:
 
-#+begin_src sh
+#+begin_src console
 Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
 #+end_src
 
@@ -171,13 +168,11 @@ servers from Macs or Windows that will let you use the command line. However,
 these often require specific software to be installed on the server and you
 can't rely on this being the case. In general, life is just easier if you run
 Linux on your own computer; it is acceptable if you run MacOS and just painful
-if you're stuck on Windows[fn:2].
-
-[fn:2] This is part opinion and part fact. There are ways to use Windows to
+if you're stuck on Windows[fn:: This is part opinion and part fact. There are ways to use Windows to
 communicate with Unix machines that are not painful and in many ways the
 situation is improving. But the statement is nevertheless pretty much true
 and if you are going to spend some time doing informatics you might as well
-get rid of Windows as soon as you can.
+get rid of Windows as soon as you can.].
 
 * Basic orientation in the command line 
 
@@ -190,12 +185,11 @@ Fig. [[fig:terminal]]:
 [[file:Terminal.png]]
 
 The first line starts with your user name, followed by an =@= and then
-the name of the computer you are working on[fn:3]. The line usually ends with a
+the name of the computer you are working on[fn:: The beginning of the command line is referred to as the 'prompt' and
+like many things, it can be changed by 
+changing an environment variable (in this case the =PS1= variable).]. 
+The line usually ends with a
 =$= or =>= - after this sign you can enter your commands.
-
-[fn:3] The beginning of the command line is referred to as the 'prompt' and
-like many things, it can be changed by
-changing an environment variable (in this case the =PS1= variable).
 
 The Unix cheat sheet (see at the end of this file) provides an
 overview of the core commands to navigate and operate in the Unix
@@ -204,7 +198,9 @@ variety of so-called arguments or flags. Most of the commands, for
 example, display help information if you use them with the =--help=
 flag.
 
-For example, if you type =ls --help= [fn:4], you'll get an overview of the
+For example, if you type =ls --help= [fn:: Complete the command by presseing the =Enter= key (also called the 
+return key and often denoted by down and left arrow).
+], you'll get an overview of the
 common usage of the command =ls= and of the flags that can change the
 behaviour of this command.  The =--help= option doesn't provide much
 help for the =ssh= command. In such cases you can try the =man=
@@ -212,30 +208,23 @@ command. It opens a manual page of the specified tool. For example,
 try =man ssh=. If you want to leave the manual page, just hit =q=.
 To search within the =man= program, simply type =/= followed by your search
 term and hit enter. For example if you want to find something about colour
-just type =/color= and hit enter[fn:5]. For more details try =man man=
+just type =/color= and hit enter[fn:: Note that in most cases American spelling is used; hence no u in a lot
+of words and lots of z's.
+]. For more details try =man man=
 Before we will work on some sequencing data, let's have a look
 at the commands that allow you to change directories and how to get an
 overview of files that were saved in these directories.
 
-[fn:4] Complete the command by presseing the =Enter= key (also called the 
-return key and often denoted by down and left arrow).
-
-[fn:5] Note that in most cases American spelling is used; hence no u in a lot
-of words and lots of z's.
-
 ** Directory navigation
-Navigating through your directories[fn:5] is a big hurdle if you are new to
+Navigating through your directories[fn:: Directories are what you might call folders. It's probably best to
+think of the file system as a hierarchical way of organising your files on the
+computer. Think of it as a tree with the branches representing directories
+and leaves files (although in a file system, leaves can also
+grow directly from the trunk or main branches).] is a big hurdle if you are new to
 the command line and are used to 'clicking' your way in and out of folders. To
 understand how to move in and out of folders (directories on Unix/Linux) and to look at the
 content of folders is an essential step to analyse your data on
 the command line.
-
-
-[fn:5] Directories are what you might call folders. It's probably best to
-think of the file system as a hierarchical way of organising your files on the
-computer. Think of it as a tree with the branches representing directories
-and leaves files (although in a file system, leaves can also
-grow directly from the trunk or main branches).
 
 *** Conventional directory layout
 
@@ -278,7 +267,7 @@ running programs.
  directory is, simply type =pwd= (for 'present working directory') and
  hit enter
 
- #+begin_src sh 
+ #+begin_src sh
  pwd
  #+end_src
 
@@ -293,8 +282,8 @@ running programs.
  to. For example, when you type =cd= and hit the TAB key twice, you get an
  overview of all possible sub-directories. For example,
 
- #+begin_src sh
- cd 
+ #+begin_src console
+ alj@inspiron:~$ cd 
  .adobe/
  Adobe/
  .cabal/
@@ -312,8 +301,8 @@ running programs.
  (once is enough if there is only one sub-directory that starts with the
  letters 'Do'):
 
- #+begin_src sh
- cd Do
+ #+begin_src console
+ alj@inspiron:~$ cd Do
  Documents/ Downloads/
  #+end_src
 
@@ -321,21 +310,21 @@ running programs.
  and =Downloads=. So, TAB completion helps when moving into
  sub-directories, but how to get out of them again? With
 
- #+begin_src sh
- cd ..
+ #+begin_src console
+ alj@inspiron:~$ cd ..
  #+end_src
 
  you move one level up in your hierarchical directory structure.  If
  you want to go to your home directory from wherever you are, use
 
- #+begin_src sh
- cd ~
+ #+begin_src console
+ alj@inspiron:~$ cd ~
  #+end_src
 
  or just
  
- #+begin_src sh
- cd
+ #+begin_src console
+ alj@inspiron:~$ cd
  #+end_src
 
 *** Tip
@@ -421,7 +410,7 @@ New directories can be created with
 #+begin_src sh
 mkdir directoryname
 #+end_src
-Here, =directory= is the name of the directory you want to create.
+Here, =directoryname= is the name of the directory you want to create.
 
 To create a new empty file, use the command =touch=:
 
@@ -437,11 +426,9 @@ mv file1 ../file1
 #+end_src
 
 The first command renames file1 to file2. The second command moves
-file1 one folder up[fn:6].
-
-[fn:6] In unix, the =..= notation indicates the containing folder
+file1 one folder up[fn:: In unix, the =..= notation indicates the containing folder
 (i.e. one up in the hierarchy).
-
+].
 
 If you don't want to move but copy a file, use the command =cp=.
 
@@ -452,7 +439,7 @@ cp file1 file2
 Instead of renaming file1 to file2, as the =mv= command does, the =cp=
 command keeps file1 and creates a new file2 with the same content.
 
-The most dangerous command that you learn to day is =rm=, which stands
+The most dangerous command that you will learn today is =rm=, which stands
 for remove. If you remove a file with this command, it is gone and you
 can not retrieve it. But if this is what you want, you can remove, for
 example, file2 that we created above with the following command:
@@ -655,6 +642,18 @@ typing its name, the shell will look for an executable file of that name
 in a list of directories specified by the =$PATH= environment variable.
 The first matching program is then run.
 
+In practice the shell may keep the locations of executable files in
+a cache in order to speed up the process of finding the program files
+(remember that reading from disk is slow). In this case you may find
+that a newly installed program in =~/bin/= isn't run even though it
+=~/bin/= is first in the =$PATH=. To fix this, you need to:
+
+#+begin-src sh
+hash -r
+#+end_src
+
+which will reset the internal cache and research the PATH.
+
 The user can also directly specify the location (path) of the
 executable; this is necessary if the program you wish to run is not
 present in any directory specified by the =$PATH= variable, or if
@@ -671,14 +670,12 @@ to start a version of the Postgresql database installed in
 You can also specify a path that is relative to your current location.
 If for example your current working directory is
 =~/Documents/testPrograms/= and you wish to run a locally installed
-version of gcc (gnu C compiler) found in =~/bin/=[fn:7]:
+version of gcc (gnu C compiler) found in =~/bin/=[fn:: The =~= (tilde) character is used as shorthand for your home
+directory.]:
 
 #+begin_src sh
 ../../bin/gcc -o test main.c
 #+end_src
-
-[fn:7] The =~= (tilde) character is used as shorthand for your home
-directory.
 
 
 (Remembering that ../ takes you up one level in the directory
@@ -699,10 +696,9 @@ few examples. Failing that have a look at Google.
 Finally if you've written a small script or installed a program in your
 current working directory you can run that by typing =./scriptname=. There
 is nothing special about that, it is merely how you represent the
-relative path to your current working directory.[fn:8]
-
-[fn:8] Previously you learnt that =../= represents the containing directory
+relative path to your current working directory.[fn:: Previously you learnt that =../= represents the containing directory
 (one level up); the =..= is simply shortcut for the current working directory. 
+]
 
 ** From a shell script
 You may have noticed that the commands to run sequence analysis programs can
@@ -892,15 +888,13 @@ The folder PracticeFiles contains the following files:
 - HTS.sam, an alignment file
 
 ** Look at the content of a file and search for patterns 
-The tool =less=[fn:10] can be used to display the content of text
+The tool =less=[fn:: =less= is very similar to the more basic program =more=. Its
+name is a bit of a joke on 'less is more'. Habits die hard, and at
+least one of the authors of this document has =more= hardcoded into
+his fingers.] can be used to display the content of text
 files one line or page after the other. Since it doesn't read the
 entire content of a file at once, it is very useful for looking into
 large files.
-
-[fn:10] =less= is very similar to the more basic program =more=. It's
-name is a bit of a joke on 'less is more'. Habits die hard, and at
-least one of the authors of this document has =more= hardcoded into
-his fingers.
 
 
 Let's have a look at a fastq file with the command:
@@ -1035,16 +1029,14 @@ Here a recap on what the commands mean: =grep= is used to search for
 character. Instead of printing all these lines to the terminal, we
 re-direct it to the =wc= command with the pipe symbol =|=. Using the
 =-l= option, =wc= counts all the lines. Here, =wc= doesn't need an
-input file as it reads from the output of =grep= [fn:11].
-
-[fn:11] When a program prints it's output to the terminal (i.e. the
+input file as it reads from the output of =grep= [fn:: When a program prints it's output to the terminal (i.e. the
 screen) it's normally printing to a stream referred to as =STDOUT=
 (standard out). When we use the pipe symbol (=|=) we can redirect this
 output to programs than can read from the =STDIN= stream. We can also
 use the =>= to redirect the output to files. Note that output printed
 to the =STDERR= stream will also be printed to the terminal, but will
 not be redirected using =|= or =>= (though you can use =2>= to
-redirect =STDERR=).
+redirect =STDERR=).].
 
 
 Your turn. What command would you use to count the number of sequences

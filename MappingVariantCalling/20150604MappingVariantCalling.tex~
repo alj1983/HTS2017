@@ -1,4 +1,4 @@
-% Created 2016-05-25 Wed 17:19
+% Created 2016-05-26 Thu 08:13
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -46,12 +46,12 @@ urlcolor={blue!80!black}
 \usepackage{minted}
 \definecolor{mintedbackground}{rgb}{0.85,0.85,0.85}
 \newminted{common-lisp}{fontsize=\footnotesize}
-\author{Alexander Jueterbock, Martin Jakt\thanks{University of Nordland, Norway}}
+\author{Martin Jakt, Alexander Jueterbock\thanks{Nord University, Norway}}
 \date{\textbf{PhD course: High throughput sequencing of non-model organisms}}
-\title{\textbf{Mapping and Variant Calling} (2015-06-04)}
+\title{\textbf{Mapping and Variant Calling} (June 2016)}
 \hypersetup{
- pdfauthor={Alexander Jueterbock, Martin Jakt},
- pdftitle={\textbf{Mapping and Variant Calling} (2015-06-04)},
+ pdfauthor={Martin Jakt, Alexander Jueterbock},
+ pdftitle={\textbf{Mapping and Variant Calling} (June 2016)},
  pdfkeywords={},
  pdfsubject={},
  pdfcreator={Emacs 24.3.1 (Org mode 8.3.4)}, 
@@ -129,6 +129,7 @@ Here the \texttt{RAWREADS\_trimmed\_trimmed.fq} refer to the IonTorrent reads af
 quality trimming using TrimGalore. Here we are simply making copies of the
 various files in different locations for performing different analyses. This is simple to describe and
 understand, but is not a particularly good way to organise your files, both
+
 because it wastes disk space\footnote{In some modern file systems that make use of Copy-On-Write, there
 won't actually be any copying of the data unless one of the files is modified.} and (more seriously) it makes it
 easy to end up with files with the same names, but with slightly different
@@ -224,6 +225,7 @@ Options (defaults in parentheses):
 .... more options
 \end{minted}
 
+
 Let us consider the top lines first. This is the basic usage information
 that tells you the arguments you need to specify and their order.
 
@@ -279,6 +281,7 @@ reasonable for your libraries.
 
 \subsection{Running the commands in a script for posterity}
 \label{sec:orgheadline2}
+
 As was emphasised in the section on Unix tools for bioinformatics, you really
 shouldn't type these commands directly into a terminal window. It's too easy
 to make a mistake when you have to specify many options, and you will not
@@ -358,7 +361,7 @@ chmod +x pgm_map.sh
 ./pgm_map.sh
 \end{minted}
 
-Of course, as before, you should probably run it using \texttt{nohup} as before:
+Of course, as before, you should probably run it using \texttt{nohup}:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 nohup bash pgm_map.sh > map_log &
@@ -396,8 +399,8 @@ mapping program by adjusting the options; for at least some programs you can
 instruct the program to only report unique matches and so it might seem
 unnecessary to perform post-filtering steps like these. However, given that
 the mapping process takes far more time than the filtering process it often
-makes sense to map using permimssive criteria and then to filter these
-depending on the questions being asked.
+makes sense to map using permissive criteria and then to filter these
+depending on the questions being addressed.
 
 \subsection{Removing duplicate reads}
 \label{sec:orgheadline4}

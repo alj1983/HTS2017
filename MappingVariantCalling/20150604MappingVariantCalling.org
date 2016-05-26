@@ -57,10 +57,10 @@
 #+LATEX_HEADER: \newminted{common-lisp}{fontsize=\footnotesize}
 
 
-#+TITLE: *Mapping and Variant Calling* (2015-06-04)
-#+AUTHOR: Alexander Jueterbock, Martin Jakt
+#+TITLE: *Mapping and Variant Calling* (June 2016)
+#+AUTHOR: Martin Jakt, Alexander Jueterbock
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
-#+EMAIL: University of Nordland, Norway
+#+EMAIL: Nord University, Norway
 
 #+OPTIONS: toc:t H:3 email:t author:t num:t creator:t
 
@@ -148,6 +148,7 @@ Here the =RAWREADS_trimmed_trimmed.fq= refer to the IonTorrent reads after
 quality trimming using TrimGalore. Here we are simply making copies of the
 various files in different locations for performing different analyses. This is simple to describe and
 understand, but is not a particularly good way to organise your files, both
+
 because it wastes disk space[fn:: In some modern file systems that make use of Copy-On-Write, there
 won't actually be any copying of the data unless one of the files is modified.
 ] and (more seriously) it makes it
@@ -240,7 +241,9 @@ Options (defaults in parentheses):
   -q                 query input files are FASTQ .fq/.fastq (default)
   --qseq             query input files are in Illumina's qseq format
 .... more options
+
 #+end_src
+
 
 Let us consider the top lines first. This is the basic usage information
 that tells you the arguments you need to specify and their order.
@@ -296,6 +299,7 @@ consider the values of =-I= and =-X= and whether the default options are
 reasonable for your libraries.
 
 ** Running the commands in a script for posterity
+
 As was emphasised in the section on Unix tools for bioinformatics, you really
 shouldn't type these commands directly into a terminal window. It's too easy
 to make a mistake when you have to specify many options, and you will not
@@ -555,7 +559,7 @@ consider using other tool sets that have the potential to provide more
 accurate variant detection at the cost of more processing time.
 
 The tool =samtools mpileup= defaults to creating a pileup file, which summarizes aligned
-base calls in text format (See [[http://samtools.sourceforge.net/samtools.shtml][here]] for an overview of its options, and here for a detailed characterization of
+base calls in a text format (See [[http://samtools.sourceforge.net/samtools.shtml][here]] for an overview of its options, and here for a detailed characterization of
 a pileup file http://samtools.sourceforge.net/pileup.shtml). If you
 call =samtools mpileup= with the =-u= or =-g= option the
 output format is a vcf or bcf (compressed binary version of vcf) file;

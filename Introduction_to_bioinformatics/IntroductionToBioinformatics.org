@@ -36,7 +36,7 @@
 #+TITLE:     Introduction to bioinformatics (NGS data analysis)
 #+AUTHOR:    Alexander Jueterbock
 #+EMAIL:     Alexander-Jueterbock@web.de
-#+DATE:      2016 June
+#+DATE:      June 2016
 
 *** Got your sequencing data - now, what to do with it?
  #+begin_latex
@@ -391,7 +391,7 @@ For example in:
 
 
  #+CAPTION: Per base sequence content (FastQC output)
- #+ATTR_LaTeX: :width 7cm
+ #+ATTR_LaTeX: :width 6cm
  [[file:per_base_sequence_content.png]]
 
 

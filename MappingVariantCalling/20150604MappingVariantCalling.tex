@@ -1,4 +1,4 @@
-% Created 2016-05-26 Thu 12:51
+% Created 2016-05-30 Mon 16:15
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -114,7 +114,7 @@ IonTorrent data:
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 mkdir Mapping
 
-cp GenomeAssembly/IonTorrentDeNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/\
+cp GenomeAssembly/IonTorrentDeNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/ \
 IonTorrentDeNovoAssembly_out.unpadded.fasta \
 Mapping/
 
@@ -129,7 +129,6 @@ Here the \texttt{RAWREADS\_trimmed\_trimmed.fq} refer to the IonTorrent reads af
 quality trimming using TrimGalore. Here we are simply making copies of the
 various files in different locations for performing different analyses. This is simple to describe and
 understand, but is not a particularly good way to organise your files, both
-
 because it wastes disk space\footnote{In some modern file systems that make use of Copy-On-Write, there
 won't actually be any copying of the data unless one of the files is modified.} and (more seriously) it makes it
 easy to end up with files with the same names, but with slightly different
@@ -376,7 +375,7 @@ mess. Don't do this at home. Instead try to set up directory structures that
 make sense for your project and try to follow some sort of rules as to what
 goes where. This is most easily established by running the analyses through scripts
 that you can reuse for new data. As usual though, there isn't that much point
-in trying to work out exactly how to structure your project before you started
+in trying to work out exactly how to structure your project before you start
 as you will almost certainly wish to change it as it develops. Learn the
 Unix basics well and this won't be a problem.
 
@@ -502,7 +501,7 @@ false SNPs (see \href{http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.htm
 Genetics}}). These reads should be removed or re-aligned. We have not
 enough time to re-align the reads in this course but the required
 steps (using \href{https://www.broadinstitute.org/gatk/}{GATK}) are described in detail here:
-\url{http://sfg.stanforde.edu/SFG.pdf}.
+\url{http://sfg.stanford.edu/SFG.pdf}.
 
 \section{Visualizing alignments}
 \label{sec:orgheadline10}
@@ -582,7 +581,7 @@ required. This has led to the
 development of a rather large number of variant detection algorithms and
 programs (see
 \href{http://www.nature.com/nrg/journal/v15/n11/fig_tab/nrg3803_T3.html}{table 3} of \href{http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html}{Schlotterer \emph{et al}} for a list), and the difficulty of balancing
-computation times, sensititivy and accuracy makes it likely that more methods
+computation times, sensitivity and accuracy makes it likely that more methods
 and or implementations will be written.
 
 Here we will use the \texttt{samtools mpileup} in conjuction with 
@@ -703,5 +702,6 @@ MAPPEDREADS_variants_filtered.vcf.gz
 \end{minted}
 
 Open IGV and load the indexed bam file and the indexed vcf file.
-Emacs 24.3.1 (Org mode 8.3.4)
+
+%%Emacs 24.3.1 (Org mode 8.3.4)
 \end{document}

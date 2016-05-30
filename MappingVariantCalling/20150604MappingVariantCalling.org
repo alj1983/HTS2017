@@ -133,7 +133,7 @@ IonTorrent data:
 #+begin_src sh
 mkdir Mapping
 
-cp GenomeAssembly/IonTorrentDeNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/\
+cp GenomeAssembly/IonTorrentDeNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/ \
 IonTorrentDeNovoAssembly_out.unpadded.fasta \
 Mapping/
 
@@ -148,7 +148,6 @@ Here the =RAWREADS_trimmed_trimmed.fq= refer to the IonTorrent reads after
 quality trimming using TrimGalore. Here we are simply making copies of the
 various files in different locations for performing different analyses. This is simple to describe and
 understand, but is not a particularly good way to organise your files, both
-
 because it wastes disk space[fn:: In some modern file systems that make use of Copy-On-Write, there
 won't actually be any copying of the data unless one of the files is modified.
 ] and (more seriously) it makes it
@@ -391,7 +390,7 @@ mess. Don't do this at home. Instead try to set up directory structures that
 make sense for your project and try to follow some sort of rules as to what
 goes where. This is most easily established by running the analyses through scripts
 that you can reuse for new data. As usual though, there isn't that much point
-in trying to work out exactly how to structure your project before you started
+in trying to work out exactly how to structure your project before you start
 as you will almost certainly wish to change it as it develops. Learn the
 Unix basics well and this won't be a problem.
 
@@ -517,7 +516,7 @@ false SNPs (see [[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][S
 Genetics/]]). These reads should be removed or re-aligned. We have not
 enough time to re-align the reads in this course but the required
 steps (using [[https://www.broadinstitute.org/gatk/][GATK]]) are described in detail here:
-http://sfg.stanforde.edu/SFG.pdf.
+http://sfg.stanford.edu/SFG.pdf.
 
 * Visualizing alignments
 ** Samtools tview: command-line viewer
@@ -593,7 +592,7 @@ required. This has led to the
 development of a rather large number of variant detection algorithms and
 programs (see
 [[http://www.nature.com/nrg/journal/v15/n11/fig_tab/nrg3803_T3.html][table 3]] of [[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlotterer /et al/]] for a list), and the difficulty of balancing
-computation times, sensititivy and accuracy makes it likely that more methods
+computation times, sensitivity and accuracy makes it likely that more methods
 and or implementations will be written.
 
 Here we will use the =samtools mpileup= in conjuction with 

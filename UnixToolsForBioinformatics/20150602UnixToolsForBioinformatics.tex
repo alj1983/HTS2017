@@ -1,4 +1,4 @@
-% Created 2016-05-26 Thu 13:26
+% Created 2016-05-30 Mon 15:32
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -58,7 +58,7 @@ urlcolor={blue!80!black}
 Next Generation Sequencing (NGS) data sets are big and although the data is
 often text based you
 simply can't open and work with them in a word processor or Excel
-table - even the attempt to open a big fasta file in a text editor can
+table - even the attempt to open a big fasta file in a word processor can
 freeze your computer. Rather more importantly, even if you could, you
 shouldn't as word processors are not the same as text editors. Word
 processors are concerned more with the formatting of text and will store a
@@ -100,9 +100,9 @@ ssh user@host
 
 Replace 'user' and the IP address 'host' with your own
 username and the IP address of one of our remote computers.
+
 \begin{itemize}
-\item Computer 1: 158.39.60.180
-\item Computer 2: 158.39.31.63
+\item IP Address: 158.39.30.163
 \end{itemize}
 
 If this is the first time you want to access the remote server, you
@@ -122,7 +122,6 @@ than once, and if you do, you might want to read up on
 password. You will not see the password when you enter it, so just
 type it blindly and hit enter.
 
-
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{console}
 user@127.0.0.1's password:
 \end{minted}
@@ -133,6 +132,13 @@ When you connected successfully, you will see a \emph{welcome-text} similar to:
 Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
 \end{minted}
 
+
+If you have a Windows based computer you will (probably) need to install a third
+party program to provide ssh access. The easiest option is to download the
+\href{http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html}{PuTTY} program and then either install it (may need Administrator privileges) or
+run it directly from the downloaded directory. PuTTY provides programs both
+for ssh access and sftp file transfers between a Windows computer and a remote
+host.
 
 If you don't want to only use the command line on the remote host, but
 also want to use the Graphical User Interface (GUI) to open figures,
@@ -154,7 +160,7 @@ There are also a range of other options that let you access Unix/Linux
 servers from Macs or Windows that will let you use the command line. However,
 these often require specific software to be installed on the server and you
 can't rely on this being the case. In general, life is just easier if you run
-Linux on your own computer; it is acceptable if you run MacOS and just painful
+Linux on your own computer; is acceptable if you run MacOS and just painful
 if you're stuck on Windows\footnote{This is part opinion and part fact. There are ways to use Windows to
 communicate with Unix machines that are not painful and in many ways the
 situation is improving. But the statement is nevertheless pretty much true
@@ -184,7 +190,7 @@ The line usually ends with a
 The Unix cheat sheet (see at the end of this file) provides an
 overview of the core commands to navigate and operate in the Unix
 command line. Most commands allow you to adjust their behaviour with a
-variety of so-called arguments or flags. Most of the commands, for
+variety of so-called options, flags or switches. Most of the commands, for
 example, display help information if you use them with the \texttt{-{}-help}
 flag.
 
@@ -208,7 +214,7 @@ overview of files that were saved in these directories.
 Navigating through your directories\footnote{Directories are what you might call folders. It's probably best to
 think of the file system as a hierarchical way of organising your files on the
 computer. Think of it as a tree with the branches representing directories
-and leaves files (although in a file system, leaves can also
+and leaves representing files (although in a file system, leaves can also
 grow directly from the trunk or main branches).} is a big hurdle if you are new to
 the command line and are used to 'clicking' your way in and out of folders. To
 understand how to move in and out of folders (directories on Unix/Linux) and to look at the
@@ -245,18 +251,63 @@ scripts that you will use in this tutorial are located in the \texttt{/usr/}
 directory, generally in \texttt{/usr/local/bin/}. 
 
 Applications that are located in \texttt{/usr/local/bin/} can usually be run by any
-user by simply typing the name of the application since this directory is automatically specified in the so-called
-\texttt{PATH} variable of every user. The \texttt{PATH} variable is simply a
-variable that specifies the directories where executable programs are
-located. You will meet this \texttt{PATH} variable when you learn more about
+user by simply typing the name of the application since this directory is automatically specified in the
+\texttt{PATH} environment variable of all users. The \texttt{PATH} variable is simply a
+variable that specifies the directories where the shell\footnote{The environment that
+you use to interact with the computer is referred to as the \emph{shell}. What you see when you
+log into a Mac or Windows computer is referred to as a graphical shell. In this course you will
+be using the Bash shell, which is one of the command line interfaces available on Unix systems} 
+will look for files that can be executed.
+You will meet this \texttt{PATH} variable again when you learn more about
 running programs.
 
-\subsubsection{Moving in and out of directories with \texttt{cd}}
+\subsubsection{What files are present in the current directory?}
 \label{sec:orgheadline3}
+After you have logged in to the server your working directory will
+be set to your home directory. This is almost always:
+
+\begin{itemize}
+\item /home/user\_name
+\end{itemize}
+
+To see what files and subdirectories are present in your home directory
+you can
+use the command \texttt{ls} (just type \texttt{ls} and hit enter). The tool \texttt{ls} comes with many
+options that refine the way that the results are shown; you get an
+overview of these options with:
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+ls --help
+\end{minted}
+
+The combination of options that I use most frequently are
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+ls -lhcrta
+\end{minted}
+
+The option
+\begin{itemize}
+\item \texttt{-l} provides additional information to the file or folder name
+\begin{itemize}
+\item file permissions
+\item user and group owners of the file
+\item size
+\item date of modification
+\end{itemize}
+\item \texttt{-h} prints the file sizes in human readable format, like 100K instead of 102400
+\item \texttt{-c} sort by last modification of file status information
+\item \texttt{-r} reverse order while sorting (so that the newest files are the last that are printed)
+\item \texttt{-t} sort by modification time, newest first
+\item \texttt{-a} prints also the hidden files (starting with a dot '.').
+\end{itemize}
+
+\subsubsection{Moving in and out of directories with \texttt{cd}}
+\label{sec:orgheadline4}
 \texttt{cd} stands for 'change directory'. with this command you can navigate
 in and out of your directories. To see what your present working
-directory is, simply type \texttt{pwd} (for 'present working directory') and
-hit enter
+directory is, simply type \texttt{pwd} (for 'print working directory') and
+hit enter:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 pwd
@@ -319,7 +370,7 @@ alj@inspiron:~$ cd
 \end{minted}
 
 \subsubsection{Tip}
-\label{sec:orgheadline4}
+\label{sec:orgheadline5}
 If there are empty spaces in your filepath, you need to precede them
 with a backslash (\texttt{\textbackslash{}}) in order to navigate to them, like in 
 
@@ -332,40 +383,6 @@ or use quotation marks
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 cd "/home/my directory"
 \end{minted}
-
-\subsubsection{What files are present in the current directory?}
-\label{sec:orgheadline5}
-Once you navigated with \texttt{cd} to your target directory and you want to
-look at the files and sub-directories that are located in it, you can
-use the command \texttt{ls} and hit enter. The tool \texttt{ls} comes with many
-options that refine the way that the results are shown; you get an
-overview of these options with:
-
-\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
-ls --help
-\end{minted}
-
-The combination of options that I use most frequently are
-
-\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
-ls -lhcrta
-\end{minted}
-
-The option
-\begin{itemize}
-\item \texttt{-l} provides additional information to the file or folder name
-\begin{itemize}
-\item file permissions
-\item user and group owners of the file
-\item size
-\item date of modification
-\end{itemize}
-\item \texttt{-h} prints the file sizes in human readable format, like 100K instead of 102400
-\item \texttt{-c} sort by last modification of file status information
-\item \texttt{-r} reverse order while sorting (so that the newest files are the last that are printed)
-\item \texttt{-t} sort by modification time, newest first
-\item \texttt{-a} prints also the hidden files (starting with a dot '.').
-\end{itemize}
 
 \subsubsection{Have a look at the directory structure}
 \label{sec:orgheadline6}
@@ -420,7 +437,8 @@ To create a new empty file, use the command \texttt{touch}:
 touch filename
 \end{minted}
 
-You can move or rename files with the command \texttt{mv}. For example:
+You can move or rename\footnote{Moving and renaming are logically the same procedure if you 
+consider the full name of a file to include its location.} files with the command \texttt{mv}. For example:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 mv file1 file2
@@ -523,10 +541,12 @@ rsync -avz --progress /home/user/directory/ user@host://home/user/
 
 Here,
 \begin{itemize}
-\item \texttt{-av} will transfer the files in 'archive mode' (which combines
+\item \texttt{-a} will transfer the files in 'archive mode' (which combines
 several options, including recursing into directories)
 \item \texttt{-z} will compress the files durig the transfer
+\item \texttt{-v} is a common option to increase the verbosity[fn:: The amount of information
 \end{itemize}
+that the program will print to the terminal.] of the output.
 
 Note the trailing slash after the source directory:
 \texttt{/home/user/directory/}. If you do not use this trailing slash, like
@@ -535,9 +555,6 @@ name \texttt{directory} at the destination and copy all files from the source
 folder into it.
 
 
-Ok, that's all we need to know to get the sequencing data from last
-week to the remote computer. As we need the data in the following
-tutorials, it is best if you upload them now.
 
 \subsubsection{sftp/lftp}
 \label{sec:orgheadline12}
@@ -546,8 +563,8 @@ difficult to remember how to do even simple things (try \texttt{man rsync} if
 you don't believe me!). When using rsync you also need to know and
 remember where the files and directories that you wish to synchronise
 are located. My preference is for using
-the programs similar to the old ftp command line client (which even Windows has). 
-This provides an
+programs similar to the old ftp command line client (which even Windows has). 
+These provide an
 environment very similar to the normal Unix shell, where you change
 directory using \texttt{cd}, list the files using \texttt{ls}, find out where you are
 using \texttt{pwd} and so on. However, the ftp protocol is inherently insecure;
@@ -562,7 +579,10 @@ usage is almost identical to the usual sftp and ftp clients but it comes
 with extended functionality that allows you for example to mirror (i.e.
 synchronise directories) between the remote and local computers.
 
-To use the sftp program, simply type:
+To use the sftp program, simply type:\footnote{On Windows you can use the PSFTP.EXE program
+that comes as part of Putty. If you double click the icon, you will be
+presented with a small terminal window. Follow the instructions written
+at the top to proceed.}
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 sftp hostname
@@ -585,7 +605,11 @@ around the directories as if you were logged in over a shell session
 on the local machine, simply use the \texttt{lcd} command. You can also run
 commands in your local shell by prefixing these with an !, eg. \texttt{!ls} or
 \texttt{!pwd}. You can create directories on the remote computer with \texttt{mkdir},
-and on the local machine with \texttt{!mkdir}. To transfer files from the
+and on the local machine with \texttt{!mkdir}. If you are using Windows, you will
+obviously have to use the DOS equivalents of \texttt{ls}, \texttt{pwd} and \texttt{mkdir}\footnote{That is instead of typing \texttt{!ls}, \texttt{!pwd}, \texttt{!mkdir} you use \texttt{!dir}, \texttt{!cd} (without any directory)
+and \texttt{!md} respectively.}.
+
+To transfer files from the
 remote to the local computer use \texttt{get fname}. You can use globbing (*)
 to expand the file set, eg. \texttt{get *.fa} for all files ending in '.fa'.
 (For this you may need to use \texttt{mget *.fa} on some implementations, this
@@ -608,12 +632,15 @@ tab completion, and this was a big advantage of lftp at that time. These
 days most if not all of the clients provide this functionality, so it is
 not quite as big a deal as it was in the long past.
 
+Ok, that's all we need to know to get the sequencing data from last
+week to the remote computer. As we need the data in the following
+tutorials, it is best if you upload them now.
 
 \subsubsection{Tip}
 \label{sec:orgheadline13}
 
 If you want to transfer in one go, all files that have some common
-characteristic in their name you can use the asterisk \texttt{*}, which
+patterns in their name you can use the asterisk \texttt{*}, which
 stands for 'any character'. The \texttt{*} is one of the most commonly used
 wildcard symbols that stands for a continuous string of characters. To
 specify a set of filenames with wildcard characters is also referred
@@ -640,11 +667,11 @@ character in the file name.
 
 \section{Running programs (and the PATH variable)}
 \label{sec:orgheadline19}
-\subsection{From the shell}
+\subsection{From the (command line) shell}
 \label{sec:orgheadline16}
 When using the shell you normally run a program by simply typing the
 program name and any required arguments. But how does the shell know
-what program to run and where to find it? On a typical Unix / Linux
+what program to run and where to find it? On a typical Unix/Linux
 system executable files (i.e. programs) can be found in a range of
 standard locations (eg. \texttt{/bin/, /sbin/, /usr/bin/, \textasciitilde{}/bin/}) as well as
 anywhere a user puts them. Normally when you run a program by simply
@@ -653,16 +680,17 @@ in a list of directories specified by the \texttt{\$PATH} environment variable.
 The first matching program is then run.
 
 In practice the shell may keep the locations of executable files in
-a cache in order to speed up the process of finding the program files
+a cache in order to speed up the process
 (remember that reading from disk is slow). In this case you may find
-that a newly installed program in \texttt{\textasciitilde{}/bin/} isn't run even though it
-\texttt{\textasciitilde{}/bin/} is first in the \texttt{\$PATH}. To fix this, you need to:
+that the old version of a program found in \texttt{/usr/bin} is run instead of the 
+new version installed in \texttt{\textasciitilde{}/bin/} even though
+\texttt{\textasciitilde{}/bin/} is ahead of \texttt{/usr/bin/} in the \texttt{\$PATH}. To fix this, you need to:
 
-\#+begin-src sh
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 hash -r
-\#+end\(_{\text{src}}\)
+\end{minted}
 
-which will reset the internal cache and research the PATH.
+which will reset the internal cache and re-search the PATH.
 
 The user can also directly specify the location (path) of the
 executable; this is necessary if the program you wish to run is not
@@ -692,22 +720,21 @@ directory.}:
 structure). To do the same you could also make sure that the \texttt{\$PATH}
 contains \textasciitilde{}/bin before other potential locations of gcc.
 
-To check the current value of your \texttt{\$PATH}, simply use the echo command:
+To check the current value of your \texttt{\$PATH}, simply use the \texttt{echo} command:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
 echo $PATH
 \end{minted}
 
-
 To learn how to extend your own PATH variable have a look in the hidden
-.basrhc or .bash\(_{\text{profile}}\) file in your home directory. It usually gives a
+.basrhc or .bash\_profile file in your home directory. It usually gives a
 few examples. Failing that have a look at Google.
 
 Finally if you've written a small script or installed a program in your
 current working directory you can run that by typing \texttt{./scriptname}. There
 is nothing special about that, it is merely how you represent the
 relative path to your current working directory.\footnote{Previously you learnt that \texttt{../} represents the containing directory
-(one level up); the \texttt{..} is simply shortcut for the current working directory.}
+(one level up); the \texttt{./} is simply shorthand for the current working directory.}
 
 \subsection{From a shell script}
 \label{sec:orgheadline17}
@@ -777,7 +804,7 @@ the command directly:
 \item You can spend some time to proof-read the command making sure you don't
 have any stupid mistakes in it.
 \item You have a record of how you ran the program. This is actually \uline{very}
-  important.
+  useful.
 \item You can look at this file next time you have something to map and remind
 you of how you use the program.
 \end{itemize}
@@ -819,12 +846,12 @@ done
 Here we first use a wild card notation \texttt{dirs=RZY-3*} to create a list of
 directory names. We then use a loop (\texttt{for d in \$dirs}) to go through each
 directory in turn. For each directory we first use \texttt{cd} to change our current
-working directory, then assign the the file name (\texttt{f=\$d.fastq}, in this case
+working directory, then assign the the file name to \texttt{\$f} (\texttt{f=\$d.fastq}). In this case
 the filenames all have the same prefix as the directory name, so we can
-simply concatenate the dirname and the \texttt{.fastq} suffix together) to the \texttt{\$f}
-variable and then call the command to run the program. After \texttt{STAR} returns
+simply concatenate the dirname and the \texttt{.fastq} suffix together) to obtain the \texttt{\$f}
+variable which we then use to create the command to run the program. After \texttt{STAR} returns
 (i.e. it has finished running) we go back to the starting directory (\texttt{cd ..})
-and go to the next one.
+and go to the next directory.
 
 When we define a variable we simply write the name of it without any
 decoration; (eg. \texttt{f=\$d.fastq} to define the \texttt{\$f} variable). However, when we
@@ -835,9 +862,10 @@ information about the process of the script. This ouput, in addition to that
 printed by the STAR program can be redirected to a file (a log) so that we
 can leave the process to run and then come back and see if there were any
 errors encountered during the processing. To run the script, first \texttt{chmod} it
-to an executable, then:
+to an executable and then run it:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+chmod +x map_seq.sh
 ./map_seq.sh > map.log &
 \end{minted}
 
@@ -867,6 +895,45 @@ tail -f map.log
 To stop following the file you will need to hit \texttt{Ctrl-C} (i.e. the
 control and C keys simultaneously).
 
+Note that the above example is not a particularly good script as it does
+not bother to check if the names obtained by globbing (\texttt{dirs=RZY-3*}) are actually
+directories, nor checks if the sequence files exist. As I wrote this script
+for a specific situation where I knew\footnote{The idea of knowing what actually exists
+within a complex directory structure is somehow not a very reasonable one as it is
+difficult to check manually and be confident of not having missed something. Equally
+it is difficult to check automatically though a small script as it is easy to have either
+implementation (eg. typos) or logic errors.} the directory structure prior to writing
+the script (it having been created by another script). However, it is bad to make
+assumptions and when writing any script or program you should check the input to make
+sure it conforms to your expectations. In this case we can use \texttt{if then else}
+conditional statements to make sure the directories and files exist:
+
+\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
+for d in $dirs
+do
+  if [-d $d]
+  then
+    echo "$d is a directory"
+    cd $d
+    f=$d.fastq
+    if [-e $f]
+    then
+      echo "$f exists, we can do something with it"
+    else
+      echo "ERROR $f does not exist in $d"
+    fi
+    cd ..
+    else
+      echo "$d is not a directory"
+    fi
+done
+\end{minted}
+
+Note that using nested \texttt{if}\footnote{if statements within if statements} statements
+make it difficult to read the code and work out what is going on. To make it
+easier to read we normally use indentation to indicate the different levels
+of conditional, but it is still easy to make mistakes.
+
 \subsection{Writing a shell script}
 \label{sec:orgheadline18}
 To write a shell script you will need to use some sort of editor. There are
@@ -894,7 +961,7 @@ directories and transfer files, it's time to look at NGS data output
 and to learn how to open and summarize information from such files -
 like, for example, the number of sequences in a fasta file.
 
-The folder PracticeFiles contains the following files:
+The folder \texttt{/home/hts2016/PracticeFiles} contains the following files:
 \begin{itemize}
 \item HTS.fasta and HTS2.fasta, fasta files with sequence identifiers and sequences
 \item HTS.fastq, a file with sequences and associated base qualities
@@ -915,14 +982,11 @@ large files.
 Let's have a look at a fastq file with the command:
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
-less Fastqfile.fastq
+cd /home/hts2016/PracticeFiles
+less HTS.fastq
 \end{minted}
 
-Once you have opened a fasta file, for example, with \texttt{less} \ldots{}
-
-\begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
-less Fastqfile.fasta
-\end{minted}
+Once you have opened a fasta file with \texttt{less} (or \texttt{more}) \ldots{}
 
 \ldots{} you can search for patterns, like the nucleotide sequence 'GCTC', with \texttt{/}, like
 
@@ -953,7 +1017,7 @@ less --help
 
 The \texttt{head} command, followed by the name of a text file, prints by
 default the first 10 lines/rows of the file to the terminal.  The \texttt{-n}
-option allows to determine the number of rows that shall be
+option allows to specify the number of rows that will be
 printed. For example, to extract the first sequence-id along with the
 nucleotide sequence from HTS.fasta, you can select the first two lines
 with:
@@ -1503,7 +1567,7 @@ print "a is $a \n";
 }
 
 print "a is now $a \n";
-## does not print 30, as we $a was declared using the
+## does not print 30, as $a was declared using the
 ## my keyword.
 \end{minted}
 

@@ -45,6 +45,9 @@
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
 #+EMAIL: Nordland University, Norway
 
+# the following line means that underscores do not automatically
+# indicate subscript. 
+#+OPTIONS: ^:{}
 #+OPTIONS: toc:t H:3 email:t author:t num:t creator:nil ':nil
 
 # Overview of export options in http://orgmode.org/manual/Export-settings.html#Export-settings
@@ -76,7 +79,7 @@
 Next Generation Sequencing (NGS) data sets are big and although the data is
 often text based you
 simply can't open and work with them in a word processor or Excel
-table - even the attempt to open a big fasta file in a text editor can
+table - even the attempt to open a big fasta file in a word processor can
 freeze your computer. Rather more importantly, even if you could, you
 shouldn't as word processors are not the same as text editors. Word
 processors are concerned more with the formatting of text and will store a
@@ -115,8 +118,8 @@ ssh user@host
 
 Replace 'user' and the IP address 'host' with your own
 username and the IP address of one of our remote computers.
-- Computer 1: 158.39.60.180
-- Computer 2: 158.39.31.63
+
+- IP Address: 158.39.30.163
 
 If this is the first time you want to access the remote server, you
 will likely get the following warning
@@ -135,7 +138,6 @@ than once, and if you do, you might want to read up on
 password. You will not see the password when you enter it, so just
 type it blindly and hit enter.
 
-
 #+begin_src console
 user@127.0.0.1's password:
 #+end_src
@@ -146,6 +148,13 @@ When you connected successfully, you will see a /welcome-text/ similar to:
 Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-35-generic x86_64)
 #+end_src
 
+
+If you have a Windows based computer you will (probably) need to install a third
+party program to provide ssh access. The easiest option is to download the
+[[http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html][PuTTY]] program and then either install it (may need Administrator privileges) or
+run it directly from the downloaded directory. PuTTY provides programs both
+for ssh access and sftp file transfers between a Windows computer and a remote
+host.
 
 If you don't want to only use the command line on the remote host, but
 also want to use the Graphical User Interface (GUI) to open figures,
@@ -167,7 +176,7 @@ There are also a range of other options that let you access Unix/Linux
 servers from Macs or Windows that will let you use the command line. However,
 these often require specific software to be installed on the server and you
 can't rely on this being the case. In general, life is just easier if you run
-Linux on your own computer; it is acceptable if you run MacOS and just painful
+Linux on your own computer; is acceptable if you run MacOS and just painful
 if you're stuck on Windows[fn:: This is part opinion and part fact. There are ways to use Windows to
 communicate with Unix machines that are not painful and in many ways the
 situation is improving. But the statement is nevertheless pretty much true
@@ -194,7 +203,7 @@ The line usually ends with a
 The Unix cheat sheet (see at the end of this file) provides an
 overview of the core commands to navigate and operate in the Unix
 command line. Most commands allow you to adjust their behaviour with a
-variety of so-called arguments or flags. Most of the commands, for
+variety of so-called options, flags or switches. Most of the commands, for
 example, display help information if you use them with the =--help=
 flag.
 
@@ -219,7 +228,7 @@ overview of files that were saved in these directories.
 Navigating through your directories[fn:: Directories are what you might call folders. It's probably best to
 think of the file system as a hierarchical way of organising your files on the
 computer. Think of it as a tree with the branches representing directories
-and leaves files (although in a file system, leaves can also
+and leaves representing files (although in a file system, leaves can also
 grow directly from the trunk or main branches).] is a big hurdle if you are new to
 the command line and are used to 'clicking' your way in and out of folders. To
 understand how to move in and out of folders (directories on Unix/Linux) and to look at the
@@ -255,17 +264,55 @@ scripts that you will use in this tutorial are located in the =/usr/=
 directory, generally in =/usr/local/bin/=. 
 
 Applications that are located in =/usr/local/bin/= can usually be run by any
-user by simply typing the name of the application since this directory is automatically specified in the so-called
-=PATH= variable of every user. The =PATH= variable is simply a
-variable that specifies the directories where executable programs are
-located. You will meet this =PATH= variable when you learn more about
+user by simply typing the name of the application since this directory is automatically specified in the
+=PATH= environment variable of all users. The =PATH= variable is simply a
+variable that specifies the directories where the shell[fn:: The environment that
+you use to interact with the computer is referred to as the /shell/. What you see when you
+log into a Mac or Windows computer is referred to as a graphical shell. In this course you will
+be using the Bash shell, which is one of the command line interfaces available on Unix systems] 
+will look for files that can be executed.
+You will meet this =PATH= variable again when you learn more about
 running programs.
 
+*** What files are present in the current directory?
+    After you have logged in to the server your working directory will
+    be set to your home directory. This is almost always:
+
+    - /home/user_name
+
+    To see what files and subdirectories are present in your home directory
+    you can
+    use the command =ls= (just type =ls= and hit enter). The tool =ls= comes with many
+    options that refine the way that the results are shown; you get an
+    overview of these options with:
+  
+ #+begin_src sh
+ ls --help
+ #+end_src
+
+ The combination of options that I use most frequently are
+
+ #+begin_src sh
+ ls -lhcrta
+ #+end_src
+
+ The option
+ - =-l= provides additional information to the file or folder name
+	- file permissions
+	- user and group owners of the file
+	- size
+	- date of modification
+ - =-h= prints the file sizes in human readable format, like 100K instead of 102400
+ - =-c= sort by last modification of file status information
+ - =-r= reverse order while sorting (so that the newest files are the last that are printed)
+ - =-t= sort by modification time, newest first 
+ - =-a= prints also the hidden files (starting with a dot '.').
+   
 *** Moving in and out of directories with =cd=
  =cd= stands for 'change directory'. with this command you can navigate
  in and out of your directories. To see what your present working
- directory is, simply type =pwd= (for 'present working directory') and
- hit enter
+ directory is, simply type =pwd= (for 'print working directory') and
+ hit enter:
 
  #+begin_src sh
  pwd
@@ -341,35 +388,6 @@ or use quotation marks
 cd "/home/my directory"
 #+end_src
 
-*** What files are present in the current directory?
- Once you navigated with =cd= to your target directory and you want to
- look at the files and sub-directories that are located in it, you can
- use the command =ls= and hit enter. The tool =ls= comes with many
- options that refine the way that the results are shown; you get an
- overview of these options with:
-
- #+begin_src sh
- ls --help
- #+end_src
-
- The combination of options that I use most frequently are
-
- #+begin_src sh
- ls -lhcrta
- #+end_src
-
- The option
- - =-l= provides additional information to the file or folder name
-	- file permissions
-	- user and group owners of the file
-	- size
-	- date of modification
- - =-h= prints the file sizes in human readable format, like 100K instead of 102400
- - =-c= sort by last modification of file status information
- - =-r= reverse order while sorting (so that the newest files are the last that are printed)
- - =-t= sort by modification time, newest first 
- - =-a= prints also the hidden files (starting with a dot '.').
-  
 *** Have a look at the directory structure
 The command line tool =tree= prints the hierarchical structure of your
 files and directories (recursing into all sub-directories) to the screen.
@@ -418,7 +436,8 @@ To create a new empty file, use the command =touch=:
 touch filename
 #+end_src
 
-You can move or rename files with the command =mv=. For example:
+You can move or rename[fn:: Moving and renaming are logically the same procedure if you 
+consider the full name of a file to include its location.] files with the command =mv=. For example:
 
 #+begin_src sh
 mv file1 file2
@@ -518,9 +537,11 @@ you to transfer and synchronize files.
  #+end_src 
 
  Here,
- - =-av= will transfer the files in 'archive mode' (which combines
+ - =-a= will transfer the files in 'archive mode' (which combines
    several options, including recursing into directories)
  - =-z= will compress the files durig the transfer
+ - =-v= is a common option to increase the verbosity[fn:: The amount of information
+ that the program will print to the terminal.] of the output.
 
  Note the trailing slash after the source directory:
  =/home/user/directory/=. If you do not use this trailing slash, like
@@ -529,9 +550,6 @@ you to transfer and synchronize files.
  folder into it.
 
 
-Ok, that's all we need to know to get the sequencing data from last
-week to the remote computer. As we need the data in the following
-tutorials, it is best if you upload them now.
  
 *** sftp/lftp
 rsync is a wonderful tool, but its power makes it complex and it can be
@@ -539,8 +557,8 @@ difficult to remember how to do even simple things (try =man rsync= if
 you don't believe me!). When using rsync you also need to know and
 remember where the files and directories that you wish to synchronise
 are located. My preference is for using
-the programs similar to the old ftp command line client (which even Windows has). 
-This provides an
+programs similar to the old ftp command line client (which even Windows has). 
+These provide an
 environment very similar to the normal Unix shell, where you change
 directory using =cd=, list the files using =ls=, find out where you are
 using =pwd= and so on. However, the ftp protocol is inherently insecure;
@@ -555,7 +573,10 @@ usage is almost identical to the usual sftp and ftp clients but it comes
 with extended functionality that allows you for example to mirror (i.e.
 synchronise directories) between the remote and local computers.
 
-To use the sftp program, simply type:
+To use the sftp program, simply type:[fn:: On Windows you can use the PSFTP.EXE program
+that comes as part of Putty. If you double click the icon, you will be
+presented with a small terminal window. Follow the instructions written
+at the top to proceed.]
 
 #+begin_src sh
 sftp hostname
@@ -578,7 +599,12 @@ around the directories as if you were logged in over a shell session
 on the local machine, simply use the =lcd= command. You can also run
 commands in your local shell by prefixing these with an !, eg. =!ls= or
 =!pwd=. You can create directories on the remote computer with =mkdir=,
-and on the local machine with =!mkdir=. To transfer files from the
+and on the local machine with =!mkdir=. If you are using Windows, you will
+obviously have to use the DOS equivalents of =ls=, =pwd= and =mkdir=[fn::
+That is instead of typing =!ls=, =!pwd=, =!mkdir= you use =!dir=, =!cd= (without any directory)
+and =!md= respectively. ].
+
+To transfer files from the
 remote to the local computer use =get fname=. You can use globbing (*)
 to expand the file set, eg. =get *.fa= for all files ending in '.fa'.
 (For this you may need to use =mget *.fa= on some implementations, this
@@ -601,11 +627,14 @@ tab completion, and this was a big advantage of lftp at that time. These
 days most if not all of the clients provide this functionality, so it is
 not quite as big a deal as it was in the long past.
 
+Ok, that's all we need to know to get the sequencing data from last
+week to the remote computer. As we need the data in the following
+tutorials, it is best if you upload them now.
 
 *** Tip
 
 If you want to transfer in one go, all files that have some common
-characteristic in their name you can use the asterisk =*=, which
+patterns in their name you can use the asterisk =*=, which
 stands for 'any character'. The =*= is one of the most commonly used
 wildcard symbols that stands for a continuous string of characters. To
 specify a set of filenames with wildcard characters is also referred
@@ -631,10 +660,10 @@ This means that any characters can precede or follow the =Pop1=
 character in the file name.
 
 * Running programs (and the PATH variable)
-** From the shell
+** From the (command line) shell
 When using the shell you normally run a program by simply typing the
 program name and any required arguments. But how does the shell know
-what program to run and where to find it? On a typical Unix / Linux
+what program to run and where to find it? On a typical Unix/Linux
 system executable files (i.e. programs) can be found in a range of
 standard locations (eg. =/bin/, /sbin/, /usr/bin/, ~/bin/=) as well as
 anywhere a user puts them. Normally when you run a program by simply
@@ -643,16 +672,17 @@ in a list of directories specified by the =$PATH= environment variable.
 The first matching program is then run.
 
 In practice the shell may keep the locations of executable files in
-a cache in order to speed up the process of finding the program files
+a cache in order to speed up the process
 (remember that reading from disk is slow). In this case you may find
-that a newly installed program in =~/bin/= isn't run even though it
-=~/bin/= is first in the =$PATH=. To fix this, you need to:
+that the old version of a program found in =/usr/bin= is run instead of the 
+new version installed in =~/bin/= even though
+=~/bin/= is ahead of =/usr/bin/= in the =$PATH=. To fix this, you need to:
 
-#+begin-src sh
+#+begin_src sh
 hash -r
 #+end_src
 
-which will reset the internal cache and research the PATH.
+which will reset the internal cache and re-search the PATH.
 
 The user can also directly specify the location (path) of the
 executable; this is necessary if the program you wish to run is not
@@ -682,12 +712,11 @@ directory.]:
 structure). To do the same you could also make sure that the =$PATH=
 contains ~/bin before other potential locations of gcc.
 
-To check the current value of your =$PATH=, simply use the echo command:
+To check the current value of your =$PATH=, simply use the =echo= command:
 
 #+begin_src sh
 echo $PATH
 #+end_src
-
 
 To learn how to extend your own PATH variable have a look in the hidden
 .basrhc or .bash_profile file in your home directory. It usually gives a
@@ -697,7 +726,7 @@ Finally if you've written a small script or installed a program in your
 current working directory you can run that by typing =./scriptname=. There
 is nothing special about that, it is merely how you represent the
 relative path to your current working directory.[fn:: Previously you learnt that =../= represents the containing directory
-(one level up); the =..= is simply shortcut for the current working directory. 
+(one level up); the =./= is simply shorthand for the current working directory. 
 ]
 
 ** From a shell script
@@ -770,7 +799,7 @@ the command directly:
 - You can spend some time to proof-read the command making sure you don't
   have any stupid mistakes in it.
 - You have a record of how you ran the program. This is actually _very_
-  important.
+  useful.
 - You can look at this file next time you have something to map and remind
   you of how you use the program.
 
@@ -811,12 +840,12 @@ done
 Here we first use a wild card notation =dirs=RZY-3*= to create a list of
 directory names. We then use a loop (=for d in $dirs=) to go through each
 directory in turn. For each directory we first use =cd= to change our current
-working directory, then assign the the file name (=f=$d.fastq=, in this case
+working directory, then assign the the file name to =$f= (=f=$d.fastq=). In this case
 the filenames all have the same prefix as the directory name, so we can
-simply concatenate the dirname and the =.fastq= suffix together) to the =$f=
-variable and then call the command to run the program. After =STAR= returns
+simply concatenate the dirname and the =.fastq= suffix together) to obtain the =$f=
+variable which we then use to create the command to run the program. After =STAR= returns
 (i.e. it has finished running) we go back to the starting directory (=cd ..=)
-and go to the next one.
+and go to the next directory.
 
 When we define a variable we simply write the name of it without any
 decoration; (eg. =f=$d.fastq= to define the =$f= variable). However, when we
@@ -827,9 +856,10 @@ information about the process of the script. This ouput, in addition to that
 printed by the STAR program can be redirected to a file (a log) so that we
 can leave the process to run and then come back and see if there were any
 errors encountered during the processing. To run the script, first =chmod= it
-to an executable, then:
+to an executable and then run it:
 
 #+begin_src sh
+chmod +x map_seq.sh
 ./map_seq.sh > map.log &
 #+end_src
 
@@ -859,6 +889,45 @@ tail -f map.log
 To stop following the file you will need to hit =Ctrl-C= (i.e. the
 control and C keys simultaneously).
 
+Note that the above example is not a particularly good script as it does
+not bother to check if the names obtained by globbing (=dirs=RZY-3*=) are actually
+directories, nor checks if the sequence files exist. As I wrote this script
+for a specific situation where I knew[fn:: The idea of knowing what actually exists
+within a complex directory structure is somehow not a very reasonable one as it is
+difficult to check manually and be confident of not having missed something. Equally
+it is difficult to check automatically though a small script as it is easy to have either
+implementation (eg. typos) or logic errors.] the directory structure prior to writing
+the script (it having been created by another script). However, it is bad to make
+assumptions and when writing any script or program you should check the input to make
+sure it conforms to your expectations. In this case we can use =if then else=
+conditional statements to make sure the directories and files exist:
+
+#+begin_src sh
+for d in $dirs
+do
+  if [-d $d]
+  then
+    echo "$d is a directory"
+    cd $d
+    f=$d.fastq
+    if [-e $f]
+    then
+      echo "$f exists, we can do something with it"
+    else
+      echo "ERROR $f does not exist in $d"
+    fi
+    cd ..
+    else
+      echo "$d is not a directory"
+    fi
+done
+#+end_src
+
+Note that using nested =if=[fn:: if statements within if statements] statements
+make it difficult to read the code and work out what is going on. To make it
+easier to read we normally use indentation to indicate the different levels
+of conditional, but it is still easy to make mistakes.
+
 ** Writing a shell script
 To write a shell script you will need to use some sort of editor. There are
 very many to chose from; for experienced Unix / Linux users the two most
@@ -882,7 +951,7 @@ directories and transfer files, it's time to look at NGS data output
 and to learn how to open and summarize information from such files -
 like, for example, the number of sequences in a fasta file.
 
-The folder PracticeFiles contains the following files:
+The folder =/home/hts2016/PracticeFiles= contains the following files:
 - HTS.fasta and HTS2.fasta, fasta files with sequence identifiers and sequences
 - HTS.fastq, a file with sequences and associated base qualities
 - HTS.sam, an alignment file
@@ -900,14 +969,11 @@ large files.
 Let's have a look at a fastq file with the command:
 
 #+begin_src sh
-less Fastqfile.fastq
+cd /home/hts2016/PracticeFiles
+less HTS.fastq
 #+end_src
 
-Once you have opened a fasta file, for example, with =less= ...
-
-#+begin_src sh
-less Fastqfile.fasta
-#+end_src
+Once you have opened a fasta file with =less= (or =more=) ...
 
 ... you can search for patterns, like the nucleotide sequence 'GCTC', with =/=, like
 
@@ -938,7 +1004,7 @@ less --help
 
 The =head= command, followed by the name of a text file, prints by
 default the first 10 lines/rows of the file to the terminal.  The =-n=
-option allows to determine the number of rows that shall be
+option allows to specify the number of rows that will be
 printed. For example, to extract the first sequence-id along with the
 nucleotide sequence from HTS.fasta, you can select the first two lines
 with:
@@ -1477,7 +1543,7 @@ print "a is $a \n";
 }
 
 print "a is now $a \n";
-## does not print 30, as we $a was declared using the
+## does not print 30, as $a was declared using the
 ## my keyword.
 #+end_src
 

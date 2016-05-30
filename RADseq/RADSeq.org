@@ -10,7 +10,7 @@
 #+LaTeX_HEADER: \setbeamertemplate{footline}[frame number]
 
 #+LaTeX_HEADER: \usemintedstyle{emacs}
-#+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=bibtex,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
+#+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
 #+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
 
 # #+LATEX_HEADER:\bibliography{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
@@ -51,7 +51,7 @@
 #+TITLE:     Non-model species and RAD-sequencing
 #+AUTHOR:    Alexander Jueterbock
 #+EMAIL:     Alexander-Jueterbock@web.de
-#+DATE:      2015-05-30
+#+DATE:      June 2016
 
 
 * Intro
@@ -91,7 +91,7 @@
 \begin{center}
 #+end_latex
 
-#+ATTR_LaTeX: :width 8cm
+#+ATTR_LaTeX: :width 6cm
 [[file:Pegadarju2013Fig3a.png]]
 
 
@@ -1144,7 +1144,7 @@
  Number of markers adjusted by:
  - Cutting frequency of restriction enzymes
  - Size selection
- #+ATTR_LaTeX: :width 10cm
+ #+ATTR_LaTeX: :width 8cm
  [[file:Peterson-2012-Fig1.png]]   
  #+begin_latex
  \begin{center}
@@ -1168,7 +1168,7 @@
  #+begin_latex
  \begin{center}
  #+end_latex 
- #+ATTR_LaTeX: :width 5cm
+ #+ATTR_LaTeX: :width 4.5cm
  [[file:MspIEcoRI350to450.png]]
 
  #+begin_latex
@@ -1538,7 +1538,7 @@ them for population genomics and phylogeographic analyses.
  #+begin_latex
  \begin{center}
  #+end_latex 
- #+ATTR_LaTeX: :width 8cm
+ #+ATTR_LaTeX: :width 7cm
  [[file:Catchen2013DeNovoStep2.png]]
 
  #+begin_latex

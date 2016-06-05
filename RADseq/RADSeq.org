@@ -11,7 +11,7 @@
 
 #+LaTeX_HEADER: \usemintedstyle{emacs}
 #+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
-#+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+#+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiteratureMendeley/library.bib}
 
 # #+LATEX_HEADER:\bibliography{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
 
@@ -1132,14 +1132,6 @@
  \end{figure}
  \end{center}
  #+end_latex
-*** Pooling recommendations
- - Critical: equimolar concentrations of individuals expected
- - Recommended: >40 individuals/pool
-     - Higher numbers
-       - + decrease unequal representation of individuals in
-         the pool
-       - - make it more more difficult to discriminate minor allele
-         frequencies from sequencing errors 
 *** Great adjustability of the number of markers makes ddRAD suitable for a broader range of approaches than RAD-Seq
  Number of markers adjusted by:
  - Cutting frequency of restriction enzymes
@@ -1244,7 +1236,6 @@
 **** Disadvantages
 - 36-bp tags could be too short to be non-ambiguously mapped in highly
   duplicated genomes.
-- Likely not cross-mappable across large genetic distances.
 
 
 * Biases
@@ -1366,7 +1357,7 @@
      Locus 2 with mutated cut site can have equal coverage as locus 1
      #+end_latex
 
-*** Degenerate base regions detect PCR duplicates in ddRAD (\citep{Tin2014,Schweyen2014})
+*** Degenerate base regions detect PCR duplicates in ddRAD \citep{Tin2014,Schweyen2014}
 
      #+begin_latex
      \vspace{0.1cm}

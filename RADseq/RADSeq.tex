@@ -1,4 +1,4 @@
-% Created 2016-05-27 fr. 16:09
+% Created 2016-06-05 sø. 20:14
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -30,7 +30,7 @@
 \setbeamertemplate{footline}[frame number]
 \usemintedstyle{emacs}
 \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
-\addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+\addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiteratureMendeley/library.bib}
 \usepackage{tikz,graphics,graphicx}
 \usetikzlibrary{decorations.shapes,arrows,decorations.pathreplacing,decorations.pathmorphing,backgrounds}
 \usetikzlibrary{decorations.pathmorphing}
@@ -1101,22 +1101,7 @@ fragment lengths targeted by size selection.
 \end{figure}
 \end{center}
 \end{frame}
-\begin{frame}[label=sec-2-2-4]{Pooling recommendations}
-\begin{itemize}
-\item Critical: equimolar concentrations of individuals expected
-\item Recommended: >40 individuals/pool
-\begin{itemize}
-\item Higher numbers
-\begin{itemize}
-\item + decrease unequal representation of individuals in
-the pool
-\item - make it more more difficult to discriminate minor allele
-frequencies from sequencing errors
-\end{itemize}
-\end{itemize}
-\end{itemize}
-\end{frame}
-\begin{frame}[label=sec-2-2-5]{Great adjustability of the number of markers makes ddRAD suitable for a broader range of approaches than RAD-Seq}
+\begin{frame}[label=sec-2-2-4]{Great adjustability of the number of markers makes ddRAD suitable for a broader range of approaches than RAD-Seq}
 Number of markers adjusted by:
 \begin{itemize}
 \item Cutting frequency of restriction enzymes
@@ -1127,7 +1112,7 @@ Number of markers adjusted by:
 \tiny{\citep{Peterson2012}}
 \end{center}
 \end{frame}
-\begin{frame}[label=sec-2-2-6]{How to predict the number of fragments}
+\begin{frame}[label=sec-2-2-5]{How to predict the number of fragments}
 Based on our own study on Guppy
 \begin{itemize}
 \item Targeted coverage: 20x per individual
@@ -1142,7 +1127,7 @@ paired-end kits)
 What combination of restriction enzymes to use to obtain the appropriate cutting
 frequency?
 \end{frame}
-\begin{frame}[label=sec-2-2-7]{\emph{In silico} genome digestion}
+\begin{frame}[label=sec-2-2-6]{\emph{In silico} genome digestion}
 Simulate restriction enzyme digestion with the R package simRAD \citep{Lepais2014}
 \begin{center}
 \includegraphics[width=4.5cm]{MspIEcoRI350to450.png}
@@ -1152,7 +1137,7 @@ Simulate restriction enzyme digestion with the R package simRAD \citep{Lepais201
 Without reference genome: evaluate double-digest fragments on Tape station
 \end{frame}
 
-\begin{frame}[label=sec-2-2-8]{Recovery of \emph{in silico} predicted loci}
+\begin{frame}[label=sec-2-2-7]{Recovery of \emph{in silico} predicted loci}
 \begin{center}
 \includegraphics[width=9cm]{DaCosta2014Fig1a.png}
 
@@ -1218,7 +1203,6 @@ use of strand bias as a quality filtering criteria.
 \begin{itemize}
 \item 36-bp tags could be too short to be non-ambiguously mapped in highly
 duplicated genomes.
-\item Likely not cross-mappable across large genetic distances.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -1300,7 +1284,7 @@ Locus 2 with mutated cut site can have equal coverage as locus 1
 \end{columns}
 \end{frame}
 
-\begin{frame}[label=sec-3-2-3]{Degenerate base regions detect PCR duplicates in ddRAD (\citep{Tin2014,Schweyen2014})}
+\begin{frame}[label=sec-3-2-3]{Degenerate base regions detect PCR duplicates in ddRAD \citep{Tin2014,Schweyen2014}}
 \vspace{0.1cm}
 
 \begin{columns}

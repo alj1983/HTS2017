@@ -200,27 +200,22 @@
  #+end_latex
 
  #+ATTR_LATEX: :align l r r l
- | *Platform*           | *Max. length* | *Reads/run*     | *Consideration* |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Illumina             |         2x150 | 5 billion       |                 |   |
- | HiSeq series         |               |                 |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Illumina             |         2x300 | 25 million      |                 |   |
- | MiSeq series         |               |                 |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Illumina             |               |                 |                 |   |
- | NextSeq series       |         2x150 | 400 million     |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Roche 454            |           700 | 0.7 million     | High error rate |   |
- | GS FLX+/FLX          |               |                 |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Ion  PGM    318 chip |       200-400 | 4-5.5   million |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | PacBio RSII          |        14,000 | 0.47 million    | High error rate |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | SoliD                |         2x100 | 266 million     | Low error rate  |   |
- | 5500xl W             |               |                 | Color-space     |   |
- |                      |               |                 |                 |   |
+ | *Platform*        | *Max. length* | *Reads/run*     | *Consideration* |
+ |-------------------+---------------+-----------------+-----------------|
+ | Illumina Miseq    |         2x300 | 25 million      |                 |
+ |-------------------+---------------+-----------------+-----------------|
+ | Illumina  NextSeq |         2x150 | 400 million     |                 |
+ |-------------------+---------------+-----------------+-----------------|
+ | Illumina HiSeq    |         2x150 | 5 billion       |                 |
+ |-------------------+---------------+-----------------+-----------------|
+ | Roche 454         |           700 | 0.7 million     | High error rate |
+ |-------------------+---------------+-----------------+-----------------|
+ | Ion PGM 318 chip  |       200-400 | 4-5.5   million |                 |
+ |-------------------+---------------+-----------------+-----------------|
+ | PacBio RSII       |        14,000 | 0.47 million    | High error rate |
+ |-------------------+---------------+-----------------+-----------------|
+ | SoliD 5500xl W    |         2x100 | 266 million     | Low error rate  |
+ |                   |               |                 | Color-space     |
 
  #+begin_latex
  \end{small}
@@ -1422,7 +1417,7 @@ Phased alleles are on the same chromosome strand
 ** Bioinformatics-Practical
 *** Bioinformatics-Practical
 - Unix Tools (Martin)
-- Trimming and Quality Control (Martin)
+- Trimming and Quality Control (Alexander)
 - Genome Assembly (Alexander)
 - Mapping and Variant Calling (Martin)
 *** References

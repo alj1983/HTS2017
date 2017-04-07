@@ -1,4 +1,4 @@
-% Created 2017-04-06 to. 16:23
+% Created 2015-05-24 sø. 18:32
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -18,8 +18,6 @@
 \usepackage{hyperref}
 \tolerance=1000
 \usepackage{minted}
-\usepackage{tikz}
-\usepackage{parskip}
 \usepackage{color}
 \usepackage{listings}
 \usepackage{grffile}
@@ -61,7 +59,7 @@ urlcolor={blue!80!black}
 \hypersetup{
  pdfkeywords={},
   pdfsubject={},
-  pdfcreator={Emacs 24.5.1 (Org mode 8.3beta)}}
+  pdfcreator={Emacs 24.3.1 (Org mode 8.3beta)}}
 \begin{document}
 
 \maketitle
@@ -151,10 +149,7 @@ you closer to become bioinformatics-experts.
 
 \section{Useful programs and analysis pipelines}
 \label{sec-3}
-
 \begin{itemize}
-\item \href{http://onlinelibrary.wiley.com/doi/10.1111/men.2017.17.issue-1/issuetoc}{\emph{Molecular Ecology Resources} Jan 2017; Special Issue: Population Genomics with R}
-
 \item \href{http://code.google.com/p/popoolation/}{Popoolation}: Population genomic analysis of pooled samples, see also \href{http://drrobertkofler.wikispaces.com/file/view/pooledAnalysis_part1.pdf/489488280/pooledAnalysis_part1.pdf}{this presentation}
 \end{itemize}
 
@@ -198,17 +193,9 @@ you closer to become bioinformatics-experts.
 \item \href{https://ddocent.wordpress.com/ddocent-pipeline-user-guide/}{Ddocent}: ddRAD analysis pipeline
 \end{itemize}
 
-\section{Recommended books}
-\label{sec-4}
-\begin{itemize}
-\item \href{http://unixandperl.com/}{Unix and Perl to the Rescue}
-\item \href{http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2}{Computational Biology}
-\item \href{https://www.amazon.com/Primer-Analysis-Genomic-Data-Using/dp/331914474X/ref=sr_1_1?ie=UTF8&qid=1491488356&sr=8-1&keywords=primer+to+analysis+of+genomic+data+using+r}{Primer to Analysis of Genomic Data Using R (Use R!)}
-\item \href{https://www.amazon.com/Bioinformatics-Data-Skills-Reproducible-Research/dp/1449367372/ref=sr_1_1?ie=UTF8&qid=1491488394&sr=8-1&keywords=bioinformatics+data+skills}{Bioinformatics Data Skills: Reproducible and Robust Research with Open Source Tools}
-\end{itemize}
 
 \section{Upcoming \href{https://www.coursera.org/}{Coursera courses}}
-\label{sec-5}
+\label{sec-4}
 \begin{itemize}
 \item \href{https://www.coursera.org/course/rprog}{R programming}
 \end{itemize}
@@ -247,5 +234,5 @@ you closer to become bioinformatics-experts.
 \begin{itemize}
 \item \href{https://www.coursera.org/course/gencommand}{Command Line Tools for Genomic Data Science}
 \end{itemize}
-Emacs 24.5.1 (Org mode 8.3beta)
+Emacs 24.3.1 (Org mode 8.3beta)
 \end{document}

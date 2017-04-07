@@ -116,6 +116,9 @@ you closer to become bioinformatics-experts.
 - [[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlötterer, Christian, et al. "Sequencing pools of individuals - mining genome-wide polymorphism data without big funding." Nature Reviews Genetics (2014).]]
 
 * Useful programs and analysis pipelines
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/men.2017.17.issue-1/issuetoc][/Molecular Ecology Resources/ Jan 2017; Special Issue: Population Genomics with R]]
+
 - [[http://code.google.com/p/popoolation/][Popoolation]]: Population genomic analysis of pooled samples, see also [[http://drrobertkofler.wikispaces.com/file/view/pooledAnalysis_part1.pdf/489488280/pooledAnalysis_part1.pdf][this presentation]]
 
 
@@ -142,6 +145,11 @@ you closer to become bioinformatics-experts.
 
 - [[https://ddocent.wordpress.com/ddocent-pipeline-user-guide/][Ddocent]]: ddRAD analysis pipeline
 
+* Recommended books
+- [[http://unixandperl.com/][Unix and Perl to the Rescue]]
+- [[http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2][Computational Biology]]
+- [[https://www.amazon.com/Primer-Analysis-Genomic-Data-Using/dp/331914474X/ref=sr_1_1?ie=UTF8&qid=1491488356&sr=8-1&keywords=primer+to+analysis+of+genomic+data+using+r][Primer to Analysis of Genomic Data Using R (Use R!)]]
+- [[https://www.amazon.com/Bioinformatics-Data-Skills-Reproducible-Research/dp/1449367372/ref=sr_1_1?ie=UTF8&qid=1491488394&sr=8-1&keywords=bioinformatics+data+skills][Bioinformatics Data Skills: Reproducible and Robust Research with Open Source Tools]]
 
 * Upcoming [[https://www.coursera.org/][Coursera courses]]
 - [[https://www.coursera.org/course/rprog][R programming]]

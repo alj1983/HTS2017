@@ -91,8 +91,7 @@ All required programs will be available on our local UNIX computers
 and you are not required to install them on your own laptops. However,
 if you would like to try them out on your own private computer, here
 is a list of programs and scripts that we will use:
-* Reading
-Please make sure that you have read through the PDF document 'Unix Tools for Bioinformatics' before the 8th of May.
+
 * Programming languages:
 - [[http://cran.r-project.org/][R]]
 - [[https://www.python.org/][Python]]
@@ -119,3 +118,5 @@ Please make sure that you have read through the PDF document 'Unix Tools for Bio
 - [[http://samtools.sourceforge.net/tabix.shtml][bgzip from tabix]]
 
 
+* Reading
+Please make sure that you have read through the PDF document 'Unix Tools for Bioinformatics' before the 8th of May.

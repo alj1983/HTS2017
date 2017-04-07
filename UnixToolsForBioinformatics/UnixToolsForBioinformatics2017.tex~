@@ -1,19 +1,27 @@
-% Created 2016-05-30 Mon 15:32
+% Created 2017-04-07 fr. 14:50
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{fixltx2e}
 \usepackage{graphicx}
-\usepackage{grffile}
 \usepackage{longtable}
+\usepackage{float}
 \usepackage{wrapfig}
 \usepackage{rotating}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{textcomp}
+\usepackage{marvosym}
+\usepackage{wasysym}
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
+\tolerance=1000
+\usepackage{minted}
+\usepackage{tikz}
+\usepackage{parskip}
+\usepackage{color}
+\usepackage{listings}
 \usepackage{grffile}
 \usepackage[inline]{enumitem}
 \usepackage{xcolor}
@@ -44,16 +52,16 @@ urlcolor={blue!80!black}
 \date{\textbf{PhD course: High throughput sequencing of non-model organisms}}
 \title{\textbf{Unix Tools for Bioinformatics} (June 2016)}
 \hypersetup{
- pdfauthor={Martin Jakt, Alexander Jueterbock},
- pdftitle={\textbf{Unix Tools for Bioinformatics} (June 2016)},
  pdfkeywords={},
- pdfsubject={},
- pdfcreator={Emacs 24.3.1 (Org mode 8.3.4)}, 
- pdflang={English}}
+  pdfsubject={},
+  pdfcreator={}}
 \begin{document}
 
 \maketitle
 \tableofcontents
+
+
+
 
 Next Generation Sequencing (NGS) data sets are big and although the data is
 often text based you
@@ -80,7 +88,7 @@ institution or on your private computer.
 
 
 \section{Remote connection}
-\label{sec:orgheadline1}
+\label{sec-1}
 To connect remotely to one of our computers, you will get:
 
 \begin{itemize}
@@ -168,16 +176,15 @@ and if you are going to spend some time doing informatics you might as well
 get rid of Windows as soon as you can.}.
 
 \section{Basic orientation in the command line}
-\label{sec:orgheadline15}
+\label{sec-2}
 
 The command line appears as a window/terminal similar to
-Fig. \ref{fig:orgparagraph1}:
+Fig. \ref{fig:terminal}:
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=14cm]{Terminal.png}
-\caption{\label{fig:orgparagraph1}
-Command line window}
+\caption{\label{fig:terminal}Command line window}
 \end{figure}
 
 The first line starts with your user name, followed by an \texttt{@} and then
@@ -210,7 +217,7 @@ at the commands that allow you to change directories and how to get an
 overview of files that were saved in these directories.
 
 \subsection{Directory navigation}
-\label{sec:orgheadline10}
+\label{sec-2-1}
 Navigating through your directories\footnote{Directories are what you might call folders. It's probably best to
 think of the file system as a hierarchical way of organising your files on the
 computer. Think of it as a tree with the branches representing directories
@@ -222,7 +229,8 @@ content of folders is an essential step to analyse your data on
 the command line.
 
 \subsubsection{Conventional directory layout}
-\label{sec:orgheadline2}
+\label{sec-2-1-1}
+
 
 \begin{quote}
 On a UNIX system, everything is a file; if something is not a file, it is a process.
@@ -232,14 +240,13 @@ This is a simplification but it is mostly true. A directory on a Unix
 system is just a file that contains names of other files. Also
 programs, images and documents are all files. These files are
 hierarchically ordered in a conventional tree-like structure (see
-Fig. \ref{fig:orgparagraph2})
+Fig. \ref{fig:linuxfiletree})
 
 
 \begin{figure}[htb]
 \centering
 \includegraphics[width=12cm]{linuxfiletree.jpg}
-\caption{\label{fig:orgparagraph2}
-Conventional file tree structure on a UNIX system from \href{http://linuxconfig.org/filesystem-basics}{linuxconfig.org}}
+\caption{\label{fig:linuxfiletree}Conventional file tree structure on a UNIX system from \href{http://linuxconfig.org/filesystem-basics}{linuxconfig.org}}
 \end{figure}
 
 
@@ -262,7 +269,7 @@ You will meet this \texttt{PATH} variable again when you learn more about
 running programs.
 
 \subsubsection{What files are present in the current directory?}
-\label{sec:orgheadline3}
+\label{sec-2-1-2}
 After you have logged in to the server your working directory will
 be set to your home directory. This is almost always:
 
@@ -303,7 +310,7 @@ The option
 \end{itemize}
 
 \subsubsection{Moving in and out of directories with \texttt{cd}}
-\label{sec:orgheadline4}
+\label{sec-2-1-3}
 \texttt{cd} stands for 'change directory'. with this command you can navigate
 in and out of your directories. To see what your present working
 directory is, simply type \texttt{pwd} (for 'print working directory') and
@@ -370,7 +377,7 @@ alj@inspiron:~$ cd
 \end{minted}
 
 \subsubsection{Tip}
-\label{sec:orgheadline5}
+\label{sec-2-1-4}
 If there are empty spaces in your filepath, you need to precede them
 with a backslash (\texttt{\textbackslash{}}) in order to navigate to them, like in 
 
@@ -385,7 +392,7 @@ cd "/home/my directory"
 \end{minted}
 
 \subsubsection{Have a look at the directory structure}
-\label{sec:orgheadline6}
+\label{sec-2-1-5}
 The command line tool \texttt{tree} prints the hierarchical structure of your
 files and directories (recursing into all sub-directories) to the screen.
 
@@ -416,14 +423,14 @@ Here,
 \end{itemize}
 
 \subsubsection{Tip}
-\label{sec:orgheadline7}
+\label{sec-2-1-6}
 Besides the TAB-key, that allows for auto-completion of commands or
 filenames, the UP- and DOWN-arrow keys on your keyboard can save you
 some time. These buttons allow you to navigate through the history of
 commands that you have entered previously.  Try it out.
 
 \subsubsection{Create, move and remove files and directories}
-\label{sec:orgheadline8}
+\label{sec-2-1-7}
 New directories can be created with
 
 \begin{minted}[fontsize=\scriptsize,bgcolor=mintedbackground,linenos]{sh}
@@ -475,7 +482,7 @@ rm -r directoryname
 \end{minted}
 
 \subsubsection{Tip}
-\label{sec:orgheadline9}
+\label{sec-2-1-8}
 To get an overview of all the commands that you have used before, just
 type
 
@@ -487,7 +494,7 @@ history
 and hit ENTER.
 
 \subsection{Data transfer between computers}
-\label{sec:orgheadline14}
+\label{sec-2-2}
 Before you can work on a remote server with your own data, you first
 need to know how to transfer them.  One of the best
 platform-independent GUI programs that allows you to up- and download
@@ -496,7 +503,7 @@ files is FileZilla (Download and Documentation:
 introduce the command line tools \texttt{rsync} and \texttt{sftp/lftp}, that allow
 you to transfer and synchronize files.
 \subsubsection{rsync}
-\label{sec:orgheadline11}
+\label{sec-2-2-1}
 
 
 \texttt{rsync} stands for "remote sync". This powerful tool has plenty of
@@ -557,7 +564,7 @@ folder into it.
 
 
 \subsubsection{sftp/lftp}
-\label{sec:orgheadline12}
+\label{sec-2-2-2}
 rsync is a wonderful tool, but its power makes it complex and it can be
 difficult to remember how to do even simple things (try \texttt{man rsync} if
 you don't believe me!). When using rsync you also need to know and
@@ -637,7 +644,7 @@ week to the remote computer. As we need the data in the following
 tutorials, it is best if you upload them now.
 
 \subsubsection{Tip}
-\label{sec:orgheadline13}
+\label{sec-2-2-3}
 
 If you want to transfer in one go, all files that have some common
 patterns in their name you can use the asterisk \texttt{*}, which
@@ -666,9 +673,9 @@ This means that any characters can precede or follow the \texttt{Pop1}
 character in the file name.
 
 \section{Running programs (and the PATH variable)}
-\label{sec:orgheadline19}
+\label{sec-3}
 \subsection{From the (command line) shell}
-\label{sec:orgheadline16}
+\label{sec-3-1}
 When using the shell you normally run a program by simply typing the
 program name and any required arguments. But how does the shell know
 what program to run and where to find it? On a typical Unix/Linux
@@ -737,7 +744,7 @@ relative path to your current working directory.\footnote{Previously you learnt 
 (one level up); the \texttt{./} is simply shorthand for the current working directory.}
 
 \subsection{From a shell script}
-\label{sec:orgheadline17}
+\label{sec-3-2}
 You may have noticed that the commands to run sequence analysis programs can
 be quite long and complex. This is because the program allows you to specify
 many different options directly when invoking the program rather than by
@@ -832,11 +839,11 @@ do
 ##    we have directional libraries and should not use the 
 ##    outSAMstrandField intronMotif function
     STAR --outFilterMultimapNmax 5 \
-	 --outFilterMismatchNoverLmax 0.05 \
-	 --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
-	 --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ \
-	 --readFilesIn $f --runThreadN 6 \
-	 --outSAMtype BAM SortedByCoordinate
+         --outFilterMismatchNoverLmax 0.05 \
+         --outFilterIntronMotifs RemoveNoncanonicalUnannotated \
+         --genomeDir ~/apps/STAR/STAR/genomeDir/Zv10/unmasked/ \
+         --readFilesIn $f --runThreadN 6 \
+         --outSAMtype BAM SortedByCoordinate
 
     echo "      Done: $f $(date +'%b %D %H:%M:%S')" 
     cd ..
@@ -935,7 +942,7 @@ easier to read we normally use indentation to indicate the different levels
 of conditional, but it is still easy to make mistakes.
 
 \subsection{Writing a shell script}
-\label{sec:orgheadline18}
+\label{sec-3-3}
 To write a shell script you will need to use some sort of editor. There are
 very many to chose from; for experienced Unix / Linux users the two most
 commonly used editors are probably \texttt{emacs} and \texttt{vi} (these days perhaps
@@ -949,12 +956,11 @@ etc. are indicated at the bottom of the screen. \texttt{\textasciicircum{}} is s
 \begin{figure}[htb]
 \centering
 \includegraphics[width=.9\linewidth]{nanoShell.png}
-\caption{\label{fig:orgparagraph3}
-The Nano editor.}
+\caption{\label{fig:nano}The Nano editor.}
 \end{figure}
 
 \section{Retrieving basic information from common NGS files}
-\label{sec:orgheadline25}
+\label{sec-4}
 
 Now that we know how the commandline works, how we can change
 directories and transfer files, it's time to look at NGS data output
@@ -969,7 +975,7 @@ The folder \texttt{/home/hts2016/PracticeFiles} contains the following files:
 \end{itemize}
 
 \subsection{Look at the content of a file and search for patterns}
-\label{sec:orgheadline20}
+\label{sec-4-1}
 The tool \texttt{less}\footnote{\texttt{less} is very similar to the more basic program \texttt{more}. Its
 name is a bit of a joke on 'less is more'. Habits die hard, and at
 least one of the authors of this document has \texttt{more} hardcoded into
@@ -1054,7 +1060,7 @@ sed -n '234,236p'
 
 
 \subsection{Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'}
-\label{sec:orgheadline21}
+\label{sec-4-2}
 If you want to get a rapid overview of the number of lines in a file,
 the \texttt{wc} command is the right tool. In output-files where
 every line represents a sequence, for example, \texttt{wc -l} is all you need to count the
@@ -1121,8 +1127,9 @@ redirect \texttt{STDERR}).}.
 Your turn. What command would you use to count the number of sequences
 in a fastq file?
 
+
 If you are in doubt what quality encoding your fastq file has, \texttt{grep}
-can help you. Have a look at Fig. \ref{fig:orgparagraph4}. If you find one of the ASCII
+can help you. Have a look at Fig. \ref{Fig:QC}. If you find one of the ASCII
 characters 33 (character'!') to 58 (character ':'), you can be sure
 that the quality encoding is Phred+33. 
 
@@ -1130,8 +1137,7 @@ that the quality encoding is Phred+33.
 \begin{figure}[htb]
 \centering
 \includegraphics[width=14cm]{Fastq.png}
-\caption{\label{fig:orgparagraph4}
-Quality score encodings}
+\caption{\label{Fig:QC}Quality score encodings}
 \end{figure}
 
 
@@ -1157,7 +1163,7 @@ grep -n "gi|612475216|gb|AZHG01011862.1|" HTS.fasta
 It is line 23724.
 
 \subsection{INFO on regular expressions}
-\label{sec:orgheadline22}
+\label{sec-4-3}
 
 \texttt{grep} stands for \emph{global regular expression printer} and is a
 command-line utility for searching plain-text data for lines matching
@@ -1169,7 +1175,7 @@ short introduction in the Perl section below. Also, \href{http://www.cheatograph
 a cheat sheet with essential regular expressions.
 
 \subsection{Combine the content of files with 'cat' and '>'}
-\label{sec:orgheadline23}
+\label{sec-4-4}
 The most common use of the \texttt{cat} command is to redirect the contents of
 text files to other files or commands.
 
@@ -1209,7 +1215,7 @@ cat HST.fasta HTS2.fasta > COMBINED.fasta
 but we wanted to show you the difference between \texttt{>} and \texttt{>>}.
 
 \subsection{Counting filtered reads in SAM files with 'awk'}
-\label{sec:orgheadline24}
+\label{sec-4-5}
 Later in the course we will encounter specific programs that can filter
 SAM and VCF files. Here, I want to show you that we can also use basic
 command line tools to filter such files.  The command line tool \texttt{awk}
@@ -1246,7 +1252,7 @@ that row. \texttt{-F} just specifies the field separator, and
 \texttt{awk}, and then the ouput of \texttt{awk} to \texttt{wc} the lines are not printed to screen but directly
 counted with the \texttt{wc} command. Only the output of \texttt{wc} gets printed to the screen.
 \section{Bonus section PERL}
-\label{sec:orgheadline34}
+\label{sec-5}
 Perl is a useful programming language whose principles can be learnt
 within a short period of time allowing researchers not familiar with
 programming to quickly become able to automate a variety of processes.
@@ -1279,7 +1285,7 @@ and it is often said that it gives the user more than enough rope to
 hang themselves with.
 
 \subsection{Variables in Perl}
-\label{sec:orgheadline26}
+\label{sec-5-1}
 
 In order to handle information within a program we assign values to
 variables and then manipulate these according to the flow of the
@@ -1303,7 +1309,7 @@ scalar (numbers, text, and references).
 \end{itemize}
 
 \subsection{Assigning variables}
-\label{sec:orgheadline27}
+\label{sec-5-2}
 
 The values of variables can be assigned directly in the program's source
 code, but are more frequently assigned through the command line
@@ -1407,7 +1413,7 @@ single line can contain a number of statements. This can greatly aid the
 readability of the code.
 
 \subsection{Data types}
-\label{sec:orgheadline28}
+\label{sec-5-3}
 
 In the above examples we assigned values to variables without caring
 about what kind of data we used. For example consider the following:
@@ -1488,7 +1494,7 @@ that you often see the following chromosome ordering:
 \end{itemize}
 
 \subsection{Program flow: loops and conditionals}
-\label{sec:orgheadline29}
+\label{sec-5-4}
 
 We use computer programs to automate repeated processes; that is to
 carry out the same or similar operations on a large number of data
@@ -1629,7 +1635,7 @@ These are not the only ways in which you can loop through values or data
 structures, but they probably represent the most common usages.
 
 \subsection{Reading and writing data}
-\label{sec:orgheadline30}
+\label{sec-5-5}
 
 To read or write from a file we use a filehandle. This is just an
 identifier associated with the file and the reading or writing process.
@@ -1690,7 +1696,7 @@ close OUT;
 \end{minted}
 
 \subsection{Regular Expressions}
-\label{sec:orgheadline31}
+\label{sec-5-6}
 
 You have already come across regular expressions in this course; they
 are used by a number of Unix utilities like grep. The Perl
@@ -1815,7 +1821,7 @@ There's a lot more to regular expressions than this, but this may be enough to g
 started with.
 
 \subsection{Various operators}
-\label{sec:orgheadline32}
+\label{sec-5-7}
 
 Operators are symbols that denote specific operations; like regular
 expression matching or regular mathematical operations. We have already
@@ -1885,7 +1891,7 @@ can also result in the program silently doing something unexpected (which is the
 worst kind of behaviour as it can result in corrupt output).
 
 \subsection{A somewhat useful example}
-\label{sec:orgheadline33}
+\label{sec-5-8}
 
 As an example of something potentially useful we can write a short script
 that reads in sequences from a fasta file and identifies sequences that
@@ -1967,15 +1973,15 @@ Perl seriously.
 Good luck with Perl!
 
 \section{Recommended books}
-\label{sec:orgheadline35}
+\label{sec-6}
 \begin{itemize}
 \item \href{http://unixandperl.com/}{Unix and Perl to the Rescue}
 \item \href{http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2}{Computational Biology}
 \end{itemize}
 \section{Unix cheat sheet}
-\label{sec:orgheadline43}
+\label{sec-7}
 \subsection{FILE system}
-\label{sec:orgheadline36}
+\label{sec-7-1}
 \small
 
 \begin{center}
@@ -2019,7 +2025,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Opening FILEs and extracting information}
-\label{sec:orgheadline37}
+\label{sec-7-2}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2057,7 +2063,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Data transfer}
-\label{sec:orgheadline38}
+\label{sec-7-3}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2077,7 +2083,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Executing scripts and programs}
-\label{sec:orgheadline39}
+\label{sec-7-4}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2097,7 +2103,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Networking}
-\label{sec:orgheadline40}
+\label{sec-7-5}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2109,7 +2115,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Help}
-\label{sec:orgheadline41}
+\label{sec-7-6}
 \begin{center}
 \begin{tabular}{p{4cm}p{10cm}}
 Command & Meaning\\
@@ -2121,7 +2127,7 @@ Command & Meaning\\
 \end{center}
 
 \subsection{Tricks}
-\label{sec:orgheadline42}
+\label{sec-7-7}
 
 Pipe output from one command with \texttt{|} as input to another command.
 

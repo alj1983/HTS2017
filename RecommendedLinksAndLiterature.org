@@ -150,7 +150,7 @@ you closer to become bioinformatics-experts.
 - [[http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2][Computational Biology]]
 - [[https://www.amazon.com/Primer-Analysis-Genomic-Data-Using/dp/331914474X/ref=sr_1_1?ie=UTF8&qid=1491488356&sr=8-1&keywords=primer+to+analysis+of+genomic+data+using+r][Primer to Analysis of Genomic Data Using R (Use R!)]]
 - [[https://www.amazon.com/Bioinformatics-Data-Skills-Reproducible-Research/dp/1449367372/ref=sr_1_1?ie=UTF8&qid=1491488394&sr=8-1&keywords=bioinformatics+data+skills][Bioinformatics Data Skills: Reproducible and Robust Research with Open Source Tools]]
-
+- [[https://www.amazon.com/Practical-Computing-Biologists-Steven-Haddock/dp/0878933913/ref=sr_1_8?ie=UTF8&qid=1491813979&sr=8-8&keywords=computational+biology][Practical Computing for Biologists]]
 * Upcoming [[https://www.coursera.org/][Coursera courses]]
 - [[https://www.coursera.org/course/rprog][R programming]]
 

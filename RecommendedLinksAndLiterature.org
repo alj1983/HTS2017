@@ -74,6 +74,13 @@ pipelines, as well as to tutorials and learning environments that get
 you closer to become bioinformatics-experts.
 
 * Recommended Reading for RAD sequencing
+
+- [[http://www.molecularecologist.com/2017/04/to-radseq-or-not-to-radseq/][The Molecular Ecologist article: To RADseq or not to RADseq?]]
+
+
+- [[https://www.nature.com/nrg/journal/v17/n2/full/nrg.2015.28.html][Andrews, Kimberly R., et al. "Harnessing the power of RADseq for ecological and evolutionary genomics." Nature Reviews Genetics 17.2 (2016): 81-92.]]
+
+
 - [[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0003376][Baird, Nathan A., et al. "Rapid SNP discovery and genetic mapping using sequenced RAD markers." PloS one 3.10 (2008): e3376.]]
 
 
@@ -81,6 +88,9 @@ you closer to become bioinformatics-experts.
 
 
 - [[http://onlinelibrary.wiley.com/doi/10.1111/mec.12354/abstract;jsessionid=259B878CB4F4CA43D108D850880842F7.f02t03?deniedAccessCustomisedMessage=&userIsAuthenticated=false][Catchen, Julian, et al. "Stacks: an analysis tool set for population genomics." Molecular ecology 22.11 (2013): 3124-3140.]]
+
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12669/abstract][Catchen, Julian M., et al. "Unbroken: RADseq remains a powerful tool for understanding the genetics of adaptation in natural populations." Molecular Ecology Resources (2017).]]
 
 
 - [[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0106713][DaCosta, Jeffrey M., and Michael D. Sorenson. "Amplification biases and consistent recovery of loci in a double-digest RAD-seq protocol." PloS one 9.9 (2014): e106713.]]
@@ -93,6 +103,15 @@ you closer to become bioinformatics-experts.
 
 
 - [[http://onlinelibrary.wiley.com/doi/10.1111/j.1755-0998.2010.02967.x/abstract?deniedAccessCustomisedMessage=&userIsAuthenticated=false][Hohenlohe, Paul A., et al. "Next‐generation RAD sequencing identifies thousands of SNPs for assessing hybridization between rainbow and westslope cutthroat trout." Molecular ecology resources 11.s1 (2011): 117-122.]]
+
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12635/abstract][Lowry, David B., et al. "Breaking RAD: an evaluation of the utility of restriction site‐associated DNA sequencing for genome scans of adaptation." Molecular ecology resources 17.2 (2017): 142-152.]]
+
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12677/abstract][Lowry, David B., et al. "Responsible RAD: Striving for best practices in population genomic studies of adaptation." Molecular Ecology Resources (2017).]]
+
+
+- [[http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12649/abstract][McKinney, Garrett J., et al. "RADseq provides unprecedented insights into molecular ecology and evolutionary genetics: comment on Breaking RAD by Lowry et al.(2016)." Molecular Ecology Resources (2017).]]
 
 
 - [[http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0037135#pone-0037135-g005][Peterson, Brant K., et al. "Double digest RADseq: an inexpensive method for de novo SNP discovery and genotyping in model and non-model species." PloS one 7.5 (2012): e37135.]]

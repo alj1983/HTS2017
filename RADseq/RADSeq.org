@@ -51,7 +51,7 @@
 #+TITLE:     Non-model species and RAD-sequencing
 #+AUTHOR:    Alexander Jueterbock
 #+EMAIL:     Alexander-Jueterbock@web.de
-#+DATE:      June 2016
+#+DATE:      May 2017
 
 
 * Intro
@@ -1727,7 +1727,6 @@ increases support for significant results
 
 #+ATTR_LaTeX: :width 11cm :float figure
 [[file:20150212PopoolationSNPsInWindows.png]]
-
 
 * COMMENT Literature
 ** Baird2008 - Rapid SNP discovery and genetic mapping using sequenced RAD markers

@@ -43,7 +43,7 @@
 #+TITLE: *Unix Tools for Bioinformatics* (May 2017)
 #+AUTHOR: Martin Jakt, Alexander Jueterbock
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
-#+EMAIL: Nord University, Norway
+#+EMAIL: Nordland University, Norway
 
 # the following line means that underscores do not automatically
 # indicate subscript. 
@@ -156,8 +156,18 @@ run it directly from the downloaded directory. PuTTY provides programs both
 for ssh access and sftp file transfers between a Windows computer and a remote
 host.
 
+Alternatively, if you have a sufficiently new version of Windows 10, then you can install
+and enable the "Windows Subsystem for Linux" feature (also known as "Bash on Windows").
+This installs a complete Ubuntu command line interface as a subsystem and allows
+you to use almost all of the command line tools that we will use here. We (the authors)
+have no personal experience with this system at this time, but expect that it
+would be useful if you have to run Windows on your own computer. Installation
+instructions can be found from the [[https://msdn.microsoft.com/en-us/commandline/wsl/install_guide][Microsoft Developer Network website]]. If
+you install this you should be able to run the =ssh= client from a bash session
+as described for Linux and MacOS.
+
 If you don't want to only use the command line on the remote host, but
-also want to use the Graphical User Interface (GUI) to open figures,
+also want to use the Graphical User Interface (GUI) to open figures or
 GUI-based programs or web browsers, you should add the -X option to
 your command:
 
@@ -175,7 +185,7 @@ MAC, you need to install [[http://xquartz.macosforge.org/landing/][XQuartz]].
 There are also a range of other options that let you access Unix/Linux
 servers from Macs or Windows that will let you use the command line. However,
 these often require specific software to be installed on the server and you
-can't rely on this being the case. In general, life is just easier if you run
+can't rely on these being present. In general, life is just easier if you run
 Linux on your own computer; is acceptable if you run MacOS and just painful
 if you're stuck on Windows[fn:: This is part opinion and part fact. There are ways to use Windows to
 communicate with Unix machines that are not painful and in many ways the
@@ -190,7 +200,7 @@ Fig. [[fig:terminal]]:
 
 #+CAPTION: Command line window
 #+ATTR_LaTeX: :width 14cm :float figure
-#+name: fig:terminal
+#+NAME: fig:terminal
 [[file:Terminal.png]]
 
 The first line starts with your user name, followed by an =@= and then
@@ -207,19 +217,21 @@ variety of so-called options, flags or switches. Most of the commands, for
 example, display help information if you use them with the =--help=
 flag.
 
-For example, if you type =ls --help= [fn:: Complete the command by presseing the =Enter= key (also called the 
+For example, if you type =ls --help= [fn:: Complete the command by pressing the =Enter= key (also called the 
 return key and often denoted by down and left arrow).
 ], you'll get an overview of the
 common usage of the command =ls= and of the flags that can change the
 behaviour of this command.  The =--help= option doesn't provide much
 help for the =ssh= command. In such cases you can try the =man=
-command. It opens a manual page of the specified tool. For example,
+command. It opens the manual page of the specified tool. For example,
 try =man ssh=. If you want to leave the manual page, just hit =q=.
 To search within the =man= program, simply type =/= followed by your search
 term and hit enter. For example if you want to find something about colour
 just type =/color= and hit enter[fn:: Note that in most cases American spelling is used; hence no u in a lot
 of words and lots of z's.
-]. For more details try =man man=
+]. For more details try =man man=, and if you've forgotten what command to use
+you can try =man -k key_word=, where you substitute a suitable keyword related
+to what you are trying to do; eg. if you wish to copy a file, =man -k copy=.
 Before we will work on some sequencing data, let's have a look
 at the commands that allow you to change directories and how to get an
 overview of files that were saved in these directories.
@@ -231,9 +243,8 @@ computer. Think of it as a tree with the branches representing directories
 and leaves representing files (although in a file system, leaves can also
 grow directly from the trunk or main branches).] is a big hurdle if you are new to
 the command line and are used to 'clicking' your way in and out of folders. To
-understand how to move in and out of folders (directories on Unix/Linux) and to look at the
-content of folders is an essential step to analyse your data on
-the command line.
+understand how to move in and out of, and inspect the contents of folders (directories on Unix/Linux)
+is an essential step to analyse your data on the command line.
 
 *** Conventional directory layout
 
@@ -307,11 +318,20 @@ running programs.
  - =-r= reverse order while sorting (so that the newest files are the last that are printed)
  - =-t= sort by modification time, newest first 
  - =-a= prints also the hidden files (starting with a dot '.').
-   
+
+If you are not paying attention you may sometimes mis-type =ls= as =sl=. For =ls= this
+is not a problem (try it!), but mistyping other commands can cause big problems, so
+you do need to take some care (esp. with =rm=).
+
 *** Moving in and out of directories with =cd=
  =cd= stands for 'change directory'. with this command you can navigate
  in and out of your directories. To see what your present working
- directory is, simply type =pwd= (for 'print working directory') and
+ directory[fn:: You can think of your working directory as the location of the program
+you are currently running. When you log in to a computer you access that computer through a /shell/,
+which provides an interactive interface. The shell is just a program like any other, but it allows
+you to start other programs through it. When you start other programs from the shell, these will inherit
+the /working directory/ from the parent shell. The most common command line shell these days is =bash=
+and this is what we will be using.] is, simply type =pwd= (for 'print working directory') and
  hit enter:
 
  #+begin_src sh
@@ -374,6 +394,14 @@ running programs.
  alj@inspiron:~$ cd
  #+end_src
 
+ You can arbitrarily concatenate file paths; to go up two levels of the file
+ hierarchy and then descend into some subdirectory (eg, go from =~/Downloads/blast/=
+ to =~/Documents/hts2017/= simply do:
+
+ #+begin_src console
+ alj@inspiron:~$ cd ../../Documents/hts2017
+ #+end_src
+
 *** Tip
 If there are empty spaces in your filepath, you need to precede them
 with a backslash (=\=) in order to navigate to them, like in 
@@ -387,6 +415,13 @@ or use quotation marks
 #+begin_src sh
 cd "/home/my directory"
 #+end_src
+
+In general it is a good idea to avoid using file and directory names
+that contain spaces. Many of the utilities that are used in bioinformatics
+make use of =bash= scripts and these will not always handle spaces
+in file names correctly. Instead of =My Documents=[fn:: Isn't that just an awful
+directory name?], use =My_Documents=, or even =myDocuments=[fn:: These are referred
+to as snake and camel case respectively for obvious reasons.]
 
 *** Have a look at the directory structure
 The command line tool =tree= prints the hierarchical structure of your
@@ -417,10 +452,17 @@ Here,
 - =-h= prints the sizes in a human readable format
 
 *** Tip
-Besides the TAB-key, that allows for auto-completion of commands or
+In addition to the TAB-key, that provides auto-completion of commands or
 filenames, the UP- and DOWN-arrow keys on your keyboard can save you
 some time. These buttons allow you to navigate through the history of
-commands that you have entered previously.  Try it out.
+commands that you have entered previously. If you are used to typing then
+instead of hitting the arrow keys you can type =C-p= (pressing the =p= with the
+=Ctrl= key depressed) and =C-n= respectively for up (previous) and down (next).
+You can also search your command history by using =C-r= (reverse search) and typing
+part of the command that you are trying to recall; =C-a=, and =C-e= places the
+cursor at the beginning and end respectively of the current command. 
+These shortcuts may not sound like they are that useful, but they can speed up
+your work considerably. Try them out!
 
 *** Create, move and remove files and directories
 New directories can be created with
@@ -490,7 +532,7 @@ Before you can work on a remote server with your own data, you first
 need to know how to transfer them.  One of the best
 platform-independent GUI programs that allows you to up- and download
 files is FileZilla (Download and Documentation:
-https://filezilla-project.org/). In the following lines I want to
+https://filezilla-project.org/). In the following section I want to
 introduce the command line tools =rsync= and =sftp/lftp=, that allow
 you to transfer and synchronize files.
 *** rsync
@@ -539,9 +581,9 @@ you to transfer and synchronize files.
  Here,
  - =-a= will transfer the files in 'archive mode' (which combines
    several options, including recursing into directories)
- - =-z= will compress the files durig the transfer
- - =-v= is a common option to increase the verbosity[fn:: The amount of information
- that the program will print to the terminal.] of the output.
+ - =-z= will compress the files during the transfer
+ - =-v= is a common option to increase the verbosity[fn::The amount of information
+   that the program will print to the terminal.] of the output.
 
  Note the trailing slash after the source directory:
  =/home/user/directory/=. If you do not use this trailing slash, like
@@ -584,7 +626,7 @@ sftp hostname
 
 into your terminal. The hostname may need to be specified as the IP
 address (a load of numbers) or can be a simple name depending on your
-setup. After the connection is made you will be asked for your password.
+setup and which computer you are trying to access. After the connection is made you will be asked for your password.
 The sftp program assumes that you will be using the same username as you
 are using on the local computer. If this is not the case you can specify
 your username by:
@@ -604,12 +646,11 @@ obviously have to use the DOS equivalents of =ls=, =pwd= and =mkdir=[fn::
 That is instead of typing =!ls=, =!pwd=, =!mkdir= you use =!dir=, =!cd= (without any directory)
 and =!md= respectively. ].
 
-To transfer files from the
-remote to the local computer use =get fname=. You can use globbing (*)
-to expand the file set, eg. =get *.fa= for all files ending in '.fa'.
-(For this you may need to use =mget *.fa= on some implementations, this
-used to be true on the old ftp command line client). Similarly you can
-upload files using =put=.
+To transfer files from the remote to the local computer use =get fname= (where
+fname is the name of the file you wish to transfer). You can use globbing (*)
+to expand the file set, eg. =get *.fa= for all files ending in '.fa'.  (For
+this you may need to use =mget *.fa= on some implementations). Similarly you
+can upload files using =put=.
 
 As mentioned lftp is almost identical in its operation. However, when
 starting the program you need to specify that you wish to use the sftp
@@ -625,7 +666,8 @@ lftp also allows you to mirror whole directory structures using the
 started using lftp, the standard ftp and sftp clients did not provide
 tab completion, and this was a big advantage of lftp at that time. These
 days most if not all of the clients provide this functionality, so it is
-not quite as big a deal as it was in the long past.
+not quite as big a deal as it was in the long past. But lftp is hard to beat
+for anonymous ftp (used to download data from public ftp repositories).
 
 Ok, that's all we need to know to get the sequencing data from last
 week to the remote computer. As we need the data in the following
@@ -787,11 +829,21 @@ You can now run this script in two different ways. Either first make it
 executable by changing its permissions: =chmod +x map_seq.sh= and then run it
 from the directory where it exists, =./map_seq.sh=. Alternatively you can
 invoke the bash shell on the script by typing =bash map_seq.sh= and hitting
-enter. In the latter case you do not need the first line of the script
+enter. In the latter case you do not need the first line of the script to be
 =#!/bin/bash=, but it is usually included for completeness. Note that comments
 in shell scripts are preceded by the =#= character. Anything that follows
 this on the same line is considered as a comment and will not be executed by
-the shell.
+the shell. 
+
+You may also have noticed the backslash (=\=) characters at the end of
+many of the lines. The backslash is usually used as an escape character which
+means, 'ignore the special meaning of the following character'. In this case the
+character following the backslash is the newline (often represented as =\n=)
+character which is usually interpreted by the shell to mean that the complete
+command has been entered. Here we use it to be able to split the command across
+several lines of text to make it more readable. Note that the newline character
+(entered by pressing =Return= / =Enter=) must follow immediately after the
+backslash.
 
 Writing a script file to run a single command like this may not look like it
 helps you very much, but there are a number of advantages over simply writing
@@ -905,20 +957,20 @@ conditional statements to make sure the directories and files exist:
 #+begin_src sh
 for d in $dirs
 do
-  if [-d $d]
-  then
-    echo "$d is a directory"
-    cd $d
-    f=$d.fastq
-    if [-e $f]
+    if [-d $d]
     then
-      echo "$f exists, we can do something with it"
-    else
-      echo "ERROR $f does not exist in $d"
-    fi
-    cd ..
-    else
-      echo "$d is not a directory"
+        echo "$d is a directory"
+        cd $d
+        f=$d.fastq
+        if [-e $f]
+        then
+            echo "$f exists, we can do something with it"
+        else
+            echo "ERROR $f does not exist in $d"
+        fi
+        cd ..
+    else 
+        echo "$d is not a directory"
     fi
 done
 #+end_src
@@ -926,7 +978,75 @@ done
 Note that using nested =if=[fn:: if statements within if statements] statements
 make it difficult to read the code and work out what is going on. To make it
 easier to read we normally use indentation to indicate the different levels
-of conditional, but it is still easy to make mistakes.
+of conditional, but it is still easy to make mistakes. One of the advantages of
+using a specialised text editor is that it will automatically create this
+indentation for you: and when you do something stupid it often results in
+obviously wrong indentation. This is very useful for catching silly mistakes.
+
+** File permissions
+
+In the above section we included a brief mention of the =chmod= program. This
+is used to change the permissions of a file, but we did not explain what this
+means. In Unix based systems, every file is associated with a set of permissions
+that tell the shell who can do what with a file. A file can be any
+combination of:
+
+- executable :: the file is a program and can be run as a program
+- writeable :: the file can be modified (i.e. changed or deleted)
+- readable :: the file can be read
+
+In addition every file is considered to be owned by one of the users
+of the computer and to be associated with a group of users.
+For each file three independent permission combinations are set:
+
+- owner :: permissions that apply to the owner of the file
+- group :: permissions that apply to any members of the group
+     that the file is associated with
+- world :: permissions that apply to any user that is able to
+     see the file (this depends on the permissions of the containing
+     directory)
+
+To see the permissions of the files in given directory use =ls -l=:
+
+#+begin_src console
+> ls -l
+-rwxrwxr-x 1 lmj lmj        666 feb.   9  2016 countVariants.pl
+-rwxrwxr-x 1 lmj lmj      99063 feb.  12  2016 readSam
+-rw-rw-r-- 1 lmj lmj 2373563641 feb.  11  2016 variants
+#+end_src
+
+The permissions are given for each file as a triplet of character triplets:
+=rwx= indicates read, write and execute, =r-x= read and execute, =r--= read
+only and so on. Hence the first file (countVariants.pl) has full permissions
+for both the owner and the group[fn:: You can see who owns the file and which
+group it belongs to in columns 3 and 4 of the output of 'ls -l'. Here the
+names of the owner and group are the same as there is both a group and a user
+called 'lmj' on this system.], but can only read and executed by other
+users. In contrasts, the 'variants' file is a data file that can be read and
+written by the owner and group members, but only read by other users.
+
+The program =chmod= is used to change the permissions. Ownership and group
+association can be changed with the =chown= and =chgrp= commands. To make a
+file executable we can use the shorthand =+x= as described above. But to
+specify the complete set of permissions we use a single digit for each set of
+permissions. This single digit is made up of the bitwise =OR= combination of 4
+(read), 2 (write) and 1 (execute). If you don't understand what this means you
+can simply add up the values to get the final digit:
+
+- 7 :: 1 + 2 + 4 = execute, write and read
+- 6 :: 2 + 4 = write and read 
+- 5 :: 1 + 4 = execute and read
+- 4 :: 4 = read
+- 3 :: 1 + 2 = execute and write
+- 2 :: 2 = write
+- 1 :: 1 = execute
+
+Hence =chmod 700= sets full permissions to the owner and no permissions for
+other users, whereas =chmod 755= sets read, write, execute to the owner and
+read and execute to other users. Note that it is better if you can get to
+understand how bitwise flags are used as they frequently pop up in many
+places. Thinking of them as additive kind of works, but it doesn't expose you
+the full beauty of the concept.
 
 ** Writing a shell script
 To write a shell script you will need to use some sort of editor. There are
@@ -939,6 +1059,11 @@ type =nano filename= and start typing. Commands to save, exit, cut, paste,
 etc. are indicated at the bottom of the screen. =^= is shorthand for the
 =Ctrl= key.
 
+But if you are likely to end up doing a lot of informatics work, then it is
+worthwhile to learn to use a more advanced editor. Which one is a topic of
+heated debate since time immemorial, but regardless of which editor it is
+better to learn one that can be used from a terminal window with no grahical
+interface as you'll always be able to make use of that.
 #+CAPTION: The Nano editor.
 #+ATTR_LatTeX: :width 12cm :float figure
 #+name: fig:nano
@@ -951,7 +1076,7 @@ directories and transfer files, it's time to look at NGS data output
 and to learn how to open and summarize information from such files -
 like, for example, the number of sequences in a fasta file.
 
-The folder =/home/hts2016/PracticeFiles= contains the following files:
+The folder =/home/hts2017/PracticeFiles= contains the following files:
 - HTS.fasta and HTS2.fasta, fasta files with sequence identifiers and sequences
 - HTS.fastq, a file with sequences and associated base qualities
 - HTS.sam, an alignment file
@@ -969,7 +1094,7 @@ large files.
 Let's have a look at a fastq file with the command:
 
 #+begin_src sh
-cd /home/hts2016/PracticeFiles
+cd /home/hts2017/PracticeFiles
 less HTS.fastq
 #+end_src
 
@@ -1015,7 +1140,8 @@ head -n 2 HTS.fasta
 
 When the line number =K= is preceded with =-=, then all but the last =K=
 lines are printed. For example, the command to print all but the last
-ten lines from a HTS.fasta is:
+ten lines from a HTS.fasta[fn:: But you might not want to do this if the file is
+very large...] is:
 
 #+begin_src sh
 head -n -10 HTS.fasta
@@ -1042,7 +1168,7 @@ sed -n '234,236p'
 
 ** Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'
 If you want to get a rapid overview of the number of lines in a file,
-the =wc= command is the right tool. In output-files where
+the =wc= command (word count) is the right tool. In output-files where
 every line represents a sequence, for example, =wc -l= is all you need to count the
 number of sequences.
 
@@ -1091,18 +1217,24 @@ grep ">" HTS.fasta | wc -l
 #+end_src
 
 Here a recap on what the commands mean: =grep= is used to search for
-=>= signs in the fasta file. All sequence-id's start with this
+=>= signs in the fasta file. All sequence ids start with this
 character. Instead of printing all these lines to the terminal, we
 re-direct it to the =wc= command with the pipe symbol =|=. Using the
 =-l= option, =wc= counts all the lines. Here, =wc= doesn't need an
-input file as it reads from the output of =grep= [fn:: When a program prints it's output to the terminal (i.e. the
+input file as it reads from the output of =grep=[fn:: When a program prints it's output to the terminal (i.e. the
 screen) it's normally printing to a stream referred to as =STDOUT=
 (standard out). When we use the pipe symbol (=|=) we can redirect this
 output to programs than can read from the =STDIN= stream. We can also
 use the =>= to redirect the output to files. Note that output printed
 to the =STDERR= stream will also be printed to the terminal, but will
 not be redirected using =|= or =>= (though you can use =2>= to
-redirect =STDERR=).].
+redirect =STDERR=).]. If you have a look at =man grep= you can find
+an alternative way of counting the lines, as grep provides an optional
+argument (=-c=) that only outputs the number of lines that match, but
+there are many other situations where piping the output to another program
+is the most efficient way to solve your problem. Note that you can
+also refine the search by writing, =grep "^>" file.fa=. Here the =^= modifier
+specifies that the =>= character must be the first character the line to match.
 
 
 Your turn. What command would you use to count the number of sequences
@@ -1184,7 +1316,8 @@ the =>>= operator in the second line, the content of
 =COMBINED.fasta= file would be overwritten, not appended. So, the =>=
 operator (over) writes content to a specified file while the =>>=
 operator appends content to a specified file. If you use the =>>=
-operator, the specified file needs to exist already.
+operator with the name of a file that doesn't exist it will act like
+the =>= operator and create the file.
 
 Note that you can achieve the same by:
 
@@ -1230,6 +1363,261 @@ that row. =-F= just specifies the field separator, and
 =\t= sets it to the TAB character. Since we pipe (using =|=) the output of =grep= to
 =awk=, and then the ouput of =awk= to =wc= the lines are not printed to screen but directly
 counted with the =wc= command. Only the output of =wc= gets printed to the screen.
+* Installing programs
+
+In your analyses you are likely to end up using a wide range of programs, and
+you may find it difficult to get system administrators to install these for
+you whenever the need arises. This isn't just because your administrators are
+lazy and unhelpful: we sometimes have legitimate reasons for not simply
+installing everything under the sun.[fn:: The biggest of which is namespace
+pollution and version conflicts, but there are many other reasons as well;
+disk space, however, isn't usually one.] Luckily, on unix systems it is
+usually not difficult to install programs in your own home directory. This means
+that it is easy to try out new methods and algorithms without bothering anyone
+else.
+
+** What is an installation?
+
+You may have some previous experience of installing software on your own
+computer.  On Windows and Mac machines this usually involves clicking some
+executable file that runs an installation program or dragging some icons over
+some other ones causing some magic to happen. What happens when you do this
+depends on the program and what it actually comprise.
+
+- In the simplest case, where the program consists of a single executable
+  file, all the installer needs to do is to place (i.e. copy it) it in a location
+  where the shell expects to find it so that it can be run in the usual manner.
+  For command line shells this simply means placing it somewhere in the =PATH=.
+- A simple program as described above may also come with documentation that
+  can be found and read by the =man= program. In this case this documentation
+  (usually a single file) will need to be placed where =man= expects to find
+  it.
+- In a slightly more complicated scenario, our single executable file may
+  depend on functions provided by libraries (dynamically linked libraries on Windows,
+  shared object files on linux). In this case the installer first needs to check
+  if those libraries are present and accessible on the system. Then it copies
+  files to the appropriate locations.
+- Something that is referred to as a single program may in fact comprise many
+  individual executables, which in turn rely on configuration options specified
+  in specific files. In such cases, all of these files need to be put into a
+  location where the executable can find the appropriate files. Sometimes this
+  may achieved by modifying global configuration files or environment variables.
+
+What is required during an installation depends to a large extent on the complexity
+of the software being installed and the above is not an exhaustive list of what
+can be done by installer scripts or programs. In addition to this on Linux systems
+there are some additional distinctions:
+
+- Software that is part of the distribution. Linux systems are normally provided
+  as distributions that comprise many thousands of programs; normally when you install
+  the system you chose a subset of these that are suitable for your own needs. The
+  programs provided by the distribution and their requirements are usually described
+  in some sort of database. Installing programs that are part of the distribution
+  is usually very easy and can be done with a single command line as long as one
+  knows the name of the package that's needed. The software management system is
+  usually able to install all required dependancies, and this is by far the simplest way
+  to install software on linux. However, root (i.e. admin) access is usually a requirement,
+  and the bioinformatics programs that you want are not likely to be part of the
+  distribution (or even if they are they may not be up to date).
+- Software that is outside of the distribution. Here the distribution does not take
+  responsibility for the installation and the software providers need to create
+  the appropriate installation scripts. Thankfully there are some standard methods for
+  doing this which will be described below.
+- Software which is provided as source rather than as compiled binaries. These
+  need to be compiled by the users. Again, this is usually not a problem and there
+  is a kind of standard system for this.
+
+Again, the above is a bit of a simplification and you may come across other variations
+on the theme. But the general theme of any installation is:
+
+1. Check dependancies
+2. Compile (if necessary) the source code to binary executable files
+3. Place files in appropriate locations
+4. Occasionally, update some environment variables or configuration files
+
+** Getting the program files
+Usually you will find the program(s) that you wish to install through reading
+about them in a web-browser which will also provide links that allow you to
+download the file. These days, these links tend to be =http= or =https= links,
+meaning that they make use of the /hyper-text transfer protocol/. This is what
+you may know of as the /web/, and which you usually a web-browser to access.
+However, if you wish to download the software to a remote server, you do not
+usually wish to (and may not be able to) start up a web-browser to find the
+file.[fn:: The first web-browsers were simple applications which did not provide
+graphical interfaces; such browsers still exist and can be used over a simple ssh connection.
+However, web-sites these days are often too complex to make sense of without a GUI and this
+isn't actually that helpful.] Instead we have the =wget= application. If you know the
+URL[fn:: Uniform Resource Locator] of the file you wish to download (you can get this by right-clicking on links and choosing 'copy link location')
+then you can simply:
+
+#+begin_src console
+>wget https://github.com/samtools/samtools/releases/download/1.4/samtools-1.4.tar.bz2
+#+end_src
+
+Software is usually downloaded as a compressed archive of files. This will need to
+decompressed and un-archived. How this is done varies a bit, but you can usually
+work it out from the suffix of the downloaded files:
+
+- f.zip :: =unzip f.zip= (not so common on Linux)
+- f.tar.gz :: =tar zxvf f.tar.gz= (one of the most common formats)
+- f.tar.bz2 :: =bunzip2 f.tar.bz2= followed by =tar xvf f.tar=
+
+where 'f' simply indicates the file names without their suffixes. For more information
+about the different programs use =man=!
+
+The files you wish to download may also be present in =ftp= repositories; if you
+know the URL, you can still use =wget=, but you can also the =ftp= and =lftp=
+programs.
+
+** configure, make, make install
+
+The standard[fn:: There are probably lots of people who would argue against
+this being the standard, and they may have a point; however, well behaved
+applications frequently make use of this system.] way for installing out-of-tree
+applications (i.e. not provided by the distribution) is to make use of the =autoconf=
+package. We will not go into details as to how you use this to make the installer scripts,
+but merely to how you use the end product to install. Installation using =autoconf= generated
+scripts takes three steps:
+
+- ./configure :: This runs a script called =configure= provided by the
+     application writers. The =configure= script attempts to establish that
+     all the dependancies of the application are met. If something is missing
+     it will exit with an error telling you that you need to install
+     something. If you do not have root access this means that you will have
+     to install the dependancy in a non-standard location after which you will
+     have to tell the =configure= script where to look for the dependancy by
+     specifying the value of one of it's many optional arguments. The =configure=
+     script creates a =Makefile= which is used by the next step of the process.
+- make :: This runs the =make= program which reads the =Makefile= produced by
+     the =configure= script and follows the rules therein to compile the
+     program source code.[fn:: Usually anyway; in fact make can do pretty much
+     anything, but usually this step is used to compile the code.]
+- make install :: Again, this runs the =make= program, which looks in the
+     Makefile for information as to what should be done to install the program.
+     This usually involves copying files to suitable locations; but again, the
+     =make= system is mighty and can do pretty much anything.
+
+*** configure
+The =configure= script is the most important part of the installation; it will
+usually take a large number of optional arguments that allow you to fine-tune
+how the installation is performed. To see what arguments the script takes:
+
+#+begin_src console
+> ./configure --help
+`configure' configures bfast 0.7.0a to adapt to many kinds of systems.
+
+Usage: ./configure [OPTION]... [VAR=VALUE]...
+
+To assign environment variables (e.g., CC, CFLAGS...), specify them as
+VAR=VALUE.  See below for descriptions of some of the useful variables.
+
+Defaults for the options are specified in brackets.
+
+Configuration:
+  -h, --help              display this help and exit
+      --help=short        display options specific to this package
+      --help=recursive    display the short help of all the included packages
+  -V, --version           display version information and exit
+  -q, --quiet, --silent   do not print `checking...' messages
+      --cache-file=FILE   cache test results in FILE [disabled]
+  -C, --config-cache      alias for `--cache-file=config.cache'
+  -n, --no-create         do not create output files
+      --srcdir=DIR        find the sources in DIR [configure dir or `..']
+
+Installation directories:
+  --prefix=PREFIX         install architecture-independent files in PREFIX
+                          [/usr/local]
+  --exec-prefix=EPREFIX   install architecture-dependent files in EPREFIX
+                          [PREFIX]
+
+By default, `make install' will install all the files in
+`/usr/local/bin', `/usr/local/lib' etc.  You can specify
+an installation prefix other than `/usr/local' using `--prefix',
+for instance `--prefix=$HOME'.
+#+end_src
+
+the above shows the start of the output of =./configure --help= for the =bfast= program. Almost always
+you will be able to set the =--prefix= option. This is the directory prefix
+denoting the directory tree into which the various components of the
+application will be installed.  The default value is usually =/usr/local/=, which
+is accessible by all users of the computer. However, unless you have root access
+you will not be able to modify the files which are there. Hence to install
+files as a normal user you will need to modify this value to a directory
+that you have write access to. For example you could simply write:
+=./configure --prefix=~/.local= which would install files in a hidden
+directory called =.local= within your home directory. You would then
+need to modify your =PATH= variable to make sure that it includes =~/.local/bin=
+in order to run the programs directly from the command line.
+
+The configure script may also allow you to set a large range of options dealing
+with how the sources will be compiled. You usually don't need to worry
+about this, but it is worthwhile to read through the options provided (eg.
+the early distributions of blast which did not enable multi-threading by
+default). If you have to install something yourself that the application depends on,
+then you may need to specify some option telling =configure= where
+to look for these dependancies. But hopefully you won't have to do that, as it can
+be a little tricky.
+
+*** make
+The =make= program is usually invoked to compile complex source trees. =make=
+reads dependancy information from a file, usually called =Makefile=, though the
+name of the file it reads can be specified with the =-f= option. What make
+does is to look at the tree of dependancies and if the output (eg. the
+compiled binary) has an older modification date than something it depends on
+then it will run a command to update the output. 
+
+Compilation actually involves
+at least two steps; the creation of object files and the linking of these
+together with other libraries to create the final output. Hence the final
+executable depends on the object files which depend on the individual source
+files and the header files referenced within those files (don't worry too
+much if this doesn't make that much sense to you; I'm only mentioning it so
+that you can get a feeling of the dependancy graph). Hence if you change a
+single source file, then the object file which depends on that will need to be
+re-compiled, and then this has to be linked with all the other object files to
+form the application. This means that you do not need to recompile every
+source file everytime you change a single file.  
+
+At this stage you do not need
+to understand the Makefile syntax; and it can be pretty horrible to be
+honest. However, I would suggest you have a peek inside the Makefile as you
+will start to understand what's going on with time. If nothing else it can
+help you to understand error messages when things go wrong.
+
+*** make install 
+Again this makes use of make to run commands specified within the
+Makefile. Those commands will depend on how the =configure= script was run. If
+the configure script was run correctly then this should simply copy files into
+appropriate locations. If you can and wish to install globally (so that all
+users can use the program) then you need to run this command as root.
+
+** other ways
+Programs are occassionally very simple; in this case you can simply copy the
+executable file to your =~/bin/= directory and it will hopefully work. Ideally
+the providers of the software should provide sufficient instructions (look for
+a file called, README, INSTALL, or something similar), but it does happen that
+they don't give you much to work with. In that case you'll need to experiment
+a little. The important thing here is to try to understand the resulting error
+message. Google is pretty much your best friend for this if you don't have
+any friendly system admins / bioinformatics people around.
+
+As mentioned previously you may need to set up specific environent variables.
+This is usually done in the =~/.bashrc= or =~/.bash_profile= files. The specific
+names of these can vary a bit from one distribution to another, but you should
+be able to work it out (to see files beginning with a =.= you need to use
+the =-a= option of =ls=, i.e. =ls -a=). In bash to set the value of an environment variable 
+the syntax is:
+
+#+begin_src sh
+VAR=/usr/local/lib
+export $VAR
+#+end_src
+
+Remember that if you modify one of these files you still need to make sure that it
+is read by the shell for the changes to take effect. This can be achieved by
+either sourcing the file, eg. =source ~/.bashrc=, or by logging out and in again.
+
+Good luck, and don't be afraid of reading the manual.
 * Bonus section PERL
 Perl is a useful programming language whose principles can be learnt
 within a short period of time allowing researchers not familiar with
@@ -1240,15 +1628,19 @@ what Perl makes easy.
 
 Perl has been used extensively within the field of Bioinformatics (see
 Bioperl, http://www.bioperl.org) though recently it has been overshadowed to
-some extent by the use of R for statistical analyses of data. However,
-Perl remains widely used and several of the tools you will use in this
-course have been written in Perl. R is incredibly useful when you have
-regular data structures that can be expressed as arrays or matrices;
-however it is unsuitable for describing irregular types of data (eg.
-structures of genes, etc.) where it may be necessary to iterate through
+some extent by the use of R for statistical analyses of data and Python for
+more complex scripts and programs. However, Perl remains widely used and
+several of the tools you will use in this course have been written completely
+in Perl, and many others use Perl for wrapper scripts[fn:: Scripts that run
+check and modify input before calling other executables.]. R is incredibly
+useful when you have regular data structures that can be expressed as arrays
+or matrices; however it is unsuitable for describing irregular types of data
+(eg.  structures of genes, etc.) where it may be necessary to iterate through
 the elements of a data set. Compared to R, Perl is a much more general
 programming language that can be applied to a much wider set of
-problems.
+problems. Python is probably a more suitable language for building bigger
+applications, but Perl is hard to beat for writing the quick
+throw-away scripts that are so common when handling larger data sets.
 
 The motto of Perl is, 'There is more than one way to do it'. And in Perl
 this is very true; the same logic can be expressed in a number of
@@ -1261,6 +1653,82 @@ difficult to read other people's code as they may use a very different
 style of coding to ones own. Perl can also be quite a dangerous language
 and it is often said that it gives the user more than enough rope to
 hang themselves with.
+
+** The structure of a typical script
+
+A typical script is takes a number of arguments that are specified by the user
+when invoking the script. For a script called sc1.pl and which is present in
+the current working directory:
+
+#+begin_src sh
+./sc1.pl argument1 argument2
+#+end_src
+
+The words (space delimited unless escaped by =\= or quoted) following the name of the
+script are arguments. They will be accessible within the script from the 
+special variable =@ARGV= (see below). The arguments are often the names of files
+that the script should process. The script will typically open the file or files specified
+by the command and extract some information from these (eg. counting occurences and noting
+locations of specific patterns within the data) and then print out a summary
+of the data, either to the terminal (which can be redirected with =>= or piped to
+other processes with =|=) or to output files.
+
+One of the most simple scripts that can be written is the "hello_world" script. This does
+nothing except print some text to the terminal but demonstrates the necessary
+components of a script and provides a simple way to test the script.
+
+#+begin_src perl
+#!/usr/bin/perl -w
+
+## this is a useless program that just prints a pointless
+## string to STDOUT
+print "hello world\n";
+#+end_src
+
+To run this script, save it as "hello_wordl.pl" and either:
+
+#+begin_src sh
+perl -w hello_world.pl
+#+end_src
+or:
+
+#+begin_src sh
+chmod +x hello_world.pl
+./hello_world.pl
+#+end_src
+
+The script has only two lines that have any effect; the first of these
+(=#!/usr/bin/perl -w=) allows it to be run directly on the command as in the
+latter example. It simply tells the shell to invoke the perl interpreter when
+run as an executable (the =chmod= command changes the permission of the file
+to be executable). The =-w= in =perl -w= tells the interpreter to issue
+warnings when it comes across weird things.
+
+The second line (well the 5th line if you count them all) is actually the only
+line of Perl code. It simply instructs the intepreter to print the "hello
+world" string to =STDOUT=, which unless redirected means it will simply be
+printed to the terminal. If you wished to do you could redirect this output to
+another program, eg:
+
+#+begin_src sh
+./hello_world.pl | wc
+#+end_src
+
+which would simply count the lines, words and letters in "hello world".
+
+You may have noticed the =\n= at the end of the string; this is the new-line
+character; it simply tells Perl to print an end of line character after the
+text. You will see more details of this later on in this guide.
+
+Lines 3 and 4 beginning with =#= are comment lines. Text following a =#= is
+usually (with a very small number of exceptions) interpreted as comments and
+are ignored by the interpreter. In the examples in the following sections I
+have included explanations of the code as comments. It is usually a good idea
+to include comments to explain what the code is supposed to do so that you
+have some idea of understanding it in the future. Even if you consider your
+code to be so beautifully written that it is self-explanatory what it does,
+you should still include comments as these tell you, not what the code does,
+but what it's supposed to do (these can be rather different things).
 
 ** Variables in Perl
 
@@ -1932,7 +2400,9 @@ Perl seriously.
 
 Good luck with Perl!
 
-
+* Recommended books
+- [[http://unixandperl.com/][Unix and Perl to the Rescue]]
+- [[http://www.staff.hs-mittweida.de/~wuenschi/doku.php?id=rwbook2][Computational Biology]]
 * Unix cheat sheet
 ** FILE system
 #+begin_latex

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.13)  6 APR 2017 16:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.13)  10 APR 2017 10:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1545,7 +1545,7 @@ File: english.lbx 2016/03/03 v3.3 biblatex localization (PK/JW/AB)
 \@quotelevel=\count348
 \@quotereset=\count349
 
-No file RecommendedLinksAndLiterature.aux.
+(./RecommendedLinksAndLiterature.aux)
 \openout1 = `RecommendedLinksAndLiterature.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
@@ -1562,6 +1562,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
 LaTeX Font Info:    ... okay on input line 65.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 65.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 65.
+
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
@@ -1611,6 +1612,8 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 65.
 LaTeX Info: Redefining \pageref on input line 65.
 LaTeX Info: Redefining \nameref on input line 65.
+
+(./RecommendedLinksAndLiterature.out) (./RecommendedLinksAndLiterature.out)
 \@outlinefile=\write8
 \openout8 = `RecommendedLinksAndLiterature.out'.
 
@@ -1683,20 +1686,9 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 251.
 (./RecommendedLinksAndLiterature.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 251.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 251.
-
-
-Package rerunfilecheck Warning: File `RecommendedLinksAndLiterature.out' has ch
-anged.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `RecommendedLinksAndLiterature.out':
-
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  A69C81BACED32ACA4FA60D3885F8ACF9;330.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `RecommendedLinksAndLiterature.out' has not c
+hanged.
+(rerunfilecheck)             Checksum: A69C81BACED32ACA4FA60D3885F8ACF9;330.
 Package logreq Info: Writing requests to 'RecommendedLinksAndLiterature.run.xml
 '.
 \openout1 = `RecommendedLinksAndLiterature.run.xml'.
@@ -1705,10 +1697,10 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 251.
  )
 (\end occurred when \iftrue on line 65 was incomplete) 
 Here is how much of TeX's memory you used:
- 28810 strings out of 494953
- 535691 string characters out of 6180976
+ 28821 strings out of 494953
+ 535919 string characters out of 6180976
  712869 words of memory out of 5000000
- 31565 multiletter control sequences out of 15000+600000
+ 31571 multiletter control sequences out of 15000+600000
  21663 words of font info for 63 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  55i,11n,65p,952b,668s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1722,10 +1714,10 @@ m1095.600pk> </home/alexander/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.6
 00pk> </home/alexander/.texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk> <
 /home/alexander/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home/a
 lexander/.texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk>
-Output written on RecommendedLinksAndLiterature.pdf (3 pages, 65906 bytes).
+Output written on RecommendedLinksAndLiterature.pdf (3 pages, 66318 bytes).
 PDF statistics:
- 317 PDF objects out of 1000 (max. 8388607)
- 120 compressed objects within 2 object streams
+ 334 PDF objects out of 1000 (max. 8388607)
+ 137 compressed objects within 2 object streams
  9 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 53 words of extra memory for PDF output out of 10000 (max. 10000000)
 

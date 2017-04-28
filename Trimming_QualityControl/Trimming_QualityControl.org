@@ -488,6 +488,154 @@ fastqduplicatecounter.py OUTPUTFILE.txt OUTPUTFILE_header.txt > OUTPUTFILE_dupli
 This script calculates the fractions of duplicate and singleton
 reads. Open the outputfile with =less OUTPUTFILE_duplicatecount.txt=
 and check the percentage of duplicate reads.
+* BONUS Running programs in the background with =nohup=
+What if your data analysis on a remote server takes several hours,
+days, or even weeks, to finish? No worries, you don't need to be
+connected to the remote server while the data are being
+analysed. Here, you will learn the tools that allow you to start
+an analysis, disconnect from the server, and then look at the progress
+or the results at a later time point.
+
+The =nohup= tool allows you to run a process in the background; which
+means that, while the analysis is running, you can do other tasks in
+parallel or log off from the remote server.
+
+Imagine the =nohup= tool as a bracket which encloses the command that
+you want to run in the background:
+
+#+begin_src sh
+nohup ... &
+#+end_src
+
+Always, =nohup= precedes and =&= follows the command that you want to
+run in the background (here shown as =...=). Let's say you want to run
+the command =ls -lhcrt= (which lists all files and subdirectories in
+your current directory) in the background.
+
+#+begin_src sh
+nohup ls -lhcrt &
+#+end_src
+
+When you hit ENTER, the terminal prints out some information:
+
+#+begin_src sh
+[1] 21118
+nohup: ignoring input and appending output to 'nohup.out'
+#+end_src
+
+The number =21118= (which will differ in your case) in the first line
+is the process-ID of your background-process. The second line informs you that
+all 'results', that would be normally printed in the terminal window,
+are now redirected to the file =nohup.out=. 
+
+** Using the process-ID
+If you have started a process that takes several hours
+to finish, then you can use the process-ID to see if the process is
+still running. For this, you can use the =ps= command with the =-p=
+option, which reports the status of a process with a certain process
+ID. To see the status of the process I have started above, I would
+use:
+
+#+begin_src sh
+ps -p 21118
+#+end_src
+
+The output is
+
+#+begin_src sh
+PID TTY          TIME CMD
+#+end_src
+
+Since this is only the header line of the process specifications, the
+process must have finished. 
+Here:
+- =PID= indicates the process-ID
+- =TTY= indicates the controlling terminal
+- =TIME= shows the time that the process is running already
+- =CMD= shows the command name
+
+If the process would still run, you would
+get a line similar to:
+
+#+begin_src sh
+PID  TTY          TIME CMD
+21118 ?        00:00:04 ls
+#+end_src
+
+The =top= tool provides an ongoing look at processor activity in real
+time, similar to Figure [[fig:top]].
+
+
+#+CAPTION: Screenshot of the =top= tool output
+#+name: fig:top
+#+ATTR_LaTeX: :width 10cm :float figure
+[[file:top.png]]
+
+At the top of the screen, it lists processes ordered by their CPU usage
+system (with the most intensive on top). Besides other information, it shows which user is running
+which process, as well as the process-ID. You can quit the program by
+hitting =q=.
+
+The process-ID also allows you to cancel the process before it
+finishes. Cancelling processes comes in handy when you figure out
+that you started them with the wrong parameters or input files and you want
+to re-start with different settings. The =kill= command allows you
+to cancel a specific process.
+
+#+begin_src sh
+kill 21118
+#+end_src
+
+This would cancel the process that we started before in the
+background. If you can't remember the process-ID but want to cancel
+all =ls= processes, then you could use the =pkill= command in the
+following way:
+
+#+begin_src sh
+pkill ls
+#+end_src
+
+Compared to the =kill= command, the =pkill= command allows you to
+specify the command-name instead of the process-ID of the running
+process that you want to cancel.
+
+If you don't have a record of the PID you can find out the id of processes being run by a specific user
+by combining =ps= and =grep=:
+
+#+begin_src sh
+ps aux | grep user_name
+#+end_src
+
+where =user_name= is your own user name. That will list all processes started by
+you (well using your id in any case). The =aux= option specifies all processes and
+the manner in which these are printed out. If you read the man file (=man ps=) you
+will see that there are ways in which you can get ps to only list processes started
+by the current user (=ps -eu=) in a similar manner and that =ps aux= is BSD syntax.
+So =grep= isn't really needed here, but I tend to like the way this formats the output.
+
+** Redirecting output
+By default, the =nohup= command redirects all information from the
+terminal window to the =nohup.out= file. If the file exists already,
+it will not be overwritten. All new information will be appended to
+the end of the file. With the =>= operator, you can redirect the
+output to a different file. For example, to redirect the output of the
+=ls= command to the file =Directory-Listing.txt=, you can use the
+command
+
+#+begin_src sh
+nohup ls -lhcrt > Directory-Listing.txt &
+#+end_src
+
+So, the redirection-operator (=>=) is followed by the name of the
+target file and precedes the closing =&= operator of the =nohup=
+command. If you want to save the output to a file in a different
+directory, just specify the entire file-path that precedes your target
+file, like:
+
+#+begin_src sh
+nohup ls -lhcrt > /home/alj/Documents/DirectoryListing.txt &
+#+end_src
+
 
 
 

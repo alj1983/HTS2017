@@ -1,42 +1,53 @@
-\contentsline {section}{\numberline {1}Remote connection}{2}{section.1}
-\contentsline {section}{\numberline {2}Basic orientation in the command line}{4}{section.2}
-\contentsline {subsection}{\numberline {2.1}Directory navigation}{5}{subsection.2.1}
-\contentsline {subsubsection}{\numberline {2.1.1}Conventional directory layout}{5}{subsubsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.2}What files are present in the current directory?}{6}{subsubsection.2.1.2}
-\contentsline {subsubsection}{\numberline {2.1.3}Moving in and out of directories with \texttt {cd}}{7}{subsubsection.2.1.3}
-\contentsline {subsubsection}{\numberline {2.1.4}Tip}{8}{subsubsection.2.1.4}
-\contentsline {subsubsection}{\numberline {2.1.5}Have a look at the directory structure}{8}{subsubsection.2.1.5}
-\contentsline {subsubsection}{\numberline {2.1.6}Tip}{8}{subsubsection.2.1.6}
-\contentsline {subsubsection}{\numberline {2.1.7}Create, move and remove files and directories}{8}{subsubsection.2.1.7}
-\contentsline {subsubsection}{\numberline {2.1.8}Tip}{9}{subsubsection.2.1.8}
-\contentsline {subsection}{\numberline {2.2}Data transfer between computers}{9}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}rsync}{10}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}sftp/lftp}{11}{subsubsection.2.2.2}
-\contentsline {subsubsection}{\numberline {2.2.3}Tip}{12}{subsubsection.2.2.3}
-\contentsline {section}{\numberline {3}Running programs (and the PATH variable)}{12}{section.3}
-\contentsline {subsection}{\numberline {3.1}From the (command line) shell}{12}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}From a shell script}{13}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Writing a shell script}{16}{subsection.3.3}
-\contentsline {section}{\numberline {4}Retrieving basic information from common NGS files}{17}{section.4}
-\contentsline {subsection}{\numberline {4.1}Look at the content of a file and search for patterns}{17}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'}{19}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}INFO on regular expressions}{20}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Combine the content of files with 'cat' and '>'}{20}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Counting filtered reads in SAM files with 'awk'}{21}{subsection.4.5}
-\contentsline {section}{\numberline {5}Bonus section PERL}{22}{section.5}
-\contentsline {subsection}{\numberline {5.1}Variables in Perl}{22}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Assigning variables}{23}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Data types}{24}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Program flow: loops and conditionals}{25}{subsection.5.4}
-\contentsline {subsection}{\numberline {5.5}Reading and writing data}{27}{subsection.5.5}
-\contentsline {subsection}{\numberline {5.6}Regular Expressions}{28}{subsection.5.6}
-\contentsline {subsection}{\numberline {5.7}Various operators}{30}{subsection.5.7}
-\contentsline {subsection}{\numberline {5.8}A somewhat useful example}{31}{subsection.5.8}
-\contentsline {section}{\numberline {6}Unix cheat sheet}{33}{section.6}
-\contentsline {subsection}{\numberline {6.1}FILE system}{33}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Opening FILEs and extracting information}{33}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Data transfer}{34}{subsection.6.3}
-\contentsline {subsection}{\numberline {6.4}Executing scripts and programs}{34}{subsection.6.4}
-\contentsline {subsection}{\numberline {6.5}Networking}{34}{subsection.6.5}
-\contentsline {subsection}{\numberline {6.6}Help}{34}{subsection.6.6}
-\contentsline {subsection}{\numberline {6.7}Tricks}{34}{subsection.6.7}
+\contentsline {section}{\numberline {1}Remote connection}{4}{section.1}
+\contentsline {section}{\numberline {2}Basic orientation in the command line}{5}{section.2}
+\contentsline {subsection}{\numberline {2.1}Directory navigation}{6}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Conventional directory layout}{6}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}What files are present in the current directory?}{7}{subsubsection.2.1.2}
+\contentsline {subsubsection}{\numberline {2.1.3}Moving in and out of directories with \texttt {cd}}{8}{subsubsection.2.1.3}
+\contentsline {subsubsection}{\numberline {2.1.4}Tip}{10}{subsubsection.2.1.4}
+\contentsline {subsubsection}{\numberline {2.1.5}Have a look at the directory structure}{10}{subsubsection.2.1.5}
+\contentsline {subsubsection}{\numberline {2.1.6}Tip}{11}{subsubsection.2.1.6}
+\contentsline {subsubsection}{\numberline {2.1.7}Create, move and remove files and directories}{11}{subsubsection.2.1.7}
+\contentsline {subsubsection}{\numberline {2.1.8}Tip}{12}{subsubsection.2.1.8}
+\contentsline {subsection}{\numberline {2.2}Data transfer between computers}{12}{subsection.2.2}
+\contentsline {subsubsection}{\numberline {2.2.1}rsync}{12}{subsubsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.2}sftp/lftp}{13}{subsubsection.2.2.2}
+\contentsline {subsubsection}{\numberline {2.2.3}Tip}{14}{subsubsection.2.2.3}
+\contentsline {section}{\numberline {3}Running programs (and the PATH variable)}{15}{section.3}
+\contentsline {subsection}{\numberline {3.1}From the (command line) shell}{15}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}From a shell script}{16}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}File permissions}{19}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Writing a shell script}{21}{subsection.3.4}
+\contentsline {section}{\numberline {4}Retrieving basic information from common NGS files}{22}{section.4}
+\contentsline {subsection}{\numberline {4.1}Look at the content of a file and search for patterns}{22}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Counting words, lines, and characters with 'wc' and searching for patterns with 'grep'}{23}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}INFO on regular expressions}{25}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Combine the content of files with 'cat' and '>'}{25}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Counting filtered reads in SAM files with 'awk'}{26}{subsection.4.5}
+\contentsline {section}{\numberline {5}Installing programs}{27}{section.5}
+\contentsline {subsection}{\numberline {5.1}What is an installation?}{27}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Getting the program files}{28}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}configure, make, make install}{29}{subsection.5.3}
+\contentsline {subsubsection}{\numberline {5.3.1}configure}{29}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}make}{30}{subsubsection.5.3.2}
+\contentsline {subsubsection}{\numberline {5.3.3}make install}{31}{subsubsection.5.3.3}
+\contentsline {subsection}{\numberline {5.4}other ways}{31}{subsection.5.4}
+\contentsline {section}{\numberline {6}Bonus section PERL}{32}{section.6}
+\contentsline {subsection}{\numberline {6.1}The structure of a typical script}{32}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Variables in Perl}{33}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Assigning variables}{34}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Data types}{35}{subsection.6.4}
+\contentsline {subsection}{\numberline {6.5}Program flow: loops and conditionals}{36}{subsection.6.5}
+\contentsline {subsection}{\numberline {6.6}Reading and writing data}{39}{subsection.6.6}
+\contentsline {subsection}{\numberline {6.7}Regular Expressions}{40}{subsection.6.7}
+\contentsline {subsection}{\numberline {6.8}Various operators}{42}{subsection.6.8}
+\contentsline {subsection}{\numberline {6.9}A somewhat useful example}{43}{subsection.6.9}
+\contentsline {section}{\numberline {7}Recommended books}{45}{section.7}
+\contentsline {section}{\numberline {8}Unix cheat sheet}{45}{section.8}
+\contentsline {subsection}{\numberline {8.1}FILE system}{45}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Opening FILEs and extracting information}{46}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}Data transfer}{46}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Executing scripts and programs}{46}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}Networking}{47}{subsection.8.5}
+\contentsline {subsection}{\numberline {8.6}Help}{47}{subsection.8.6}
+\contentsline {subsection}{\numberline {8.7}Tricks}{47}{subsection.8.7}

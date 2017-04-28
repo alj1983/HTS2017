@@ -1,4 +1,4 @@
-% Created 2016-05-27 fr. 16:12
+% Created 2017-04-28 fr. 11:09
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -32,14 +32,14 @@
 \setbeamertemplate{footline}[frame number]
 \usemintedstyle{emacs}
 \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
-\addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+\addbibresource{/home/alexander/Dropbox/Literature/CompleteLiteratureMendeley/library.bib}
 \usepackage{tikz,graphics,graphicx}
 \usetikzlibrary{decorations.shapes,arrows,decorations.pathreplacing,decorations.pathmorphing,backgrounds}
 \usetikzlibrary{decorations.pathmorphing}
 \usetikzlibrary{shapes.geometric}
 \usetheme{default}
 \author{Alexander Jueterbock}
-\date{June 2016}
+\date{May 2017}
 \title{Introduction to bioinformatics (NGS data analysis)}
 \begin{document}
 
@@ -218,38 +218,112 @@ What you need to know to steer your way through the analysis
 \end{center}
 \end{frame}
 
-\begin{frame}[label=sec-1-1-5]{Expected read lengths and sequencing qualities for common sequencing platforms}
-\begin{small}
-
+\begin{frame}[label=sec-1-1-5]{NGS platforms differ in throughput and read length}
 \begin{center}
-\begin{tabular}{l r r l}
-\alert{Platform} & \alert{Max. length} & \alert{Reads/run} & \alert{Consideration} & \\
-\hline
-Illumina & 2x150 & 5 billion &  & \\
-HiSeq series &  &  &  & \\
-\hline
-Illumina & 2x300 & 25 million &  & \\
-MiSeq series &  &  &  & \\
-\hline
-Illumina &  &  &  & \\
-NextSeq series & 2x150 & 400 million &  & \\
-\hline
-Roche 454 & 700 & 0.7 million & High error rate & \\
-GS FLX+/FLX &  &  &  & \\
-\hline
-Ion  PGM    318 chip & 200-400 & 4-5.5   million &  & \\
-\hline
-PacBio RSII & 14,000 & 0.47 million & High error rate & \\
-\hline
-SoliD & 2x100 & 266 million & Low error rate & \\
-5500xl W &  &  & Color-space & \\
- &  &  &  & \\
-\end{tabular}
-\end{center}
+\scalebox{0.95}{
+\begin{figure}[htb]
 
-\end{small}
+\begin{tikzpicture}
+ \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
+
+\draw<1-> [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
+\node <1-> [anchor=west,color=red,scale=0.9] at (2.3cm,1.8cm) {\textbf{Next Generation}};
+%\node <1-> [anchor=west,color=red,scale=0.9] at (2.4cm,3.8cm) {\textbf{3\textsuperscript{rd} Generation}};
+
+
+\node <1-> [anchor=west,color=red,scale=0.9] at (0.2cm,-1.6cm) {\textbf{First Generation}};
+
+%\node <3-> [anchor=west,color=red,scale=0.7] at (-2.1cm,-1.8cm) {Sequencing by synthesis (polymerase)};
+%\node <3-> [anchor=west,color=red,scale=0.7] at (-5.8cm,2.6cm) {Sequencing by ligation};
+%\draw <3-> [color=red,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
+
+
+% \draw<4> [color=red] (-0.2cm,-0.9cm) circle (.5);
+% \draw<4> [color=red] (1.4cm,-0.4cm) circle (.5);
+% \node <4> [anchor=west,color=red,scale=0.7] at (0.4cm,-1.2cm) {454 Roche Pyrosequencing};
+\end{tikzpicture}
+
+\end{figure}
+}
+
+
+\end{center}
 \end{frame}
 
+\begin{frame}[label=sec-1-1-6]{NGS platforms differ in throughput and read length}
+\begin{center}
+\scalebox{0.95}{
+\begin{figure}[htb]
+
+\begin{tikzpicture}
+ \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
+
+\node<1->  [anchor=west,color=orange,scale=0.8] at (-3cm,2cm) {\textbf{SOLiD}};
+%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,3.1cm) {99.99 percent accurracy};
+%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,2.7cm) {color code};
+%\draw<1->  [color=orange,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
+\draw<1-> [color=orange] (-2.4cm,1.2cm) circle (.5);
+
+
+\draw<1-> [color=blue!50!white] (-0.2cm,-0.9cm) circle (.5);
+\draw<1-> [color=blue!50!white] (1.4cm,-0.4cm) circle (.5);
+\node <1-> [anchor=west,color=blue!50!white,scale=0.8, text width=8cm] at (0.7cm,-1.2cm) {\textbf{454 Roche Pyrosequencing}};
+%\node <1-> [anchor=west,color=blue!50!white,scale=0.7] at (1cm,-1.7cm) {discontinued in 2016};
+
+
+\draw<1-> [color=blue] (-1.2cm,0cm) circle (.5);
+\draw<1-> [color=blue] (-0.7cm,1.65cm) circle (.4);
+\draw<1-> [color=blue] (1.25cm,1.2cm) circle (.4);
+
+\node <1-> [anchor=west,color=blue,scale=0.8] at (-3cm,-1.1cm) {\textbf{Ion Torrent}};
+% \node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {detects \textb{H\textsuperscript{+}} release};
+%\node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {2-7 hours run time};
+
+\draw<1-> [color=red] (-0.2cm,3cm) ellipse (2cm and 1cm);
+\draw<1-> [color=red] (-1cm,1cm) circle (.5);
+\draw<1-> [color=red] (0.5cm,1.7cm) circle (.5);
+\draw<1-> [color=red] (-2.14cm,0.06cm) circle (.5);
+\node <1-> [anchor=west,color=red,scale=0.8] at (2cm,3cm) {\textbf{Illumina}};
+\node <1-> [anchor=west,color=red,scale=0.7] at (2cm,2.5cm) {market leader};
+
+\end{tikzpicture}
+
+\end{figure}
+}
+
+\note[item]{
+I don't want to go into the details of the different platforms but just provide a quick overview.
+454 was discontinued in 2016 because it can not compete in cost and throughput with the other platforms. We have
+ion torrent, then SoliD and Illumina, which is currently the market leader due to its high throughput at a relatively
+low cost. It provides a wide range of platforms and is compatible with most library preparation kits and bioinformatics data analysis pipelines
+}
+\end{center}
+\end{frame}
+\begin{frame}[label=sec-1-1-7]{Third Generation Sequencing}
+
+ \begin{center}
+ \scalebox{0.95}{
+ \begin{figure}[htb]
+
+ \begin{tikzpicture}
+  \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencing.png}};
+
+ \draw [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
+ \node<1->   [anchor=west,color=red,scale=0.9] at (1.1cm,3.8cm) {\textbf{NGS}};
+ \node<1->   [anchor=west,color=red,scale=0.9] at (2.4cm,3.8cm) {\textbf{3\textsuperscript{rd} Generation}};
+ \node<1-> [anchor=west,color=red,scale=0.9] at (0.2cm,-1.6cm) {\textbf{First Generation}};
+
+
+ \node<1->   [anchor=west,color=red,scale=0.9] at (3.7cm,-0.65cm) {\textbf{Pacific Biociences}};
+ \node<1->   [anchor=west,color=red,scale=0.9] at (3.7cm,2.3cm) {\textbf{Oxford Nanopore}};
+
+
+ \end{tikzpicture}
+
+ \end{figure}
+ }
+\end{center}
+\end{frame}
 
 \section{Primary analysis}
 \label{sec-2}
@@ -1304,92 +1378,7 @@ Venn diagram of the number of SNPs (coverage >400) called with four programs fro
 
 
 
-\begin{frame}[label=sec-4-1-6]{Eukaryote genome annotation}
-Identify the strcuture and functional role
-\begin{center}
-\begin{figure}[htb]
-\setlength{\belowcaptionskip}{-1cm}
-\begin{tikzpicture}
-\node [color=black,anchor=east] at (-0.3cm,0cm) {Genome};
-\draw [line width=0.2cm, anchor=west,color=gray]  (0cm,0cm) -- (6cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (0.3cm,0cm) --  (1cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (1.7cm,0cm) --node [color=red,above=0.1cm] {exon} (2.5cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (3.6cm,0cm) -- node [color=gray,above=0.4cm,right=0.5cm] {intron} (4.4cm,0cm);
-\draw [-latex] (0.3cm,0cm) -- (0.3cm,0.5cm) node [scale=0.7,above=0.1cm] {Transcription factor binding site} -- (1cm,0.5cm);
-
-\draw [-latex,] (2cm, -0.2cm) -- node [right=0.2cm] {Transcription} (2cm,-0.8cm);
-\node [color=black,anchor=west,text width=3cm,scale=0.9] at (6.1cm,0cm) {Find locus};
-
-\begin{scope}[yshift=-1cm]
-\node [color=black,anchor=east] at (-0.3cm,0cm) {pre-mRNA};
-\draw [line width=0.2cm, anchor=west,color=gray] (0.3cm,0cm) -- (4.6cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (0.3cm,0cm) -- (1cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (1.7cm,0cm) -- (2.5cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (3.6cm,0cm) -- (4.4cm,0cm);
-\draw [-latex,] (2cm, -0.2cm) -- node [right=0.2cm] {RNA processing} (2cm,-0.8cm);
-\node [color=black,anchor=west,text width=3cm,scale=0.9] at (6.1cm,0cm) {Find splice sites};
-\end{scope}
-
-\begin{scope}[yshift=-2cm]
-\node [color=black,anchor=east] at (-0.3cm,0cm) {mRNA};
-\node [color=black,anchor=east,scale=0.7] at (1.3cm,0cm) {$m^{7}G$};
-\draw [line width=0.2cm, anchor=west,color=red]  (1.3cm,0cm) -- (2cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (2.05cm,0cm) -- (2.85cm,0cm);
-\draw [line width=0.2cm, anchor=west,color=red]  (2.9cm,0cm) -- (3.7cm,0cm);
-\node [color=black,anchor=west,scale=0.7] at (3.7cm,0cm) {$AAA_{n}$};
-\draw [latex-,color=black] (1.3cm,0cm) --  node [scale=0.7,left=0.01cm] {START} (1.3cm,0.5cm);
-\draw [latex-,color=black] (3.7cm,0cm) -- node [scale=0.7,right=0.01cm] {STOP} (3.7cm,0.5cm) ;
-\draw [-latex,] (2cm, -0.2cm) -- node [right=0.2cm] {Translation} (2cm,-0.8cm);
-\end{scope}
-
-\begin{scope}[yshift=-3cm]
-\node [anchor=east] at (-0.3cm,0cm) {Polypeptide};
-\draw [fill=blue!50!white, color=blue!50!white] (1.3cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.5cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.7cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.9cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.1cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.3cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.5cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.7cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.9cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (3.1cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (3.3cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (3.5cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (3.7cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (3.9cm,0cm) circle (0.1cm);
-\draw [-latex,] (2cm, -0.2cm) -- node [right=0.2cm] {Protein folding} (2cm,-0.8cm);
-\node [color=black,anchor=west,text width=3cm,scale=0.9] at (6.1cm,0cm) {Find protein\\ domains};
-\end{scope}
-
-\begin{scope}[yshift=-4cm]
-\node [anchor=east] at (-0.3cm,0cm) {Folded protein};
-\draw [fill=blue!50!white, color=blue!50!white] (1.3cm,0cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.5cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.7cm,0.3cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.5cm,0.3cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.6cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.5cm,-0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.6cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.4cm,0.3cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.6cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.7cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.8cm,0.2cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.9cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (1.9cm,-0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.1cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.2cm,0.3cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.3cm,0.1cm) circle (0.1cm);
-\draw [fill=blue!50!white, color=blue!50!white] (2.2cm,-0.1cm) circle (0.1cm);
-\node [color=black,anchor=west,text width=3cm,scale=0.9] at (6.1cm,0cm) {Find enzyme\\ activity};
-\end{scope}
-
-
-\end{tikzpicture}
-\end{figure}
-\end{center}
-\end{frame}
-\begin{frame}[label=sec-4-1-7]{Gene ontologies}
+\begin{frame}[label=sec-4-1-6]{Gene ontologies}
 \begin{center}
 
 \begin{figure}[htb]
@@ -1404,7 +1393,7 @@ Identify the strcuture and functional role
 
 
 
-\begin{frame}[label=sec-4-1-8]{Cloud of GO term enrichments}
+\begin{frame}[label=sec-4-1-7]{Cloud of GO term enrichments}
 \begin{figure}[htb]
 \centering
 \includegraphics[width=9cm]{t3c1BPincreased.png}
@@ -1418,13 +1407,13 @@ Identify the strcuture and functional role
 \label{sec-5-1}
 \begin{frame}[label=sec-5-1-1]{Bioinformatics-Practical}
 \begin{itemize}
-\item Unix Tools (Martin)
-\item Trimming and Quality Control (Martin)
-\item Genome Assembly (Alexander)
-\item Mapping and Variant Calling (Martin)
+\item Unix Tools
+\item Trimming and Quality Control
+\item Genome Assembly
+\item Mapping and Variant Calling
 \end{itemize}
 \end{frame}
-\begin{frame}[label=sec-5-1-2]{References}
+\begin{frame}[allowframebreaks]{References}
 \raggedright
 \printbibliography[sorting=nty,heading=bibnumbered]
 \end{frame}

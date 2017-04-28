@@ -14,7 +14,7 @@
 #+LaTeX_HEADER: \setbeamertemplate{footline}[frame number]
 #+LaTeX_HEADER: \usemintedstyle{emacs}
 #+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
-#+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+#+LATEX_HEADER: \addbibresource{/home/alexander/Dropbox/Literature/CompleteLiteratureMendeley/library.bib}
 
 # #+LATEX_HEADER:\bibliography{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
 
@@ -36,7 +36,7 @@
 #+TITLE:     Introduction to bioinformatics (NGS data analysis)
 #+AUTHOR:    Alexander Jueterbock
 #+EMAIL:     Alexander-Jueterbock@web.de
-#+DATE:      June 2016
+#+DATE:      May 2017
 
 *** Got your sequencing data - now, what to do with it?
  #+begin_latex
@@ -193,39 +193,151 @@
  \end{center}
  #+end_latex
 
-*** Expected read lengths and sequencing qualities for common sequencing platforms
+*** NGS platforms differ in throughput and read length
 
- #+begin_latex
- \begin{small}
- #+end_latex
+#+begin_latex
+\begin{center}
+\scalebox{0.95}{
+\begin{figure}[htb]
 
- #+ATTR_LATEX: :align l r r l
- | *Platform*           | *Max. length* | *Reads/run*     | *Consideration* |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Illumina             |         2x150 | 5 billion       |                 |   |
- | HiSeq series         |               |                 |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Illumina             |         2x300 | 25 million      |                 |   |
- | MiSeq series         |               |                 |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Illumina             |               |                 |                 |   |
- | NextSeq series       |         2x150 | 400 million     |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Roche 454            |           700 | 0.7 million     | High error rate |   |
- | GS FLX+/FLX          |               |                 |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | Ion  PGM    318 chip |       200-400 | 4-5.5   million |                 |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | PacBio RSII          |        14,000 | 0.47 million    | High error rate |   |
- |----------------------+---------------+-----------------+-----------------+---|
- | SoliD                |         2x100 | 266 million     | Low error rate  |   |
- | 5500xl W             |               |                 | Color-space     |   |
- |                      |               |                 |                 |   |
+\begin{tikzpicture}
+ \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
 
- #+begin_latex
- \end{small}
- #+end_latex
+\draw<1-> [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
+\node <1-> [anchor=west,color=red,scale=0.9] at (2.3cm,1.8cm) {\textbf{Next Generation}};
+%\node <1-> [anchor=west,color=red,scale=0.9] at (2.4cm,3.8cm) {\textbf{3\textsuperscript{rd} Generation}};
 
+
+\node <1-> [anchor=west,color=red,scale=0.9] at (0.2cm,-1.6cm) {\textbf{First Generation}};
+
+%\node <3-> [anchor=west,color=red,scale=0.7] at (-2.1cm,-1.8cm) {Sequencing by synthesis (polymerase)};
+%\node <3-> [anchor=west,color=red,scale=0.7] at (-5.8cm,2.6cm) {Sequencing by ligation};
+%\draw <3-> [color=red,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
+
+
+% \draw<4> [color=red] (-0.2cm,-0.9cm) circle (.5);
+% \draw<4> [color=red] (1.4cm,-0.4cm) circle (.5);
+% \node <4> [anchor=west,color=red,scale=0.7] at (0.4cm,-1.2cm) {454 Roche Pyrosequencing};
+\end{tikzpicture}
+
+\end{figure}
+}
+
+
+\end{center}
+#+end_latex
+
+
+# Expected read lengths and sequencing qualities for common sequencing platforms
+
+#  #+begin_latex
+#  \begin{small}
+#  #+end_latex
+
+#  #+ATTR_LATEX: :align l r r l
+#  | *Platform*           | *Max. length* | *Reads/run*     | *Consideration* |   |
+#  |----------------------+---------------+-----------------+-----------------+---|
+#  | Illumina             |         2x150 | 5 billion       |                 |   |
+#  | HiSeq series         |               |                 |                 |   |
+#  |----------------------+---------------+-----------------+-----------------+---|
+#  | Illumina             |         2x300 | 25 million      |                 |   |
+#  | MiSeq series         |               |                 |                 |   |
+#  |----------------------+---------------+-----------------+-----------------+---|
+#  | Illumina             |               |                 |                 |   |
+#  | NextSeq series       |         2x150 | 400 million     |                 |   |
+#  |----------------------+---------------+-----------------+-----------------+---|
+#  | Roche 454            |           700 | 0.7 million     | High error rate |   |
+#  | GS FLX+/FLX          |               |                 |                 |   |
+#  |----------------------+---------------+-----------------+-----------------+---|
+#  | Ion  PGM    318 chip |       200-400 | 4-5.5   million |                 |   |
+#  |----------------------+---------------+-----------------+-----------------+---|
+#  | PacBio RSII          |        14,000 | 0.47 million    | High error rate |   |
+#  |----------------------+---------------+-----------------+-----------------+---|
+#  | SoliD                |         2x100 | 266 million     | Low error rate  |   |
+#  | 5500xl W             |               |                 | Color-space     |   |
+#  |                      |               |                 |                 |   |
+
+#  #+begin_latex
+#  \end{small}
+#  #+end_latex
+
+*** NGS platforms differ in throughput and read length
+#+begin_latex
+\begin{center}
+\scalebox{0.95}{
+\begin{figure}[htb]
+
+\begin{tikzpicture}
+ \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
+
+\node<1->  [anchor=west,color=orange,scale=0.8] at (-3cm,2cm) {\textbf{SOLiD}};
+%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,3.1cm) {99.99 percent accurracy};
+%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,2.7cm) {color code};
+%\draw<1->  [color=orange,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
+\draw<1-> [color=orange] (-2.4cm,1.2cm) circle (.5);
+
+
+\draw<1-> [color=blue!50!white] (-0.2cm,-0.9cm) circle (.5);
+\draw<1-> [color=blue!50!white] (1.4cm,-0.4cm) circle (.5);
+\node <1-> [anchor=west,color=blue!50!white,scale=0.8, text width=8cm] at (0.7cm,-1.2cm) {\textbf{454 Roche Pyrosequencing}};
+%\node <1-> [anchor=west,color=blue!50!white,scale=0.7] at (1cm,-1.7cm) {discontinued in 2016};
+
+
+\draw<1-> [color=blue] (-1.2cm,0cm) circle (.5);
+\draw<1-> [color=blue] (-0.7cm,1.65cm) circle (.4);
+\draw<1-> [color=blue] (1.25cm,1.2cm) circle (.4);
+
+\node <1-> [anchor=west,color=blue,scale=0.8] at (-3cm,-1.1cm) {\textbf{Ion Torrent}};
+% \node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {detects \textb{H\textsuperscript{+}} release};
+%\node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {2-7 hours run time};
+
+\draw<1-> [color=red] (-0.2cm,3cm) ellipse (2cm and 1cm);
+\draw<1-> [color=red] (-1cm,1cm) circle (.5);
+\draw<1-> [color=red] (0.5cm,1.7cm) circle (.5);
+\draw<1-> [color=red] (-2.14cm,0.06cm) circle (.5);
+\node <1-> [anchor=west,color=red,scale=0.8] at (2cm,3cm) {\textbf{Illumina}};
+\node <1-> [anchor=west,color=red,scale=0.7] at (2cm,2.5cm) {market leader};
+
+\end{tikzpicture}
+
+\end{figure}
+}
+
+\note[item]{
+I don't want to go into the details of the different platforms but just provide a quick overview.
+454 was discontinued in 2016 because it can not compete in cost and throughput with the other platforms. We have
+ion torrent, then SoliD and Illumina, which is currently the market leader due to its high throughput at a relatively
+low cost. It provides a wide range of platforms and is compatible with most library preparation kits and bioinformatics data analysis pipelines
+}
+\end{center}
+#+end_latex
+*** Third Generation Sequencing
+
+#+begin_latex
+
+ \begin{center}
+ \scalebox{0.95}{
+ \begin{figure}[htb]
+
+ \begin{tikzpicture}
+  \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencing.png}};
+
+ \draw [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
+ \node<1->   [anchor=west,color=red,scale=0.9] at (1.1cm,3.8cm) {\textbf{NGS}};
+ \node<1->   [anchor=west,color=red,scale=0.9] at (2.4cm,3.8cm) {\textbf{3\textsuperscript{rd} Generation}};
+ \node<1-> [anchor=west,color=red,scale=0.9] at (0.2cm,-1.6cm) {\textbf{First Generation}};
+
+
+ \node<1->   [anchor=west,color=red,scale=0.9] at (3.7cm,-0.65cm) {\textbf{Pacific Biociences}};
+ \node<1->   [anchor=west,color=red,scale=0.9] at (3.7cm,2.3cm) {\textbf{Oxford Nanopore}};
+
+
+ \end{tikzpicture}
+
+ \end{figure}
+ }
+\end{center}
+#+end_latex
 
 * Primary analysis
 ** Primary analysis
@@ -1280,7 +1392,7 @@ Phased alleles are on the same chromosome strand
 
 
 
-*** Eukaryote genome annotation
+*** COMMENT Eukaryote genome annotation
  Identify the strcuture and functional role
  #+begin_latex 
  \begin{center}
@@ -1421,10 +1533,10 @@ Phased alleles are on the same chromosome strand
 * Plan
 ** Bioinformatics-Practical
 *** Bioinformatics-Practical
-- Unix Tools (Martin)
-- Trimming and Quality Control (Martin)
-- Genome Assembly (Alexander)
-- Mapping and Variant Calling (Martin)
+- Unix Tools
+- Trimming and Quality Control
+- Genome Assembly
+- Mapping and Variant Calling
 *** References
     :PROPERTIES:
     :BEAMER_envargs: [allowframebreaks]

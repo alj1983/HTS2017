@@ -11,7 +11,7 @@
 
 #+LaTeX_HEADER: \usemintedstyle{emacs}
 #+LATEX_HEADER: \usepackage[natbib=true,uniquelist=false,bibstyle=authoryear-comp,citestyle=authoryear-comp,sorting=nyt,sortcase=false,sortcites=true,minbibnames=6,maxbibnames=6,maxcitenames=2,hyperref=false,backref=false,backend=biber,isbn=false,url=false,doi=false,eprint=false,firstinits=true,terseinits=true,dashed=false,uniquename=false,uniquelist=false]{biblatex}
-#+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
+#+LATEX_HEADER: \addbibresource{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiteratureMendeley/library.bib}
 
 # #+LATEX_HEADER:\bibliography{/home/alj/Dropbox.personal/Dropbox/Literature/CompleteLiterature.bib}
 
@@ -53,6 +53,7 @@
 #+EMAIL:     Alexander-Jueterbock@web.de
 #+DATE:      May 2017
 
+* COMMENT Todo
 
 * Intro
 *** RAD-Seq - young and successful NGS methods
@@ -104,7 +105,7 @@
 
 
 
-*** Genome-wide association study (GWAS)
+*** COMMENT Genome-wide association study (GWAS)
 
  - No reference genome previously available
  - identified >100,000 SNPs across 138 genotypes 
@@ -616,20 +617,23 @@
  \begin{tikzpicture}
 
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-1cm) --  (-0.45cm,-1cm);
- \draw[white,line width=0.1cm] (-0.825cm,-1cm) --  (-0.475cm,-1cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-1cm) --  (-0.45cm,-1cm);
+ \draw[blue!80!black,line width=0.075cm] (-0.825cm,-1cm+0.2cm) -- (-0.575cm,-1cm+0.05cm) --  (-0.475cm,-1cm+0.05cm);
+ \draw[green!80!black,line width=0.075cm] (-0.825cm,-1cm-0.2cm) -- (-0.575cm,-1cm-0.05cm) --  (-0.475cm,-1cm-0.05cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-1.5cm) --  (-0.45cm,-1.5cm);
- \draw[white,line width=0.1cm] (-0.825cm,-1.5cm) --  (-0.475cm,-1.5cm);
+ %\draw [draw=black,line width=0.15cm] (-0.85cm,-1.5cm) --  (-0.45cm,-1.5cm);
+ \draw[blue!80!black,line width=0.075cm] (-0.825cm,-1.5cm+0.2cm) -- (-0.575cm,-1.5cm+0.05cm) -- (-0.475cm,-1.5cm+0.05cm);
+ \draw[green!80!black,line width=0.075cm] (-0.825cm,-1.5cm-0.2cm) -- (-0.575cm,-1.5cm-0.05cm) -- (-0.475cm,-1.5cm-0.05cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-2cm) --  (-0.45cm,-2cm);
- \draw[white,line width=0.1cm] (-0.825cm,-2cm) --  (-0.475cm,-2cm);
+ %\draw [draw=black,line width=0.15cm] (-0.85cm,-2cm) --  (-0.45cm,-2cm);
+ \draw[blue!80!black,line width=0.075cm] (-0.825cm,-2cm+0.2cm) -- (-0.575cm,-2cm+0.05cm) -- (-0.475cm,-2cm+0.05cm);
+ \draw[green!80!black,line width=0.075cm] (-0.825cm,-2cm-0.2cm) -- (-0.575cm,-2cm-0.05cm) -- (-0.475cm,-2cm-0.05cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
@@ -637,32 +641,36 @@
 
 
  \begin{scope}[xshift=0.5cm]
- \draw [draw=black,line width=0.15cm] (1.75cm,-0.5cm) --  (2.15cm,-0.5cm);
- \draw[white,line width=0.1cm] (1.775cm,-0.5cm) --  (2.125cm,-0.5cm);
+ %\draw [draw=black,line width=0.15cm] (1.75cm,-0.5cm) --  (2.15cm,-0.5cm);
+ \draw[green!80!black,line width=0.075cm] (1.775cm,-0.5cm+0.05cm) -- (1.875cm,-0.5cm+0.05cm) -- (2.125cm,-0.5cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (1.775cm,-0.5cm-0.05cm) -- (1.875cm,-0.5cm-0.05cm) -- (2.125cm,-0.5cm-0.2cm);
  \draw [amplificationprimer, line width=0.15cm] (1.6cm,-0.5cm) --  (1.75cm,-0.5cm);
  \draw [sequencingprimer, line width=0.15cm] (1.45cm,-0.5cm) --  (1.6cm,-0.5cm);
  \draw [barcode, line width=0.15cm] (1.3cm,-0.5cm) --  (1.45cm,-0.5cm);
  \end{scope}
 
  \begin{scope}[xshift=2cm]
- \draw [draw=black,line width=0.15cm] (5.75cm,-1cm) --  (6.15cm,-1cm);
- \draw[white,line width=0.1cm] (5.775cm,-1cm) --  (6.125cm,-1cm);
+% \draw [draw=black,line width=0.15cm] (5.75cm,-1cm) --  (6.15cm,-1cm);
+ \draw[green!80!black,line width=0.075cm] (5.775cm,-1cm+0.05cm) -- (5.875cm,-1cm+0.05cm) --  (6.125cm,-1cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (5.775cm,-1cm-0.05cm) -- (5.875cm,-1cm-0.05cm) --  (6.125cm,-1cm-0.2cm);
  \draw [amplificationprimer, line width=0.15cm] (5.6cm,-1cm) --  (5.75cm,-1cm);
  \draw [sequencingprimer, line width=0.15cm] (5.45cm,-1cm) --  (5.6cm,-1cm);
  \draw [barcode, line width=0.15cm] (5.3cm,-1cm) --  (5.45cm,-1cm);
  \end{scope}
 
  \begin{scope}[xshift=1.5cm]
- \draw [draw=black,line width=0.15cm] (2.75cm,-1.5cm) --  (3.15cm,-1.5cm);
- \draw[white,line width=0.1cm] (2.775cm,-1.5cm) --  (3.125cm,-1.5cm);
+ %\draw [draw=black,line width=0.15cm] (2.75cm,-1.5cm) --  (3.15cm,-1.5cm);
+ \draw[green!80!black,line width=0.075cm] (2.775cm,-1.5cm+0.05cm) -- (2.875cm,-1.5cm+0.05cm) -- (3.125cm,-1.5cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (2.775cm,-1.5cm-0.05cm) -- (2.875cm,-1.5cm-0.05cm) -- (3.125cm,-1.5cm-0.2cm);
  \draw [amplificationprimer, line width=0.15cm] (2.6cm,-1.5cm) --  (2.75cm,-1.5cm);
  \draw [sequencingprimer, line width=0.15cm] (2.45cm,-1.5cm) --  (2.6cm,-1.5cm);
  \draw [barcode, line width=0.15cm] (2.3cm,-1.5cm) --  (2.45cm,-1.5cm);
  \end{scope}
 
  \begin{scope}[xshift=3.3cm]
- \draw [draw=black,line width=0.15cm] (3.75cm,-2cm) --  (4.15cm,-2cm);
- \draw[white,line width=0.1cm] (3.775cm,-2cm) --  (4.125cm,-2cm);
+% \draw [draw=black,line width=0.15cm] (3.75cm,-2cm) --  (4.15cm,-2cm);
+ \draw[green!80!black,line width=0.075cm] (3.775cm,-2cm+0.05cm) -- (3.875cm,-2cm+0.05cm) -- (4.125cm,-2cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (3.775cm,-2cm-0.05cm) -- (3.875cm,-2cm-0.05cm) -- (4.125cm,-2cm-0.2cm);
  \draw [amplificationprimer, line width=0.15cm] (3.6cm,-2cm) --  (3.75cm,-2cm);
  \draw [sequencingprimer, line width=0.15cm] (3.45cm,-2cm) --  (3.6cm,-2cm);
  \draw [barcode, line width=0.15cm] (3.3cm,-2cm) --  (3.45cm,-2cm);
@@ -670,59 +678,68 @@
 
 
 
- \draw [draw=black,line width=0.15cm] (0.6cm,-0.5cm) --  (1cm,-0.5cm);
- \draw[white,line width=0.1cm] (0.625cm,-0.5cm) --  (0.975cm,-0.5cm);
+ %\draw [draw=black,line width=0.15cm] (0.6cm,-0.5cm) --  (1cm,-0.5cm);
+ \draw[blue!80!black,line width=0.075cm] (0.625cm,-0.5cm+0.2cm) -- (0.875cm,-0.5cm+0.05cm) --  (0.975cm,-0.5cm+0.05cm);
+ \draw[green!80!black,line width=0.075cm] (0.625cm,-0.5cm-0.2cm) -- (0.875cm,-0.5cm-0.05cm) --  (0.975cm,-0.5cm-0.05cm);
  \draw [gray, line width=0.15cm] (1cm,-0.5cm) --  (1.5cm,-0.5cm);
  \draw [redd, line width=0.15cm] (1.5cm,-0.5cm) --  (1.8cm,-0.5cm);
 
  \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
  \draw [gray, line width=0.15cm] (0.3cm,-1cm) --  (2cm,-1cm);
- \draw [draw=black,line width=0.15cm] (2cm,-1cm) --  (2.4cm,-1cm);
- \draw[white,line width=0.1cm] (2.025cm,-1cm) --  (2.385cm,-1cm);
+ %\draw [draw=black,line width=0.15cm] (2cm,-1cm) --  (2.4cm,-1cm);
+ \draw[green!80!black,line width=0.075cm] (2.025cm,-1cm+0.05cm) -- (2.125cm,-1cm+0.05cm) -- (2.385cm,-1cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (2.025cm,-1cm-0.05cm) -- (2.125cm,-1cm-0.05cm) -- (2.385cm,-1cm-0.2cm);
 
- \draw [draw=black,line width=0.15cm] (2.6cm,-1cm) --  (3cm,-1cm);
- \draw[white,line width=0.1cm] (2.625cm,-1cm) --  (2.985cm,-1cm);
+ %\draw [draw=black,line width=0.15cm] (2.6cm,-1cm) --  (3cm,-1cm);
+ \draw[blue!80!black,line width=0.075cm] (2.625cm,-1cm+0.2cm) -- (2.885cm,-1cm+0.05cm)--  (2.985cm,-1cm+0.05cm);
+ \draw[green!80!black,line width=0.075cm] (2.625cm,-1cm-0.2cm) -- (2.885cm,-1cm-0.05cm)--  (2.985cm,-1cm-0.05cm);
  \draw [gray, line width=0.15cm] (3cm,-1cm) --  (4.5cm,-1cm);
- \draw [draw=black,line width=0.15cm] (4.5cm,-1cm) --  (4.9cm,-1cm);
- \draw[white,line width=0.1cm] (4.525cm,-1cm) --  (4.885cm,-1cm);
+ %\draw [draw=black,line width=0.15cm] (4.5cm,-1cm) --  (4.9cm,-1cm);
+ \draw[green!80!black,line width=0.075cm] (4.525cm,-1cm+0.05cm) -- (4.625cm,-1cm+0.05cm) --  (4.885cm,-1cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (4.525cm,-1cm-0.05cm) -- (4.625cm,-1cm-0.05cm) --  (4.885cm,-1cm-0.2cm);
  \node [scale=2] at (3.75cm,-1cm){X};
 
 
- \draw [draw=black,line width=0.15cm] (5.1cm,-1cm) --  (5.5cm,-1cm);
- \draw[white,line width=0.1cm] (5.125cm,-1cm) --  (5.485cm,-1cm);
+ %\draw [draw=black,line width=0.15cm] (5.1cm,-1cm) --  (5.5cm,-1cm);
+ \draw[blue!80!black,line width=0.075cm] (5.125cm,-1cm+0.2cm) -- (5.385cm,-1cm+0.05cm) --  (5.485cm,-1cm+0.05cm);
+ \draw[green!80!black,line width=0.075cm] (5.125cm,-1cm-0.2cm) -- (5.385cm,-1cm-0.05cm) --  (5.485cm,-1cm-0.05cm);
  \draw [gray, line width=0.15cm] (5.5cm,-1cm) --  (7cm,-1cm);
  \draw [redd, line width=0.15cm] (7cm,-1cm) --  (7.3cm,-1cm);
 
  \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
  \draw [gray, line width=0.15cm] (0.3cm,-1.5cm) --  (1cm,-1.5cm);
- \draw [draw=black,line width=0.15cm] (1cm,-1.5cm) --  (1.4cm,-1.5cm);
- \draw[white,line width=0.1cm] (1.025cm,-1.5cm) --  (1.385cm,-1.5cm);
+ %\draw [draw=black,line width=0.15cm] (1cm,-1.5cm) --  (1.4cm,-1.5cm);
+ \draw[green!80!black,line width=0.075cm] (1.025cm,-1.5cm+0.05cm) -- (1.125cm,-1.5cm+0.05cm) --  (1.385cm,-1.5cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (1.025cm,-1.5cm-0.05cm) -- (1.125cm,-1.5cm-0.05cm) --  (1.385cm,-1.5cm-0.2cm);
 
 
- \draw [draw=black,line width=0.15cm] (2.1cm,-1.5cm) --  (2.5cm,-1.5cm);
- \draw[white,line width=0.1cm] (2.125cm,-1.5cm) --  (2.485cm,-1.5cm);
+ %\draw [draw=black,line width=0.15cm] (2.1cm,-1.5cm) --  (2.5cm,-1.5cm);
+ \draw[blue!80!black,line width=0.075cm] (2.125cm,-1.5cm+0.2cm) -- (2.385cm,-1.5cm+0.05cm) -- (2.485cm,-1.5cm+0.05cm);4
+ \draw[green!80!black,line width=0.075cm] (2.125cm,-1.5cm-0.2cm) -- (2.385cm,-1.5cm-0.05cm) -- (2.485cm,-1.5cm-0.05cm);
  \draw [gray, line width=0.15cm] (2.5cm,-1.5cm) --  (3.5cm,-1.5cm);
  \draw [redd, line width=0.15cm] (3.5cm,-1.5cm) --  (3.8cm,-1.5cm);
 
 
  \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
  \draw [gray, line width=0.15cm] (0.3cm,-2cm) --  (1cm,-2cm);
- \draw [draw=black,line width=0.15cm] (1cm,-2cm) --  (1.4cm,-2cm);
- \draw[white,line width=0.1cm] (1.025cm,-2cm) --  (1.385cm,-2cm);
+ %\draw [draw=black,line width=0.15cm] (1cm,-2cm) --  (1.4cm,-2cm);
+ \draw[green!80!black,line width=0.075cm] (1.025cm,-2cm+0.05cm) -- (1.125cm,-2cm+0.05cm) --   (1.385cm,-2cm+0.2cm);
+ \draw[blue!80!black,line width=0.075cm] (1.025cm,-2cm-0.05cm) -- (1.125cm,-2cm-0.05cm) --   (1.385cm,-2cm-0.2cm);
 
- \draw [draw=black,line width=0.15cm] (3.9cm,-2cm) --  (4.3cm,-2cm);
- \draw[white,line width=0.1cm] (3.925cm,-2cm) --  (4.285cm,-2cm);
+ %\draw [draw=black,line width=0.15cm] (3.9cm,-2cm) --  (4.3cm,-2cm);
+ \draw[blue!80!black,line width=0.075cm] (3.925cm,-2cm+0.2cm) -- (4.185cm,-2cm+0.05cm) --  (4.285cm,-2cm+0.05cm);
+ \draw[green!80!black,line width=0.075cm] (3.925cm,-2cm-0.2cm) -- (4.185cm,-2cm-0.05cm) --  (4.285cm,-2cm-0.05cm);
  \draw [gray, line width=0.15cm] (4.3cm,-2cm) --  (6.3cm,-2cm);
  \draw [redd, line width=0.15cm] (6.3cm,-2cm) --  (6.6cm,-2cm);
 
- \node [anchor=west]  at (-0.5cm,-4.25cm) {P2 adapter:};
- \node [anchor=west]  at (2cm,-4cm) {AGATCG};
- \node [anchor=west,rotate=25]  at (3.5cm,-4cm) {TCCGA};
- \node [anchor=west]  at (2cm,-4.5cm) {TCTAGCGTCCT};
+ % \node [anchor=west]  at (-0.5cm,-4.25cm) {P2 adapter:};
+ % \node [anchor=west]  at (2cm,-4cm) {AGATCG};
+ % \node [anchor=west,rotate=25]  at (3.5cm,-4cm) {TCCGA};
+ % \node [anchor=west]  at (2cm,-4.5cm) {TCTAGCGTCCT};
 
- \node [anchor=west]  at (-0.5cm,-5.5cm) {P2 primer:};
- \node [anchor=west]  at (2cm,-5.5cm) {TCTAGCGTCCT};
- \node [anchor=west, text width=7cm]  at (-0.5cm,-6.8cm) {P2 primer binds only when P2 primer site was completed by amplification starting from the P1 adapter (removes Y-structure)};
+ % \node [anchor=west]  at (-0.5cm,-5.5cm) {P2 primer:};
+ % \node [anchor=west]  at (2cm,-5.5cm) {TCTAGCGTCCT};
+ % \node [anchor=west, text width=7cm]  at (-0.5cm,-6.8cm) {P2 primer binds only when P2 primer site was completed by amplification starting from the P1 adapter (removes Y-structure)};
 
  \end{tikzpicture}
  }
@@ -751,88 +768,88 @@
  \scalebox{1}{
  \begin{tikzpicture}
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-0.5cm) --  (-0.45cm,-0.5cm);
- \draw[white,line width=0.1cm] (-0.825cm,-0.5cm) --  (-0.475cm,-0.5cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-0.5cm) --  (-0.45cm,-0.5cm);
+ \draw[blue!80!black,line width=0.15cm] (-0.825cm,-0.5cm) --  (-0.475cm,-0.5cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-0.5cm) --  (-0.3cm,-0.5cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-0.5cm) --  (-0.15cm,-0.5cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-0.5cm) --  (0cm,-0.5cm);
  \draw [redd, line width=0.15cm] (0cm,-0.5cm) --  (0.3cm,-0.5cm);
  \begin{scope}[xshift=0.3cm]
  \draw [gray, line width=0.15cm] (0cm,-0.5cm) --  (0.5cm,-0.5cm);
- \draw [draw=black,line width=0.15cm] (0.5cm,-0.5cm) --  (0.9cm,-0.5cm);
- \draw[white,line width=0.1cm] (0.525cm,-0.5cm) --  (0.875cm,-0.5cm);
+% \draw [draw=black,line width=0.15cm] (0.5cm,-0.5cm) --  (0.9cm,-0.5cm);
+ \draw[green!80!black,line width=0.15cm] (0.525cm,-0.5cm) --  (0.875cm,-0.5cm);
  \end{scope}
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-1cm) --  (-0.45cm,-1cm);
- \draw[white,line width=0.1cm] (-0.825cm,-1cm) --  (-0.475cm,-1cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-1cm) --  (-0.45cm,-1cm);
+ \draw[blue!80!black,line width=0.15cm] (-0.825cm,-1cm) --  (-0.475cm,-1cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1cm) --  (-0.3cm,-1cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1cm) --  (-0.15cm,-1cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-1cm) --  (0cm,-1cm);
  \draw [redd, line width=0.15cm] (0cm,-1cm) --  (0.3cm,-1cm);
  \begin{scope}[xshift=0.3cm]
  \draw [gray, line width=0.15cm] (0cm,-1cm) --  (1.5cm,-1cm);
- \draw [draw=black,line width=0.15cm] (1.5cm,-1cm) --  (1.9cm,-1cm);
- \draw[white,line width=0.1cm] (1.525cm,-1cm) --  (1.875cm,-1cm);
+% \draw [draw=black,line width=0.15cm] (1.5cm,-1cm) --  (1.9cm,-1cm);
+ \draw[green!80!black,line width=0.15cm] (1.525cm,-1cm) --  (1.875cm,-1cm);
  \end{scope}
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-1.5cm) --  (-0.45cm,-1.5cm);
- \draw[white,line width=0.1cm] (-0.825cm,-1.5cm) --  (-0.475cm,-1.5cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-1.5cm) --  (-0.45cm,-1.5cm);
+ \draw[blue!80!black,line width=0.15cm] (-0.825cm,-1.5cm) --  (-0.475cm,-1.5cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-1.5cm) --  (-0.3cm,-1.5cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-1.5cm) --  (-0.15cm,-1.5cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-1.5cm) --  (0cm,-1.5cm);
  \draw [redd, line width=0.15cm] (0cm,-1.5cm) --  (0.3cm,-1.5cm);
  \begin{scope}[xshift=0.3cm]
  \draw [gray, line width=0.15cm] (0cm,-1.5cm) --  (0.7cm,-1.5cm);
- \draw [draw=black,line width=0.15cm] (0.7cm,-1.5cm) --  (1.1cm,-1.5cm);
- \draw[white,line width=0.1cm] (0.725cm,-1.5cm) --  (1.075cm,-1.5cm);
+% \draw [draw=black,line width=0.15cm] (0.7cm,-1.5cm) --  (1.1cm,-1.5cm);
+ \draw[green!80!black,line width=0.15cm] (0.725cm,-1.5cm) --  (1.075cm,-1.5cm);
  \end{scope}
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-2cm) --  (-0.45cm,-2cm);
- \draw[white,line width=0.1cm] (-0.825cm,-2cm) --  (-0.475cm,-2cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-2cm) --  (-0.45cm,-2cm);
+ \draw[blue!80!black,line width=0.15cm] (-0.825cm,-2cm) --  (-0.475cm,-2cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2cm) --  (-0.3cm,-2cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2cm) --  (-0.15cm,-2cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-2cm) --  (0cm,-2cm);
  \draw [redd, line width=0.15cm] (0cm,-2cm) --  (0.3cm,-2cm);
  \begin{scope}[xshift=0.3cm]
  \draw [gray, line width=0.15cm] (0cm,-2cm) --  (0.7cm,-2cm);
- \draw [draw=black,line width=0.15cm] (0.7cm,-2cm) --  (1.1cm,-2cm);
- \draw[white,line width=0.1cm] (0.725cm,-2cm) --  (1.075cm,-2cm);
+% \draw [draw=black,line width=0.15cm] (0.7cm,-2cm) --  (1.1cm,-2cm);
+ \draw[green!80!black,line width=0.15cm] (0.725cm,-2cm) --  (1.075cm,-2cm);
  \end{scope}
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-2.5cm) --  (-0.45cm,-2.5cm);
- \draw[white,line width=0.1cm] (-0.825cm,-2.5cm) --  (-0.475cm,-2.5cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-2.5cm) --  (-0.45cm,-2.5cm);
+ \draw[blue!80!black,line width=0.15cm] (-0.825cm,-2.5cm) --  (-0.475cm,-2.5cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-2.5cm) --  (-0.3cm,-2.5cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-2.5cm) --  (-0.15cm,-2.5cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-2.5cm) --  (0cm,-2.5cm);
  \draw [redd, line width=0.15cm] (0cm,-2.5cm) --  (0.3cm,-2.5cm);
  \begin{scope}[xshift=0.3cm]
  \draw [gray, line width=0.15cm] (0cm,-2.5cm) --  (1.5cm,-2.5cm);
- \draw [draw=black,line width=0.15cm] (1.5cm,-2.5cm) --  (1.9cm,-2.5cm);
- \draw[white,line width=0.1cm] (1.525cm,-2.5cm) --  (1.875cm,-2.5cm);
+% \draw [draw=black,line width=0.15cm] (1.5cm,-2.5cm) --  (1.9cm,-2.5cm);
+ \draw[green!80!black,line width=0.15cm] (1.525cm,-2.5cm) --  (1.875cm,-2.5cm);
  \end{scope}
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-3cm) --  (-0.45cm,-3cm);
- \draw[white,line width=0.1cm] (-0.825cm,-3cm) --  (-0.475cm,-3cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-3cm) --  (-0.45cm,-3cm);
+ \draw[blue!80!black,line width=0.15cm] (-0.825cm,-3cm) --  (-0.475cm,-3cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-3cm) --  (-0.3cm,-3cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-3cm) --  (-0.15cm,-3cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-3cm) --  (0cm,-3cm);
  \draw [redd, line width=0.15cm] (0cm,-3cm) --  (0.3cm,-3cm);
  \begin{scope}[xshift=0.3cm]
  \draw [gray, line width=0.15cm] (0cm,-3cm) --  (1cm,-3cm);
- \draw [draw=black,line width=0.15cm] (1cm,-3cm) --  (1.4cm,-3cm);
- \draw[white,line width=0.1cm] (1.025cm,-3cm) --  (1.375cm,-3cm);
+% \draw [draw=black,line width=0.15cm] (1cm,-3cm) --  (1.4cm,-3cm);
+ \draw[green!80!black,line width=0.15cm] (1.025cm,-3cm) --  (1.375cm,-3cm);
  \end{scope}
 
- \draw [draw=black,line width=0.15cm] (-0.85cm,-3.5cm) --  (-0.45cm,-3.5cm);
- \draw[white,line width=0.1cm] (-0.825cm,-3.5cm) --  (-0.475cm,-3.5cm);
+% \draw [draw=black,line width=0.15cm] (-0.85cm,-3.5cm) --  (-0.45cm,-3.5cm);
+ \draw[blue!80!black,line width=0.15cm] (-0.825cm,-3.5cm) --  (-0.475cm,-3.5cm);
  \draw [amplificationprimer, line width=0.15cm] (-0.45cm,-3.5cm) --  (-0.3cm,-3.5cm);
  \draw [sequencingprimer, line width=0.15cm] (-0.3cm,-3.5cm) --  (-0.15cm,-3.5cm);
  \draw [barcode, line width=0.15cm] (-0.15cm,-3.5cm) --  (0cm,-3.5cm);
  \draw [redd, line width=0.15cm] (0cm,-3.5cm) --  (0.3cm,-3.5cm);
  \begin{scope}[xshift=0.3cm]
  \draw [gray, line width=0.15cm] (0cm,-3.5cm) --  (2cm,-3.5cm);
- \draw [draw=black,line width=0.15cm] (2cm,-3.5cm) --  (2.4cm,-3.5cm);
- \draw[white,line width=0.1cm] (2.025cm,-3.5cm) --  (2.375cm,-3.5cm);
+% \draw [draw=black,line width=0.15cm] (2cm,-3.5cm) --  (2.4cm,-3.5cm);
+ \draw[green!80!black,line width=0.15cm] (2.025cm,-3.5cm) --  (2.375cm,-3.5cm);
  \end{scope}
 
  \draw [draw=red,fill=red,line width=0.05cm,-latex] (-0.25cm,-4.5cm) --  (1.1cm,-4.5cm);
@@ -1132,7 +1149,7 @@
  \end{figure}
  \end{center}
  #+end_latex
-*** Pooling recommendations
+*** COMMENT Pooling recommendations
  - Critical: equimolar concentrations of individuals expected
  - Recommended: >40 individuals/pool
      - Higher numbers
@@ -1155,7 +1172,7 @@
  Based on our own study on Guppy
  - Targeted coverage: 20x per individual
  - Pooling: 60 individuals
- - Sequencing output: 24M reads (12M fragments, minimum for Illumina v2
+ - Sequencing output: 24M reads (12M fragments, minimum for Illumina MiSeq v2
    paired-end kits)
  - Fragments per individual: 12M/60 = 200,000
 
@@ -1175,7 +1192,7 @@
  \small{Based on 10\% of the entire genome size}
  \end{center}
  #+end_latex 
- Without reference genome: evaluate double-digest fragments on Tape station
+ Without reference genome: try, sequence and re-adjust
  # XX If you don't have a target genome you need to apply different
  # cutting enzymes and identify the number of targeted fragments on the
  # Tape Station or Bioanalyzer
@@ -1210,12 +1227,8 @@
 \end{center}
 #+end_latex
 *** ezRAD \citep{Toonen2013}
-**** Advantages
+**** Advantage
 - non-PCR kits can avoid PCR duplication and bypass any PCR bias.
-**** Disadvantages
-- All reads start with the same four bases (GATC).
-  - Low diversity libraries can lead to poor read quality on Illumina
-    sequencers. Use e.g. PhiX spiking or dark-cycling.
 
 ** 2bRAD 
 *** 2bRAD \citep{Wang2012}
@@ -1244,15 +1257,12 @@
 **** Disadvantages
 - 36-bp tags could be too short to be non-ambiguously mapped in highly
   duplicated genomes.
-- Likely not cross-mappable across large genetic distances.
-
 
 * Biases
 
-** Allele dropbout and null alleles
+** PCR duplicates and null alleles
 
-
-*** Null alleles
+*** COMMENT Null alleles
 
 #+begin_latex
 \begin{center}
@@ -1269,9 +1279,62 @@
 - More frequent in longer cutting enzyme recognition sites
 - More frequent in ddRAD than in original RADseq
 - Identifiable by high variance in coverage among samples
-** PCR duplicates
+*** PCR duplicates and null alleles
+#+begin_latex 
+ \begin{center}
+\begin{figure}[htb]
+ \begin{tikzpicture}
+  \node<1-> [anchor=west] at (0cm,0cm){\includegraphics[width=5.5cm]{Schweyen2014Fig2bc.png}};
+  \node<1-> [anchor=west] at (0.9cm,3.3cm){RAD};
+  \node<1-> [anchor=west] at (3.4cm,3.3cm){ddRAD};
 
-*** Detect PCR duplicates by length in paired-end RAD sequencing
+  \node<1-> [anchor=west,scale=0.6] at (6cm,2.9cm){mutated cut site};
+  \draw<1-> [densely dashed]   (4.8cm,2.8cm)--(4.8cm,2.7cm)--(5.5cm,2.7cm)--(5.9cm,2.8cm);
+
+  \node<1-> [anchor=west,scale=0.6] at (6cm,2.3cm){cut site};
+  \draw<1-> [densely dashed]   (3.85cm,2.8cm)--(3.85cm,2.6cm)-- (5.5cm,2.6cm)--(5.9cm,2.4cm);
+  \draw<1-> [densely dashed]   (0.65cm,2.8cm)--(0.65cm,2.6cm)-- (3.9cm,2.6cm);
+
+%  \node<2-> [anchor=west,scale=0.6] at (6cm,1.9cm){dual index (12 x 48 = 576)};
+  %\draw<2-> [densely dashed] (3.85cm,1.9cm)--(3.85cm,1.8cm)-- (5.5cm,1.8cm)--(5.9cm,1.9cm);
+  %\draw<2-> [densely dashed] (3.55cm,1.9cm)--(3.55cm,1.8cm)-- (3.9cm,1.8cm);
+
+
+%  \node<2-> [anchor=west,scale=0.6] at (6cm,1.3cm){index (12 originally)};
+  % \draw<2-> [densely dashed] (0.7cm,1.9cm)--(0.7cm,1.6cm)--(5.5cm,1.6cm)--(5.9cm,1.4cm);
+
+
+  \node<3-> [anchor=west,scale=0.6] at (6cm,0.4cm){PCR duplicate};
+  \draw<3-> [densely dashed] (5.1cm,0.5cm)--(5.1cm,0.4cm)--(5.5cm,0.4cm)--(5.9cm,0.4cm);
+
+\draw<1> [color=white, fill=white, line width=0.01] (-0.1,-3.2) rectangle (5.6,2.4);
+\draw<2> [color=white, fill=white, line width=0.01] (-0.1,-3.2) rectangle (5.6,1.5);
+\draw<3> [color=white, fill=white, line width=0.01] (-0.1,-3.2) rectangle (5.6,-0.5);
+\draw<4> [color=white, fill=white, line width=0.01] (-0.1,-3.2) rectangle (5.6,-2);
+
+\visible<2->{\node [anchor=east,scale=0.8] at (-0.5cm,2.2cm){Restriction/Shearing};}
+\visible<3->{\node [anchor=east,scale=0.8] at (-0.5cm,1.4cm){PCR};}
+\visible<4->{\node [anchor=east,scale=0.8] at (-0.5cm,-0.85cm){Sequencing};}
+\visible<5->{\node [anchor=east,scale=0.8] at (-0.5cm,-2.15cm){Analysis};}
+
+
+\node<7> [anchor=west,scale=0.6,color=red,text width=4cm] at (6cm,-2.4cm){PCR duplicates remain in ddRAD};
+\draw<7> [color=red, line width=0.01] (2.9,-3) rectangle (5.4,-2);
+
+
+\node<5> [anchor=west,scale=0.6,color=red,text width=4cm] at (6cm,-2.4cm){Null alleles inflate homozygosity,\\ underestimate differentiation};
+\node<6> [anchor=west,scale=0.6,color=red,text width=4cm] at (5.8cm,-2.4cm){More frequent in ddRAD\\ Detectable by high variance in coverage};
+\draw<5-6> [color=red, line width=0.01] (4.4,-3) rectangle (5.4,-2);
+\draw<5-6> [color=red, line width=0.01] (1.5,-3) rectangle (2.5,-2);
+
+
+ \end{tikzpicture}
+\end{figure}
+\only<1,3-7>{\tiny{\cite{Schweyen2014}}}
+ \end{center}
+#+end_latex
+
+*** COMMENT PCR duplicates - detectable by length in PE-RAD sequencing
     
      #+begin_latex
      \vspace{0.1cm}
@@ -1318,7 +1381,7 @@
      PCR duplicates can occur in 20 to 60\% of reads
      #+end_latex
     
-*** PCR duplicates in ddRAD and ezRAD - not detectable
+*** COMMENT PCR duplicates in ddRAD and ezRAD - not detectable
 
      #+begin_latex
      \vspace{0.1cm}
@@ -1487,6 +1550,9 @@ Modifications of PCR enrichment can help \tiny{(see \citep{Puritz2014b,Benjamini
 
 * Pipelines
 ** Pipelines 
+
+# XX Continue here checking the lecture
+
 *** STACKS \citep{Puritz2014}
 #+begin_latex
  \begin{center}
@@ -1641,16 +1707,16 @@ them for population genomics and phylogeographic analyses.
 - RADseq libraries are low-diversity libraries as they all start with
   the same cutting site and can cause problems in cluster generation
   for Illumina sequencing.
-  - Solution: Reduce cluster density and spike-in PhiX control
+  - Solution: Reduce cluster density and spike-in PhiX control or use dark-cycling.
 *** References
     :PROPERTIES:
     :BEAMER_envargs: [allowframebreaks]
     :END:
- # Need to set allowframebreaks
- #+begin_latex
+    # Need to set allowframebreaks
+    #+begin_latex
  \raggedright
  \printbibliography[sorting=nty,heading=bibnumbered]
- #+end_latex
+    #+end_latex
 
 * COMMENT Tips
 ** Tips

@@ -1,8 +1,5 @@
 #+LATEX_HEADER: \usepackage{grffile}
 #+OPTIONS: tex:imagemagick
-#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
-
-
 
 #+LATEX_HEADER: \usepackage[inline]{enumitem} 
 #+LATEX_HEADER: \usepackage{tikz,graphicx, graphics, pgfkeys}
@@ -41,22 +38,20 @@
 # #+LATEX_HEADER:\usepackage[english]{babel}                                     
 
                                 
-
 #+LATEX_HEADER: %  use straight quotes when printing a command in minted
 
 #+LATEX_HEADER: \AtBeginDocument{%
 #+LATEX_HEADER: \def\PYZsq{\textquotesingle}%
-#+LATEX_HEADER: }        
+#+LATEX_HEADER: }     
 
 #+LATEX_HEADER: \setlength{\parindent}{0pt}
 #+LATEX_HEADER: \setlength{\parskip}{\baselineskip}
 
-#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.85,0.85,0.85}
 
 
-
-
-#+TITLE: *Trimming and quality control* (June 2016)
+#+TITLE: *Trimming and quality control* (May 2017)
 #+AUTHOR: Alexander Jueterbock, Martin Jakt
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
 #+EMAIL: Nord University, Norway
@@ -100,7 +95,7 @@ species or unknown technical issues.
 
 
 Log on (with =ssh=) to the remote computer with the =-X= option (like
-=ssh -x user@158...=) to be able to use graphical interfaces.
+=ssh -X user@158...=) to be able to use graphical interfaces.
 
 * Overview of sequence lengths
 Next Generation Sequencing data is generally stored in fastq
@@ -203,6 +198,8 @@ for by default, type
 
 #+begin_src sh
 less /usr/share/fastqc/Contaminants/contaminant_list.txt
+## or possibly:
+less /usr/local/fastqc/FastQC_v0.11.3/Configuration/contaminant_list.txt
 #+end_src
 
 However, FastQC is not aware of the sequences used by the IonTorrent
@@ -421,10 +418,10 @@ The orientation of the adapters in the illumina library are shown in Fig. [[fig:
 [[file:IlluminaAdaptersVisualized.pdf]]
 
 
-TrimGalore! also performs trimming of paired-end libraries, as the
-Illumina libraries that were prepared in this course. This allows to
-discard too short read pairs without disturbing the sequence order of
-FastQ files, which is required by many aligners.  With the option
+TrimGalore! also performs trimming of paired-end libraries, like the
+Illumina libraries that were prepared in this course. This allows us to
+discard read pairs without disturbing the sequence order of
+FastQ files which is required by many aligners.  With the option
 =--paired= TrimGalore! expects two paired fastq input files, like
 =file1_1.fq= and =file1_2.fq=.  Here, both sequences of a sequence
 pair must have a certain minimum length (specified by the =--length=
@@ -449,19 +446,16 @@ Illumina_R1.fastq \
 Illumina_R2.fastq 
 #+end_src
 
-This command runs automatically FastQC on the trimmed
-libraries. Besides the =fastqc.html= files, you will find fastq files
-with the validated sequences (=Illumina_R1_val_1.fq=,
-=Illumina_R2_val_2.fq=) and with the unpaired sequences
-(=Illumina_R1_unpaired_1.fq=,=Illumina_R2_unpaired_2.fq=).  The files
-ending with =trimming_report.txt= provide information on the number of
-reads that have been trimmed and/or removed.
+This command runs fastqc automatically on the trimmed libraries. In addition
+to the =fastqc.html= files, you will find fastq files with the validated
+sequences (=Illumina_R1_val_1.fq=, =Illumina_R2_val_2.fq=) and with the
+unpaired sequences (=Illumina_R1_unpaired_1.fq=, =Illumina_R2_unpaired_2.fq=).
+The files ending with =trimming_report.txt= provide information on the number
+of reads that have been trimmed and/or removed.
 
 You can now compare the quality of your raw libraries and your
 quality-trimmed libraries. What did improve? Are there still any
 problems with your libraries after trimming?
-
-
 
 * COMMENT Fraction of duplicate reads
 

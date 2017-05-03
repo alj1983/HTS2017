@@ -59,7 +59,7 @@
 
 
 
-#+TITLE: *Genome Assembly* (June 2016)
+#+TITLE: *Genome Assembly* (May 2017)
 #+AUTHOR: Alexander Jueterbock, Martin Jakt
 #+DATE: *PhD course: High throughput sequencing of non-model organisms*
 #+EMAIL: University of Nordland, Norway
@@ -136,7 +136,7 @@ into this folder.
 
 
 The configurations for =mira= are specified in a so-called =manifest=
-file. In this tutorial and will choose the most simple settings for a
+file. In this tutorial we will choose the most simple settings for a
 /de novo/ genome assembly.
 
 
@@ -167,35 +167,9 @@ shortcuts for certain actions. For example =^O WriteOut= or
 Depending on whether you have sequencing data from Illumina or from
 Ion Torrent, your =manifest.conf= file should have different
 content. Each case is described in the folllowing two sections.
-
-** manifest file for Ion Torrent data
-#+begin_src sh
-# Manifest file for de novo genome assembly with Ion Torrent single reads
-
-project = IonTorrentDeNovoAssembly
-job = denovo,genome,accurate
-
-readgroup = UnpairedIonTorrentReadsFromHTSCourse2015
-data = fastq::data/YOURINPUTFILE.fq
-technology = iontor
-#+end_src
-
-You can copy these lines and paste them into your file by pressing
-SHIFT+CTRL+V. Change the name =YOURINPUTFILE.fq= to the name of the
-fastq-file that contains your quality-trimmed reads. Then save the
-file and exit with CTRL+O and CTRL+X.
-
-That's all you need before you can start =mira= with:
-
-#+begin_src sh
-nohup mira manifest.conf >log_assembly.txt &
-#+end_src
-
-The analysis will take at least 1 hour to finish.
-
 ** manifest file for Illumina data
 
-The illumina runs produced paired end reads. To assemble these reads
+The Illumina runs produced paired end reads. To assemble these reads
 with MIRA, we have to specify two additional parameters as compared
 with single end reads:
 1. =segment_placement= The orientation of the forward and backward
@@ -218,7 +192,7 @@ project = IlluminaDeNovoAssembly
 job = denovo,genome,accurate
 parameters = -NW:cmrnl=warn
 
-readgroup = PairedIlluminaReadsFromHTSCourse2015
+readgroup = PairedIlluminaReadsFromHTSCourse2017
 data = fastq::data/YOURINPUTFILE_1.fq fastq::data/YOURINPUTFILE_2.fq
 technology = solexa
 template_size = 100 1000 autorefine
@@ -249,11 +223,10 @@ job = denovo,genome,accurate
 parameters = -NW:cmrnl=warn
 
 
-readgroup = PairedIlluminaReadsFromHTSCourse2015
+readgroup = PairedIlluminaReadsFromHTSCourse2017
 autopairing
 data = fastq::data/YOURINPUTFILE_1.fq fastq::data/YOURINPUTFILE_2.fq
 technology = solexa
--NW:cmrnl=warn
 #+end_src
 
 
@@ -266,6 +239,32 @@ nohup mira manifest.conf >log_assembly.txt &
 
 
 The analysis will take at least 1 hour to finish.
+
+** manifest file for Ion Torrent data
+#+begin_src sh
+# Manifest file for de novo genome assembly with Ion Torrent single reads
+
+project = IonTorrentDeNovoAssembly
+job = denovo,genome,accurate
+
+readgroup = UnpairedIonTorrentReadsFromHTSCourse2015
+data = fastq::data/YOURINPUTFILE.fq
+technology = iontor
+#+end_src
+
+You can copy these lines and paste them into your file by pressing
+SHIFT+CTRL+V. Change the name =YOURINPUTFILE.fq= to the name of the
+fastq-file that contains your quality-trimmed reads. Then save the
+file and exit with CTRL+O and CTRL+X.
+
+That's all you need before you can start =mira= with:
+
+#+begin_src sh
+nohup mira manifest.conf >log_assembly.txt &
+#+end_src
+
+The analysis will take at least 1 hour to finish.
+
 
 * Results and assembly metrics
 
@@ -410,7 +409,8 @@ console. Lines preceded with a =#=-sign will be ignored and serve only
 as non-executed comments. You should be in the directory named
 =PROJECTNAME_assembly=
 
-Again, replace here PROJECTNAME with the name of your own project.
+Again, replace here PROJECTNAME with the name of your own project and
+type the following commands line by line in the R console.
 
 #+begin_src R
 R

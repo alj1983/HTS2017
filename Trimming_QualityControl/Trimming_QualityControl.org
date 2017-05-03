@@ -148,6 +148,10 @@ The lines that follow make use of the program R. If you copy and
 paste the code into the command line, you will get an overview graphic
 of the sequence length distribution 
 
+*NOTE*: While the Ion Torrent sequences will differ in length (as in
+Figure 1), the Illumina sequences will all have the same read length
+(301 bp). 
+
 #+begin_src sh
 cat >> Rplot.r << 'EOF'
 reads<-read.csv(file="read_length.txt", sep="", header=FALSE)
@@ -155,7 +159,7 @@ reads<-read.csv(file="read_length.txt", sep="", header=FALSE)
 png(filename = "SequenceLengthDistribution.png",
          width = 480, height = 480, units = "px", pointsize = 12,
           bg = "white")
-plot(reads$V2,reads$V1,type="l",xlab="read length",ylab="occurences",col="blue")
+plot(reads$V2,reads$V1,type="o",xlab="read length",ylab="occurences",col="blue")
 dev.off()
 
 EOF
@@ -178,9 +182,7 @@ eog SequenceLengthDistribution.png
 
 Does the sequence length-distribution meet your expectations? 
 
-*NOTE*: While the Ion Torrent sequences will differ in length (as in
-Figure 1), the Illumina sequences will all have the same read length
-(301 bp). 
+
 
 
 * Quality control
@@ -202,12 +204,18 @@ less /usr/share/fastqc/Contaminants/contaminant_list.txt
 less /usr/local/fastqc/FastQC_v0.11.3/Configuration/contaminant_list.txt
 #+end_src
 
-However, FastQC is not aware of the sequences used by the IonTorrent
+So, to run FastQC on your Illumina file, type:
+
+#+begin_src sh
+fastqc FILE.fastq
+#+end_src
+
+FastQC is not aware of the sequences used by the IonTorrent
 platform. To inform FastQC of the Ion Torrent adapter sequences
 call FastQC with the =--contaminants= option to specify a file
 containing the adapter sequences we have used.
 
-So, to run FastQC on your file, type:
+So, to run FastQC on an IonTorrent file, type:
 
 #+begin_src sh
 fastqc --contaminants adapters.txt FILE.fastq
@@ -249,8 +257,8 @@ firefox fastqc_report.html
 chromium-browser fastqc_report.html
 #+end_src
 
-Scrolling through this html file on the remote computer will be quite
-slow. it may be more convenient to copy the output folder to your
+*NOTE*: Scrolling through this html file on the remote computer will be quite
+slow. Thus, you need to copy the output folder to your
 computer with [[https://filezilla-project.org/][FileZilla]] or 'rsync' (see in the 'Unix tools' session) .
 Get familiar with the output of each module.
 
@@ -309,69 +317,6 @@ http://cutadapt.readthedocs.org/en/latest/guide.html)
 #+ATTR_LaTeX: :width 14cm :float figure
 #+name: fig:adapters
 [[file:adapters.png]]
-
-** Trimming Ion-Torrent adapters
-
-The Ion-P1- and Ion-A-adapters are supposed to be automatically
-trimmed off on the Ion Server. So, the fastq files with the raw reads
-should not contain these adapters anymore. Still, it is good to check
-if there are any adapters left in your library - they can have
-negative effects on further analyses.
-
-
-
-The adapters used for Ion Torrent sequencing are shown in
-Fig. [[fig:ionadapters]] and their orientation in the libraries is shown
-in Fig. [[fig:adapterorientations]].
-
-#+name: fig:ionadapters
-#+CAPTION: Non-barcoded Ion-A and -P1 adapter sequences. In each sequence, a "*" indicates a phosphorothioate bond, for protection from nucleases and to preserve the directionality of adapter ligation. This is not relevant for adapter trimming.
-#+ATTR_LaTeX: :width 14cm :float figure
-[[file:IonAdapters.png]]
-
-#+name: fig:adapterorientations
-#+CAPTION: Ion adapters in the amplified library. BC is an optional barcode sequence.
-#+ATTR_LaTeX: :width 14cm :float figure
-[[file:IonLibraryWithAdapters.png]].
-
-To trim off the A-adapter, use TrimGalore! with the command:
-
-#+begin_src sh
-trim_galore \
--a CCATCTCATCCCTGCGTGTCTCCGACTCAG \
---stringency 3 \
-FILE.fastq
-#+end_src
-
-
-The =\= sign just means that the command continues on the next
-line. You could type the entire command on a single line.
-
-
-The option =--stringency 3= means that a >3bp overlap with the adapter
-sequence will be trimmed off the 3' end. The program writes a file
-that ends with =trimming_report.txt=, which reports the number of
-reads that have been trimmed and/or removed.
-
-# XX I can't find information on what the 'expected' is based on in this report fiel 
-The output file has the ending =trimmed.fq=. Use this file as
-input to TrimGalore! to trim off the P1-adapter:
-
-#+begin_src sh
-trim_galore \
--a CCACTACGCCTCCGCTTTCCTCTCTATGGGCAGTCGGTGAT \
---stringency 3 \
---fastqc FILE_trimmed.fq
-#+end_src
-
-The =--fastqc= option will automatically run FastQC in the default
-mode. Compare the FastQC outputs before and after trimming.
-
-
-#+begin_latex
-\clearpage
-#+end_latex
-
 ** Trimming Illumina adapters
 Depending on the settings for Illumina sequencing, the adapters can be
 automatically removed from the fastq files that you get from the
@@ -446,16 +391,87 @@ Illumina_R1.fastq \
 Illumina_R2.fastq 
 #+end_src
 
+*NOTE*: You need to replace =Illumina_R1.fastq= and
+=Illumina_R2.fastq= with your own filenames.
+
 This command runs fastqc automatically on the trimmed libraries. In addition
 to the =fastqc.html= files, you will find fastq files with the validated
 sequences (=Illumina_R1_val_1.fq=, =Illumina_R2_val_2.fq=) and with the
-unpaired sequences (=Illumina_R1_unpaired_1.fq=, =Illumina_R2_unpaired_2.fq=).
+unpaired sequences (=Illumina_R1_unpaired_1.fq=,
+ =Illumina_R2_unpaired_2.fq=).
 The files ending with =trimming_report.txt= provide information on the number
 of reads that have been trimmed and/or removed.
 
 You can now compare the quality of your raw libraries and your
 quality-trimmed libraries. What did improve? Are there still any
 problems with your libraries after trimming?
+
+** Trimming Ion-Torrent adapters
+
+The Ion-P1- and Ion-A-adapters are supposed to be automatically
+trimmed off on the Ion Server. So, the fastq files with the raw reads
+should not contain these adapters anymore. Still, it is good to check
+if there are any adapters left in your library - they can have
+negative effects on further analyses.
+
+
+
+The adapters used for Ion Torrent sequencing are shown in
+Fig. [[fig:ionadapters]] and their orientation in the libraries is shown
+in Fig. [[fig:adapterorientations]].
+
+#+name: fig:ionadapters
+#+CAPTION: Non-barcoded Ion-A and -P1 adapter sequences. In each sequence, a "*" indicates a phosphorothioate bond, for protection from nucleases and to preserve the directionality of adapter ligation. This is not relevant for adapter trimming.
+#+ATTR_LaTeX: :width 14cm :float figure
+[[file:IonAdapters.png]]
+
+#+name: fig:adapterorientations
+#+CAPTION: Ion adapters in the amplified library. BC is an optional barcode sequence.
+#+ATTR_LaTeX: :width 14cm :float figure
+[[file:IonLibraryWithAdapters.png]].
+
+#+begin_latex
+\clearpage
+#+end_latex
+
+To trim off the A-adapter, use TrimGalore! with the command:
+
+#+begin_src sh
+trim_galore \
+-a CCATCTCATCCCTGCGTGTCTCCGACTCAG \
+--stringency 3 \
+FILE.fastq
+#+end_src
+
+
+The =\= sign just means that the command continues on the next
+line. You could type the entire command on a single line.
+
+
+The option =--stringency 3= means that a >3bp overlap with the adapter
+sequence will be trimmed off the 3' end. The program writes a file
+that ends with =trimming_report.txt=, which reports the number of
+reads that have been trimmed and/or removed.
+
+# XX I can't find information on what the 'expected' is based on in this report fiel 
+The output file has the ending =trimmed.fq=. Use this file as
+input to TrimGalore! to trim off the P1-adapter:
+
+#+begin_src sh
+trim_galore \
+-a CCACTACGCCTCCGCTTTCCTCTCTATGGGCAGTCGGTGAT \
+--stringency 3 \
+--fastqc FILE_trimmed.fq
+#+end_src
+
+The =--fastqc= option will automatically run FastQC in the default
+mode. Compare the FastQC outputs before and after trimming.
+
+
+#+begin_latex
+\clearpage
+#+end_latex
+
 
 * COMMENT Fraction of duplicate reads
 

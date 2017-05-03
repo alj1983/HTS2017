@@ -1,3 +1,4 @@
+
 #+LATEX_HEADER: \usepackage{grffile}
 
 #+LATEX_HEADER: \definecolor{mintedbackground}{rgb}{0.95,0.95,0.95}
@@ -84,29 +85,27 @@
              "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))	      
 #+end_src
 
-Once you have assembled a draft genome, you can map our reads against it
+Once you have assembled a draft genome, you can map your reads against it
 and identify potential read variants, like SNPs (Single Nucleotide
-Polymorphisms) or InDels (Insertions and Deletions). The library that
-you sequenced in this course represents most likely a single diploid
+Polymorphisms) and InDels (Insertions and Deletions). The library that
+you sequenced in this course is likely to represent a single diploid
 individual. Read variants, thus, occur at loci that differed between
 the mother and the father of this individual. Read variants become
 interesting when they are associated with certain environmental
-factors or phenotypes. This, however, requires to sequence several
-individuals of one or the other phenotype or from one or the other
-environment.
-
-
+factors or phenotypes. This, however, requires sequencing several
+individuals of differing phenotypes or obtained from several  
+environments.
 
 * Mapping with Bowtie2
 To map reads against the assembled draft genome, we will use [[http://bowtie-bio.sourceforge.net/bowtie2/index.shtml][Bowtie2]].
-Bowtie2 performs by default global alignment (no soft-clipping of
+Bowtie2 defaults to finding global alignments (no soft-clipping of
 terminal bases) and it allows for gaps in the alignment, thereby
 increasing mapping accurracy ([[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlotterer /et al/. (2014) /Nature
 Reviews Genetics/]]). Although the aligner [[https://www.google.no/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&ved=0CD4QFjAE&url=https%3A%2F%2Fgithub.com%2Fiontorrent%2FTMAP&ei=1u07VZCXFYGqywPBz4DoDg&usg=AFQjCNE3vZXuQ1ygljhBcrozKj_nBU84TQ&sig2=u5_YVYBE904ay-9oLUuMOQ&bvm=bv.91665533,d.bGQ][TMAP]] was specifically
-compiled for Ion Torrent data, we want use in this tutorial an aligner
-that can also be used with Illumina or SoliD data - as you might work
-later on with sequencing data that were obtained from these
-platforms. An alternative aligner that is currently widely used is
+compiled for Ion Torrent data, in this tutorial we want use an aligner
+that can also be used with Illumina or SoliD data - as you are likely
+to work with sequencing data that were obtained from these
+platforms in the future. An alternative aligner that is currently widely used is
 [[http://bio-bwa.sourceforge.net/][BWA]].
 
 What you need for mapping are two fasta files, one containing the
@@ -128,7 +127,7 @@ cd Mapping
 #+end_src
 
 
-In the Mapping folder, we need to index the reference genome with the
+In the Mapping folder, we first create an index for the reference genome using the
 following command:
 
 #+begin_src sh  
@@ -156,13 +155,12 @@ nohup bowtie2 -p 1 \
 Here an overview of the meaning of the used options:
 
 
-- =-p 1= :: Causes Bowtie 2 to launch 1 search thread on 1
-     processor. Due to the amount of people and, thus, parallel runs
-     we should set this higher in the course.
+- =-p 1= :: Causes Bowtie 2 to use a single thread.
+	    Depending on the number of users and libraries we will  probably increase this.
 - =-q= :: Informs the program that the reads to map are saved in fastq files.
 - =--phred33= :: Sets the quality encoding of the fastq files to  "Phred+33".
 - =--sensitive= :: sets several options at once regarding the seeding and other adjustments.
-- =--no-unal= :: Suppress SAM records for reads that failed to align.
+- =--no-unal= :: Suppress SAM records for reads that do not align.
 - =--al-gz= :: Write unpaired reads that align at least once to to the specified file.
 - =--un-gz= :: Write unpaired reads that failed to align to the specified file.
 - =--met-file= :: Write bowtie2 metrics to Metricsfile.txt.
@@ -173,8 +171,8 @@ Here an overview of the meaning of the used options:
 You can't set the exact number of mismatches in the seed, but you can
 adjust the mismatch penalty.  
 
-The program should run no longer than 10-20 mins. The outfile will be
-in SAM format. For a detailed description of this format, see [[https://samtools.github.io/hts-specs/SAMv1.pdf][here]].
+The program should run no longer than 10-20 mins. The resulting output file will be
+in the SAM format. For a detailed description of this format, see [[https://samtools.github.io/hts-specs/SAMv1.pdf][here]].
 
 * Filter mappings
 To remove unmapped reads, reads below a mapping quality of 20, and
@@ -187,7 +185,7 @@ Bowtie2Filtering.py -mq -u -a -s MAPPEDREADS.sam
 
 Your filtered reads will be saved in =MAPPEDREADSfiltered.sam=
 
-Alternatively to the python script =Bowtie2Filtering.py=, you can also
+Alternatively, you can 
 use [[http://samtools.sourceforge.net/samtools.shtml#mpileup][samtools]] to filter out reads with a mapping quality <20:
 
 #+begin_src sh
@@ -201,10 +199,10 @@ Options:
 - =-q= :: Skip alignments with a mapping quality below 20
 
 ** Removing duplicate reads
-After quality-trimming, we counted the fraction of duplicate
-reads. Duplicate reads have the same start and end
+Duplicate reads have the same start and end
 coordinates and map to the same region. Duplicates result from primer
-or PCR bias towards these reads. As they can skew genotype estimates,
+or PCR bias towards these reads and poor libraries can have levels of
+duplicates >50%. As they can skew genotype estimates,
 they should be removed before SNP calling.
 
 To remove duplicates, we will use 'MarkDuplicates' from the [[https://broadinstitute.github.io/picard/command-line-overview.html][Picard
@@ -263,7 +261,7 @@ http://sfg.stanforde.edu/SFG.pdf.
 The command line tool samtools tview allows you to view your
 alignments directly in the command line window. What you need is the
 reference genome (fasta file) and the sorted and deduplicated
-alignment file (bam file). First, you need to inded the bam file
+alignment file (bam file). First, you need to index the bam file
 before using =samtools tview=:
 
 
@@ -293,7 +291,7 @@ by hitting =q=.
 ** IGV: viewer with a graphical user interface
 I bet that many of you prefer to look at the alignment in a graphical
 user interface. A decent free alignment viewer is [[https://www.broadinstitute.org/igv/][igv]], the Integrative
-Genomics Viewer (see Fig. [[fig:igv]] for a screenshot). Once you
+Genomics Viewer (see Fig. [[fig:igv]] for a screenshot). Once you have
 registered, you can launch the program with Java Web Start. We can't
 promise that this works well in the course, since everything that
 relies on a graphical user interface can be quite slow when using a
@@ -316,7 +314,7 @@ the mapped, sorted and indexed bam file.
 * BONUS: SNP calling with samtools mpileup and bcftools
 A widely used tool to identify sequence variants is =samtools
 mpileup=. See [[http://samtools.sourceforge.net/samtools.shtml][here]] for an overview of its options. The tool =samtools
-mpileup= creates by default a pileup file, which summarizes aligned
+mpileup= defaults to creating a pileup file, which summarizes aligned
 base calls in text format (see here for a detailed characterization of
 a pileup file http://samtools.sourceforge.net/pileup.shtml). If you
 call =samtools mpileup= with the =-u= or =-g= option, instead, the

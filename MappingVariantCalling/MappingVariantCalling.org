@@ -1,4 +1,3 @@
-
 #+LATEX_HEADER: \usepackage{grffile}
 #+LATEX_HEADER: \usepackage{xcolor}
 #+LATEX_HEADER: \hypersetup{
@@ -126,15 +125,14 @@ quality-trimmed reads (fastq format) and the other containing the draft genome
 (in the fasta format).
 
 Create a new folder named =Mapping= (with =mkdir=) and copy the two
-
 sequence files into it (with =cp=). For example for the assembly made using
-Ion Torrent data (see further below for Illumina paired-end data):
+IonTorrent data:
+
 
 #+begin_src sh
 mkdir Mapping
 
-
-cp GenomeAssembly/IonTorrenteNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/ \
+cp GenomeAssembly/IonTorrentDeNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/ \
 IonTorrentDeNovoAssembly_out.unpadded.fasta \
 Mapping/
 
@@ -143,7 +141,6 @@ Mapping/
 
 cd Mapping
 #+end_src
-
 
 
 Here the =RAWREADS_trimmed_trimmed.fq= refers to the IonTorrent reads after
@@ -161,7 +158,6 @@ the general heading of version control systems, and is outside the scope of
 this course. In general though, it is wise to follow rule number one of
 database design: 'never store a piece of information in more than one
 location'. That is don't copy stuff around like we are doing here.].
-
 
 In the Mapping folder, we first create an index for the reference genome using the
 following command (enter the folder using =cd= before calling this command) :
@@ -529,8 +525,6 @@ VALIDATION_STRINGENCY=SILENT \
 REMOVE_DUPLICATES=true
 #+end_src
 
-
-Duplication metrics will be written to the =MAPPED_metricsfile=.
 If you wish to enter this into a script, then you will want to change the first
 line to:
 
@@ -542,6 +536,7 @@ Duplication metrics will be written to the =MAPPED_metricsfile=. We again
 very strongly recommend that you put these commands into a shell file and run
 that rather than to run directly from the command line (though in this case
 you will not be able to use the alias definition).
+
 
 ** Re-alignment around indels
 Reads that are spanning InDels are often misaligned and can result in

@@ -126,12 +126,13 @@ quality-trimmed reads (fastq format) and the other containing the draft genome
 (in the fasta format).
 
 Create a new folder named =Mapping= (with =mkdir=) and copy the two
+
 sequence files into it (with =cp=). For example for the assembly made using
 Ion Torrent data (see further below for Illumina paired-end data):
 
-
 #+begin_src sh
 mkdir Mapping
+
 
 cp GenomeAssembly/IonTorrenteNovoAssembly_assembly/IonTorrentDeNovoAssembly_d_results/ \
 IonTorrentDeNovoAssembly_out.unpadded.fasta \
@@ -144,21 +145,23 @@ cd Mapping
 #+end_src
 
 
-Here the =RAWREADS_trimmed_trimmed.fq= refer to the IonTorrent reads after
+
+Here the =RAWREADS_trimmed_trimmed.fq= refers to the IonTorrent reads after
 quality trimming using TrimGalore. Here we are simply making copies of the
-various files in different locations for performing different analyses. This is simple to describe and
-understand, but is not a particularly good way to organise your files, both
-because it wastes disk space[fn:: In some modern file systems that make use of Copy-On-Write, there
-won't actually be any copying of the data unless one of the files is modified.
-] and (more seriously) it makes it
-easy to end up with files with the same names, but with slightly different
-content[fn:: How to handle lots of files created by various versions of data
-flows or pipelines is not a simple problem and there are many systems that
-have been developed to address such problems. This comes under the general
-heading of version control systems, and is outside the scope of this
-course. In general though, it is wise to follow rule number one of database design:
-'never store a piece of information in more than one location'. I.e. don't
-copy stuff around like we are doing here.].
+various files in different locations for performing different analyses. This
+is simple to describe and understand, but is not a particularly good way to
+organise your files, both because it wastes disk space[fn:: In some modern
+file systems that make use of Copy-On-Write (COW), there won't actually be any
+copying of the data unless one of the files is modified.  ] and (more
+seriously) it makes it easy to end up with files with the same names, but with
+slightly different content[fn:: How to handle lots of files created by various
+versions of data flows or pipelines is not a simple problem and there are many
+systems that have been developed to address such problems. This comes under
+the general heading of version control systems, and is outside the scope of
+this course. In general though, it is wise to follow rule number one of
+database design: 'never store a piece of information in more than one
+location'. That is don't copy stuff around like we are doing here.].
+
 
 In the Mapping folder, we first create an index for the reference genome using the
 following command (enter the folder using =cd= before calling this command) :
@@ -277,13 +280,13 @@ pipe the data to other applications in a single command.
 
 So reading the usage line (also known as the synopsis) we can design our
 command line. If our paired reads are in files
-=RAWREADS_val_1.fq= and 
-=RAWREADS_val_2.fq=, and the index for our assembly genome is in 
+=RAWREADS_fw_trimmed_trimmed.fq= and 
+=RAWREADS_rv_trimmed_trimmed.fq=, and the index for our assembly genome is in 
 =GENOMENAME.X.bt2=, the command without any of the optional options would be:
 
 #+begin_src sh
-bowtie2 -x GENOMENAME -1 RAWREADS_val_1.fq \
--2 RAWREADS_val_2.fq -S MAPPED.sam
+bowtie2 -x GENOMENAME -1 RAWREADS_fw_trimmed_trimmed.fq \
+-2 RAWREADS_rv_trimmed_trimmed.fq -S MAPPED.sam
 #+end_src
 
 Here we haven't specifed any of the options we used for the IonTorrent data
@@ -344,9 +347,9 @@ FILE="$GENOMENAME"_bt2
 
 ## note that when you use the variables you have to put a $
 ## sign in front of them
-## and if you want to concatenate to words you need to
-## to quote the variables so that the shell knows where
-## the variable ends
+## and if you want to concatenate a variable to a string
+## it is good to to quote the variables so that the shell 
+## knows where the variable identifier ends
 
 ## first build the index:
 bowtie2-build -f IonTorrentDeNovoAssembly_out.unpadded.fasta $GENOMENAME
@@ -460,13 +463,13 @@ Meaning of the options:
 # samtools flagstat MAPPEDREADS_sorted.bam
 # #+end_src
 
-Then, you can use the 'MarkDuplicates' tool from Picard
-to remove the duplicates from the sorted bam file. Here we invoke
-the Picard tools using the command =picard-tools=. However, 
-there isn't actually any such program. The Picard tools are implemented
-as a Java archive, and to be run should invoke the java virtual machine 
-(or run time environment). If you look at the documentation on the 
-Picard tool [[http://broadinstitute.github.io/picard/][web site]] it will tell you to invoke the Picard tools using:
+Then, you can use the 'MarkDuplicates' tool from Picard to remove the
+duplicates from the sorted bam file. It may or may not be possible to invoke the
+Picard tools using the command =picard-tools=. This depends on how Picard has been
+installed. The Picard tools are implemented as a Java archive, and to
+run them you need to invoke the java virtual machine (or run time environment). If
+you look at the documentation on the Picard tool [[http://broadinstitute.github.io/picard/][web site]] it will tell you to
+invoke the Picard tools using:
 
 #+begin_src sh
 java jvm-args -jar picard.jar PicardToolName OPTION1=value1 OPTION2=value2...
@@ -493,6 +496,27 @@ local setup. Doing it this way also doesn't let you specify any options to the
 java virtual machine (the =jvm-args= above) and if for whatever reason you need
 to do this you will have to use the full command as shown above.
 
+Unfortunately, the alias set up by the =alias= tool doesn't actually work if
+you use it from a shell script. That means that if you write a script to
+immemorialise your commands, then you will still have to write the full, =java
+-jar /usr/local/picard-tools/picard.jar=.
+
+I have used the =alias= program to make it easier to run the Picard tools;
+this is easy, but as mentioned above it doesn't work within shell scripts. A
+better way to achieve the same end is to write a shell script called
+=picard-tools= that inspects the arguments it is given and then formats a call
+to run Picard appropriately. Such scripts are commonly referred to as /wrapper
+scripts/ as they wrap up some underlying functionality into an easy to use
+package (another example of this is bowtie2 which is in fact a perl-script
+rather than the actual bowtie program). It turns out that if you install
+Picard using the package provided by the Ubuntu Linux repository it will
+include such a shell script allowing =picard-tools= to be called directly from
+the command line, whereas if you download the tools from the Picard tools
+[[https://broadinstitute.github.io/picard/][website]] you will only get the java archive[fn:: This may be related to which
+version, and may well change in the future.]. Unfortunately you may find
+introductions and tutorials to Picard where it is assumed it has been
+installed with the wrapper script which may or may not exist on your system.
+
 To remove duplicates using the Picard MarkDuplicates tool we can then simply:
 
 #+begin_src sh
@@ -505,10 +529,19 @@ VALIDATION_STRINGENCY=SILENT \
 REMOVE_DUPLICATES=true
 #+end_src
 
+
+Duplication metrics will be written to the =MAPPED_metricsfile=.
+If you wish to enter this into a script, then you will want to change the first
+line to:
+
+#+begin_src sh
+java -jar /usr/local/picard-tools/picard.jar MarkDuplicates \
+#+end_src sh
+
 Duplication metrics will be written to the =MAPPED_metricsfile=. We again
 very strongly recommend that you put these commands into a shell file and run
-that rather than to run directly from the command line.
-
+that rather than to run directly from the command line (though in this case
+you will not be able to use the alias definition).
 
 ** Re-alignment around indels
 Reads that are spanning InDels are often misaligned and can result in
@@ -535,12 +568,13 @@ IonTorrentDeNovoAssembly_out.unpadded.fasta
 #+end_src
 
 
-Fig. [[fig:tview]] shows a screenshot of tview.  When you hit the =?= on
+Fig. [[fig:tview]] shows a screenshot of tview.  When you hit =?= on
 your keyboard, you will see the range of options to navigate through
 the alignment. You can change the contig that you are looking at by
 hitting =g= and then enter in the Goto-window the name of the contig,
 like =IonTorrentDeNovoAssembly_c3=.  You can exit the alignment viewer
-by hitting =q=.
+by hitting =q=. To find the names of the contigs have a look at the
+contig statistics provided by the assembly.
 
 #+name: fig:tview
 #+CAPTION: Screenshot of tview

@@ -1466,7 +1466,7 @@ where 'f' simply indicates the file names without their suffixes. For more infor
 about the different programs use =man=!
 
 The files you wish to download may also be present in =ftp= repositories; if you
-know the URL, you can still use =wget=, but you can also the =ftp= and =lftp=
+know the URL, you can still use =wget=, but you can also use the =ftp= and =lftp=
 programs.
 
 ** configure, make, make install
@@ -1598,7 +1598,7 @@ the providers of the software should provide sufficient instructions (look for
 a file called, README, INSTALL, or something similar), but it does happen that
 they don't give you much to work with. In that case you'll need to experiment
 a little. The important thing here is to try to understand the resulting error
-message. Google is pretty much your best friend for this if you don't have
+messages. Google is pretty much your best friend for this if you don't have
 any friendly system admins / bioinformatics people around.
 
 As mentioned previously you may need to set up specific environent variables.
@@ -1673,9 +1673,10 @@ locations of specific patterns within the data) and then print out a summary
 of the data, either to the terminal (which can be redirected with =>= or piped to
 other processes with =|=) or to output files.
 
-One of the most simple scripts that can be written is the "hello_world" script. This does
-nothing except print some text to the terminal but demonstrates the necessary
-components of a script and provides a simple way to test the script.
+One of the most simple scripts that can be written is the "hello_world"
+script. This does nothing except print some text to the terminal but
+demonstrates the necessary components of a script and provides a simple way to
+make sure that your environment is set up correctly.
 
 #+begin_src perl
 #!/usr/bin/perl -w
@@ -1725,8 +1726,8 @@ usually (with a very small number of exceptions) interpreted as comments and
 are ignored by the interpreter. In the examples in the following sections I
 have included explanations of the code as comments. It is usually a good idea
 to include comments to explain what the code is supposed to do so that you
-have some idea of understanding it in the future. Even if you consider your
-code to be so beautifully written that it is self-explanatory what it does,
+have some way to understand it in the future. Even if you consider your
+code to be so beautifully written that it is self-explanatory as to what it does,
 you should still include comments as these tell you, not what the code does,
 but what it's supposed to do (these can be rather different things).
 
@@ -2045,7 +2046,7 @@ for( $i=0; $i < @ar; $i++){
 $mean = $sum / @ar;
 ## when an array variable is used in an expression it can can evaluate to either the array itself
 ## or to a scalar value equal to its length. When it's not clear as to whether the scalar or array
-## value is indicated, the scalar value can be enforced by the scalar function.
+## value is indicated, the scalar value can be enforced by the scalar function (eg. scalar( @ar )).
 
 ## We can also use a range specified loop and make use of the fact that in Perl
 ## $#ar will evaluate to the higest index of an array (i.e. the length minus one)
@@ -2132,6 +2133,37 @@ for $i(1..10){
 close OUT;
 #+end_src
 
+*** A small admission
+The above section describes the old way of opening and reading files
+in Perl. Although quick and simple it is not really suitable for more
+complicated scripts[fn:: Primarily due to the fact that the file handles
+become global variables, but also because it places some restrictions on
+the file names that you can use.], and it is better to use the three-argument
+form of the =open= function:
+
+#+begin_src perl
+## to open the file given by the variable $fname
+## and assign to a filehandle pointed to by the variable
+## $fh
+
+## for reading:
+open($fh, "<", $fname) || die "unable to open $fname for reading $!\n";
+
+## for writing:
+open($fh, ">", $fname) || die "unable to open $fname for writing $!\n";
+
+## note that in a subroutine (i.e. a user defined function), you should
+## make sure to use:
+
+open( my $fh, "<", $fname) || die "unable to open $fname for reading $!\n";
+#+end_src
+
+I generally use the two-argument form; but that is because I'm lazy and because
+I don't generally use Perl for more complicated tasks. However, if for example,
+you define a function (subroutine in perl) which needs to open a file, then you really
+should use the three-argument form, and make sure to make the filehandle a local
+variable (using =my= in its declaration).
+
 ** Regular Expressions
 
 You have already come across regular expressions in this course; they
@@ -2146,8 +2178,17 @@ of tutorials on how to use regular expressions in Perl available on the
 net and we will only provide a very short introduction here.
 
 In Perl, regular expression matching makes use of the ==~= operator,
-where the left operand contains the text to searched for matches to the
-pattern given by the right operand. Some examples:
+where the left operand contains the text which will be searched for matches to the
+pattern given by the right operand. The operator returns either =TRUE= or =FALSE= and is
+usually used in a conditional statement:
+
+#+begin_src perl
+if( 'string' =~ /pattern/ ){ 
+    ## do stuff 
+}
+#+end_src
+
+Some examples:
 
 #+begin_src perl
 ## The left operand is usually a variable, but for clarity we'll use
@@ -2174,8 +2215,8 @@ pattern given by the right operand. Some examples:
 ## we could also specify a character class at each position, but this would be ugly:
 "HoxA3" =~ /[hH][oO][xX][A-z][0-9]+/;
 
-## which reads as: h OR H followed by o OR O followed by x OR X followed by a single character between A and z
-## followed by at least one number. But that is pretty ugly.
+## which reads as: h OR H followed by o OR O followed by x OR X followed by a single character between 
+## A and z followed by at least one number.
 
 ## if you wish to use a different delimiter, like the # character you can write it like:
 "HoxA3" =~ m#hox[a-z][0-9]+#i
@@ -2336,8 +2377,8 @@ run, using the ./scriptname invocation.
 #+begin_src perl
 #!/usr/bin/perl -w
 
-## the first line is not really a comment, but is used to make the shell invoke the perl interpreter on the
-## script.
+## the first line is not really a comment, but is used to make the shell invoke the perl 
+## interpreter on the script.
 
 ## first check the command line arguments to make sure that the user has specified three arguments.
 ## the first argument should give the name of the fasta file containing the sequences to be searched,
@@ -2361,16 +2402,17 @@ while(<IN>){
     $seqId = $1;
     next;  ## go to the next iteration of the loop
   }
-  ## if we have defined a sequence identifer, we will just assume that the rest of the text contains sequence
+  ## if we have defined a sequence identifer, we will just 
+  ## assume that the rest of the text contains sequence
   if(length($seqId)){
     $seq{$seqId} .= $_;   ## extends the length of, or initialises a hash entry
   }
 }
 
-## We should now have read all of the sequences into an associative array where the keys are the sequence
-## identifiers. We now go through the sequences and check for the pattern.
-## The identifiers of sequences which match are printed out to STDOUT.
-## We could also print the matching sequences if we wished.
+## We should now have read all of the sequences into an associative array where 
+## the keys are the sequence identifiers. We now go through the sequences and 
+## check for the pattern. The identifiers of sequences which match are printed 
+## out to STDOUT. We could also print the matching sequences if we wished.
 
 for $seqId(keys %seq){
   if( $seq{$seqId} =~ /^.{0,$ARGV[2]}$ARGV[1]/ ){

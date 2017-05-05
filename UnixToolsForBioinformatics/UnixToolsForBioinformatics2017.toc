@@ -39,15 +39,16 @@
 \contentsline {subsection}{\numberline {6.4}Data types}{35}{subsection.6.4}
 \contentsline {subsection}{\numberline {6.5}Program flow: loops and conditionals}{36}{subsection.6.5}
 \contentsline {subsection}{\numberline {6.6}Reading and writing data}{39}{subsection.6.6}
-\contentsline {subsection}{\numberline {6.7}Regular Expressions}{40}{subsection.6.7}
-\contentsline {subsection}{\numberline {6.8}Various operators}{42}{subsection.6.8}
-\contentsline {subsection}{\numberline {6.9}A somewhat useful example}{43}{subsection.6.9}
-\contentsline {section}{\numberline {7}Recommended books}{45}{section.7}
-\contentsline {section}{\numberline {8}Unix cheat sheet}{45}{section.8}
-\contentsline {subsection}{\numberline {8.1}FILE system}{45}{subsection.8.1}
-\contentsline {subsection}{\numberline {8.2}Opening FILEs and extracting information}{46}{subsection.8.2}
-\contentsline {subsection}{\numberline {8.3}Data transfer}{46}{subsection.8.3}
-\contentsline {subsection}{\numberline {8.4}Executing scripts and programs}{46}{subsection.8.4}
-\contentsline {subsection}{\numberline {8.5}Networking}{47}{subsection.8.5}
-\contentsline {subsection}{\numberline {8.6}Help}{47}{subsection.8.6}
-\contentsline {subsection}{\numberline {8.7}Tricks}{47}{subsection.8.7}
+\contentsline {subsubsection}{\numberline {6.6.1}A small admission}{40}{subsubsection.6.6.1}
+\contentsline {subsection}{\numberline {6.7}Regular Expressions}{41}{subsection.6.7}
+\contentsline {subsection}{\numberline {6.8}Various operators}{43}{subsection.6.8}
+\contentsline {subsection}{\numberline {6.9}A somewhat useful example}{44}{subsection.6.9}
+\contentsline {section}{\numberline {7}Recommended books}{46}{section.7}
+\contentsline {section}{\numberline {8}Unix cheat sheet}{46}{section.8}
+\contentsline {subsection}{\numberline {8.1}FILE system}{46}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Opening FILEs and extracting information}{47}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}Data transfer}{47}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Executing scripts and programs}{47}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}Networking}{48}{subsection.8.5}
+\contentsline {subsection}{\numberline {8.6}Help}{48}{subsection.8.6}
+\contentsline {subsection}{\numberline {8.7}Tricks}{48}{subsection.8.7}

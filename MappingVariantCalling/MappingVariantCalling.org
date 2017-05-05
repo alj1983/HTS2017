@@ -100,7 +100,7 @@ number of different applications have been developed.
 To map reads against the assembled draft genome, we will use [[http://bowtie-bio.sourceforge.net/bowtie2/index.shtml][Bowtie2]].
 Bowtie2 defaults to finding global alignments (no soft-clipping of
 terminal bases) and it allows for gaps in the alignment, thereby
-increasing mapping accurracy ([[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlotterer /et al/. (2014) /Nature
+increasing mapping performance ([[http://www.nature.com/nrg/journal/v15/n11/full/nrg3803.html][Schlotterer /et al/. (2014) /Nature
 Reviews Genetics/]]). 
 
 A number of aligners have been written to either compensate or make use of

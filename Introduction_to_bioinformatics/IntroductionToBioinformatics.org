@@ -201,23 +201,11 @@
 \begin{figure}[htb]
 
 \begin{tikzpicture}
- \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
-
-\draw<1-> [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
+	 \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
+	 
+\draw <1-> [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
 \node <1-> [anchor=west,color=red,scale=0.9] at (2.3cm,1.8cm) {\textbf{Next Generation}};
-%\node <1-> [anchor=west,color=red,scale=0.9] at (2.4cm,3.8cm) {\textbf{3\textsuperscript{rd} Generation}};
-
-
 \node <1-> [anchor=west,color=red,scale=0.9] at (0.2cm,-1.6cm) {\textbf{First Generation}};
-
-%\node <3-> [anchor=west,color=red,scale=0.7] at (-2.1cm,-1.8cm) {Sequencing by synthesis (polymerase)};
-%\node <3-> [anchor=west,color=red,scale=0.7] at (-5.8cm,2.6cm) {Sequencing by ligation};
-%\draw <3-> [color=red,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
-
-
-% \draw<4> [color=red] (-0.2cm,-0.9cm) circle (.5);
-% \draw<4> [color=red] (1.4cm,-0.4cm) circle (.5);
-% \node <4> [anchor=west,color=red,scale=0.7] at (0.4cm,-1.2cm) {454 Roche Pyrosequencing};
 \end{tikzpicture}
 
 \end{figure}
@@ -227,40 +215,6 @@
 \end{center}
 #+end_latex
 
-
-# Expected read lengths and sequencing qualities for common sequencing platforms
-
-#  #+begin_latex
-#  \begin{small}
-#  #+end_latex
-
-#  #+ATTR_LATEX: :align l r r l
-#  | *Platform*           | *Max. length* | *Reads/run*     | *Consideration* |   |
-#  |----------------------+---------------+-----------------+-----------------+---|
-#  | Illumina             |         2x150 | 5 billion       |                 |   |
-#  | HiSeq series         |               |                 |                 |   |
-#  |----------------------+---------------+-----------------+-----------------+---|
-#  | Illumina             |         2x300 | 25 million      |                 |   |
-#  | MiSeq series         |               |                 |                 |   |
-#  |----------------------+---------------+-----------------+-----------------+---|
-#  | Illumina             |               |                 |                 |   |
-#  | NextSeq series       |         2x150 | 400 million     |                 |   |
-#  |----------------------+---------------+-----------------+-----------------+---|
-#  | Roche 454            |           700 | 0.7 million     | High error rate |   |
-#  | GS FLX+/FLX          |               |                 |                 |   |
-#  |----------------------+---------------+-----------------+-----------------+---|
-#  | Ion  PGM    318 chip |       200-400 | 4-5.5   million |                 |   |
-#  |----------------------+---------------+-----------------+-----------------+---|
-#  | PacBio RSII          |        14,000 | 0.47 million    | High error rate |   |
-#  |----------------------+---------------+-----------------+-----------------+---|
-#  | SoliD                |         2x100 | 266 million     | Low error rate  |   |
-#  | 5500xl W             |               |                 | Color-space     |   |
-#  |                      |               |                 |                 |   |
-
-#  #+begin_latex
-#  \end{small}
-#  #+end_latex
-
 *** NGS platforms differ in throughput and read length
 #+begin_latex
 \begin{center}
@@ -268,19 +222,15 @@
 \begin{figure}[htb]
 
 \begin{tikzpicture}
- \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
+\node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
 
 \node<1->  [anchor=west,color=orange,scale=0.8] at (-3cm,2cm) {\textbf{SOLiD}};
-%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,3.1cm) {99.99 percent accurracy};
-%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,2.7cm) {color code};
-%\draw<1->  [color=orange,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
 \draw<1-> [color=orange] (-2.4cm,1.2cm) circle (.5);
 
 
 \draw<1-> [color=blue!50!white] (-0.2cm,-0.9cm) circle (.5);
 \draw<1-> [color=blue!50!white] (1.4cm,-0.4cm) circle (.5);
 \node <1-> [anchor=west,color=blue!50!white,scale=0.8, text width=8cm] at (0.7cm,-1.2cm) {\textbf{454 Roche Pyrosequencing}};
-%\node <1-> [anchor=west,color=blue!50!white,scale=0.7] at (1cm,-1.7cm) {discontinued in 2016};
 
 
 \draw<1-> [color=blue] (-1.2cm,0cm) circle (.5);
@@ -288,8 +238,6 @@
 \draw<1-> [color=blue] (1.25cm,1.2cm) circle (.4);
 
 \node <1-> [anchor=west,color=blue,scale=0.8] at (-3cm,-1.1cm) {\textbf{Ion Torrent}};
-% \node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {detects \textb{H\textsuperscript{+}} release};
-%\node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {2-7 hours run time};
 
 \draw<1-> [color=red] (-0.2cm,3cm) ellipse (2cm and 1cm);
 \draw<1-> [color=red] (-1cm,1cm) circle (.5);
@@ -1533,10 +1481,22 @@ Phased alleles are on the same chromosome strand
 * Plan
 ** Bioinformatics-Practical
 *** Bioinformatics-Practical
+<<<<<<< HEAD
 - Unix Tools
 - Trimming and Quality Control
 - Genome Assembly
 - Mapping and Variant Calling
+||||||| merged common ancestors
+- Unix Tools (Martin)
+- Trimming and Quality Control (Martin)
+- Genome Assembly (Alexander)
+- Mapping and Variant Calling (Martin)
+=======
+- Unix Tools (Martin)
+- Trimming and Quality Control (Alexander)
+- Genome Assembly (Alexander)
+- Mapping and Variant Calling (Martin)
+>>>>>>> b75c390dd9fd0909ca8ad9e929a24238aee06b9e
 *** References
     :PROPERTIES:
     :BEAMER_envargs: [allowframebreaks]

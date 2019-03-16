@@ -1149,7 +1149,7 @@
  \end{figure}
  \end{center}
  #+end_latex
-*** COMMENT Pooling recommendations
+*** Pooling recommendations
  - Critical: equimolar concentrations of individuals expected
  - Recommended: >40 individuals/pool
      - Higher numbers
@@ -1257,7 +1257,6 @@
 **** Disadvantages
 - 36-bp tags could be too short to be non-ambiguously mapped in highly
   duplicated genomes.
-
 * Biases
 
 ** PCR duplicates and null alleles
@@ -1429,7 +1428,7 @@
      Locus 2 with mutated cut site can have equal coverage as locus 1
      #+end_latex
 
-*** Degenerate base regions detect PCR duplicates in ddRAD (\citep{Tin2014,Schweyen2014})
+*** Degenerate base regions detect PCR duplicates in ddRAD \citep{Tin2014,Schweyen2014}
 
      #+begin_latex
      \vspace{0.1cm}

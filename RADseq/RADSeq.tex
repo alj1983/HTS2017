@@ -1,22 +1,19 @@
-% Created 2017-05-07 sø. 20:33
+% Created 2019-03-16 lø. 11:07
+% Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{fixltx2e}
 \usepackage{graphicx}
+\usepackage{grffile}
 \usepackage{longtable}
-\usepackage{float}
 \usepackage{wrapfig}
 \usepackage{rotating}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
-\tolerance=1000
 \usepackage{minted}
 \usepackage{tikz}
 \usepackage{parskip}
@@ -53,25 +50,37 @@
 \author{Alexander Jueterbock}
 \date{May 2017}
 \title{Non-model species and RAD-sequencing}
+\hypersetup{
+ pdfauthor={Alexander Jueterbock},
+ pdftitle={Non-model species and RAD-sequencing},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.2.1 (Org mode 9.1.6)}, 
+ pdflang={English}}
 \begin{document}
 
 \maketitle
 
-
 \section{Intro}
-\label{sec-1}
-\begin{frame}[label=sec-1-0-1]{RAD-Seq - young and successful NGS methods}
+\label{sec:org064264e}
+\begin{frame}[label={sec:orgd47c9b8}]{RAD-Seq - young and successful NGS methods}
+\begin{latex}
 \begin{center}
+\end{latex}
 
 
+\begin{center}
 \includegraphics[width=7cm]{Andrews2016Sup1.png}
-
-\tiny{\citep{Andrews2016}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Andrews2016}\}
+\end{center}
+\end{latex}
 \end{frame}
 
 
-\begin{frame}[label=sec-1-0-2]{Purpose of RAD-seq}
+\begin{frame}[label={sec:org388dee7}]{Purpose of RAD-seq}
 \begin{itemize}
 \item Genome-reduction method to fragments adjacent to restriction enzyme
 recognition sites.
@@ -85,7 +94,7 @@ species lacking a reference genome.
 \end{frame}
 
 
-\begin{frame}[label=sec-1-0-3]{Reductive \emph{de novo} genome sequencing and SNP identification}
+\begin{frame}[label={sec:orgff69a0e}]{Reductive \emph{de novo} genome sequencing and SNP identification}
 \begin{itemize}
 \item RAD-Seq of the sunflower genome (Illumina)
 \begin{itemize}
@@ -95,20 +104,26 @@ species lacking a reference genome.
 in >42,000 contigs
 \item Identified >94,000 putative SNPs across six lines
 \end{itemize}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=6cm]{Pegadarju2013Fig3a.png}
-
-
-\tiny{\citep{Pegadaraju2013}}
 \end{center}
+
+
+\begin{latex}
+\tiny\{\citep{Pegadaraju2013}\}
+\end{center}
+\end{latex}
 \end{frame}
 
 
 
 
 
-\begin{frame}[label=sec-1-0-4]{Population genomics and parallel adaptive differentiation in threespine sticklebacks}
+\begin{frame}[label={sec:org53cbf38}]{Population genomics and parallel adaptive differentiation in threespine sticklebacks}
 \begin{itemize}
 \item Reference genome available
 \item >45,000 SNPs across 100 individuals ('genotyping by sequencing')
@@ -118,35 +133,38 @@ freshwater populations
 \end{itemize}
 
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=10cm]{Hohenlohe2010Fig6e.png}
 \caption{F\(_{\text{ST}}\) for SNPs in sliding windows across the genome between oceanic and freshwater populations}
 \end{figure}
 
 
+\begin{latex}
 \begin{center}
 \tiny{\citep{Hohenlohe2010}}
 \end{center}
+\end{latex}
 \end{frame}
 
 
 
 
 \section{RAD-Seq methods}
-\label{sec-2}
+\label{sec:orgeb72660}
 
 \subsection{RAD-Seq}
-\label{sec-2-1}
+\label{sec:org724074e}
 
 
-\begin{frame}[label=sec-2-1-1]{Original RAD-Seq protocol}
+\begin{frame}[label={sec:org858674d}]{Original RAD-Seq protocol}
 \begin{itemize}
 \item Developed by \citep{Miller2007, Baird2008}.
 \item DNA fragments adjacent to restriction enzyme recognition sites
 \end{itemize}
 
 
+\begin{latex}
 \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
 
 \begin{center}
@@ -173,10 +191,12 @@ freshwater populations
 } 
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
 
-\begin{frame}[label=sec-2-1-2]{Step 1: cut DNA}
+\begin{frame}[label={sec:org7aa6a08}]{Step 1: cut DNA}
+\begin{latex}
 \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
 \begin{center}
 
@@ -234,13 +254,16 @@ freshwater populations
 }
 \end{figure}
 \end{center}
+\end{latex}
 \begin{itemize}
 \item Note: Bias in GC content of restriction site samples the genome
 non-randomly
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-3]{Step 2: ligate P1 adapter}
+\begin{frame}[label={sec:org697b040}]{Step 2: ligate P1 adapter}
+\begin{latex}
+
 
 
 \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
@@ -325,9 +348,12 @@ non-randomly
 }
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-4]{Barcoding allows to pool samples}
+\begin{frame}[label={sec:orge381632}]{Barcoding allows to pool samples}
+\begin{latex}
+
 
 
 \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
@@ -430,9 +456,12 @@ non-randomly
 }
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-5]{Step 3: Shearing and size selection}
+\begin{frame}[label={sec:orgcda9a89}]{Step 3: Shearing and size selection}
+\begin{latex}
+
 
 
 \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
@@ -579,15 +608,18 @@ non-randomly
 }
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-6]{Step 4: Ligation of P2 adapter with 'Y' structure}
+\begin{frame}[label={sec:orgbd1a94d}]{Step 4: Ligation of P2 adapter with 'Y' structure}
+\begin{latex}
 
 
- \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
- \definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
- \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
- \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+
+\definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+\definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
+\definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+\definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
 
  \begin{center}
  \begin{figure}[htb]
@@ -724,13 +756,15 @@ non-randomly
  }
  \end{figure}
  \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-7]{Step 5: Sequence amplified reads on Illumina}
- \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
- \definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
- \definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
- \definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
+\begin{frame}[label={sec:orga851bda}]{Step 5: Sequence amplified reads on Illumina}
+\begin{latex}
+\definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
+\definecolor{barcode}{rgb}{0.6352941,0.8588235,0.9176471}
+\definecolor{sequencingprimer}{rgb}{0.9882353,0.5529412,0.3490196}
+\definecolor{amplificationprimer}{rgb}{0.2705882,0.4588235,0.7058824}
 
  \begin{center}
  \begin{figure}[htb]
@@ -829,49 +863,71 @@ non-randomly
  }
  \end{figure}
  \end{center}
+\end{latex}
 \end{frame}
 
 
 
 
-\begin{frame}[label=sec-2-1-8]{Paired-end sequencing of RAD-tags allows for \emph{de novo} genome sequencing}
+\begin{frame}[label={sec:org32ee996}]{Paired-end sequencing of RAD-tags allows for \emph{de novo} genome sequencing}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=11cm]{Pegadarju2013Fig1.png}
-
-
-
-\tiny{\citep{Pegadaraju2013}}
 \end{center}
+
+
+\begin{latex}
+
+
+\tiny\{\citep{Pegadaraju2013}\}
+\end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-9]{Calling SNPs from RAD-tags}
+\begin{frame}[label={sec:orgba4c667}]{Calling SNPs from RAD-tags}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=9cm]{HohenloheFig2a.png}
-
-
-
-\tiny{\citep{Hohenlohe2010}}
 \end{center}
+
+
+\begin{latex}
+
+
+\tiny\{\citep{Hohenlohe2010}\}
+\end{center}
+\end{latex}
 \end{frame}
 
 
-\begin{frame}[label=sec-2-1-10]{Summary statistics (e.g. population differentiation) along sliding windows}
+\begin{frame}[label={sec:org7872fa5}]{Summary statistics (e.g. population differentiation) along sliding windows}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=10cm]{HohenloheFig2b.png}
-
-\tiny{\citep{Hohenlohe2010}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Hohenlohe2010}\}
+\end{center}
+\end{latex}
 \end{frame}
 
 
 
 
 \subsection{ddRAD}
-\label{sec-2-2}
+\label{sec:orgf7d9364}
 
 
-\begin{frame}[label=sec-2-2-1]{Double-digest RAD-seq \citep{Peterson2012}}
+\begin{frame}[label={sec:org8349f7e}]{Double-digest RAD-seq \citep{Peterson2012}}
+\begin{latex}
 \definecolor{redd}{rgb}{0.8431373,0.09803922,0.1098039}
 \definecolor{violet}{rgb}{0.3686275,0.2352941,0.6}
 \definecolor{cyan}{rgb}{0,1,1}
@@ -1011,10 +1067,11 @@ non-randomly
 }
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
 
-\begin{frame}[label=sec-2-2-2]{ddRAD compared to single-digest RAD sequencing}
+\begin{frame}[label={sec:orgeab06f5}]{ddRAD compared to single-digest RAD sequencing}
 \begin{enumerate}
 \item <1> Rapid and 'cheap' protocol (8 hrs hands-on): Doesn't require
 difficult and high cost of shearing and enzymatic end-repair.
@@ -1029,9 +1086,8 @@ fragment lengths targeted by size selection.
 
 
 
-\begin{frame}[label=sec-2-2-3]{Combinatorial indexing allows for high multiplexing levels in ddRAD-Seq}
-
-
+\begin{frame}[label={sec:orgf5493fc}]{Combinatorial indexing allows for high multiplexing levels in ddRAD-Seq}
+\begin{latex}
 \definecolor{adapterp1}{rgb}{0.8431373,0.09803922,0.1098039}
 \definecolor{violet}{rgb}{0.3686275,0.2352941,0.6}
 \definecolor{adapterp2}{rgb}{0, 0 , 0.803922}
@@ -1089,19 +1145,39 @@ fragment lengths targeted by size selection.
 } 
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-2-2-4]{Great adjustability of the number of markers makes ddRAD suitable for a broader range of approaches than RAD-Seq}
+\begin{frame}[label={sec:org94425be}]{Pooling recommendations}
+\begin{itemize}
+\item Critical: equimolar concentrations of individuals expected
+\item Recommended: >40 individuals/pool
+\begin{itemize}
+\item Higher numbers
+\begin{itemize}
+\item + decrease unequal representation of individuals in
+the pool
+\item - make it more more difficult to discriminate minor allele
+frequencies from sequencing errors
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:org8195b90}]{Great adjustability of the number of markers makes ddRAD suitable for a broader range of approaches than RAD-Seq}
 Number of markers adjusted by:
 \begin{itemize}
 \item Cutting frequency of restriction enzymes
 \item Size selection
 \end{itemize}
-\includegraphics[width=8cm]{Peterson-2012-Fig1.png}   
+\begin{center}
+\includegraphics[width=8cm]{Peterson-2012-Fig1.png}
+\end{center}   
+\begin{latex}
 \begin{center}
 \tiny{\citep{Peterson2012}}
 \end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-2-2-5]{How to predict the number of fragments}
+\begin{frame}[label={sec:orgae31f86}]{How to predict the number of fragments}
 Based on our own study on Guppy
 \begin{itemize}
 \item Targeted coverage: 20x per individual
@@ -1116,37 +1192,55 @@ paired-end kits)
 What combination of restriction enzymes to use to obtain the appropriate cutting
 frequency?
 \end{frame}
-\begin{frame}[label=sec-2-2-6]{\emph{In silico} genome digestion}
+\begin{frame}[label={sec:org060b5c9}]{\emph{In silico} genome digestion}
 Simulate restriction enzyme digestion with the R package simRAD \citep{Lepais2014}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=4.5cm]{MspIEcoRI350to450.png}
+\end{center}
 
+\begin{latex}
 \small{Based on 10\% of the entire genome size}
 \end{center}
+\end{latex}
 Without reference genome: try, sequence and re-adjust
 \end{frame}
 
-\begin{frame}[label=sec-2-2-7]{Recovery of \emph{in silico} predicted loci}
+\begin{frame}[label={sec:org4555e5c}]{Recovery of \emph{in silico} predicted loci}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=9cm]{DaCosta2014Fig1a.png}
+\end{center}
 
- \tiny{\citep{Dacosta2014}}\\
+\begin{latex}
+ \tiny\{\citep{Dacosta2014}\}\\
 \small{Targeted: 178-328bp, but short restriction fragments (38–178 bp) were carried through the agarose gel size selection step}
  \end{center}
+\end{latex}
 \end{frame}
 
 \subsection{ezRAD}
-\label{sec-2-3}
+\label{sec:org1858b21}
 
-\begin{frame}[label=sec-2-3-1]{ezRAD \citep{Toonen2013}}
+\begin{frame}[label={sec:org1018f50}]{ezRAD \citep{Toonen2013}}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=4.5cm]{Andrews2016ezRAD.png}
-
-
-\tiny{\citep{Andrews2016}}
 \end{center}
+
+
+\begin{latex}
+\tiny\{\citep{Andrews2016}\}
+\end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-2-3-2]{ezRAD \citep{Toonen2013}}
+\begin{frame}[label={sec:org5d6d954}]{ezRAD \citep{Toonen2013}}
 \begin{block}{Advantage}
 \begin{itemize}
 \item non-PCR kits can avoid PCR duplication and bypass any PCR bias.
@@ -1155,22 +1249,28 @@ Without reference genome: try, sequence and re-adjust
 \end{frame}
 
 \subsection{2bRAD}
-\label{sec-2-4}
-\begin{frame}[label=sec-2-4-1]{2bRAD \citep{Wang2012}}
+\label{sec:org8f0dd94}
+\begin{frame}[label={sec:orgf8f67a2}]{2bRAD \citep{Wang2012}}
 \begin{itemize}
 \item Type IIb restriction endonuclease to excise 36-bp fragments.
 \item Number of loci customized by base-selective adapters.
 \end{itemize}
 
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=5cm]{Wang2012Fig1.png}
-
-
-\tiny{\citep{Wang2012}}
 \end{center}
+
+
+\begin{latex}
+\tiny\{\citep{Wang2012}\}
+\end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-4-2]{2bRAD \citep{Wang2012}}
+\begin{frame}[label={sec:org3b15c9d}]{2bRAD \citep{Wang2012}}
 \begin{block}{Advantages}
 \begin{itemize}
 \item Extremely simple and cost-effective: no purification or size selection.
@@ -1186,14 +1286,14 @@ duplicated genomes.
 \end{itemize}
 \end{block}
 \end{frame}
-
 \section{Biases}
-\label{sec-3}
+\label{sec:org8cc17fd}
 
 \subsection{PCR duplicates and null alleles}
-\label{sec-3-1}
+\label{sec:orga7e8e84}
 
-\begin{frame}[label=sec-3-1-1]{PCR duplicates and null alleles}
+\begin{frame}[label={sec:org1538f1b}]{PCR duplicates and null alleles}
+\begin{latex}
  \begin{center}
 \begin{figure}[htb]
  \begin{tikzpicture}
@@ -1245,34 +1345,55 @@ duplicated genomes.
 \end{figure}
 \only<1,3-7>{\tiny{\cite{Schweyen2014}}}
  \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-2]{Degenerate base regions detect PCR duplicates in ddRAD (\citep{Tin2014,Schweyen2014})}
+\begin{frame}[label={sec:orgca97312}]{Degenerate base regions detect PCR duplicates in ddRAD \citep{Tin2014,Schweyen2014}}
+\begin{latex}
 \vspace{0.1cm}
+\end{latex}
 
 \begin{columns}
 \begin{column}{0.3\columnwidth}
+\begin{latex}
 \begin{raggedright}
+\end{latex}
+\begin{center}
 \includegraphics[width=2.8cm]{Schweyen2014Fig2a.png}
+\end{center}
+\begin{latex}
 \end{raggedright}
+\end{latex}
 \end{column}
 
 \begin{column}{0.3\columnwidth}
+\begin{latex}
 \begin{raggedleft}
+\end{latex}
+\begin{center}
 \includegraphics[width=2.8cm]{Schweyen2014Fig2d.png}
+\end{center}
+\begin{latex}
 \end{raggedleft}
+\end{latex}
 \end{column}
 
 \begin{column}{0.3\columnwidth}
+\begin{latex}
 \begin{raggedleft}
+\end{latex}
+\begin{center}
 \includegraphics[width=3.5cm]{Schweyen2014Fig2e.png}
+\end{center}
+\begin{latex}
 \end{raggedleft}
-\tiny{\citep{Schweyen2014}}
+\tiny\{\citep{Schweyen2014}\}
+\end{latex}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-3]{Avoid PCR duplicates}
+\begin{frame}[label={sec:org88287e1}]{Avoid PCR duplicates}
 \begin{itemize}
 \item Reduce occurrence by lowering PCR steps
 \item Avoid PCR duplicates in ezRAD with Illumina PCR-free kits
@@ -1281,52 +1402,77 @@ duplicated genomes.
 
 
 \subsection{Variance in depth of coverage}
-\label{sec-3-2}
-\begin{frame}[label=sec-3-2-1]{Shearing introduces bias in coverage}
+\label{sec:org3c52069}
+\begin{frame}[label={sec:orgd79af77}]{Shearing introduces bias in coverage}
+\begin{latex}
  \begin{center}
 Bias in sequencing depth towards larger fragment sizes
+\end{latex}
 
+\begin{center}
 \includegraphics[width=5.5cm]{Davey2013Fig3.png}
+\end{center}
 
- \tiny{\citep{Davey2013}}\\
-\normalsize{
-Reason: Fragments of <10 kb shear with lower efficiency}
+\begin{latex}
+ \tiny\{\citep{Davey2013}\}\\
+\normalsize\{
+Reason: Fragments of <10 kb shear with lower efficiency\}
  \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-3-2-2]{Amplification bias in favor of high GC content}
+\begin{frame}[label={sec:org415fb98}]{Amplification bias in favor of high GC content}
+\begin{latex}
  \begin{center}
 Read depths are influenced by GC content and number of PCR cycles, with (A) or without  PCR duplicates (B).
+\end{latex}
 
+\begin{center}
 \includegraphics[width=11.5cm]{Davey2013Fig4.png}
+\end{center}
 
- \tiny{\citep{Davey2013}}\\
-\normalsize{
-Modifications of PCR enrichment can help \tiny{(see \citep{Puritz2014b,Benjamini2012})}}
+\begin{latex}
+ \tiny\{\citep{Davey2013}\}\\
+\normalsize\{
+Modifications of PCR enrichment can help \tiny\{(see \citep{Puritz2014b,Benjamini2012})\}\}
 
- \end{center}
+\end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-3-2-3]{Sequencing depth bias in favor of loci with high GC content}
+\begin{frame}[label={sec:org18cbf58}]{Sequencing depth bias in favor of loci with high GC content}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=10cm]{DaCosta2014Fig1c.png}
-
-\tiny{\citep{Dacosta2014}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Dacosta2014}\}
+\end{center}
+\end{latex}
 \begin{itemize}
 \item Combined with a GC-rich recognition sequence, this can result
 in an overrepresentation of GC-rich portions of the genome
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label=sec-3-2-4]{Amplification and, thus, depth decreases with fragment length}
+\begin{frame}[label={sec:org077a550}]{Amplification and, thus, depth decreases with fragment length}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=8.5cm]{DaCosta2014Fig1b.png}
-
-\tiny{\citep{Dacosta2014}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Dacosta2014}\}
+\end{center}
+\end{latex}
 \begin{itemize}
 \item Affects ddRAD more than RAD-seq (each locus different fragment lengths) or 2bRAD (all loci same fragment length)
 \end{itemize}
+
 \begin{itemize}
 \item Bias reduced by precise size selection (Pippin Prep instrument)
 \citep{Dacosta2014}.
@@ -1337,90 +1483,131 @@ in an overrepresentation of GC-rich portions of the genome
 
 
 \section{Pipelines}
-\label{sec-4}
+\label{sec:org907ee7e}
 \subsection{Pipelines}
-\label{sec-4-1}
+\label{sec:orgf97e3c1}
 
-
-\begin{frame}[label=sec-4-1-1]{STACKS \citep{Puritz2014}}
+\begin{frame}[label={sec:orgd58ea8a}]{STACKS \citep{Puritz2014}}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=10cm]{Stacks.png}
-
 \end{center}
+
+\begin{latex}
+\end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-4-1-2]{STACKS - basic pipeline for RAD-Seq}
+\begin{frame}[label={sec:org892a956}]{STACKS - basic pipeline for RAD-Seq}
+\begin{latex}
 \begin{center}
+\end{latex}
 STACKS - software pipleine to build loci from RADseq reads and use
 them for population genomics and phylogeographic analyses.
 
+\begin{center}
 \includegraphics[width=10cm]{Catchen2013Fig1a.png}
-
-\tiny{\citep{Catchen2013a}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Catchen2013a}\}
+\end{center}
+\end{latex}
 \end{frame}
 
 
-\begin{frame}[label=sec-4-1-3]{STACKS - Ustacks \emph{de novo} assembly step 1}
+\begin{frame}[label={sec:org43367b7}]{STACKS - Ustacks \emph{de novo} assembly step 1}
 \begin{itemize}
 \item Only exact matches are assembled
 \item Secondary reads are set aside
 \item The minimum stack depth parameter controls the number of raw reads  required to form an initial stack
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=9cm]{Catchen2013DeNovoStep1.png}
-
-\tiny{\citep{Catchen2013a}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Catchen2013a}\}
+\end{center}
+\end{latex}
 \end{itemize}
 \end{frame}
 
 
 
 
-\begin{frame}[label=sec-4-1-4]{STACKS - Ustacks \emph{de novo} assembly step 2}
+\begin{frame}[label={sec:org3f10ab2}]{STACKS - Ustacks \emph{de novo} assembly step 2}
 \begin{itemize}
 \item Stacks with few nucleotide differences are merged.
 \item Repetitive sequences with many alleles are excluded
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=7cm]{Catchen2013DeNovoStep2.png}
-
-\tiny{\citep{Catchen2013a}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Catchen2013a}\}
+\end{center}
+\end{latex}
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}[label=sec-4-1-5]{STACKS - Ustacks \emph{de novo} assembly step 3}
+\begin{frame}[label={sec:orgd916bbb}]{STACKS - Ustacks \emph{de novo} assembly step 3}
 \begin{itemize}
 \item Alignment of secondary reads (those not indcluded in stacks) against
 stacks.
 \item Alleles are discriminated from sequencing errors by their frequency.
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=10cm]{Catchen2013DeNovoStep3.png}
-
-\tiny{\citep{Catchen2013a}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Catchen2013a}\}
+\end{center}
+\end{latex}
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label=sec-4-1-6]{STACKS - populations or genotypes pipeline}
+\begin{frame}[label={sec:org5238394}]{STACKS - populations or genotypes pipeline}
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=9cm]{Catchen2013Fig1b.png}
-
-\tiny{\citep{Catchen2013a}}
 \end{center}
+
+\begin{latex}
+\tiny\{\citep{Catchen2013a}\}
+\end{center}
+\end{latex}
 \end{frame}
 
 
-\begin{frame}[label=sec-4-1-7]{DDocent \citep{Puritz2014}}
+\begin{frame}[label={sec:org4d44083}]{DDocent \citep{Puritz2014}}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=10cm]{dDocent.png}
-
 \end{center}
+
+\begin{latex}
+\end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-4-1-8]{DDocent \citep{Puritz2014}}
+\begin{frame}[label={sec:org0055dcf}]{DDocent \citep{Puritz2014}}
 Uses stand-alone software packages to perform
 \begin{itemize}
 \item quality trimming
@@ -1442,24 +1629,36 @@ reference instead of clustering
 
 
 
-\begin{frame}[label=sec-4-1-9]{AftrRAD}
+\begin{frame}[label={sec:org535457d}]{AftrRAD}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=10cm]{AftrRAD.png}
-
 \end{center}
+
+\begin{latex}
+\end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-4-1-10]{PyRAD}
+\begin{frame}[label={sec:orgbc81ef2}]{PyRAD}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=10cm]{PyRAD.png}
-
 \end{center}
+
+\begin{latex}
+\end{center}
+\end{latex}
 \end{frame}
 \section{Tips}
-\label{sec-5}
-\begin{frame}[label=sec-5-0-1]{Important considerations}
+\label{sec:orgba5ab2f}
+\begin{frame}[label={sec:org7aeb6d5}]{Important considerations}
 \begin{itemize}
 \item Degraded DNA interfers with cutted DNA in methods with enzyme-unspecific adaptors
 \item Higher amount of starting DNA can reduce number of PCR cycles and
@@ -1472,9 +1671,10 @@ for Illumina sequencing.
 \end{itemize}
 \end{itemize}
 \end{frame}
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}[label={sec:org2cb668d}]{References}
+\begin{latex}
 \raggedright
 \printbibliography[sorting=nty,heading=bibnumbered]
+\end{latex}
 \end{frame}
-% Emacs 24.5.1 (Org mode 8.3beta)
 \end{document}

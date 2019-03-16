@@ -1,22 +1,19 @@
-% Created 2017-04-28 fr. 11:09
+% Created 2019-03-16 lø. 11:00
+% Intended LaTeX compiler: pdflatex
 \documentclass[presentation]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{fixltx2e}
 \usepackage{graphicx}
+\usepackage{grffile}
 \usepackage{longtable}
-\usepackage{float}
 \usepackage{wrapfig}
 \usepackage{rotating}
 \usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage{textcomp}
-\usepackage{marvosym}
-\usepackage{wasysym}
 \usepackage{amssymb}
 \usepackage{capt-of}
 \usepackage{hyperref}
-\tolerance=1000
 \usepackage{minted}
 \usepackage{tikz}
 \usepackage{parskip}
@@ -41,13 +38,21 @@
 \author{Alexander Jueterbock}
 \date{May 2017}
 \title{Introduction to bioinformatics (NGS data analysis)}
+\hypersetup{
+ pdfauthor={Alexander Jueterbock},
+ pdftitle={Introduction to bioinformatics (NGS data analysis)},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.2.1 (Org mode 9.1.6)}, 
+ pdflang={English}}
 \begin{document}
 
 \maketitle
 
-
-\begin{frame}[fragile,label=sec-0-0-1]{Got your sequencing data - now, what to do with it?}
- \begin{footnotesize}
+\begin{frame}[fragile,label={sec:org184562f}]{Got your sequencing data - now, what to do with it?}
+ \begin{latex}
+\begin{footnotesize}
+\end{latex}
 \begin{itemize}
 \item File size: several Gb
 \item Number of lines: >1,000,000
@@ -72,16 +77,18 @@ TTTTCTTCTTTTTCT
 +0,()+++)11.*)*
 \end{verbatim}
 
+\begin{latex}
 \end{footnotesize}
+\end{latex}
 \end{frame}
 
 
 
 \section{Background}
-\label{sec-1}
+\label{sec:orgd47fe39}
 \subsection{Background}
-\label{sec-1-1}
-\begin{frame}[label=sec-1-1-1]{Before library preparation}
+\label{sec:org0b11bae}
+\begin{frame}[label={sec:org0ef6302}]{Before library preparation}
 What you need to know to steer your way through the analysis
 \begin{itemize}
 \item Research question
@@ -107,7 +114,7 @@ What you need to know to steer your way through the analysis
 \end{itemize}
 \end{itemize}
 \end{frame}
-\begin{frame}[label=sec-1-1-2]{Library preparation}
+\begin{frame}[label={sec:orgaee077f}]{Library preparation}
 \begin{itemize}
 \item DNA-seq, RNA-seq, Bis-Seq, Chip-Seq\ldots{}
 \begin{itemize}
@@ -124,7 +131,8 @@ What you need to know to steer your way through the analysis
 \item Targeted coverage
 \end{itemize}
 \end{frame}
-\begin{frame}[label=sec-1-1-3]{Single- or Paired end sequencing, read length}
+\begin{frame}[label={sec:orga29a9ab}]{Single- or Paired end sequencing, read length}
+\begin{latex}
 \begin{center}
 
 \begin{figure}[htb]
@@ -141,13 +149,13 @@ What you need to know to steer your way through the analysis
 
 \node [color=red,anchor=west] at (0cm,-1cm) {Flowcell/bead binding sequences};
 \node [color=red,anchor=west] at (0cm,-1.5cm) {Amplification primers};
-\node [color=red,anchor=west] at (0cm,-2cm) {Sequencing primers};      
+\node [color=red,anchor=west] at (0cm,-2cm) {Sequencing primers};	
 \node [color=red,anchor=west] at (0cm,-2.5cm) {Barcodes};
 
 
 \node [color=blue,anchor=east] at (11cm,-1cm) {Flowcell/bead binding sequences};
 \node [color=blue,anchor=east] at (11cm,-1.5cm) {Amplification primers};
-\node [color=blue,anchor=east] at (11cm,-2cm) {Sequencing primers};    
+\node [color=blue,anchor=east] at (11cm,-2cm) {Sequencing primers};	
 \node [color=blue,anchor=east] at (11cm,-2.5cm) {Barcodes};
 
 
@@ -156,9 +164,11 @@ What you need to know to steer your way through the analysis
 }
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-1-1-4]{Single- or paired-end sequencing, read length - why does it matter}
+\begin{frame}[label={sec:org69aa451}]{Single- or paired-end sequencing, read length - why does it matter}
+\begin{latex}
 \begin{center}
 
 \begin{figure}[htb]
@@ -216,31 +226,21 @@ What you need to know to steer your way through the analysis
 }
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-1-1-5]{NGS platforms differ in throughput and read length}
+\begin{frame}[label={sec:org645d9fc}]{NGS platforms differ in throughput and read length}
+\begin{latex}
 \begin{center}
 \scalebox{0.95}{
 \begin{figure}[htb]
 
 \begin{tikzpicture}
- \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
-
-\draw<1-> [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
+	 \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
+	 
+\draw <1-> [color=red] (2.1cm,-0.8cm)--(2.1cm,3.5cm);
 \node <1-> [anchor=west,color=red,scale=0.9] at (2.3cm,1.8cm) {\textbf{Next Generation}};
-%\node <1-> [anchor=west,color=red,scale=0.9] at (2.4cm,3.8cm) {\textbf{3\textsuperscript{rd} Generation}};
-
-
 \node <1-> [anchor=west,color=red,scale=0.9] at (0.2cm,-1.6cm) {\textbf{First Generation}};
-
-%\node <3-> [anchor=west,color=red,scale=0.7] at (-2.1cm,-1.8cm) {Sequencing by synthesis (polymerase)};
-%\node <3-> [anchor=west,color=red,scale=0.7] at (-5.8cm,2.6cm) {Sequencing by ligation};
-%\draw <3-> [color=red,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
-
-
-% \draw<4> [color=red] (-0.2cm,-0.9cm) circle (.5);
-% \draw<4> [color=red] (1.4cm,-0.4cm) circle (.5);
-% \node <4> [anchor=west,color=red,scale=0.7] at (0.4cm,-1.2cm) {454 Roche Pyrosequencing};
 \end{tikzpicture}
 
 \end{figure}
@@ -248,27 +248,25 @@ What you need to know to steer your way through the analysis
 
 
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-1-1-6]{NGS platforms differ in throughput and read length}
+\begin{frame}[label={sec:org79b1092}]{NGS platforms differ in throughput and read length}
+\begin{latex}
 \begin{center}
 \scalebox{0.95}{
 \begin{figure}[htb]
 
 \begin{tikzpicture}
- \node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
+\node at (0,0){\includegraphics[width=8.5cm]{DevelopmentsSequencingr.png}};
 
 \node<1->  [anchor=west,color=orange,scale=0.8] at (-3cm,2cm) {\textbf{SOLiD}};
-%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,3.1cm) {99.99 percent accurracy};
-%\node<3->  [anchor=west,color=orange,scale=0.7] at (-7.1cm,2.7cm) {color code};
-%\draw<1->  [color=orange,-latex] (-4.5cm,2.4cm) -- (-2.9cm,1.5cm);
 \draw<1-> [color=orange] (-2.4cm,1.2cm) circle (.5);
 
 
 \draw<1-> [color=blue!50!white] (-0.2cm,-0.9cm) circle (.5);
 \draw<1-> [color=blue!50!white] (1.4cm,-0.4cm) circle (.5);
 \node <1-> [anchor=west,color=blue!50!white,scale=0.8, text width=8cm] at (0.7cm,-1.2cm) {\textbf{454 Roche Pyrosequencing}};
-%\node <1-> [anchor=west,color=blue!50!white,scale=0.7] at (1cm,-1.7cm) {discontinued in 2016};
 
 
 \draw<1-> [color=blue] (-1.2cm,0cm) circle (.5);
@@ -276,8 +274,6 @@ What you need to know to steer your way through the analysis
 \draw<1-> [color=blue] (1.25cm,1.2cm) circle (.4);
 
 \node <1-> [anchor=west,color=blue,scale=0.8] at (-3cm,-1.1cm) {\textbf{Ion Torrent}};
-% \node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {detects \textb{H\textsuperscript{+}} release};
-%\node <2-> [anchor=west,color=blue,scale=0.7] at (-3cm,-1.6cm) {2-7 hours run time};
 
 \draw<1-> [color=red] (-0.2cm,3cm) ellipse (2cm and 1cm);
 \draw<1-> [color=red] (-1cm,1cm) circle (.5);
@@ -298,8 +294,11 @@ ion torrent, then SoliD and Illumina, which is currently the market leader due t
 low cost. It provides a wide range of platforms and is compatible with most library preparation kits and bioinformatics data analysis pipelines
 }
 \end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-1-1-7]{Third Generation Sequencing}
+\begin{frame}[label={sec:org051c6e6}]{Third Generation Sequencing}
+\begin{latex}
+
 
  \begin{center}
  \scalebox{0.95}{
@@ -323,13 +322,14 @@ low cost. It provides a wide range of platforms and is compatible with most libr
  \end{figure}
  }
 \end{center}
+\end{latex}
 \end{frame}
 
 \section{Primary analysis}
-\label{sec-2}
+\label{sec:org8d40e98}
 \subsection{Primary analysis}
-\label{sec-2-1}
-\begin{frame}[label=sec-2-1-1]{Primary analysis}
+\label{sec:org5878241}
+\begin{frame}[label={sec:orga6fa2d2}]{Primary analysis}
 \begin{itemize}
 \item Demultiplexing
 \item Adapter trimming
@@ -339,7 +339,8 @@ low cost. It provides a wide range of platforms and is compatible with most libr
 
 
 
-\begin{frame}[label=sec-2-1-2]{Demultiplexing of pooled samples (if barcoded inline)}
+\begin{frame}[label={sec:orgf0773d5}]{Demultiplexing of pooled samples (if barcoded inline)}
+\begin{latex}
 \textcolor{blue}{AATTA}\textcolor{green}{NNNNNNNNNNNNNNN}\textcolor{white}{XXXXX}\textcolor{blue}{File 1}\\
 \textcolor{white}{}\\
 \textcolor{red}{AGTCG}\textcolor{green}{NNNNNNNNNNNNNNN}\textcolor{white}{XXXXX}\textcolor{red}{File 2}\\
@@ -353,9 +354,11 @@ low cost. It provides a wide range of platforms and is compatible with most libr
 \textcolor{orange}{GCCAT}\textcolor{green}{NNNNNNNNNNNNNNN}\textcolor{white}{XXXXX}\textcolor{orange}{File 3}\\
 \textcolor{white}{}\\
 \textcolor{red}{AGTCG}\textcolor{green}{NNNNNNNNNNNNNNN}\textcolor{white}{XXXXX}\textcolor{red}{File 2}\\
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-3]{Trimmig: Adapter removal}
+\begin{frame}[label={sec:orgbf337ad}]{Trimmig: Adapter removal}
+\begin{latex}
 Mostly \textcolor{blue}{3'adapters} disturb assembly and alignment
 \textcolor{white}{dd}\\
 \textcolor{white}{dd}\\
@@ -371,11 +374,12 @@ Mostly \textcolor{blue}{3'adapters} disturb assembly and alignment
 \textcolor{white}{}\\
 \textcolor{red}{GATTTGGGGTTCAA}NNNNNNN\textcolor{blue}{ATTAGTATCGAT}\\
 \textcolor{white}{}\\
+\end{latex}
 \end{frame}
 
 
 
-\begin{frame}[fragile,label=sec-2-1-4]{Fastq file - 4 lines for each read}
+\begin{frame}[fragile,label={sec:org7c7ba3d}]{Fastq file - 4 lines for each read}
  \begin{minted}[]{sh}
 @HWI-ST141_0365:2:1101:2983:2114#TTAGGC/1
 GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
@@ -396,7 +400,7 @@ GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
 
 
 
-\begin{frame}[label=sec-2-1-5]{Trimmig of low-quality bases}
+\begin{frame}[label={sec:orgaf43cce}]{Trimmig of low-quality bases}
 \begin{itemize}
 \item Trim bases with a Phred quality score <20
 \item \(Quality=-10*log_{10}{P}\)
@@ -414,7 +418,7 @@ Phred Score & Probability of incorrect base & Base call accuracy\\
 \end{frame}
 
 
-\begin{frame}[fragile,label=sec-2-1-6]{Fastq file contains both sequence reads and base quality scores}
+\begin{frame}[fragile,label={sec:org3a74b05}]{Fastq file contains both sequence reads and base quality scores}
  \alert{Fastq file}
 
 \begin{minted}[]{sh}
@@ -434,11 +438,11 @@ GATTTGGGGTTCAAATTAGTATCGATCAAATAGTAAATCCATTTGTTCAACTC
 \end{frame}
 
 
-\begin{frame}[label=sec-2-1-7]{Base qualities are encoded in ascii format}
+\begin{frame}[label={sec:orgcf997c3}]{Base qualities are encoded in ascii format}
 ASCII stands for American Standard Code for Information
 Interchange. An ASCII code is the numerical representation for a
 character.
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=9.5cm]{asciifull.png}
 \caption{ASCII table}
@@ -448,11 +452,11 @@ character.
 
 
 
-\begin{frame}[label=sec-2-1-8]{Base qualities are encoded in ascii format}
+\begin{frame}[label={sec:org5d122c8}]{Base qualities are encoded in ascii format}
 ASCII stands for American Standard Code for Information
 Interchange. An ASCII code is the numerical representation for a
 character.
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=9cm]{asciifullzoomed.png}
 \caption{ASCII table}
@@ -461,8 +465,8 @@ character.
 
 
 
-\begin{frame}[label=sec-2-1-9]{ASCII encodings of sequencing platforms}
-\begin{figure}[htb]
+\begin{frame}[label={sec:orgf33d591}]{ASCII encodings of sequencing platforms}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=10.5cm]{Fastq.png}
 \caption{Quality score encodings}
@@ -476,7 +480,7 @@ character.
 
 
 
-\begin{frame}[label=sec-2-1-10]{Quality control tool: \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{FastQC}}
+\begin{frame}[label={sec:org21dcedf}]{Quality control tool: \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{FastQC}}
 Informs on:
 \begin{itemize}
 \item Base quality
@@ -491,16 +495,16 @@ Informs on:
 \end{frame}
 
 
-\begin{frame}[label=sec-2-1-11]{Quality before trimming}
-\begin{figure}[htb]
+\begin{frame}[label={sec:orgd30c70b}]{Quality before trimming}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=10cm]{RawImages/per_base_quality.png}
 \caption{Base-quality generally decreases with increasing sequencing length}
 \end{figure}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-12]{Quality after trimming}
-\begin{figure}[htb]
+\begin{frame}[label={sec:org29c0267}]{Quality after trimming}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=10cm]{TrimmedImages/per_base_quality.png}
 \caption{Quality after trimming}
@@ -508,30 +512,35 @@ Informs on:
 \end{frame}
 
 
-\begin{frame}[label=sec-2-1-13]{Sequence bias}
+\begin{frame}[label={sec:org48b2ce2}]{Sequence bias}
 For example in: 
 \begin{itemize}
 \item First bases of Illumina RNAseq due to 'random' hexamer primers for reverse transcription
 \item RADseq fragments (cutting sites)
 
+\begin{latex}
 \begin{center}
+\end{latex}
 \end{itemize}
 
 
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=6cm]{per_base_sequence_content.png}
 \caption{Per base sequence content (FastQC output)}
 \end{figure}
 
 
-\tiny{\citep{Hansen2010}}
+\begin{latex}
+\tiny\{\citep{Hansen2010}\}
 \end{center}
+\end{latex}
 \end{frame}
 
 
-\begin{frame}[label=sec-2-1-14]{Hexamer primers for cDNA synthesis cause sequence bias}
+\begin{frame}[label={sec:orgdfc5c38}]{Hexamer primers for cDNA synthesis cause sequence bias}
+\begin{latex}
 \definecolor{adapterp1}{rgb}{0.8431373,0.09803922,0.1098039}
 \definecolor{violet}{rgb}{0.3686275,0.2352941,0.6}
 \definecolor{adapterp2}{rgb}{0, 0 , 0.803922}
@@ -594,11 +603,12 @@ For example in:
 } 
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-2-1-15]{PCR Duplicates}
+\begin{frame}[label={sec:org7fed894}]{PCR Duplicates}
 Duplicates are generally removed in quantitative analyses (e.g. RNA-seq)
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{duplication_levels.png}
 \caption{Duplication levels (FastQC output)}
@@ -607,10 +617,10 @@ Duplicates are generally removed in quantitative analyses (e.g. RNA-seq)
 
 
 \section{Secondary analysis}
-\label{sec-3}
+\label{sec:orgf985d25}
 \subsection{Secondary analysis}
-\label{sec-3-1}
-\begin{frame}[label=sec-3-1-1]{\emph{De novo} assembly}
+\label{sec:org8d1a55f}
+\begin{frame}[label={sec:orgc9c06a4}]{\emph{De novo} assembly}
 Task: Look for overlapping regions and create contigs (contiguous sequences)
 \begin{itemize}
 \item Genome assembly software
@@ -630,7 +640,8 @@ Task: Look for overlapping regions and create contigs (contiguous sequences)
 \end{itemize}
 \end{itemize}
 \end{frame}
-\begin{frame}[label=sec-3-1-2]{\emph{De novo} assembly: Step by step}
+\begin{frame}[label={sec:org3d5b6be}]{\emph{De novo} assembly: Step by step}
+\begin{latex}
 \begin{center}
 \begin{figure}[htb]
 \setlength{\belowcaptionskip}{-1cm}
@@ -672,8 +683,10 @@ Task: Look for overlapping regions and create contigs (contiguous sequences)
 } 
 \end{figure}
 \end{center}
+\caption{From short sequencing reads to scaffolds}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-3-1-3]{\emph{De novo} assembly: The N50 metric}
+\begin{frame}[label={sec:org7ed5b81}]{\emph{De novo} assembly: The N50 metric}
 N50 is a single measure of the contig length size distribution in an assembly
 \begin{itemize}
 \item Sort contigs in descending length order
@@ -681,13 +694,13 @@ N50 is a single measure of the contig length size distribution in an assembly
 total length of all contigs
 \end{itemize}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=11cm]{N50.png}
 \caption{From Kane, N.C.}
 \end{figure}
 \end{frame}
-\begin{frame}[label=sec-3-1-4]{Mapping against reference genome/transcriptome}
+\begin{frame}[label={sec:org009dc95}]{Mapping against reference genome/transcriptome}
 \begin{itemize}
 \item Main purposes: 
 \begin{itemize}
@@ -696,7 +709,8 @@ total length of all contigs
 \end{itemize}
 \end{itemize}
 
-\only<1>{
+\begin{latex}
+\only<1>\{
 \begin{center}
 \begin{figure}[htb]
 \setlength{\belowcaptionskip}{-1cm}
@@ -718,9 +732,11 @@ total length of all contigs
 } 
 \end{figure}
 \end{center}
-}
+\}
+\end{latex}
 
-\only<2>{
+\begin{latex}
+\only<2>\{
 \begin{center}
 \begin{figure}[htb]
 \setlength{\belowcaptionskip}{-1cm}
@@ -766,29 +782,30 @@ total length of all contigs
 } 
 \end{figure}
 \end{center}
-}
+\}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-3-1-5]{Mapping: global alignment}
+\begin{frame}[label={sec:orgf63126f}]{Mapping: global alignment}
 \begin{itemize}
 \item Implemented in e.g. BWA, Bowtie2
 \item Needleman-Wunsch algorithm
 \item Aligns sequences in their full length
 \item Used for multiple sequence alignment when sequences are similar
 \end{itemize}
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{global.png}
 \caption{Global alignment from \href{http://rosalind.info/glossary/local-alignment/}{rosalind.info}}
 \end{figure}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-6]{Mapping: local alignment}
+\begin{frame}[label={sec:org04b2189}]{Mapping: local alignment}
 \begin{itemize}
 \item Smith-Waterman algorithm
 \item Clipping of terminal unmatched bases
 \item Only aligned bases contribute to the alignment's score
 \item Used to target smaller portions of genes with high similarity
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{local.png}
 \caption{Local alignment from \href{http://rosalind.info/glossary/local-alignment/}{rosalind.info}}
@@ -796,21 +813,21 @@ total length of all contigs
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-7]{Splice-aware alignment of RNAseq reads to the genome}
-\begin{figure}[htb]
+\begin{frame}[label={sec:org51147ed}]{Splice-aware alignment of RNAseq reads to the genome}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=9cm]{Haas-2010-NatureBiotechnology.png}
 \caption{Adapted from \citet{Haas2010}}
 \end{figure}
 \end{frame}
-\begin{frame}[fragile,label=sec-3-1-8]{Mapping: SAM/BAM files example}
+\begin{frame}[fragile,label={sec:org9a57328}]{Mapping: SAM/BAM files example}
  Output format of most alignment programs 
 
 \begin{itemize}
 \item Header lines preceded by \texttt{@}
 \item One tab-delimited line per read
 \end{itemize}
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=11cm]{SAMfile.png}
 \caption{Example from  \url{http://samtools.sourceforge.net/SAM1.pdf}}
@@ -822,35 +839,55 @@ total length of all contigs
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-9]{Mapping: Mandatory fields in SAM files}
+\begin{frame}[label={sec:org32e2f4a}]{Mapping: Mandatory fields in SAM files}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=11cm]{SamFields.png}
+\end{center}
 
+\begin{latex}
 \normalsize{}
+\end{latex}
 
 Explanation of the flag field (click here: \href{https://ppotato.wordpress.com/2010/08/25/samtool-bitwise-flag-paired-reads/}{Link1}, \href{http://broadinstitute.github.io/picard/explain-flags.html}{Link2})
 
+\begin{latex}
 \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-10]{Mapping: Easy decoding of SAM flags}
+\begin{frame}[label={sec:org56c97aa}]{Mapping: Easy decoding of SAM flags}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=10cm]{Flags.png}
-
-
 \end{center}
+
+
+\begin{latex}
+\end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-3-1-11]{Mapping: CIGAR string in SAM files}
+\begin{frame}[label={sec:org4595aa7}]{Mapping: CIGAR string in SAM files}
+\begin{latex}
 \begin{center}
+\end{latex}
 
+\begin{center}
 \includegraphics[width=11cm]{CIGAR.png}
-
-
 \end{center}
+
+
+\begin{latex}
+\end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[fragile,label=sec-3-1-12]{Mapping: CIGAR string example}
+\begin{frame}[fragile,label={sec:org0b96262}]{Mapping: CIGAR string example}
  \begin{minted}[]{sh}
 RefPos: 1  2  3  4  5  6  7     8  9 10 11 12 13 14 15 16 
 Ref:    C  C  A  T  A  C  T     G  A  A  C  T  G  A  C  T
@@ -861,7 +898,7 @@ CIGAR: 3M1I3M1D5M
 \end{frame}
 
 
-\begin{frame}[label=sec-3-1-13]{Variant calling}
+\begin{frame}[label={sec:orga25518d}]{Variant calling}
 Consistent mismatches in the alignment indicate:
 \begin{itemize}
 \item Single Nucleotide Polymorphisms (SNPs)
@@ -869,68 +906,85 @@ Consistent mismatches in the alignment indicate:
 \end{itemize}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-14]{VCF file format}
+\begin{frame}[label={sec:org0406bc7}]{VCF file format}
 Variant call format
 \begin{itemize}
 \item described in \url{http://www.1000genomes.org/node/101}
 \item informs on location and quality of each SNP
 \end{itemize}
 \end{frame}
-\begin{frame}[label=sec-3-1-15]{VCF file information}
+\begin{frame}[label={sec:orgc57566b}]{VCF file information}
+\begin{latex}
 \begin{center}
+\end{latex}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=11.5cm]{DanecekVcfFile.png}
 \caption{VCF file info from \url{http://vcftools.sourceforge.net/VCF-poster.pdf}}
 \end{figure}
 
+\begin{latex}
 Phased alleles are on the same chromosome strand
  \end{center}
+\end{latex}
 \end{frame}
 
-\begin{frame}[label=sec-3-1-16]{VCF file information}
+\begin{frame}[label={sec:org85e8dd6}]{VCF file information}
+\begin{latex}
 \begin{center}
+\end{latex}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=11.5cm]{DanecekVcfFile2.png}
 \caption{VCF file info from \url{http://vcftools.sourceforge.net/VCF-poster.pdf}}
 \end{figure}
 
+\begin{latex}
 Phased alleles are on the same chromosome strand
  \end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-3-1-17]{Identified SNPs vary between programs/algorithms}
+\begin{frame}[label={sec:orgb9aece7}]{Identified SNPs vary between programs/algorithms}
 Venn diagram of the number of SNPs (coverage >400) called with four programs from the same alignment file (ddRAD tags mapped against the genome of Guppy).
 
+\begin{latex}
+\begin{center}
+\end{latex}
 \begin{center}
 \includegraphics[width=7.5cm]{20150204_SNPs400DP.png}
-
 \end{center}
+
+\begin{latex}
+\end{center}
+\end{latex}
 \end{frame}
 \section{Tertiary analysis}
-\label{sec-4}
+\label{sec:orgec0d558}
 \subsection{Tertiary analysis}
-\label{sec-4-1}
-\begin{frame}[label=sec-4-1-1]{Differential gene expression analysis}
-
+\label{sec:orgd73c0dc}
+\begin{frame}[label={sec:orgf6710ea}]{Differential gene expression analysis}
+\begin{latex}
 \begin{center}
-\begin{figure}[htb]
+\end{latex}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=5cm]{MAplot_DESeq2.png}
 \caption{Log2 fold-change of expression over the mean of counts normalized by size factors. Differentially expressed genes (p<0.1) are red.}
 \end{figure}
 
+\begin{latex}
 \tiny{From the DESeq2 R package documentation}
 \end{center}
+\end{latex}
 \end{frame}
 
 
 
 
-\begin{frame}[label=sec-4-1-2]{Clustering}
-\begin{figure}[htb]
+\begin{frame}[label={sec:orgf384308}]{Clustering}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=6cm]{t2scaled_PCA.png}
 \caption{Multivariate grouping of stressed (W) and control (C) seagrass samples. Most variation is explained by the first principle component}
@@ -940,8 +994,8 @@ Venn diagram of the number of SNPs (coverage >400) called with four programs fro
 
 
 
-\begin{frame}[label=sec-4-1-3]{Visualizing differential expression}
-\begin{figure}[htb]
+\begin{frame}[label={sec:orga8d0333}]{Visualizing differential expression}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=8.5cm]{20140521_t9HeatMapCluster.png}
 \caption{Heatmap of functions that were differentially expressed between Atlantic and Mediterranean seagrass samples.}
@@ -949,7 +1003,8 @@ Venn diagram of the number of SNPs (coverage >400) called with four programs fro
 \end{frame}
 
 
-\begin{frame}[label=sec-4-1-4]{Outlier analysis}
+\begin{frame}[label={sec:orgac2ab69}]{Outlier analysis}
+\begin{latex}
 \begin{center}
 \begin{figure}[htb]
 \setlength{\belowcaptionskip}{-1cm}
@@ -1127,8 +1182,10 @@ Venn diagram of the number of SNPs (coverage >400) called with four programs fro
 \vspace{0.2cm}
 \tiny{Based on \citet{Vitti2012}}
 \end{center}
+\end{latex}
 \end{frame}
-\begin{frame}[label=sec-4-1-5]{Outlier detection}
+\begin{frame}[label={sec:orgd278b71}]{Outlier detection}
+\begin{latex}
 \begin{center}
 \begin{figure}[htb]
 \setlength{\belowcaptionskip}{-1cm}
@@ -1374,27 +1431,32 @@ Venn diagram of the number of SNPs (coverage >400) called with four programs fro
 }
 \end{figure}
 \end{center}
+\end{latex}
 \end{frame}
 
 
 
-\begin{frame}[label=sec-4-1-6]{Gene ontologies}
+\begin{frame}[label={sec:org1f77c2d}]{Gene ontologies}
+\begin{latex}
 \begin{center}
+\end{latex}
 
-\begin{figure}[htb]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=8cm]{Jacquin-Joly-Fig1.jpg}
 \caption{GO terms of unigenes in a moth genome}
 \end{figure}
 
-\tiny{\citep{Jacquin2012}}
+\begin{latex}
+\tiny\{\citep{Jacquin2012}\}
 \end{center}
+\end{latex}
 \end{frame}
 
 
 
-\begin{frame}[label=sec-4-1-7]{Cloud of GO term enrichments}
-\begin{figure}[htb]
+\begin{frame}[label={sec:org3b23b41}]{Cloud of GO term enrichments}
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=9cm]{t3c1BPincreased.png}
 \caption{Term cloud of heat-responsive functions in seagrass}
@@ -1402,20 +1464,41 @@ Venn diagram of the number of SNPs (coverage >400) called with four programs fro
 \end{frame}
 
 \section{Plan}
-\label{sec-5}
+\label{sec:org5e03dd2}
 \subsection{Bioinformatics-Practical}
-\label{sec-5-1}
-\begin{frame}[label=sec-5-1-1]{Bioinformatics-Practical}
+\label{sec:orga94094e}
+\begin{frame}[fragile,label={sec:org9ce4416}]{Bioinformatics-Practical}
+ <<<<<<< HEAD
 \begin{itemize}
 \item Unix Tools
 \item Trimming and Quality Control
 \item Genome Assembly
 \item Mapping and Variant Calling
 \end{itemize}
+\begin{center}
+\begin{tabular}{lllllll}
+ &  &  &  &  &  & merged common ancestors\\
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item Unix Tools (Martin)
+\item Trimming and Quality Control (Martin)
+\item Genome Assembly (Alexander)
+\item Mapping and Variant Calling (Martin)
+\end{itemize}
+\texttt{=====}
+\begin{itemize}
+\item Unix Tools (Martin)
+\item Trimming and Quality Control (Alexander)
+\item Genome Assembly (Alexander)
+\item Mapping and Variant Calling (Martin)
+\end{itemize}
+>>>>>>> b75c390dd9fd0909ca8ad9e929a24238aee06b9e
 \end{frame}
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}[label={sec:orga7ee503}]{References}
+\begin{latex}
 \raggedright
 \printbibliography[sorting=nty,heading=bibnumbered]
+\end{latex}
 \end{frame}
-% Emacs 24.5.1 (Org mode 8.3beta)
 \end{document}
